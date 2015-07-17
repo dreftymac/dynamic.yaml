@@ -1,0 +1,124 @@
+### <beg-file_info>
+### main:
+###   - date: created="Wed Jul 08 11:29:25 2015"
+###     last: lastmod="Wed Jul 08 11:29:25 2015"
+###     tags: yaml, alias, anchor, database, normalize, demo
+###     dreftymacid:    "grown_injector_had"
+###     seealso: |
+###         *
+###     desc: |
+###         demo.workbook.yaml.txt
+###         YAML file that demonstrate the following principles
+###         * formatting YAML as a "spreadsheet-style workbook"
+###         * onetoone relationship
+###         * onetomany relationship
+###         * manytomany relationship
+### <end-file_info>
+
+dataroot: &workbook001
+
+  ## ------------------------------------------------------------------------
+  ## base table definitions
+  person_table:   &worksheet001
+    - &prsn000                        ## This is a default person 
+      fname:      __fname_unknown__   ## record with default blank 
+      lname:      __lname_unknown__   ## values for each field
+      born:       __born_unknown__    ## 
+      
+    - &prsn001
+      fname:      Barak
+      lname:      Obama
+      born:       August 4, 1961
+  
+    - &prsn002
+      fname:      Bill
+      lname:      Clinton
+      born:       August 19, 1946
+  
+    - &prsn003
+      fname:      George
+      lname:      Bush
+      born:       July 6, 1946
+
+  city_table:     &worksheet002
+    - &city001
+      basename:   New York
+
+    - &city002
+      basename:   Chicago
+
+    - &city003
+      basename:   Las Vegas
+      
+  airport_table:  &worksheet003
+    - &airport001
+      caption:    LaGuardia Airport
+      codeiata:   LGA
+
+    - &airport002
+      caption:    John F. Kennedy International Airport
+      codeiata:   JFK
+
+    - &airport003
+      caption:    Las Vegas International Airport
+      codeiata:   LAS
+
+  landmark_table: &worksheet004
+    - &lm001
+      landmark: Empire State Building
+      
+    - &lm002
+      landmark: Niagra Falls
+      
+    - &lm003
+      landmark: Sears Tower
+      
+    - &lm004
+      landmark: Bellagio
+
+    - &lm005
+      landmark: Circus Circus
+
+  ## ------------------------------------------------------------------------
+  ## relationship table definitions
+
+  ## onetoone ;; one city has exactly_one motto
+  citymotto_table:
+    - <<:       *city001
+      motto:    The City That Never Sleeps
+      
+    - <<:       *city002
+      motto:    The Windy City
+      
+    - <<:       *city003
+      motto:    What Happens Here, Stays Here.
+      
+  ## manytomany  ;;  zero_or_more person can visit zero_or_more city
+  speaking_engagements: &worksheet005
+    - &visit001
+      <<:   *prsn001
+      <<:   *city001
+      date: "2015-05-30"
+
+    - &visit002
+      <<:   *prsn001
+      <<:   *city002
+      date: "2015-02-01"
+      
+    - &visit005
+      <<:   *prsn001
+      <<:   *city001
+      date: "2000-04-01"      
+
+    - &visit003
+      <<:   *prsn002
+      <<:   *city001
+      date: "2010-01-30"
+      
+    - &visit004
+      <<:   *prsn003
+      <<:   *city001
+      date: "2007-04-20"
+
+  city_visits: *worksheet005
+

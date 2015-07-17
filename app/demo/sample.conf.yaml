@@ -1,0 +1,98 @@
+### @file
+### @verbatim
+### main:
+###   - date: created="Thu Aug 07 12:30:22 2014"
+###     last: lastmod="Thu Aug 07 12:30:22 2014"
+###     name:   name
+###     desc: |
+###         demo.config.aa.dynamic.yaml
+###
+###         see also:
+###         href="./output/readme.txt"
+###         href="./output/sample_script.wsf"
+###
+### @endverbatim
+
+### begin_: STEP1: create the main config settings under hash key __config__
+### ------------------------------------------------
+__config__:
+    #overwrite_existing: yes|no
+    #target_dir: yerb_demo
+    #change yerb_meta to something more intuitive (local_data) or something
+    yerb_meta: |
+        <%
+        ddm                       =    Hash.new()
+        ddm['site_root']          =    "treasury.fadev.uoregon.edu"
+        ddm['admin_name']         =    "admin"
+        ddm['admin_pass']         =    "devREWT47."
+        ddm['colors']             =    %w^red orange yellow green blue^
+        %>
+
+### begin_: STEP2: create the individual files under hash keys where key == file basename.
+### ------------------------------------------------
+__main__:
+  - caption:    filespec
+    directory:  /output
+    filename:   d7.user.login.iim
+    outmode:    write
+    body: |
+        VERSION BUILD=8601111 RECORDER=FX
+        TAB T=1
+        URL GOTO=http://<%=ddm['site_root']%>/user
+        TAG POS=1 TYPE=INPUT:TEXT FORM=ID:user-login ATTR=ID:edit-name CONTENT=admin
+        SET !ENCRYPTION NO
+        TAG POS=1 TYPE=INPUT:PASSWORD FORM=ID:user-login ATTR=ID:edit-pass CONTENT=devREWT47.
+        TAG POS=1 TYPE=INPUT:SUBMIT FORM=ID:user-login ATTR=ID:edit-submit
+
+  - caption:    filespec
+    directory:  /output
+    filename:   readme.txt
+    outmode:    write
+    body: |
+        ## Overview
+
+        Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut
+        labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
+        nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit
+        esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt
+        in culpa qui officia deserunt mollit anim id est laborum.
+
+        You can create snippet templates to generate multiple files from a single
+        source of initialization metadata.
+
+        This is helpful in cases where you need to create several more "boilerplate"
+        files that follow from the same init data.
+
+        ## Sample loop
+
+        ### No Newline suppression
+        <% ddm['colors'].each do |color| %>
+        * <%=color%>
+        <% end %>
+
+        ### Newline suppression one dash
+        <% ddm['colors'].each do |color| %>
+        * <%=color-%>
+        <% end %>
+
+        ### Newline suppression two dashes
+        <% ddm['colors'].each do |color| -%>
+        * <%=color-%>
+        <% end %>
+
+  - caption:    filespec
+    directory:  /alpha
+
+  - caption:    filespec
+    directory:  /bravo
+
+  - caption:    filespec
+    directory:  /charlie
+
+  - caption:    filespec
+    directory:  /delta
+
+
+### begin_: STEP3: call the runner script that will generate the output files.
+### /path/to/app/rb/dynamic.yaml.transform.rb
+### ------------------------------------------------
