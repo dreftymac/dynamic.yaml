@@ -6,6 +6,12 @@
 
 DynamicYaml is a general-purpose, fully-extensible transformation engine for YAML.
 
+The design philosophy of this project:
+
+* enhance YAML by adding the best features from string template tools (currently using python/yaml and python/jinja2)
+* support for advanced features and an unlimited range of outputs
+* support for extensible plugins 
+
 ## Live Demo
 
 Try it now with [blockspring](https://open.blockspring.com/dreftymac/2dc5183fbb912fc3c553fc14bbe15e43)!
