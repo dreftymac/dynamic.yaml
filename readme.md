@@ -8,7 +8,8 @@ DynamicYaml is a general-purpose, fully-extensible transformation engine for YAM
 
 The design philosophy of this project:
 
-* enhance YAML by adding the best features from string template tools (currently using python/yaml and python/jinja2)
+* enhance YAML by adding the best features from string template tools
+    * (currently using python/yaml and python/jinja2)
 * support for advanced features and an unlimited range of outputs
 * easy extensibility and plugin support
 
