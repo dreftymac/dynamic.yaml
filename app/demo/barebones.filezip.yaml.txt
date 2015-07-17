@@ -1,0 +1,44 @@
+### <beg-file_info>
+### main:
+###   - date: created="Fri Jul 17 04:44:10 2015"
+###     last: lastmod="Fri Jul 17 04:44:10 2015"
+###     tags:       barebones, demo, zip, blockspring
+###     author:     created="dreftymac"
+###     dreftymacid:    "heists_bely_numeric"
+###     caption:        generate zip archive
+###     seealso: |
+###         *
+###     desc: |
+###         barebones.filezip.yaml.txt
+###         * generate one or more output files
+###         * save the output files to a zip archive
+###         * works with blockspring
+### <end-file_info>
+
+files:
+  - name:     alpha
+    outpath:  root/txt/alpha.txt
+    wwbody: |
+      Hello world!
+      This is the content in alpha.txt
+
+  - name:     bravo
+    outpath:  root/txt/bravo.txt
+    wwbody: |
+      Hello world!
+      This is the content in bravo.txt
+
+  - name:     charlie
+    outpath:  root/txt/charlie.txt
+    wwbody: |
+      Hello world!
+      This is the content in charlie.txt
+
+__yaml__:
+  - template: |
+      {% for file in files %}
+        {%filter jjdedent |trim |jjtozipfile('',file.outpath) %}
+          {{ file.wwbody |upper }}
+        {%endfilter-%}      
+      {% endfor %}
+

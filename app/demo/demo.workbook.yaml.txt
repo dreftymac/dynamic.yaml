@@ -10,6 +10,7 @@
 ###         demo.workbook.yaml.txt
 ###         YAML file that demonstrate the following principles
 ###         * formatting YAML as a "spreadsheet-style workbook"
+###         * YAML anchors and aliases
 ###         * onetoone relationship
 ###         * onetomany relationship
 ###         * manytomany relationship

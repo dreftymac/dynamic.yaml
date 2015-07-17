@@ -1548,7 +1548,7 @@ if('python_region'):
                                  compression=zipmode,
                                  )
             oZip.writestr(archivpath, vout)
-            vout = "\n## %s"%(archivpath);
+            vout = "## %s"%(archivpath);
           except Exception as msg:
             print 'UNEXPECTED TERMINATION msg@%s'%(msg.__repr__())
             exc_type, exc_obj, exc_tb = sys.exc_info()
