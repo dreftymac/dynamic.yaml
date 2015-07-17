@@ -40,7 +40,8 @@ There is no reason against languages besides python, and there is no reason agai
 
 * http://stackoverflow.com/questions/18175466/templating-library-in-node-js-similar-to-jinja2-in-python
 
-## JSON-related 
+## JSON-related
+
 * (YAML is a superset of json, so much of this is highly relevant)
 * https://duckduckgo.com/?q=json+schema&ia=about
 * https://duckduckgo.com/?q=json+design+patterns
@@ -60,16 +61,18 @@ There is no reason against languages besides python, and there is no reason agai
 ## See also
 
 ### stackoverflow related-links
+
 * http://stackoverflow.com/questions/1308536/yaml-compared-to-xml
 * http://stackoverflow.com/questions/1618038/xslt-equivalent-for-json
 * http://stackoverflow.com/questions/2837809/writing-json-with-xslt
 
 ### others
+* http://diecutter.io/
+* http://docs.saltstack.com/en/latest/topics/troubleshooting/yaml_idiosyncrasies.html
+* http://symfony.com/legacy/doc/reference/1_3/en/02-YAML#chapter_02_dynamic_yaml_files
+* http://twigkit.github.io/tempo/
 * http://urgetopunt.com/rails/2009/09/12/yaml-config-with-erb.html
 * https://github.com/audreyr/cookiecutter
-* http://twigkit.github.io/tempo/
-* http://diecutter.io/
-* http://symfony.com/legacy/doc/reference/1_3/en/02-YAML#chapter_02_dynamic_yaml_files
 * https://github.com/springbok/smerf
 
 
