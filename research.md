@@ -2,10 +2,6 @@
 
 Here are some research links and resources for this project.
 
-### Jinja and Jinja2
-
-* http://stackoverflow.com/questions/18175466/templating-library-in-node-js-similar-to-jinja2-in-python
-
 ### Inspiration and credit
 
 This project was inspired in part by: 
@@ -15,19 +11,25 @@ This project was inspired in part by:
 * https://duckduckgo.com/?q=emacs+radio+tables
 * https://duckduckgo.com/?q=python+%22pep+292%22
 
-### Similar alternative approaches
+### Jinja and Jinja2
 
-* http://google.github.io/jsonnet/doc/
-* https://github.com/joeriks/MVCPages
-* https://github.com/audreyr/cookiecutter
+* http://stackoverflow.com/questions/18175466/templating-library-in-node-js-similar-to-jinja2-in-python
 
 ### JSON-related 
 * (YAML is a superset of json, so much of this is highly relevant)
 * https://duckduckgo.com/?q=json+schema&ia=about
 * https://duckduckgo.com/?q=json+design+patterns
 
-### XSLT comparison
+### Similar alternative approaches
+
+* http://google.github.io/jsonnet/doc/
+* https://github.com/joeriks/MVCPages
+* https://github.com/audreyr/cookiecutter
+
+### XSLT comparisons
+
 * http://fdik.org/yml/yslt
+* http://stackoverflow.com/questions/1618038/xslt-equivalent-for-json
 
 ### Forums and groups (other projects)
 
