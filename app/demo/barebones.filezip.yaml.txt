@@ -7,12 +7,12 @@
 ###     dreftymacid:    "heists_bely_numeric"
 ###     caption:        generate zip archive
 ###     seealso: |
-###         *
+###         * href="./readme.md"
 ###     desc: |
 ###         barebones.filezip.yaml.txt
 ###         * generate one or more output files
 ###         * save the output files to a zip archive
-###         * works with blockspring
+###         * works with blockspring, upload this file and choose "run"
 ### <end-file_info>
 
 files:

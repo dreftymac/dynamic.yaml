@@ -1,0 +1,25 @@
+### <beg-file_info>
+### main:
+###   - date: created="Fri Jul 17 04:44:10 2015"
+###     last: lastmod="Fri Jul 17 04:44:10 2015"
+###     tags:       barebones, demo, zip, blockspring
+###     author:     created="dreftymac"
+###     dreftymacid:    "heists_bely_numeric"
+###     caption:        generate zip archive
+###     seealso: |
+###         * href="./readme.md"
+###     desc: |
+###         barebones.include.yaml.txt
+###         * use the datafile directive to include external yaml files
+### <end-file_info>
+
+__yaml__:
+  - datafile:
+      - href="./barebones.filezip.yaml.txt"
+    template: |
+      {% for file in files %}
+        {%filter jjdedent |trim |jjtozipfile('',file.outpath) %}
+          {{ file.wwbody |upper }}
+        {%endfilter-%}      
+      {% endfor %}
+
