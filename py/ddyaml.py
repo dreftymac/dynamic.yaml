@@ -1502,7 +1502,7 @@ if('python_region'):
           return vout
         ##enddef
                 
-        def jjtozipfile(self,jjinput,zipfilepath,archivpath,stamp=''):
+        def jjtozipfile(self,jjinput,zipfilepath='ddyaml_output',archivpath='',stamp=''):
           '''
           ## function docs
           - caption:  jjtozipfile
@@ -1510,24 +1510,26 @@ if('python_region'):
             grp_maj:  FileIO
             grp_med:  output
             grp_min:  zipfile
-            dreftymacid: __blank__
+            dreftymacid: mckay_planets_richer
             detail:  | 
                 output to a zip archive
             dependencies:
                 - import zipfile
                 - import time
             params:
-             - param: jjinput ;; required ;; raw input string
-             - param: outpath ;; required ;; output path for zipfile
+              - param: jjinput      ;;  required  ;;  raw input string                     
+              - param: zipfilepath  ;;  optional  ;;  output path for zipfile              
+              - param: archivpath   ;;  optional  ;;  output path internally stored zipfile 
             dreftymacid: __blank__       
           '''
           ##
           vout = jjinput.__str__()
+          if(zipfilepath == ''): zipfilepath = 'ddyaml_output'
           
           ##
           zipmode     =   None
           wrtmode     =   'a'
-          ssfzipout   =   'barebones%s.zip'%(stamp)
+          ssfzipout   =   '%s%s.zip'%(zipfilepath,stamp)
           
           ##
           try:
