@@ -9,7 +9,7 @@
 ###         *
 ###     desc: |
 ###         pythondistro.yaml.txt
-###         python distribution info
+###         python distribution info - python packages
 ### <end-file_info>
 
 main:
