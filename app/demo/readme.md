@@ -8,7 +8,7 @@ Some of these work with [blockspring](https://open.blockspring.com/dreftymac/2dc
 
 Some functionality does not work with blockspring because blockspring is currently limited to upload of a single file.
 
-Therefore, features such as `datafile` include directive do not work.
+Therefore, features that depend on access to the local filesystem, (such as `datafile` include directive) do not work.
 
 
 
