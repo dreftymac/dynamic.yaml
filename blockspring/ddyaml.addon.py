@@ -28,7 +28,7 @@ if('python_region'):
           vout      =     oddyaml.ddrun()
           open(ffout,'wb').write(vout)
           response.addFileOutput("outfile",ffout)
-          response.addFileOutput("outzipfile",ffout)
+          response.addFileOutput("outzipfile",ffoutzip)
           response.end()
           
       ##
