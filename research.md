@@ -8,18 +8,18 @@ This project was inspired by:
 
 * http://yaml.org
 * http://template-toolkit.org
-* http://jinja.pocoo.org/
+* http://jinja.pocoo.org
 * https://duckduckgo.com/?q=emacs+radio+tables
 * https://duckduckgo.com/?q=python+%22pep+292%22
 
 This project depends on:
 
 * http://yaml.org
-* http://jinja.pocoo.org/
+* http://jinja.pocoo.org
 
 This project is very similar to:
 
-* https://bitbucket.org/atagunov/metayaml/
+* https://bitbucket.org/atagunov/metayaml
 
 ## Jinja and Jinja2
 
