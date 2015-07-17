@@ -21,19 +21,6 @@ This project is very similar to:
 
 * https://bitbucket.org/atagunov/metayaml
 
-## Jinja and Jinja2
-
-This project currently depends on python with `import jinja2`. 
-There is no reason against languages besides python, and other templating/expression engines besides jinja2.
-
-* http://stackoverflow.com/questions/18175466/templating-library-in-node-js-similar-to-jinja2-in-python
-
-## JSON-related 
-* (YAML is a superset of json, so much of this is highly relevant)
-* https://duckduckgo.com/?q=json+schema&ia=about
-* https://duckduckgo.com/?q=json+design+patterns
-* http://twigkit.github.io/tempo/
-
 ## Similar or alternative approaches 
 * YAML-python
 * https://pypi.python.org/pypi/metayaml/0.15.1
@@ -45,6 +32,21 @@ There is no reason against languages besides python, and other templating/expres
 * https://github.com/joeriks/MVCPages
 * https://github.com/audreyr/cookiecutter
 * https://github.com/bazaarvoice/jolt
+
+## Jinja and Jinja2
+
+This project currently depends on python with `import jinja2`. 
+There is no reason against languages besides python, and there is no reason against other templating/expression engines besides jinja2.
+
+* http://stackoverflow.com/questions/18175466/templating-library-in-node-js-similar-to-jinja2-in-python
+
+## JSON-related 
+* (YAML is a superset of json, so much of this is highly relevant)
+* https://duckduckgo.com/?q=json+schema&ia=about
+* https://duckduckgo.com/?q=json+design+patterns
+* http://twigkit.github.io/tempo/
+* https://open.blockspring.com/pkpp1233/xml-json-explorer
+
 
 ## XSLT comparisons
 
