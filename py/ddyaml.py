@@ -1520,8 +1520,7 @@ if('python_region'):
             params:
                 - param: jjinput      ;;  required  ;;  raw input string                     
                 - param: zipfilepath  ;;  optional  ;;  output path for zipfile              
-                - param: archivpath   ;;  optional  ;;  output path internally stored zipfile 
-            dreftymacid: __blank__       
+                - param: archivpath   ;;  optional  ;;  output path internally stored zipfile  
           '''
           ##
           vout = jjinput.__str__()

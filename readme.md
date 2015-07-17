@@ -57,6 +57,9 @@ __yaml__:
 
 * **"./research.md"** ;; background-research and related links for this project
     * [research.md](https://github.com/dreftymac/dynamic.yaml/blob/master/research.md)
+
+* **"./app/demo/readme.md"** ;; demonstration and examples
+
     
 
 

@@ -11,15 +11,20 @@
 ###     desc: |
 ###         barebones.include.yaml.txt
 ###         * use the datafile directive to include external yaml files
+###         * datafile directive currently does not work with blockspring (single-file upload only)
 ### <end-file_info>
 
 __yaml__:
   - datafile:
-      - href="./barebones.filezip.yaml.txt"
+      - "./demo.workbook.yaml.txt"
+      - "./barebones.filezip.yaml.txt"
     template: |
       {% for file in files %}
+        ## speaking_engagements
+        {%- set ijj = loop.index  -%}
         {%filter jjdedent |trim |jjtozipfile('',file.outpath) %}
           {{ file.wwbody |upper }}
+          {{ ijj }}{{ dataroot.speaking_engagements[ijj] |jjdata_formatas('yamlpretty') }}
         {%endfilter-%}      
       {% endfor %}
 
