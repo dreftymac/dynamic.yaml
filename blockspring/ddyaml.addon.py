@@ -21,14 +21,18 @@ if('python_region'):
           ## init
           vout    =     ''
           
-          ## read upload file
-          ffout     =     'ddyaml_output.txt'
-          ffoutzip  =     'ddyaml_output.zip'
+          ## process
+          #ffout     =     'ddyaml_output.txt'
+          #ffoutzip  =     'ddyaml_output.zip'
           oddyaml   =     DynamicYAML(request.params["txtfile001"])
-          vout      =     oddyaml.ddrun()
-          open(ffout,'wb').write(vout)
-          response.addFileOutput("outfile",ffout)
-          response.addFileOutput("outzipfile",ffoutzip)
+          vout      =     oddyaml.ddtransform()
+          #open(ffout,'wb').write(vout)
+          #print os.path.abspath(ffout)
+          #/data/user_files/ddyaml_output.txt
+          for ijj,vkk in enumerate(glob.glob('/data/user_files/*')):
+            print "{} : {}".format(ijj, vkk)
+            #response.addFileOutput("outfile",ffout)
+          #response.addFileOutput("outzipfile",ffoutzip)
           response.end()
           
       ##
