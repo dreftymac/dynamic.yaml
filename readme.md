@@ -13,7 +13,7 @@ The design philosophy of this project:
 * support for advanced features and an unlimited range of outputs
 * easy extensibility and plugin support
 
-## Live Demo
+## Live demo (blockspring.com)
 
 Try it now with [blockspring](https://open.blockspring.com/dreftymac/2dc5183fbb912fc3c553fc14bbe15e43)!
 
