@@ -10,7 +10,7 @@ The design philosophy of this project:
 
 * enhance YAML by adding the best features from string template tools (currently using python/yaml and python/jinja2)
 * support for advanced features and an unlimited range of outputs
-* support for extensible plugins 
+* easy extensibility and plugin support
 
 ## Live Demo
 
