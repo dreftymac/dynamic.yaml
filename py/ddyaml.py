@@ -1525,6 +1525,7 @@ if('python_region'):
           '''
           ##
           vout = jjinput.__str__()
+          if(zipfilepath == ''):  zipfilepath = 'ddyaml_output'
           
           ##
           zipmode     =   None
@@ -1538,7 +1539,6 @@ if('python_region'):
           except:
               zipmode= zipfile.ZIP_STORED
               
-          ##
           ##
           try:
             #print(os.path.exists(outpath))
