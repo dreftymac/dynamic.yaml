@@ -23,10 +23,12 @@ if('python_region'):
           
           ## read upload file
           ffout     =     'ddyaml_output.txt'
+          ffoutzip  =     'ddyaml_output.zip'
           oddyaml   =     DynamicYAML(request.params["txtfile001"])
-          vout      =     oddyaml.ddtransform()
+          vout      =     oddyaml.ddrun()
           open(ffout,'wb').write(vout)
           response.addFileOutput("outfile",ffout)
+          response.addFileOutput("outzipfile",ffout)
           response.end()
           
       ##
