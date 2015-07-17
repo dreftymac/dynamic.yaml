@@ -22,17 +22,16 @@ if('python_region'):
           vout    =     ''
           
           ## process
-          #ffout     =     'ddyaml_output.txt'
           #ffoutzip  =     'ddyaml_output.zip'
           oddyaml   =     DynamicYAML(request.params["txtfile001"])
           vout      =     oddyaml.ddtransform()
-          #open(ffout,'wb').write(vout)
-          #print os.path.abspath(ffout)
-          #/data/user_files/ddyaml_output.txt
+          ffout     =     'ddyaml_output.txt'
+          open(ffout,'wb').write(vout)
+          
+          ##
           for ijj,vkk in enumerate(glob.glob('/data/user_files/*')):
-            print "{} : {}".format(ijj, vkk)
-            #response.addFileOutput("outfile",ffout)
-          #response.addFileOutput("outzipfile",ffoutzip)
+            #print "{} : {}".format(ijj, vkk)
+            response.addFileOutput("outfile%03d"%(ijj),vkk)
           response.end()
           
       ##
