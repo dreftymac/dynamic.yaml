@@ -12,9 +12,11 @@
 ###         - feature     ;; add support for pluggable filters besides JinjaFilterDynamicYAML
 ###         - feature     ;; add support for pluggable alternate template engines besides python/jinja2
 ###         - pluggable   ;; myclip snippet plugin filter
+###         
 ###     seealso: |
-###         * href="../../../../../mytrybits/y/tryyaml/dynamicyaml/devlog.txt"
-###         * href="../../../../../mytrybits/p/trypython2/2009/j/jinja.template/readme.md"
+###         * href="../../../../../../mytrybits/y/tryyaml/devlog.txt"
+###         * href="../../../../../../mytrybits/p/trypython2/2009/j/jinja.template/readme.md"
+###         
 ###     desc: |
 ###         ddyaml.py
 ###         core dynamic yaml in a single standalone python file
