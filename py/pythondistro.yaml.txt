@@ -1,0 +1,21 @@
+### <beg-file_info>
+### main:
+###   - date: created="Fri Jul 17 02:00:49 2015"
+###     last: lastmod="Fri Jul 17 02:00:49 2015"
+###     tags:   tags 
+###     author: created="__author__"
+###     dreftymacid:    "hounds_idols_jots"
+###     seealso: |
+###         *
+###     desc: |
+###         pythondistro.yaml.txt
+###         python distribution info
+### <end-file_info>
+
+main:
+
+  - caption:  See also
+    rectype:  rrmarkup
+    header:   2
+    body: |
+        * https://wiki.python.org/moin/PyPIJSON?action=show&redirect=PyPiJson
