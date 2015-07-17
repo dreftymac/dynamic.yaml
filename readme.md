@@ -15,7 +15,7 @@ The design philosophy of this project:
 
 ## Live demo (blockspring.com)
 
-Try it now with [blockspring](https://open.blockspring.com/dreftymac/2dc5183fbb912fc3c553fc14bbe15e43)!
+Try it now with [blockspring](https://open.blockspring.com/dreftymac/2dc5183fbb912fc3c553fc14bbe15e43).
 
 * **Step**: save the following to a text file on your machine (e.g., helloworld.yaml)
 ```
@@ -27,7 +27,7 @@ dataroot:
     
   people:
     - fullname:     Bregiono Buckridge
-      email:        bregiono@gmail.com    
+      email:        bregiono@gmail.com
       id:           1
       url:          https://example.com/bregiono
       regioncc:     region001

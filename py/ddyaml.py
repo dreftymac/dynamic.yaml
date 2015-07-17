@@ -12,11 +12,9 @@
 ###         - feature     ;; add support for pluggable filters besides JinjaFilterDynamicYAML
 ###         - feature     ;; add support for pluggable alternate template engines besides python/jinja2
 ###         - pluggable   ;; myclip snippet plugin filter
-###         
 ###     seealso: |
-###         * href="../../../../../../mytrybits/y/tryyaml/devlog.txt"
-###         * href="../../../../../../mytrybits/p/trypython2/2009/j/jinja.template/readme.md"
-###         
+###         * href="../../../../../mytrybits/y/tryyaml/dynamicyaml/devlog.txt"
+###         * href="../../../../../mytrybits/p/trypython2/2009/j/jinja.template/readme.md"
 ###     desc: |
 ###         ddyaml.py
 ###         core dynamic yaml in a single standalone python file
@@ -230,6 +228,7 @@ if('python_region'):
 ###!{{{
 ###!- caption:  JinjaFilterDynamicYAML
 ###!  date:     created="Thu Jul 16 13:21:33 2015"
+###!  dreftymacid: glint_unjam_cheapen
 ###!  goal:     |
 ###!       set of default jinja filters that come with ddyaml out of the box
 ###!  result:   |
@@ -239,9 +238,6 @@ if('python_region'):
 ###!  		* __blank__
 ###!  desc: |
 ###!  		Currently assumes jinja2 as the templating engine for ddyaml
-###!
-###!
-###!  dreftymacid: __dreftymacid__
 ###!  wwbody: |
       class JinjaFilterDynamicYAML(JinjaFilterBase):
         
@@ -1506,7 +1502,7 @@ if('python_region'):
           return vout
         ##enddef
                 
-        def jjtozipfile(self,jjinput,zipfilepath='ddyaml_output',archivpath='',stamp=''):
+        def jjtozipfile(self,jjinput,zipfilepath,archivpath,stamp=''):
           '''
           ## function docs
           - caption:  jjtozipfile
@@ -1514,25 +1510,24 @@ if('python_region'):
             grp_maj:  FileIO
             grp_med:  output
             grp_min:  zipfile
-            dreftymacid: mckay_planets_richer
+            dreftymacid: __blank__
             detail:  | 
                 output to a zip archive
             dependencies:
                 - import zipfile
                 - import time
             params:
-             - param: jjinput      ;;  required  ;;  raw input string                     
-             - param: zipfilepath  ;;  optional  ;;  output path for zipfile              
-             - param: archivpath   ;;  optional  ;;  output path internally stored zipfile     
+             - param: jjinput ;; required ;; raw input string
+             - param: outpath ;; required ;; output path for zipfile
+            dreftymacid: __blank__       
           '''
           ##
           vout = jjinput.__str__()
-          if(zipfilepath == ''):  zipfilepath = 'ddyaml_output'
           
           ##
           zipmode     =   None
           wrtmode     =   'a'
-          ssfzipout   =   '%s%s.zip'%(zipfilepath,stamp)
+          ssfzipout   =   'barebones%s.zip'%(stamp)
           
           ##
           try:
@@ -1541,6 +1536,7 @@ if('python_region'):
           except:
               zipmode= zipfile.ZIP_STORED
               
+          ##
           ##
           try:
             #print(os.path.exists(outpath))
@@ -1647,6 +1643,7 @@ if('python_region'):
 ###!{{{
 ###!- caption:  __caption__
 ###!  date:     created="Thu Jul 16 13:22:13 2015"
+###!  dreftymacid: vadodara_glen_bird
 ###!  goal:     |
 ###!       __blank__
 ###!  result:   |
@@ -1656,9 +1653,6 @@ if('python_region'):
 ###!  		* __blank__
 ###!  desc: |
 ###!  		__desc__
-###!
-###!
-###!  dreftymacid: __dreftymacid__
 ###!  wwbody: |
       class DynamicYAML(object):    
         def __init__(self,ffpath):
@@ -1685,9 +1679,6 @@ if('python_region'):
           ###     desc: |
           ###         merges ob002 into ob001
           """
-          ##
-          #oDumper.pprint(ob001)
-          #oDumper.pprint(ob001)
           return dict(py_mergedict(ob001,ob002))
         ##enddef
         
@@ -1726,7 +1717,7 @@ if('python_region'):
           return sscurr
         ##enddef
         
-        def ddrun(self):
+        def ddtransform(self):
           """
           ### main:
           ###   - date: created="Thu Jul 16 13:55:43 2015"
