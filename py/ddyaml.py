@@ -7,6 +7,7 @@
 ###     dreftymacid:    "beamer_weave_text"
 ###     TODO: 
 ###         - testing     ;; run through unit tests in demo for regressions from ddyaml.py
+###         - pluggable   ;; add python pip install support
 ###         - feature     ;; add support for raw input string and not just input file
 ###         - feature     ;; if no __yaml__ sigil present, assume pure jinja syntax
 ###         - feature     ;; add support for pluggable filters besides JinjaFilterDynamicYAML
