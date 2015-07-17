@@ -23,6 +23,9 @@ This project is very similar to:
 
 ## Jinja and Jinja2
 
+This project currently depends on python with `import jinja2`. 
+There is no reason against languages besides python, and other templating/expression engines besides jinja2.
+
 * http://stackoverflow.com/questions/18175466/templating-library-in-node-js-similar-to-jinja2-in-python
 
 ## JSON-related 
