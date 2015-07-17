@@ -2,6 +2,10 @@
 
 > YAML-based data transformations -- live demo on [blockspring](https://open.blockspring.com/dreftymac/2dc5183fbb912fc3c553fc14bbe15e43) try it now.
 
+## Overview
+
+DynamicYaml is a general-purpose, fully-extensible transformation engine for YAML.
+
 ## Live Demo
 
 Try it now with [blockspring](https://open.blockspring.com/dreftymac/2dc5183fbb912fc3c553fc14bbe15e43)!
