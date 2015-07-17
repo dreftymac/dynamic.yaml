@@ -19,12 +19,14 @@ This project was inspired in part by:
 * (YAML is a superset of json, so much of this is highly relevant)
 * https://duckduckgo.com/?q=json+schema&ia=about
 * https://duckduckgo.com/?q=json+design+patterns
+* http://twigkit.github.io/tempo/
 
-### Similar alternative approaches
+### Similar alternative approaches in other domains
 
 * http://google.github.io/jsonnet/doc/
 * https://github.com/joeriks/MVCPages
 * https://github.com/audreyr/cookiecutter
+* https://github.com/bazaarvoice/jolt
 
 ### XSLT comparisons
 
@@ -37,9 +39,10 @@ This project was inspired in part by:
 
 ### See also
 
-#### stackoverflow
+#### stackoverflow related-links
 * http://stackoverflow.com/questions/1308536/yaml-compared-to-xml
-* http://stackoverflow.com/questions/1618038/xslt-equivalent-for-json                  
+* http://stackoverflow.com/questions/1618038/xslt-equivalent-for-json
+* http://stackoverflow.com/questions/2837809/writing-json-with-xslt
 
 #### others
 * http://urgetopunt.com/rails/2009/09/12/yaml-config-with-erb.html
