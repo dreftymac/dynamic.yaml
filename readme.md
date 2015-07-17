@@ -51,7 +51,7 @@ __yaml__:
 
 * **Step**: Upload the file to [blockspring](https://open.blockspring.com/dreftymac/2dc5183fbb912fc3c553fc14bbe15e43) and choose "Run"
 
-* **Step**: Use the data transformation results for anything you want. DONE.
+* **Step**: Use the data transformation results for anything you want. All done!
 
 ## See also
 
