@@ -5,7 +5,7 @@
 ###     tags: dynamicyaml, python, yaml, blockspring
 ###     author:         created="dreftymac"
 ###     dreftymacid:    "beamer_weave_text"
-###     TODO: 
+###     TODO:
 ###         - testing     ;; run through unit tests in demo for regressions from ddyaml.py
 ###         - pluggable   ;; add python pip install support
 ###         - feature     ;; add support for raw input string and not just input file
@@ -14,8 +14,8 @@
 ###         - feature     ;; add support for pluggable alternate template engines besides python/jinja2
 ###         - pluggable   ;; myclip snippet plugin filter
 ###     seealso: |
-###         * href="../../../../../mytrybits/y/tryyaml/dynamicyaml/devlog.txt"
-###         * href="../../../../../mytrybits/p/trypython2/2009/j/jinja.template/readme.md"
+###         * href="../../../../../../mytrybits/y/tryyaml/dynamicyaml/devlog.txt"
+###         * href="../../../../../../mytrybits/p/trypython2/2009/j/jinja.template/readme.md"
 ###     desc: |
 ###         ddyaml.py
 ###         core dynamic yaml in a single standalone python file
@@ -56,25 +56,29 @@ if('python_region'):
       oDumper = pprint.PrettyPrinter(indent=4);
       
       ##
+      ## TODO: improve handling of addon libraries
+      ## os.sys.path.insert(0,'c:/sm/docs/mytrybits/p/trypython2/lab2014/libpy')
+      
+      ##
       def py_mergedict(dict1, dict2):
         '''
         python addon function for merging nested dictionaries
         see also:
         * http://stackoverflow.com/a/7205672/42223
         '''
-        for jjk in set(dict1.keys()).union(dict2.keys()):
-            if jjk in dict1 and jjk in dict2:
-                if isinstance(dict1[jjk], dict) and isinstance(dict2[jjk], dict):
-                    yield (jjk, dict(py_mergedict(dict1[jjk], dict2[jjk])))
+        for ppk in set(dict1.keys()).union(dict2.keys()):
+            if ppk in dict1 and ppk in dict2:
+                if isinstance(dict1[ppk], dict) and isinstance(dict2[ppk], dict):
+                    yield (ppk, dict(py_mergedict(dict1[ppk], dict2[ppk])))
                 else:
                     # If one of the values is not a dict, you can't continue merging it.
                     # Value from second dict overrides one in first and we move on.
-                    yield (jjk, dict2[jjk])
+                    yield (ppk, dict2[ppk])
                     # Alternatively, replace this with exception raiser to alert you of value conflicts
-            elif jjk in dict1:
-                yield (jjk, dict1[jjk])
+            elif ppk in dict1:
+                yield (ppk, dict1[ppk])
             else:
-                yield (jjk, dict2[jjk])
+                yield (ppk, dict2[ppk])
       ##enddef
 ###!}}}
 
@@ -163,7 +167,7 @@ if('python_region'):
           '''
           ## function docs
           - caption:  yaml_function_docs
-            date:     lastmod="Mon 2014-10-20 16:45:46"  
+            date:     lastmod="Mon 2014-10-20 16:45:46"
             desc:     produce the function docs for this module as yaml
           '''
           vout = [str(getattr(self,vxx).__doc__) for vxx in dir(self) if(getattr(self,vxx).__doc__)and(vxx != '__module__')and(vxx != '__doc__') ]
@@ -174,7 +178,7 @@ if('python_region'):
           '''
           ## function docs
           - caption:  attach_filters
-            date:     lastmod="Mon 2014-10-20 16:45:46"      
+            date:     lastmod="Mon 2014-10-20 16:45:46"
             grp_maj:  system
             grp_med:  jinja
             grp_min:  internal_use_only
@@ -185,7 +189,7 @@ if('python_region'):
               - import jinja2
             params:
              - param: env ;; required ;; core jinja environment
-            dreftymacid: __blank__            
+            dreftymacid: __blank__
           '''
           aallbase  =   [vxx for vxx in dir(self) ]
           aafilt    =   [vxx for vxx in aallbase if vxx.lower().startswith('jj')]
@@ -198,12 +202,12 @@ if('python_region'):
           '''
           ## function docs
           - caption:  prefilter
-            date:     lastmod="Mon 2014-10-20 16:45:46"            
+            date:     lastmod="Mon 2014-10-20 16:45:46"
             grp_maj:  system
             grp_med:  jinja
             grp_min:  internal_use_only
             desc:     kludgy jinja addon to shorten filter tags
-            detail:  | 
+            detail:  |
               prefilter allows for abbreviated tags
               this is not a desirable approach
               you have to pass a whole template in to use this
@@ -213,7 +217,7 @@ if('python_region'):
               - none
             params:
              - param: jjinput ;; required ;; raw input string
-            dreftymacid: __blank__              
+            dreftymacid: __blank__
           '''
           vout = ''
           vout = re.sub('fqq','filter',vstr)
@@ -241,24 +245,168 @@ if('python_region'):
 ###!  		Currently assumes jinja2 as the templating engine for ddyaml
 ###!  wwbody: |
       class JinjaFilterDynamicYAML(JinjaFilterBase):
+        ### ------------------------------------------------------------------------
+        ### begin_: drupal_specific
+        
+        ##
+        def jjd_alias(self,jjinput):
+          '''
+          TODO move this out to drupal specific, for now included here for deadlines
+          drupal URL aliases settings
+          '''
+          ##
+          vout = jjinput.__str__()
+          removals = []
+          ##
+          vout = vout.lower()
+          vout = re.sub(r'[-]+',' ',vout)
+          vout = re.sub(r'[^\w\s]+','',vout)
+          #vout = re.sub(r'[\s]+','-',vout)
+          vout = vout.split(' ')
+          removals.append(''      )
+          removals.append('a'     )
+          removals.append('an'    )
+          removals.append('as'    )
+          removals.append('at'    )
+          removals.append('before')
+          removals.append('but'   )
+          removals.append('by'    )
+          removals.append('for'   )
+          removals.append('from'  )
+          removals.append('is'    )
+          removals.append('in'    )
+          removals.append('into'  )
+          removals.append('like'  )
+          removals.append('of'    )
+          removals.append('off'   )
+          removals.append('on'    )
+          removals.append('onto'  )
+          removals.append('per'   )
+          removals.append('since' )
+          removals.append('than'  )
+          removals.append('the'   )
+          removals.append('this'  )
+          removals.append('that'  )
+          removals.append('to'    )
+          removals.append('up'    )
+          removals.append('via'   )
+          removals.append('with'  )
+          vout = '-'.join([ixx for ixx in vout if ixx not in removals])
+          #vout = re.sub(r'[-]+' ,'-',vout)
+          ##
+          return vout
+        ##enddef
+
+        ### ------------------------------------------------------------------------
+        ### begin_: imacros_specific
+
+        ##
+        def jji_sp(self,jjinput):
+          '''
+          TODO move this out to imacros specific, for now included here for deadlines
+          imacros spacify
+          '''
+          ##
+          vout = jjinput.__str__()
+          ##
+          vout = re.sub(r'\n', '<BR>', vout)
+          vout = re.sub(r'^\s','', vout)
+          vout = re.sub(r'\s$','', vout)
+          vout = re.sub(r'[\s]+',' ', vout)
+          vout = re.sub(r'[\s]+','<SP>', vout)
+          ##
+          return vout
+        ##enddef
+        
+        ##
+        def jji_ngsp(self,jjinput):
+          '''
+          TODO move this out to imacros specific, for now included here for deadlines
+          imacros NG-compatible spacify
+          
+          context:    	iim script that outputs angularjs
+          problem:    	both NG and IIM use {{foo}} for variable placeholders
+          solution:   	in the output template, define !VAR1 and !VAR2 in IIM to be '{{'  and  '}}' respectively
+          rationale:  	prevents IIM from trying to consume the NG placeholders
+          example:
+            - href="../../../../../../mytrybits/d/trydrupal/html/helloangular.000.yaml.txt" find="anchor_hunt_nailing_000"
+            - href="../../../../../../mytrybits/d/trydrupal/html/helloangular.000.yaml.txt" find="vanadic_urolith_chorus"
+          '''
+          ##
+          vout = jjinput.__str__()
+          ##
+          vout = re.sub(r'{{([^!])', '{{!VAR1}} \\1', vout)
+          vout = re.sub(r'([\W])}}', '\\1  {{!VAR2}}', vout)
+          vout = re.sub(r'\n', '<BR>', vout)
+          vout = re.sub(r'\n', '<BR>', vout)
+          vout = re.sub(r'^\s','', vout)
+          vout = re.sub(r'\s$','', vout)
+          vout = re.sub(r'[\s]+',' ', vout)
+          vout = re.sub(r'[\s]+','<SP>', vout)
+          ##
+          return vout
+        ##enddef
+        
+   
+        ### ------------------------------------------------------------------------
+        ### begin_: general_purpose
+        
+        def jjaod_getrecord(self,jjinput,fieldname='fname',fieldvalue='value',iirec=0):
+          '''
+          ## function docs
+          - caption:  jjaod_getrecord
+            date:     lastmod="Mon 2014-10-20 16:45:46"
+            grp_maj:  data
+            grp_med:  array_of_dictionary
+            grp_min:  select
+            desc:     aod get record where `fieldname` == `fieldvalue`
+            detail:  |
+                aod select record where `fieldname` == `fieldvalue`
+            dependencies:
+              - none
+            example:
+              -
+            params:
+              - param: jjinput    ;; required ;; raw input string
+              - param: fieldname  ;; required ;; aod select field
+              - param: fieldvalue ;; required ;; aod select value
+              - param: iirec      ;; optional ;; optional record index if more than one record is obtained
+            dreftymacid:  byte_urethral_behold            
+            output: python list (or `__blank__` if no result was found)
+          '''
+          
+          ##
+          try:
+            table_aod = jjinput
+            vout = [row for row in table_aod if(row[fieldname])==fieldvalue]
+            vout = vout[iirec]
+          except Exception as msg:
+            vout = '__blank__'
+            #print 'UNEXPECTED TERMINATION msg@%s'%(msg.__repr__())
+            #exc_type, exc_obj, exc_tb = sys.exc_info()
+            #fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
+            #print(exc_type, fname, exc_tb.tb_lineno)
+          ##
+          return vout
+        ##enddef
         
         def jjaod_select(self,jjinput,fieldname='fname'):
           '''
           ## function docs
           - caption:  jjaod_select
-            date:     lastmod="Mon 2014-10-20 16:45:46"            
+            date:     lastmod="Mon 2014-10-20 16:45:46"
             grp_maj:  data
             grp_med:  array_of_dictionary
             grp_min:  select
             desc:     aod select field
-            detail:  | 
+            detail:  |
               aod select values and return list of values
             dependencies:
               - none
             params:
-              - param: jjinput ;; required ;; raw input string
-              - param: fieldname ;; required ;; aod select field
-            dreftymacid: __blank__
+              - param: jjinput    ;; required ;; raw input string
+              - param: fieldname  ;; required ;; aod select field
+            dreftymacid: bra_bluntly_celt
             output: python list
           '''
           
@@ -274,12 +422,12 @@ if('python_region'):
           '''
           ## function docs
           - caption:  jjdata_formatas
-            date:     lastmod="Mon 2014-10-20 16:45:46"      
+            date:     lastmod="Mon 2014-10-20 16:45:46"
             grp_maj:  data
             grp_med:  transform
             grp_min:  reformat
-            desc:     reformat arbitrary data structures        
-            detail:  | 
+            desc:     reformat arbitrary data structures
+            detail:  |
               * process input data and dump it out to another format
               * seealso
                   * href="../../../../../appdata/home/smosley/.dreftymac/py/datadump_formatas.py" find="lookfor"
@@ -288,8 +436,8 @@ if('python_region'):
               - none
             params:
              - param: jjinput ;; required ;; raw input string
-            dreftymacid: __blank__       
-          '''      
+            dreftymacid: __blank__
+          '''
           ## init lib
           import json
           import yaml
@@ -337,14 +485,14 @@ if('python_region'):
           '''
           ## function docs
           - caption:  jjdate_get
-            date:     lastmod="Mon 2014-10-20 16:45:46"      
+            date:     lastmod="Mon 2014-10-20 16:45:46"
             grp_maj:  datetime
             grp_med:  output
             grp_min:  current
             desc:     get date components for current localtime
-            detail:  | 
+            detail:  |
               output the current date value for a specific date component
-              supported date components:          
+              supported date components:
                 - 'year'
                 - 'month'
                 - 'day'
@@ -356,7 +504,7 @@ if('python_region'):
               - none
             params:
              - param: jjinput ;; required ;; raw input string
-            dreftymacid: __blank__       
+            dreftymacid: __blank__
           '''
           ##
           vout = jjinput.__str__()
@@ -391,18 +539,18 @@ if('python_region'):
           '''
           ## function docs
           - caption:  jjdate_now
-            date:     lastmod="Mon 2014-10-20 16:45:46"      
+            date:     lastmod="Mon 2014-10-20 16:45:46"
             grp_maj:  datetime
             grp_med:  output
             grp_min:  current
-            desc:     get current localtime        
-            detail:  | 
-              output the current date 
+            desc:     get current localtime
+            detail:  |
+              output the current date
             dependencies:
               - none
             params:
              - param: jjinput ;; required ;; raw input string
-            dreftymacid: __blank__       
+            dreftymacid: __blank__
           '''
           ##
           vout = jjinput.__str__()
@@ -423,18 +571,18 @@ if('python_region'):
           '''
           ## function docs
           - caption:  jjdec64
-            date:     lastmod="Mon 2014-10-20 16:45:46"      
+            date:     lastmod="Mon 2014-10-20 16:45:46"
             grp_maj:  codec
             grp_med:  base64
             grp_min:  decode
             desc:     base64 decode
-            detail:  | 
+            detail:  |
               base64 decode
             dependencies:
               - none
             params:
              - param: jjinput ;; required ;; raw input string
-            dreftymacid: __blank__       
+            dreftymacid: __blank__
           '''
           ##
           vout  =   base64.b64decode(jjinput.__str__())
@@ -446,18 +594,18 @@ if('python_region'):
           '''
           ## function docs
           - caption:  jjenc64
-            date:     lastmod="Mon 2014-10-20 16:45:46"      
+            date:     lastmod="Mon 2014-10-20 16:45:46"
             grp_maj:  codec
             grp_med:  base64
             grp_min:  encode
-            desc:     base64 encode        
-            detail:  | 
+            desc:     base64 encode
+            detail:  |
               base64 encode
             dependencies:
               - none
             params:
              - param: jjinput ;; required ;; raw input string
-            dreftymacid: __blank__       
+            dreftymacid: __blank__
           '''
           ##
           vout  =   base64.b64encode(jjinput.__str__())
@@ -469,21 +617,62 @@ if('python_region'):
           '''
           ## function docs
           - caption:  jjdedent
-            date:     lastmod="Mon 2014-10-20 16:45:46"      
+            date:     lastmod="Mon 2014-10-20 16:45:46"
             grp_maj:  string_transform
             grp_med:  whitespace
             grp_min:  dedent
             desc:     textrap dedent
-            detail:  | 
+            detail:  |
               textrap dedent
             dependencies:
               - none
             params:
              - param: jjinput ;; required ;; raw input string
-            dreftymacid: __blank__       
+            dreftymacid: rebuilt_lever_chariot
           '''
           ##
           vout = textwrap.dedent(jjinput.__str__())
+          ##
+          return vout
+        ##enddef
+        
+        def jjdubsplit(self,jjinput,spliton=';;',splitget=0):
+          '''
+          ## function docs
+          - caption:  jjdubsplit
+            date:     lastmod="Mon 2014-10-20 16:45:46"
+            grp_maj:  string_transform
+            grp_med:  string
+            grp_min:  split
+            desc:     string split and return result from split index
+            example: |
+              {{ "hello;;fancy;;world" |jjdubsplit(';;',0)    }}{#- returns 'hello' -#}
+              {{ "hello;;fancy;;world" |jjdubsplit(';;',1)    }}{#- returns 'fancy' -#}
+              {{ "hello;;fancy;;world" |jjdubsplit(';;',2)    }}{#- returns 'world' -#}
+              {{ "hello;;fancy;;world" |jjdubsplit(';;',-1)   }}{#- returns 'world' -#}
+              {{ "hello;;fancy;;world" |jjdubsplit(';;',3)    }}{#- returns ''      -#}
+            detail:  |
+              * split a string on a delimiter and return the indexed portion
+              * uses zero-based index
+              * return empty string if there is no match at indexed portion
+            dependencies:
+              - none
+            params:
+              - param: jjinput   ;; required ;; raw input string
+              - param: spliton   ;; optional ;; string to split on (defaults to double-semicolon)
+              - param: splitget  ;; optional ;; extraction index (defaults to zero)
+            dreftymacid: zeros_cods_views
+          '''
+          ##
+          vout = jjinput.__str__()
+          
+          ##
+          try:
+            vout = vout.split(spliton)
+            vout = vout[splitget]
+          except Exception as msg:
+            vout = ''
+            
           ##
           return vout
         ##enddef
@@ -492,12 +681,12 @@ if('python_region'):
           '''
           ## function docs
           - caption:  jjfmt
-            date:     lastmod="Mon 2014-10-20 16:45:46"      
+            date:     lastmod="Mon 2014-10-20 16:45:46"
             grp_maj:  string_transform
             grp_med:  reformat
             grp_min:  sprintf
-            desc:     python-specific string sprintf-style format        
-            detail:  | 
+            desc:     python-specific string sprintf-style format
+            detail:  |
               seealso:
               https://docs.python.org/2/library/string.html#formatspec
               href="../py/string_examples.py" find="BarebonesStringFormatExample"
@@ -505,8 +694,8 @@ if('python_region'):
               - none
             params:
              - param: jjinput ;; required ;; raw input string
-            dreftymacid: merits_axial_extra       
-          '''      
+            dreftymacid: merits_axial_extra
+          '''
           ##
           vout  = jjinput.__str__()
                 
@@ -531,22 +720,22 @@ if('python_region'):
           '''
           ## function docs
           - caption:  jjfromfile
-            date:     lastmod="Mon 2014-10-20 16:45:46"      
+            date:     lastmod="Mon 2014-10-20 16:45:46"
             grp_maj:  FileIO
             grp_med:  string
             grp_min:  fromfile
             desc: string.fromfile
-            detail:  | 
+            detail:  |
               pull in content from a file
             dependencies:
               - none
             params:
              - param: jjinput ;; required ;; placeholder argument for jinja
              - param: surl    ;; required ;; file path
-            dreftymacid: __blank__       
-          '''  
+            dreftymacid: __blank__
+          '''
           ##
-          #vout  = jjinput.__str__()
+          vout  = ''
           #vout  = open(surl,'r').read()
           
           ##
@@ -555,7 +744,7 @@ if('python_region'):
             vout  = open(surl,'r').read()
             vout  = vout.decode('utf-8').encode('ascii', 'ignore')
           except Exception as msg:
-            print 'UNEXPECTED TERMINATION sharing_client_smearing msg@%s'%(msg.__repr__())
+            print 'UNEXPECTED TERMINATION sharing_client_smearing msg@%s %s'%(msg.__repr__(),surl)
             exc_type, exc_obj, exc_tb = sys.exc_info()
             fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
             print(exc_type, fname, exc_tb.tb_lineno)
@@ -568,19 +757,19 @@ if('python_region'):
           ## ANNOYANCE: this just gives the basename of this current py file
           ## function docs
           - caption:  jjget_basename
-            date:     lastmod="Mon 2014-10-20 16:45:46"      
+            date:     lastmod="Mon 2014-10-20 16:45:46"
             grp_maj:  getinfo
             grp_med:  python
             grp_min:  os.path.basename
             desc: os.path.basename
-            detail:  | 
+            detail:  |
               os.path.basename of current file
             dependencies:
               - none
             params:
              - param: jjinput ;; required ;; placeholder argument for jinja
             dreftymacid: fuel_cinema_ajax
-          '''      
+          '''
           ##
           try:
             ## BUGNAG ;; added encode ascii ignore
@@ -600,13 +789,13 @@ if('python_region'):
           """
           ## function docs
           - caption:    jjgreplines
-            date:       lastmod="Mon 2014-10-20 16:45:46"  
+            date:       lastmod="Mon 2014-10-20 16:45:46"
             grp_maj:    string
             grp_med:    process
             grp_min:      __blank__
             dreftymacid:  invoker_panic_inquire
-            desc: greplines for occurance of lookfor    
-            detail: | 
+            desc: greplines for occurance of lookfor
+            detail: |
               convert string to array and select lines matching lookfor
             dependencies:
               - none
@@ -637,19 +826,19 @@ if('python_region'):
           """
           ## function docs
           - caption:  jjhtml_squeeze
-            date:     lastmod="Mon 2014-10-20 16:45:46"  
+            date:     lastmod="Mon 2014-10-20 16:45:46"
             grp_maj:    string
             grp_med:    process
             grp_min:    __blank__
             dreftymacid:  __blank__
-            desc: smush html        
-            detail: | 
+            desc: smush html
+            detail: |
               squeeze html
             dependencies:
               - none
             params:
              - param: jjinput ;; required ;; placeholder argument for jinja
-             - param: __blank__ ;; required ;; __blank__         
+             - param: __blank__ ;; required ;; __blank__
           """
           ##
           vout  = jjinput.__str__()
@@ -673,12 +862,12 @@ if('python_region'):
           """
           ## function docs
           - caption:  jjhug
-            date:     lastmod="Mon 2014-10-20 16:45:46"  
+            date:     lastmod="Mon 2014-10-20 16:45:46"
             grp_maj:    string_transform
             grp_med:    wrap
             grp_min:    balanced delimiters
             dreftymacid:  visuals_sinus_breakage
-            desc: string wrap with delims    
+            desc: string wrap with delims
             detail: |
               string wrap with balanced delimiters
               seealso
@@ -688,7 +877,7 @@ if('python_region'):
             params:
              - param: jjinput   ;; required ;; raw input string
              - param: hug       ;; optional ;; hug-character (default doublequote)
-            output: python string      
+            output: python string
           """
           ##
           vout  = jjinput.__str__()
@@ -722,7 +911,7 @@ if('python_region'):
           """
           ## function docs
           - caption:  jjindent
-            date:     lastmod="Mon 2014-10-20 16:45:46"  
+            date:     lastmod="Mon 2014-10-20 16:45:46"
             grp_maj:    string_transform
             grp_med:    whitespace
             grp_min:      indent
@@ -742,8 +931,8 @@ if('python_region'):
              - param: jjinput   ;; required ;; raw input string
              - param: strlead   ;; optional ;; leading indenter default (single whitespace char)
              - param: imult     ;; optional ;; multiplier for indenter (default 2)
-            output: python string      
-          """ 
+            output: python string
+          """
           
           ##
           vout = jjinput.__str__()
@@ -759,7 +948,7 @@ if('python_region'):
             print(exc_type, fname, exc_tb.tb_lineno)
             
           ##
-          return vout      
+          return vout
           pass
         ##enddef
     
@@ -767,12 +956,12 @@ if('python_region'):
           """
           ## function docs
           - caption:  jjlen
-            date:     lastmod="Mon 2014-10-20 16:45:46"  
+            date:     lastmod="Mon 2014-10-20 16:45:46"
             grp_maj:    getinfo
-            grp_med:    
-            grp_min:    
+            grp_med:
+            grp_min:
             dreftymacid:  __blank__
-            desc: python len()        
+            desc: python len()
             detail: |
               python len() function
               NOTE:
@@ -783,8 +972,8 @@ if('python_region'):
             params:
              - param: jjinput ;; required ;; raw input string
              - param: jjinput ;; optional ;; optional delimiter string
-            output: python string      
-          """       
+            output: python string
+          """
           ##
           vout = jjinput.__str__()
           
@@ -804,7 +993,7 @@ if('python_region'):
           """
           ## function docs
           - caption:  jjlistget
-            date:     lastmod="Mon 2014-10-20 16:45:46"  
+            date:     lastmod="Mon 2014-10-20 16:45:46"
             grp_maj:    getinfo
             grp_med:    list
             grp_min:    item
@@ -817,8 +1006,8 @@ if('python_region'):
             params:
              - param: jjinput ;; required ;; python list
              - param: jjinput ;; optional ;; optional index
-            output: python string      
-          """       
+            output: python string
+          """
           ##
           vout = jjinput
           
@@ -838,7 +1027,7 @@ if('python_region'):
           """
           ## function docs
           - caption:  jjlistjoin
-            date:     lastmod="Mon 2014-10-20 16:45:46"  
+            date:     lastmod="Mon 2014-10-20 16:45:46"
             grp_maj:    list
             grp_med:    join
             grp_min:    items
@@ -851,8 +1040,8 @@ if('python_region'):
             params:
              - param: jjinput ;; required ;; python list
              - param: joinwith ;; optional ;; join string
-            output: python string      
-          """       
+            output: python string
+          """
           ##
           vout = jjinput
           
@@ -872,7 +1061,7 @@ if('python_region'):
           """
           ## function docs
           - caption:  jjmarkdown2html
-            date:     lastmod="Mon 2014-10-20 16:45:46"  
+            date:     lastmod="Mon 2014-10-20 16:45:46"
             grp_maj:      string_transform
             grp_med:      markup
             grp_min:      convert
@@ -884,8 +1073,8 @@ if('python_region'):
               - import markdown
             params:
              - param: jjinput ;; required ;; raw input string
-            output: python string      
-          """       
+            output: python string
+          """
           ##
           vout = jjinput.__str__()
           
@@ -906,13 +1095,13 @@ if('python_region'):
           """
           ## function docs
           - caption:  jjnewline_erase
-            date:     lastmod="Mon 2014-10-20 16:45:46"  
+            date:     lastmod="Mon 2014-10-20 16:45:46"
             grp_maj:    string_transform
             grp_med:    whitespace
             grp_min:    remove
             dreftymacid:  __blank__
             alias:
-              - jjnne        
+              - jjnne
             desc: remove newlines
             detail: |
                 __blank__
@@ -920,8 +1109,8 @@ if('python_region'):
               - none
             params:
              - param: jjinput ;; required ;; raw input string
-            output: python string      
-          """       
+            output: python string
+          """
           ##
           vout = jjinput.__str__()
           
@@ -936,15 +1125,15 @@ if('python_region'):
           ##
           return vout
         ##enddef
-        ## alias_definition    
+        ## alias_definition
         def jjnne(self,jjinput): return self.jjnewline_erase(jjinput)
-        ##enddef    
+        ##enddef
     
         def jjnewline_replace(self,jjinput,replacewith="\n"):
           """
           ## function docs
           - caption:  jjnewline_replace
-            date:     lastmod="Mon 2014-10-20 16:45:46"  
+            date:     lastmod="Mon 2014-10-20 16:45:46"
             grp_maj:    string_transform
             grp_med:    whitespace
             grp_min:    modify
@@ -958,8 +1147,8 @@ if('python_region'):
             params:
              - param: jjinput ;; required ;; raw input string
              - param: replacewith ;; optional ;; replacement string
-            output: python string      
-          """       
+            output: python string
+          """
           ##
           vout = jjinput.__str__()
           
@@ -974,21 +1163,21 @@ if('python_region'):
           ##
           return vout
         ##enddef
-        ## alias_definition    
-        ##enddef 
+        ## alias_definition
+        ##enddef
     
         def jjpath(self,jjinput,ssmethod='isdir'):
           """
           ## function docs
           - caption:  jjpath_isfile
-            date:     lastmod="Mon 2015-06-08 16:06:01"  
+            date:     lastmod="Mon 2015-06-08 16:06:01"
             grp_maj:      FileIO
             grp_med:      path
             grp_min:      info
-            dreftymacid:  drawer_coping_uniplex        
+            dreftymacid:  drawer_coping_uniplex
             desc: python os.path method call
             alias:
-              - __blank__    
+              - __blank__
             detail: |
               reference to all the single-argument method calls of os.path
               seealso:
@@ -997,7 +1186,7 @@ if('python_region'):
               - none
             params:
               - param: jjinput ;; required ;; value evaluated as path
-            output: python string      
+            output: python string
           """
           ##
           vout = jjinput.__str__()
@@ -1018,14 +1207,14 @@ if('python_region'):
           """
           ## function docs
           - caption:  jjarray_fromdir
-            date:     lastmod="Mon 2014-10-20 16:45:46"  
+            date:     lastmod="Mon 2014-10-20 16:45:46"
             grp_maj:      FileIO
             grp_med:      directory
             grp_min:      traverse
-            dreftymacid:  pests_cow_vealing        
+            dreftymacid:  pests_cow_vealing
             desc: python  ArrayFromDirectory
             alias:
-              - __blank__    
+              - __blank__
             detail: |
               seealso:
               * href="../../../../../mydaydirs/2015/week22/py/oswalk.demo.py"
@@ -1036,7 +1225,7 @@ if('python_region'):
               - param: jjinput ;; required ;; placeholder argument for jinja
               - param: ssmode ;; required ;; file traversal mode
               - param: ssfilespec ;; required ;; path specification
-            output: python string      
+            output: python string
           """
           ##
           vout = jjinput.__str__()
@@ -1069,20 +1258,20 @@ if('python_region'):
           """
           ## function docs
           - caption:  jjq2x
-            date:     lastmod="Mon 2014-10-20 16:45:46"  
+            date:     lastmod="Mon 2014-10-20 16:45:46"
             grp_maj:    string_transform
             grp_med:    substitute
             grp_min:    characters
             dreftymacid:  __blank__
-            desc: (single-quote) characters to (double-sinqle-quote)            
-            detail: | 
+            desc: (single-quote) characters to (double-sinqle-quote)
+            detail: |
               convert individual single-quote characters to double-sinqle-quote
               for use with sqlite where the text has embedded single-quote-chars
             dependencies:
               - none
             params:
-             - param: jjinput ;; required ;; raw input string         
-            output: python string      
+             - param: jjinput ;; required ;; raw input string
+            output: python string
           """
           ##
           vout = jjinput.__str__()
@@ -1099,11 +1288,40 @@ if('python_region'):
           return vout
         ##enddef
     
+        def jjregexreplace(self,jjinput,pattern='',replacement='',ignorecase=False):
+          '''
+          jjregexreplace
+          '''
+          ##
+          vout      =   jjinput.__str__()
+          
+          ##
+          try:
+            regex     =   re.compile(pattern)
+            vout      =   regex.sub(replacement, vout)
+          except Exception as msg:
+            print 'UNEXPECTED TERMINATION msg@%s'%(msg.__repr__())
+            exc_type, exc_obj, exc_tb = sys.exc_info()
+            fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
+            print(exc_type, fname, exc_tb.tb_lineno)
+            
+          ##
+          return vout
+        ##enddef
+
+        #@staticmethod
+        #def _regex_replace(value='', pattern='', replacement='', ignorecase=False):
+        #    if not isinstance(value, six.string_types):
+        #        value = str(value)
+        #    flags = CustomFilters._get_regex_flags(ignorecase)
+        #    regex = re.compile(pattern, flags)
+        #    return regex.sub(replacement, value)
+    
         def jjregionreplace(self,jjinput,vreplace='',regbeg='',regend='',):
           """
           ## function docs
           - caption:  jjregionreplace
-            date:     lastmod="Mon 2014-10-20 16:45:46"  
+            date:     lastmod="Mon 2014-10-20 16:45:46"
             grp_maj:    string_transform
             grp_med:    replace
             grp_min:    string
@@ -1122,7 +1340,7 @@ if('python_region'):
              - param: vreplace  ;; optional ;; replacement string
              - param: regbeg    ;; optional ;; delimiter begin string
              - param: regend    ;; optional ;; delimiter end string
-            output: python array        
+            output: python array
           """
           ##
           vorigg  = jjinput.__str__()
@@ -1131,12 +1349,12 @@ if('python_region'):
           try:
             ## init
             newdelim  =   str(uuid.uuid4())
-            ##;;        
+            ##;;
             
             ## process
-            vtempgg     =   vorigg        
+            vtempgg     =   vorigg
             if(not regbeg == regend):
-              vtempgg     =   vtempgg.replace(regend,regbeg)          
+              vtempgg     =   vtempgg.replace(regend,regbeg)
             if(not vtempgg == ''):
               vtempgg     =   vtempgg.replace(regbeg,newdelim)
               vtempgg     =   vtempgg.split(newdelim)
@@ -1159,20 +1377,20 @@ if('python_region'):
           """
           ## function docs
           - caption:  jjsplit
-            date:     lastmod="Mon 2014-10-20 16:45:46"  
+            date:     lastmod="Mon 2014-10-20 16:45:46"
             grp_maj:    string_transform
             grp_med:    cast
             grp_min:    array
             dreftymacid:  __blank__
-            desc: return string.split(delim)     
-            detail: | 
+            desc: return string.split(delim)
+            detail: |
               split string on sdelim and return python list
             dependencies:
               - none
             params:
              - param: jjinput ;; required ;; raw input string
              - param: sdelim  ;; optional ;; optional delimiter string (default ';;')
-            output: python array        
+            output: python array
           """
           ##
           vout = jjinput.__str__()
@@ -1193,20 +1411,20 @@ if('python_region'):
           """
           ## function docs
           - caption:  jjsplit_re
-            date:     lastmod="Mon 2014-10-20 16:45:46"  
+            date:     lastmod="Mon 2014-10-20 16:45:46"
             grp_maj:    string_transform
             grp_med:    cast
             grp_min:    array
             dreftymacid:  coping_inch_wreathe
-            desc: return re.split(regex)     
-            detail: | 
+            desc: return re.split(regex)
+            detail: |
               split string on regex and return python list
             dependencies:
               - none
             params:
              - param: jjinput ;; required ;; raw input string
              - param: regex  ;; optional ;; optional delimiter string (default '\w')
-            output: python array        
+            output: python array
           """
           ##
           vout = jjinput.__str__()
@@ -1222,20 +1440,20 @@ if('python_region'):
             print(exc_type, fname, exc_tb.tb_lineno)
           ##
           return vout
-        ##enddef    
+        ##enddef
         
         def jjslashdouble(self,jjinput):
           """
           ## function docs
           - caption:      jjslashdouble
-            date:         lastmod="20150624.1803"  
+            date:         lastmod="20150624.1803"
             grp_maj:      string_transform
             grp_med:      slashes
             grp_min:      doublebackslash
-            dreftymacid:  fix_pivots_dialog  
+            dreftymacid:  fix_pivots_dialog
             alias:
               - jjsldub
-            detail: | 
+            detail: |
               change all slashes to double backslash
             dependencies:
               - none
@@ -1257,7 +1475,7 @@ if('python_region'):
           ##
           return vout
         ##enddef
-        ## alias_definition    
+        ## alias_definition
         def jjsldub(self,jjinput): return self.jjslashdouble(jjinput)
         ##enddef
         
@@ -1265,14 +1483,14 @@ if('python_region'):
           """
           ## function docs
           - caption:  jjslashback
-            date:     lastmod="Mon 2014-10-20 16:45:46"  
+            date:     lastmod="Mon 2014-10-20 16:45:46"
             grp_maj:    string_transform
             grp_med:    slashes
             grp_min:    back
-            dreftymacid:  __blank__      
+            dreftymacid:  __blank__
             alias:
               - jjslb
-            detail: | 
+            detail: |
               change all slashes to back slash
             dependencies:
               - none
@@ -1291,7 +1509,7 @@ if('python_region'):
           ##
           return vout
         ##enddef
-        ## alias_definition    
+        ## alias_definition
         def jjslb(self,jjinput): return self.jjslashback(jjinput)
         ##enddef
         
@@ -1299,14 +1517,14 @@ if('python_region'):
           """
           ## function docs
           - caption:  jjslashforward
-            date:     lastmod="Mon 2014-10-20 16:45:46"  
+            date:     lastmod="Mon 2014-10-20 16:45:46"
             grp_maj:    string_transform
             grp_med:    slashes
             grp_min:    forward
             dreftymacid:  __blank__
             alias:
               - jjslf
-            detail: | 
+            detail: |
               change all slashes to forward slash
             dependencies:
               - none
@@ -1333,13 +1551,13 @@ if('python_region'):
           """
           ## function docs
           - caption:  jjsplitlines
-            date:     lastmod="Mon 2014-10-20 16:45:46"  
+            date:     lastmod="Mon 2014-10-20 16:45:46"
             grp_maj:    string_convert
             grp_med:    splitlines
-            grp_min:    
+            grp_min:
             dreftymacid:  analysts_gust_cruncher
             alias:
-            detail: | 
+            detail: |
               return a list of splitlines
             dependencies:
               - none
@@ -1358,26 +1576,26 @@ if('python_region'):
           return vout
         ##enddef
         ## alias_definition
-        ##enddef    
+        ##enddef
     
         def jjtodir(self,jjinput,outpath=''):
           '''
           ## function docs
           - caption:  jjtodir
-            date:     lastmod="Mon 2014-10-20 16:45:46"  
+            date:     lastmod="Mon 2014-10-20 16:45:46"
             grp_maj:    FileIO
             grp_med:    create
             grp_min:    directory
             dreftymacid:  glucose_visual_unweave
             tags: directory, fileio
             desc: output a directory
-            detail: | 
+            detail: |
               output to a directory
             dependencies:
               - none
             params:
              - param: jjinput ;; optional ;; raw input string
-             - param: outpath ;; optional ;; output path for directory           
+             - param: outpath ;; optional ;; output path for directory
           '''
           ##
           vout = jjinput.__str__()
@@ -1413,21 +1631,21 @@ if('python_region'):
           '''
           ## function docs
           - caption:  jjtofile
-            date:     lastmod="Mon 2014-10-20 16:45:46"  
+            date:     lastmod="Mon 2014-10-20 16:45:46"
             grp_maj:    FileIO
             grp_med:    __blank__
             grp_min:    __blank__
             dreftymacid:  youngest_drail_roaming
-            tags: stringtofile, stringtofilebom        
+            tags: stringtofile, stringtofilebom
             example: |
               {%filter jjtofile('./hello.txt','create',False)%}hello world!!!{%endfilter%}
             desc: output to a file
-            detail: |           
+            detail: |
               writemode
               =========
               * create    ;; only write if file does not already exist
               * replace   ;; overwrite any existing file if it already exists
-              * append    ;; create file if not exist, append if already exists          
+              * append    ;; create file if not exist, append if already exists
               
             dependencies:
               - none
@@ -1507,20 +1725,20 @@ if('python_region'):
           '''
           ## function docs
           - caption:  jjtozipfile
-            date:     lastmod="Mon 2014-10-20 16:45:46"      
+            date:     lastmod="Mon 2014-10-20 16:45:46"
             grp_maj:  FileIO
             grp_med:  output
             grp_min:  zipfile
             dreftymacid: mckay_planets_richer
-            detail:  | 
+            detail:  |
                 output to a zip archive
             dependencies:
                 - import zipfile
                 - import time
             params:
-                - param: jjinput      ;;  required  ;;  raw input string                     
-                - param: zipfilepath  ;;  optional  ;;  output path for zipfile              
-                - param: archivpath   ;;  optional  ;;  output path internally stored zipfile  
+                - param: jjinput      ;;  required  ;;  raw input string
+                - param: zipfilepath  ;;  optional  ;;  output path for zipfile
+                - param: archivpath   ;;  optional  ;;  output path internally stored zipfile
           '''
           ##
           vout = jjinput.__str__()
@@ -1562,18 +1780,18 @@ if('python_region'):
           '''
           ## function docs
           - caption:  jjucfirst
-            date:     lastmod="Mon 2014-10-20 16:45:46"      
+            date:     lastmod="Mon 2014-10-20 16:45:46"
             grp_maj:  string_transform
             grp_med:  change_case
             grp_min:  uppercase first character
-            detail:  | 
+            detail:  |
               uppercase first character
             dependencies:
               - none
             params:
              - param: jjinput ;; required ;; raw input string
-            dreftymacid: __blank__         
-          '''      
+            dreftymacid: __blank__
+          '''
           ##
           vinn      = jjinput.__str__()
           
@@ -1601,19 +1819,19 @@ if('python_region'):
           '''
           ## function docs
           - caption:  jjuuid
-            date:     lastmod="Mon 2014-10-20 16:45:46"        
+            date:     lastmod="Mon 2014-10-20 16:45:46"
             grp_maj:  string.generate
             grp_med:  __blank__
             grp_min:  __blank__
             dreftymacid: radius_disliker_empty
-            detail:  | 
+            detail:  |
               fake pseudo-uuid timestamp-based
             dependencies:
               - none
             params:
              - param: jjinput ;; required ;; placeholder argument for jinja
              - param: enum ;; optional ;; add on additional enumeration component
-            dreftymacid: __blank__       
+            dreftymacid: __blank__
           '''
     
           ##
@@ -1656,7 +1874,7 @@ if('python_region'):
 ###!  desc: |
 ###!  		__desc__
 ###!  wwbody: |
-      class DynamicYAML(object):    
+      class DynamicYAML(object):
         def __init__(self,ffpath):
           ##
           self.Environment  =   jinja2.Environment(extensions=['jinja2.ext.do'])
@@ -1689,7 +1907,7 @@ if('python_region'):
           ### main:
           ###   - date: created="Thu Jul 16 15:30:22 2015"
           ###     desc:	read a file with path that is potentially relative to path of orgconf_raw
-          ###     params: 
+          ###     params:
           ###       - name: spath
           ###         opt:  required
           ###         desc: the potentially_relative path
@@ -1724,12 +1942,12 @@ if('python_region'):
           ### main:
           ###   - date: created="Thu Jul 16 13:55:43 2015"
           ###     last: lastmod="Thu Jul 16 13:55:43 2015"
-          ###     tags:         tags 
+          ###     tags:         tags
           ###     dreftymacid:  "darken_doubts_brains"
           ###     seealso: |
           ###         *
           ###     desc: |
-          ###         desc          
+          ###         desc
           """
           ## init jinja environment (oEnv) and extensions
           oEnv      =   self.oenv
@@ -1739,9 +1957,10 @@ if('python_region'):
           #import JinjaCustomFilter
           #import JinjaHTMLBasicFilter
           #import JinjaImacrosFilter
-          oEnv = JinjaFilterDynamicYAML().attach_filters(oEnv) ## href="#JinjaFilterDynamicYAML"
+          oEnv  =   JinjaFilterDynamicYAML().attach_filters(oEnv)   ## href="#JinjaFilterDynamicYAML"
+          #oEnv  =   JinjaImacrosFilter.attach_filters(oEnv)         ## href="../libpy/JinjaImacrosFilter.py"
+          ## href="../../../../../../mytrybits/p/trypython2/lab2014/libpy/jinjaimacrosfilter.py"
           #oEnv      =   JinjaHTMLBasicFilter.attach_filters(oEnv)  ## href="../libpy/JinjaHTMLBasicFilter.py"
-          #oEnv      =   JinjaImacrosFilter.attach_filters(oEnv)    ## href="../libpy/JinjaImacrosFilter.py"
           ##;;
           
           ## placeholder syntax
@@ -1797,7 +2016,7 @@ if('python_region'):
             tmpkey  = sgg_directiveprefix_str + "".join(tmpname)
             if( (tmpkey) in row ):
               tmpval = row[tmpkey]
-              if(False and tmpval): continue;
+              if(bool(tmpval) == False): continue;
             ##;;
             
             ## @@@ rowskip directive ;; skip this entire processing row if rowskip evals to true
@@ -1874,9 +2093,9 @@ if('python_region'):
                 sscurr        =   ''
                 sscurr        =   self.ff_resolvepath_read(spath)
                 if(sscurr ==  ''):
-                  raise ValueError('undid_sail_unleash: failed to access file content at %s '%(spath))                
-                elif(True):  
-                  sstemp += sscurr                  
+                  raise ValueError('undid_sail_unleash: failed to access file content at %s '%(spath))
+                elif(True):
+                  sstemp += sscurr
               ##
               if(sstemp != ''):
                 directives['current_'+tmpname[0]]   =   yaml.safe_load(sstemp)
@@ -1910,7 +2129,7 @@ if('python_region'):
             template        =   oEnv.from_string(textwrap.dedent(directives['current_template']).encode('ascii', 'ignore'))
             tmpout          =   template.render(otemplate_data)
             ## force unix line endings
-            if(True): 
+            if(True):
               tmpout = string.replace(tmpout, '\r\n', '')
               tmpout = string.replace(tmpout, '\r', '')
             vout.append( tmpout )
@@ -1942,6 +2161,6 @@ if('python_region'):
           vout = [vjj +  vxx for vxx in vout]
           vout = "".join(vout)
           return vout
-        ##enddef        
+        ##enddef
       ##endclass
 ###!}}}
