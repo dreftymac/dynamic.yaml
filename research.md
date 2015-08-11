@@ -21,6 +21,9 @@ This project is very similar to:
 
 * https://bitbucket.org/atagunov/metayaml
 
+## Background, tutorials and complimentary resources
+* http://rhnh.net/2011/01/31/yaml-tutorial
+
 ## Similar or alternative approaches 
 * YAML-python
 * https://pypi.python.org/pypi/metayaml/0.15.1
@@ -47,7 +50,6 @@ There is no reason against languages besides python, and there is no reason agai
 * https://duckduckgo.com/?q=json+design+patterns
 * http://twigkit.github.io/tempo/
 * https://open.blockspring.com/pkpp1233/xml-json-explorer
-
 
 ## XSLT comparisons
 
