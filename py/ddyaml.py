@@ -22,6 +22,22 @@
 ###
 ### <end-file_info>
 
+### ##beg_func_docs
+### - caption:  __caption__
+###   date:         lastmod="__lastmod__"
+###   grp_maj:      grp_maj
+###   grp_med:      grp_med
+###   grp_min:      grp_min
+###   desc:         __desc__
+###   dreftymacid:  __dreftymacid__
+###   detail:  |
+###     __detail__
+###   dependencies:
+###     - __blank__
+###   params:
+###    - param: jjinput ;; optarity ;; placedholder arg for jinja raw input string
+### ##end_func_docs
+
 ### @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 ### init_python
 if('python_region'):
@@ -42,6 +58,7 @@ if('python_region'):
       import markdown
       import os
       import random
+      import requests
       import re
       import string
       import sys
@@ -301,53 +318,110 @@ if('python_region'):
         ### begin_: imacros_specific
 
         ##
+        def jji_scripthead(self,jjinput):
+          '''
+          #TODO move this out to imacros specific, for now included here for deadlines
+          #imacros spacify
+          
+          ##beg_func_docs
+          - caption:  __caption__
+            date:         lastmod="2015.08.05.1807"
+            grp_maj:      grp_maj
+            grp_med:      grp_med
+            grp_min:      grp_min
+            desc:         __desc__
+            dreftymacid:  __dreftymacid__
+            detail:  |
+              __detail__
+            dependencies:
+              - __blank__
+            params:
+             - param: jjinput ;; ignored ;; placedholder for jinja raw input string
+          ##end_func_docs
+          '''
+          ##
+          vout    = jjinput.__str__()
+          
+          ##
+          vout = '''
+          TAB T=1
+          ''TAB CLOSEALLOTHERS
+          VERSION BUILD=8920312 RECORDER=FX
+          SET !VAR1 "{{ "
+          SET !VAR2 " }}"
+          '''
+          
+          ##
+          vout  = textwrap.dedent(vout)
+          return vout
+        ##enddef
+        
+        ##
         def jji_sp(self,jjinput):
           '''
           TODO move this out to imacros specific, for now included here for deadlines
           imacros spacify
           '''
           ##
-          vout = jjinput.__str__()
+          vout    = jjinput.__str__()
           ##
-          vout = re.sub(r'\n', '<BR>', vout)
-          vout = re.sub(r'^\s','', vout)
-          vout = re.sub(r'\s$','', vout)
-          vout = re.sub(r'[\s]+',' ', vout)
-          vout = re.sub(r'[\s]+','<SP>', vout)
+          vout    = re.sub(r'\n', '<BR>', vout)
+          vout    = re.sub(r'^\s','', vout)
+          vout    = re.sub(r'\s$','', vout)
+          vout    = re.sub(r'[\s]+',' ', vout)
+          vout    = re.sub(r'[\s]+','<SP>', vout)
           ##
           return vout
         ##enddef
-        
+                
         ##
         def jji_ngsp(self,jjinput):
           '''
-          TODO move this out to imacros specific, for now included here for deadlines
-          imacros NG-compatible spacify
+          #TODO move this out to imacros specific, for now included here for deadlines
+          #imacros spacify
           
-          context:    	iim script that outputs angularjs
-          problem:    	both NG and IIM use {{foo}} for variable placeholders
-          solution:   	in the output template, define !VAR1 and !VAR2 in IIM to be '{{'  and  '}}' respectively
-          rationale:  	prevents IIM from trying to consume the NG placeholders
-          example:
-            - href="../../../../../../mytrybits/d/trydrupal/html/helloangular.000.yaml.txt" find="anchor_hunt_nailing_000"
-            - href="../../../../../../mytrybits/d/trydrupal/html/helloangular.000.yaml.txt" find="vanadic_urolith_chorus"
+          ##beg_func_docs
+          - caption:  jji_ngsp
+            date:         lastmod="__dates__"
+            grp_maj:      grp_maj
+            grp_med:      grp_med
+            grp_min:      grp_min
+            desc:         __desc__
+            dreftymacid:  lobster_crime_areal
+            seealso:
+              - regain://jji_ngsp
+              - regain://jji_scripthead
+            detail:  |
+              __detail__
+            dependencies:
+              - __blank__
+            params:
+             - param: jjinput ;; ignored ;; placedholder for jinja raw input string
+            psrap_info:
+              context:    	iim script that outputs code potentially containing angularjs (or any double-curly-brace syntax)
+              problem:    	both NG and IIM use `{{ }}` for variable placeholders
+              solution:   	in the output template, use jji_scripthead() which sets !VAR1 and !VAR2 to be equal to '{{' and '}}' respectively
+              rationale:  	prevents IIM from trying to consume the NG placeholders
+              example:
+                - href="../../../../../../mytrybits/d/trydrupal/html/helloangular.000.yaml.txt" find="anchor_hunt_nailing_000"
+                - href="../../../../../../mytrybits/d/trydrupal/html/helloangular.000.yaml.txt" find="vanadic_urolith_chorus"
+          ##end_func_docs
           '''
           ##
-          vout = jjinput.__str__()
+          vout    = jjinput.__str__()
           ##
-          vout = re.sub(r'{{([^!])', '{{!VAR1}} \\1', vout)
-          vout = re.sub(r'([\W])}}', '\\1  {{!VAR2}}', vout)
-          vout = re.sub(r'\n', '<BR>', vout)
-          vout = re.sub(r'\n', '<BR>', vout)
-          vout = re.sub(r'^\s','', vout)
-          vout = re.sub(r'\s$','', vout)
-          vout = re.sub(r'[\s]+',' ', vout)
-          vout = re.sub(r'[\s]+','<SP>', vout)
+          vout    = re.sub(r'{{([^!])', '{{!VAR1}} \\1', vout)
+          vout    = re.sub(r'([\W])}}', '\\1  {{!VAR2}}', vout)
+          vout    = re.sub(r'\n', '<BR>', vout)
+          vout    = re.sub(r'\n', '<BR>', vout)
+          vout    = re.sub(r'^\s','', vout)
+          vout    = re.sub(r'\s$','', vout)
+          vout    = re.sub(r'[\s]+',' ', vout)
+          vout    = re.sub(r'[\s]+','<SP>', vout)
           ##
           return vout
         ##enddef
         
-   
         ### ------------------------------------------------------------------------
         ### begin_: general_purpose
         
@@ -371,7 +445,7 @@ if('python_region'):
               - param: fieldname  ;; required ;; aod select field
               - param: fieldvalue ;; required ;; aod select value
               - param: iirec      ;; optional ;; optional record index if more than one record is obtained
-            dreftymacid:  byte_urethral_behold            
+            dreftymacid:  byte_urethral_behold
             output: python list (or `__blank__` if no result was found)
           '''
           
@@ -479,6 +553,42 @@ if('python_region'):
             print(exc_type, fname, exc_tb.tb_lineno)
           ##
           return vout
+        ##enddef
+    
+        def jjchr(self,jjinput):
+          '''
+          ### ##beg_func_docs
+          ### - caption:  __caption__
+          ###   date:         lastmod="__lastmod__"
+          ###   grp_maj:      grp_maj
+          ###   grp_med:      grp_med
+          ###   grp_min:      grp_min
+          ###   desc:         __desc__
+          ###   dreftymacid:  __dreftymacid__
+          ###   detail:  |
+          ###     * http://code.activestate.com/recipes/65117-converting-between-ascii-numbers-and-characters/
+          ###   dependencies:
+          ###     - __blank__
+          ###   params:
+          ###    - param: jjinput ;; optarity ;; placedholder arg for jinja raw input string
+          ### ##end_func_docs
+          '''
+
+          ##
+          vout = jjinput.__str__()
+          
+          ##
+          try:
+            vout = chr(int(vout))
+          ##
+          except Exception as msg:
+            print 'UNEXPECTED TERMINATION msg@%s'%(msg.__repr__())
+            exc_type, exc_obj, exc_tb = sys.exc_info()
+            fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
+            print(exc_type, fname, exc_tb.tb_lineno)
+            
+          ##
+          return vout          
         ##enddef
     
         def jjdate_get(self,jjinput,getwhat='year'):
@@ -1373,6 +1483,47 @@ if('python_region'):
           return vout
         ##enddef
     
+        def jjrequesturl(self,jjinput,sgurl='http://www.example.com',):
+          '''
+          ## function docs
+          - caption:      jjrequesturl
+            date:         lastmod="Tue 2015-08-11 16:12:12"
+            grp_maj:      webscrape
+            grp_med:      request
+            grp_min:      url
+            dreftymacid:  viperine_dopey_estimate
+            desc:         request the content of a URL using python requests module
+            detail: |
+              ## overview
+              request the content of a URL using python requests module
+              
+              ## demo
+              
+            dependencies:
+              - import requests              
+            params:
+             - param: jjinput   ;; ignored  ;; placeholder for raw input string
+             - param: url       ;; optional ;; url defaults to example.com
+            output: python array
+          '''
+          ##
+          vout      =   ''
+          
+          ##
+          try:
+              ## init_content
+              ## sgurl       =   "http://ba.uoregon.edu/staff/business-expense-policies"
+              vout        =   requests.get(sgurl).text.encode('ascii', 'ignore')
+          except Exception as msg:
+            print 'UNEXPECTED TERMINATION msg@%s'%(msg.__repr__())
+            exc_type, exc_obj, exc_tb = sys.exc_info()
+            fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
+            print(exc_type, fname, exc_tb.tb_lineno)
+            
+          ##
+          return vout
+        ##enddef    
+    
         def jjsplit(self,jjinput,sdelim=';;'):
           """
           ## function docs
@@ -2092,6 +2243,10 @@ if('python_region'):
               for spath in tmpval:
                 sscurr        =   ''
                 sscurr        =   self.ff_resolvepath_read(spath)
+                ## err_quiet
+                if(sscurr == ''):
+                  continue
+                ## err_verbose
                 if(sscurr ==  ''):
                   raise ValueError('undid_sail_unleash: failed to access file content at %s '%(spath))
                 elif(True):
