@@ -16,6 +16,7 @@
 ###     seealso: |
 ###         * href="../../../../../../mytrybits/y/tryyaml/dynamicyaml/devlog.txt"
 ###         * href="../../../../../../mytrybits/p/trypython2/2009/j/jinja.template/readme.md"
+###         * cd c:/sm/docs/mymedia/2014/git/github/dynamic.yaml
 ###     desc: |
 ###         ddyaml.py
 ###         core dynamic yaml in a single standalone python file
@@ -67,6 +68,9 @@ if('python_region'):
       import uuid
       import yaml
       import zipfile
+      
+      ##
+      from bs4 import BeautifulSoup      
       
       ##
       import pprint
@@ -270,44 +274,23 @@ if('python_region'):
           '''
           TODO move this out to drupal specific, for now included here for deadlines
           drupal URL aliases settings
+          
+          MAKE SURE YOUR REMOVALS MATCH: compare this with
+              {{ ttsiteroot }}/admin/config/search/path/settings
+              https://businessgrp1-stage.uoregon.edu/admin/config/search/path/settings
           '''
           ##
           vout = jjinput.__str__()
-          removals = []
+          rrdict      = {}
+          rrcurr      = 'bastage'
+          rrdict['bastage'] =  [vxx.strip() for vxx in '''a, an, as, at, but, by, is, in, into, off, onto, per, since, the, this, that, up, via'''.split(',')]
+          removals          = rrdict[rrcurr]
           ##
           vout = vout.lower()
           vout = re.sub(r'[-]+',' ',vout)
           vout = re.sub(r'[^\w\s]+','',vout)
           #vout = re.sub(r'[\s]+','-',vout)
           vout = vout.split(' ')
-          removals.append(''      )
-          removals.append('a'     )
-          removals.append('an'    )
-          removals.append('as'    )
-          removals.append('at'    )
-          removals.append('before')
-          removals.append('but'   )
-          removals.append('by'    )
-          removals.append('for'   )
-          removals.append('from'  )
-          removals.append('is'    )
-          removals.append('in'    )
-          removals.append('into'  )
-          removals.append('like'  )
-          removals.append('of'    )
-          removals.append('off'   )
-          removals.append('on'    )
-          removals.append('onto'  )
-          removals.append('per'   )
-          removals.append('since' )
-          removals.append('than'  )
-          removals.append('the'   )
-          removals.append('this'  )
-          removals.append('that'  )
-          removals.append('to'    )
-          removals.append('up'    )
-          removals.append('via'   )
-          removals.append('with'  )
           vout = '-'.join([ixx for ixx in vout if ixx not in removals])
           #vout = re.sub(r'[-]+' ,'-',vout)
           ##
@@ -967,7 +950,69 @@ if('python_region'):
           ##
           return vout
         ##enddef
-    
+        
+        def jjhtml_pretty(self,jjinput,bforceascii=True,ballowfrag=False,):
+          """
+          ## function docs
+          - caption:    jjhtml_pretty
+            date:       lastmod="Mon 2014-10-20 16:45:46"
+            grp_maj:      string
+            grp_med:      process
+            grp_min:      html
+            dreftymacid:  leave_fakery_brag
+            desc: pretty print html
+            seealso:
+              - jjrequesturl
+              - href="../../../../../../mytrybits/p/trypython2/lab2014/pyweb/htmlprettyprint.py"
+              - TODO ;; in frag mode, figure out how to always get bs4.element.Tag instead of bs4.NavagableString for prettify to always work
+            detail: |
+                pretty print html using beautifulsoup4
+            dependencies:
+              - BeautifulSoup bs4
+            params:
+             - param: jjinput     ;; required   ;; placeholder argument for jinja
+             - param: bforceascii ;; __blank__  ;; __blank__
+             - param: ballowfrag  ;; __blank__  ;; __blank__
+          """
+          
+          ##
+          rawdata   =   jjinput.__str__().encode('ascii','ignore')
+          vout      =   ''
+            
+          ##
+          try:
+            ## handle the case with bforceascii
+            html  =  rawdata
+            if(bforceascii):
+              html  = html.encode('ascii','ignore')
+              
+            ## init soup
+            soup = BeautifulSoup(html)
+            
+            ## handle the case with ballowfrag
+            ## http://stackoverflow.com/questions/15980757/how-to-prevent-beautifulsoup4-from-adding-extra-htmlbody-tags-to-the-soup
+            if(ballowfrag):
+              if soup.body:
+                  soup =  soup.body.next
+                  print "%s :: %s"%('ok1' , type(soup))
+              elif soup.html:
+                  soup =  soup.html.next
+                  print "%s :: %s"%('ok2' , type(soup))
+              else:
+                  soup =  soup.contents[0]
+                  print "%s :: %s"%('ok3' , type(soup))
+                  
+            ## output
+            vout = soup.prettify()
+          except Exception as msg:
+            print 'UNEXPECTED TERMINATION msg@%s'%(msg.__repr__())
+            exc_type, exc_obj, exc_tb = sys.exc_info()
+            fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
+            print(exc_type, fname, exc_tb.tb_lineno)
+          ##
+          return vout
+        ##enddef
+                
         def jjhug(self,jjinput,hug='"'):
           """
           ## function docs
@@ -989,6 +1034,7 @@ if('python_region'):
              - param: hug       ;; optional ;; hug-character (default doublequote)
             output: python string
           """
+          
           ##
           vout  = jjinput.__str__()
           aahug = []
