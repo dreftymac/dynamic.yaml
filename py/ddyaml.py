@@ -1209,70 +1209,112 @@ if('python_region'):
           return vout
         ##enddef
         
-        def jjhtml_pretty(self,jjinput,bforceascii=True,ballowfrag=False,):
-          """
-          ## function docs
-          - caption:    jjhtml_pretty
-            date:       lastmod="Mon 2014-10-20 16:45:46"
-            grp_maj:      string
-            grp_med:      process
-            grp_min:      html
-            dreftymacid:  leave_fakery_brag
-            desc: pretty print html
-            seealso:
-              - jjrequesturl
-              - href="../../../../../../mytrybits/p/trypython2/lab2014/pyweb/htmlprettyprint.py"
-              - TODO ;; in frag mode, figure out how to always get bs4.element.Tag instead of bs4.NavagableString for prettify to always work
-            detail: |
-                pretty print html using beautifulsoup4
-            dependencies:
-              - BeautifulSoup bs4
-            params:
-             - param: jjinput     ;; required   ;; placeholder argument for jinja
-             - param: bforceascii ;; __blank__  ;; __blank__
-             - param: ballowfrag  ;; __blank__  ;; __blank__
-          """
+        def jjhtml_pretty(self,jjinput):
+          '''
+          ### ##beg_func_docs
+          ### - caption:      jjhtml_pretty
+          ###   date:         lastmod="criminal_dividing_her"
+          ###   grp_maj:      string
+          ###   grp_med:      process
+          ###   grp_min:      html
+          ###   desc:         html pretty method that uses lxml instead of bsoup
+          ###   dreftymacid:  oils_admits_fatly
+          ###   detail:  |
+          ###     * __blank__
+          ###   dependencies:
+          ###     - import lxml
+          ###   params:
+          ###    - param: jjinput ;; required ;; jinja raw input string
+          ### ##end_func_docs
+          '''
+        
+          ##
+          vout = jjinput.encode('ascii','ignore').__str__()
           
           ##
-          rawdata   =   jjinput.__str__().encode('ascii','ignore')
-          vout      =   ''
-            
-          ##
           try:
-            ## handle the case with bforceascii
-            html  =  rawdata
-            if(bforceascii):
-              html  = html.encode('ascii','ignore')
-              
-            ## init soup
-            soup = BeautifulSoup(html)
-            
-            ## handle the case with ballowfrag
-            ## http://stackoverflow.com/questions/15980757/how-to-prevent-beautifulsoup4-from-adding-extra-htmlbody-tags-to-the-soup
-            if(ballowfrag):
-              if soup.body:
-                  soup =  soup.body.next
-                  print "%s :: %s"%('ok1' , type(soup))
-              elif soup.html:
-                  soup =  soup.html.next
-                  print "%s :: %s"%('ok2' , type(soup))
-              else:
-                  soup =  soup.contents[0]
-                  print "%s :: %s"%('ok3' , type(soup))
-                  
-            ## bsoup annoyance_buster ;; nastier_uncover_opusz
-            ## href="../../../../../../mytrybits/u/tryunicode/txt/bsoupannoyance.txt"
-            reload(sys); sys.setdefaultencoding('utf-8')
-            vout =  soup.prettify()
-            vout =  vout.encode('ascii', 'ignore')
+            from lxml import etree, html
+            #vout = "<html><body><h1>hello world</h1></body></html>"
+            reload(sys); sys.setdefaultencoding('utf-8')            
+            document_root =   html.fromstring(vout)
+            vout          =   (etree.tostring(document_root, encoding='unicode', pretty_print=True))
+          ##
           except Exception as msg:
-            print 'UNEXPECTED TERMINATION msg@%s'%(msg.__repr__())
+            print 'UNEXPECTED TERMINATION __dreftymacid__ msg@%s'%(msg.__repr__())
             exc_type, exc_obj, exc_tb = sys.exc_info()
             fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
             print(exc_type, fname, exc_tb.tb_lineno)
+            
           ##
           return vout
-        ##enddef
+        ##enddef      
+        
+        #def jjhtml_pretty(self,jjinput,bforceascii=True,ballowfrag=False,):
+        #  """
+        #  ## function docs
+        #  - caption:    jjhtml_pretty
+        #    date:       lastmod="Mon 2014-10-20 16:45:46"
+        #    grp_maj:      string
+        #    grp_med:      process
+        #    grp_min:      html
+        #    dreftymacid:  leave_fakery_brag
+        #    desc: pretty print html
+        #    seealso:
+        #      - jjrequesturl
+        #      - href="../../../../../../mytrybits/p/trypython2/lab2014/pyweb/htmlprettyprint.py"
+        #      - TODO ;; in frag mode, figure out how to always get bs4.element.Tag instead of bs4.NavagableString for prettify to always work
+        #    detail: |
+        #        pretty print html using beautifulsoup4
+        #    dependencies:
+        #      - BeautifulSoup bs4
+        #    params:
+        #     - param: jjinput     ;; required   ;; placeholder argument for jinja
+        #     - param: bforceascii ;; __blank__  ;; __blank__
+        #     - param: ballowfrag  ;; __blank__  ;; __blank__
+        #  """
+        #  
+        #  ##
+        #  rawdata   =   jjinput.__str__().encode('ascii','ignore')
+        #  vout      =   ''
+        #    
+        #  ##
+        #  try:
+        #    ## handle the case with bforceascii
+        #    html  =  rawdata
+        #    if(bforceascii):
+        #      html  = html.encode('ascii','ignore')
+        #      
+        #    ## init soup
+        #    soup = BeautifulSoup(html)
+        #    
+        #    ## handle the case with ballowfrag
+        #    ## http://stackoverflow.com/questions/15980757/how-to-prevent-beautifulsoup4-from-adding-extra-htmlbody-tags-to-the-soup
+        #    if(ballowfrag):
+        #      if soup.body:
+        #          soup =  soup.body.next
+        #          print "%s :: %s"%('ok1' , type(soup))
+        #      elif soup.html:
+        #          soup =  soup.html.next
+        #          print "%s :: %s"%('ok2' , type(soup))
+        #      else:
+        #          soup =  soup.contents[0]
+        #          print "%s :: %s"%('ok3' , type(soup))
+        #          
+        #    ## bsoup annoyance_buster ;; nastier_uncover_opusz
+        #    ## href="../../../../../../mytrybits/u/tryunicode/txt/bsoupannoyance.txt"
+        #    reload(sys); sys.setdefaultencoding('utf-8')
+        #    vout =  soup.prettify()
+        #    vout =  vout.encode('ascii', 'ignore')
+        #  except Exception as msg:
+        #    print 'UNEXPECTED TERMINATION msg@%s'%(msg.__repr__())
+        #    exc_type, exc_obj, exc_tb = sys.exc_info()
+        #    fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
+        #    print(exc_type, fname, exc_tb.tb_lineno)
+        #  ##
+        #  return vout
+        ###enddef
+        
+        
                 
         def jjhug(self,jjinput,hug='"'):
           """
