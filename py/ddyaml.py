@@ -6,13 +6,15 @@
 ###     author:         created="dreftymac"
 ###     dreftymacid:    "beamer_weave_text"
 ###     TODO:
-###         - testing     ;; run through unit tests in demo for regressions from ddyaml.py
-###         - pluggable   ;; add python pip install support
-###         - feature     ;; add support for raw input string and not just input file
-###         - feature     ;; if no __yaml__ sigil present, assume pure jinja syntax
-###         - feature     ;; add support for pluggable filters besides JinjaFilterDynamicYAML
-###         - feature     ;; add support for pluggable alternate template engines besides python/jinja2
-###         - pluggable   ;; myclip snippet plugin filter
+###         - testing         ;;  run through unit tests in demo for regressions from ddyaml.py
+###         - pluggable       ;;  add python pip install support
+###         - organization    ;;  context_specific filters should be moved out to user-space out core ddyaml
+###         - organization    ;;  rename the includefile and datafile directives to 'templateinclude' and 'datainclude'
+###         - pluggable       ;;  myclip snippet plugin filter
+###         - feature         ;;  add support for pluggable filters besides JinjaFilterDynamicYAML
+###         - feature         ;;  from cmdline ddyaml add support for raw input string and not just input file
+###         - feature         ;;  if no __yaml__ sigil present, assume pure jinja syntax on an entire yaml file
+###         - feature         ;;  add support for pluggable alternate template engines besides python/jinja2
 ###     seealso: |
 ###         * href="../../../../../../mytrybits/y/tryyaml/dynamicyaml/devlog.txt"
 ###         * href="../../../../../../mytrybits/p/trypython2/2009/j/jinja.template/readme.md"
@@ -23,21 +25,44 @@
 ###
 ### <end-file_info>
 
-### ##beg_func_docs
-### - caption:  __caption__
-###   date:         lastmod="__lastmod__"
-###   grp_maj:      grp_maj
-###   grp_med:      grp_med
-###   grp_min:      grp_min
-###   desc:         __desc__
-###   dreftymacid:  __dreftymacid__
-###   detail:  |
-###     __detail__
-###   dependencies:
-###     - __blank__
-###   params:
-###    - param: jjinput ;; optarity ;; placedholder arg for jinja raw input string
-### ##end_func_docs
+### new_function_snippet
+"""
+def __caption__(self,jjinput):
+  '''
+  ### ##beg_func_docs
+  ### - caption:      __caption__
+  ###   date:         lastmod="__lastmod__"
+  ###   grp_maj:      grp_maj
+  ###   grp_med:      grp_med
+  ###   grp_min:      grp_min
+  ###   desc:         __desc__
+  ###   dreftymacid:  __dreftymacid__
+  ###   detail:  |
+  ###     * __blank__
+  ###   dependencies:
+  ###     - __blank__
+  ###   params:
+  ###    - param: jjinput ;; optarity ;; jinja raw input string
+  ### ##end_func_docs
+  '''
+
+  ##
+  vout = jjinput.__str__()
+  
+  ##
+  try:
+    vout = vout
+  ##
+  except Exception as msg:
+    print 'UNEXPECTED TERMINATION __dreftymacid__ msg@%s'%(msg.__repr__())
+    exc_type, exc_obj, exc_tb = sys.exc_info()
+    fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
+    print(exc_type, fname, exc_tb.tb_lineno)
+    
+  ##
+  return vout
+##enddef
+"""
 
 ### @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 ### init_python
@@ -52,6 +77,7 @@ if('python_region'):
 ###!  wwbody: |
       import base64
       import codecs
+      import csv
       import datetime
       import glob
       import jinja2
@@ -61,6 +87,7 @@ if('python_region'):
       import random
       import requests
       import re
+      import shutil
       import string
       import sys
       import textwrap
@@ -70,11 +97,15 @@ if('python_region'):
       import zipfile
       
       ##
-      from bs4 import BeautifulSoup      
+      from bs4 import BeautifulSoup
       
       ##
       import pprint
       oDumper = pprint.PrettyPrinter(indent=4);
+      
+      ##
+      from PIL import Image, ImageDraw, ImageFilter
+      import pyscreenshot as ImageGrab
       
       ##
       ## TODO: improve handling of addon libraries
@@ -266,12 +297,65 @@ if('python_region'):
 ###!  		Currently assumes jinja2 as the templating engine for ddyaml
 ###!  wwbody: |
       class JinjaFilterDynamicYAML(JinjaFilterBase):
+        ##
+        ## CustomAddons ;; context_specific
+        ##
+        
+        ### ------------------------------------------------------------------------
+        ### begin_: pillow_specific
+        
+        def jjp_imagetopdf(self,jjinput,sgfilein='',sgfileout=''):
+          '''
+          TODO move this out to drupal specific, for now included here for deadlines
+          drupal URL aliases settings
+          
+          ##beg_func_docs
+          - caption:      __caption__
+            date:         lastmod="2015.08.05.1807"
+            grp_maj:      grp_maj
+            grp_med:      grp_med
+            grp_min:      grp_min
+            desc:         __desc__
+            dreftymacid:  __dreftymacid__
+            detail:  |
+              __detail__
+            dependencies:
+              -     from PIL import Image, ImageDraw, ImageFilter
+              -     import pyscreenshot as ImageGrab
+            params:
+             - param: jjinput   ;; ignored  ;; placedholder for jinja raw input string
+             - param: sgfilein  ;; required ;; input image file
+             - param: sgfileout ;; required ;; output pdf file
+          ##end_func_docs
+          '''
+          
+          ##
+          try:
+            ## open the image file in RGB format, this is important if we miss
+            ## convert it wont take the color(RGB) parameter and error will be thrown
+            im = Image.open(sgfilein).convert('RGB')
+            im.save(sgfileout, "PDF", resolution=100.0)
+            vout = sgfileout
+          except Exception as msg:
+            vout = '__blank__'
+            print 'UNEXPECTED TERMINATION msg@%s'%(msg.__repr__())
+            exc_type, exc_obj, exc_tb = sys.exc_info()
+            fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
+            print(exc_type, fname, exc_tb.tb_lineno)
+          ##
+          return vout
+        ##enddef
+
         ### ------------------------------------------------------------------------
         ### begin_: drupal_specific
         
         ##
         def jjd_alias(self,jjinput):
           '''
+          * href="c:/sm/docs/mymedia/2014/git/github/dynamic.yaml/py/ddyaml.py" find="jjd_alias"
+          * regain://murky_frosts_farms
+          * {{ ttsiteroot }}/admin/config/search/path/settings :: Strings to Remove
+          
           TODO move this out to drupal specific, for now included here for deadlines
           drupal URL aliases settings
           
@@ -418,13 +502,17 @@ if('python_region'):
             grp_min:  select
             desc:     aod get record where `fieldname` == `fieldvalue`
             detail:  |
-                aod select record where `fieldname` == `fieldvalue`
+                * aod select record where `fieldname` == `fieldvalue`
+                * the return result may consist of more than one record
+                * iirec is used to specify which record is obtained from the return result
+                * iirec is zero-based
             dependencies:
               - none
-            example:
-              -
+            example:  |
+                {%- set iirec         =  0  -%}
+                {%- set mydatarec     =  usertable |jjaod_getrecord('sex','female',iirec) -%}
             params:
-              - param: jjinput    ;; required ;; raw input string
+              - param: jjinput    ;; required ;; python table_aod
               - param: fieldname  ;; required ;; aod select field
               - param: fieldvalue ;; required ;; aod select value
               - param: iirec      ;; optional ;; optional record index if more than one record is obtained
@@ -457,9 +545,12 @@ if('python_region'):
             grp_min:  select
             desc:     aod select field
             detail:  |
-              aod select values and return list of values
+                aod select single column from aod
             dependencies:
               - none
+            example:  |
+                {%- set iirec         =  0  -%}
+                {%- set mydatarec     =  usertable |jjaod_getrecord('sex','female',iirec) -%}
             params:
               - param: jjinput    ;; required ;; raw input string
               - param: fieldname  ;; required ;; aod select field
@@ -571,7 +662,48 @@ if('python_region'):
             print(exc_type, fname, exc_tb.tb_lineno)
             
           ##
-          return vout          
+          return vout
+        ##enddef
+
+        def jjcsv_load(self,jjinput,ssfilepath=''):
+          '''
+          ### ##beg_func_docs
+          ### - caption:      jjcsv_load
+          ###   date:         lastmod="20150821.1312"
+          ###   grp_maj:      data
+          ###   grp_med:      csv
+          ###   grp_min:      load
+          ###   desc:         load a csv file into a python aod
+          ###   dreftymacid:  tourism_vans_cobra
+          ###   detail:  |
+          ###     * __blank__
+          ###   dependencies:
+          ###     - import csv
+          ###   params:
+          ###    - param: jjinput     ;; ignored  ;; jinja raw input string
+          ###    - param: ssfilepath  ;; required ;; path to a csv file
+          ### ##end_func_docs
+          '''
+                  
+          ##
+          try:
+              ##
+              vout  = []
+              ##
+              with open(ssfilepath, 'rb') as ffg:
+                data = list(csv.reader(ffg))
+              ##
+              for row in data:
+                vout.append(dict(zip(data[0],row)))
+          ##
+          except Exception as msg:
+            print 'UNEXPECTED TERMINATION tourism_vans_cobra msg@%s'%(msg.__repr__())
+            exc_type, exc_obj, exc_tb = sys.exc_info()
+            fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
+            print(exc_type, fname, exc_tb.tb_lineno)
+            
+          ##
+          return vout
         ##enddef
     
         def jjdate_get(self,jjinput,getwhat='year'):
@@ -619,6 +751,59 @@ if('python_region'):
               vout  =   "%02d" % getattr(now,getwhat)
             if(getwhat.lower()=='week'):
               vout  = "%02d" % (datetime.date(now.year, now.month, now.day).isocalendar()[1]-1)
+          except Exception as msg:
+            print 'UNEXPECTED TERMINATION msg@%s'%(msg.__repr__())
+            exc_type, exc_obj, exc_tb = sys.exc_info()
+            fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
+            print(exc_type, fname, exc_tb.tb_lineno)
+          ##
+          return vout
+        ##enddef
+    
+        def jjdate_fmt(self,jjinput,getwhat='dates'):
+          '''
+          ## function docs
+          - caption:  jjdate_fmt
+            date:     lastmod="Mon 2014-10-20 16:45:46"
+            grp_maj:  datetime
+            grp_med:  output
+            grp_min:
+            desc:     get a pre-formatted date string based on a supported_format_keyword
+            detail:  |
+            supported_format_keyword:
+              - 'dates'
+              - 'datem'
+            dependencies:
+              - import datetime
+            params:
+             - param: jjinput ;; ignored ;; placeholder for raw input string
+            dreftymacid: __blank__
+          '''
+          
+          ##
+          vout = jjinput.__str__()
+          
+          ##
+          try:
+            now   =   datetime.datetime.now()
+            if(False):
+              pass
+            elif(getwhat.lower()=='dates'):
+              vout  =   "%04d%02d%02d.%02d%02d%02d" %(getattr(now,'year')
+                                      ,getattr(now,'month')
+                                      ,getattr(now,'day')
+                                      ,getattr(now,'hour')
+                                      ,getattr(now,'minute')
+                                      ,getattr(now,'second')
+                                      )
+            elif(getwhat.lower()=='datem'):
+              vout  =   "%04d-%02d-%02d %02d:%02d:%02d" %(getattr(now,'year')
+                                      ,getattr(now,'month')
+                                      ,getattr(now,'day')
+                                      ,getattr(now,'hour')
+                                      ,getattr(now,'minute')
+                                      ,getattr(now,'second')
+                                      )
           except Exception as msg:
             print 'UNEXPECTED TERMINATION msg@%s'%(msg.__repr__())
             exc_type, exc_obj, exc_tb = sys.exc_info()
@@ -808,6 +993,79 @@ if('python_region'):
           ##
           return vout
         ##enddef
+             
+        def jjfilecopy(self,jjinput,sgsrc='',sgdest=''):
+          '''
+          ##beg_func_docs
+          - caption:  __caption__
+            date:         lastmod="__lastmod__"
+            grp_maj:      grp_maj
+            grp_med:      grp_med
+            grp_min:      grp_min
+            desc:         __desc__
+            dreftymacid:  hue_beading_mural
+            detail:  |
+              __detail__
+            dependencies:
+              - __blank__
+            params:
+             - param: jjinput ;; ignored ;; placedholder arg for jinja raw input string
+             - param: sgsrc ;; required ;; source file path
+             - param: sgdest ;; required ;; destination file path
+          ##end_func_docs
+          '''
+          
+          ##
+          vout  = "\n## %s copied to %s"%(sgsrc,sgdest)
+          
+          ##
+          try:
+            shutil.copyfile(sgsrc, sgdest)
+          except Exception as msg:
+            print 'UNEXPECTED TERMINATION just_jan_manlier msg@%s %s'%(msg.__repr__(),sgsrc)
+            exc_type, exc_obj, exc_tb = sys.exc_info()
+            fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
+            print(exc_type, fname, exc_tb.tb_lineno)
+          ##
+          return vout
+        ##enddef
+        
+        # useless for intended purpose, always returns ddyaml.py
+        #def jjfile_currpath(self,jjinput):
+        #  '''
+        #  ### ##beg_func_docs
+        #  ### - caption:      jjfile_currpath
+        #  ###   date:         lastmod="20150825.1331"
+        #  ###   grp_maj:      grp_maj
+        #  ###   grp_med:      grp_med
+        #  ###   grp_min:      grp_min
+        #  ###   desc:         return os.path.realpah(__file__)
+        #  ###   dreftymacid:  obey_heir_midget
+        #  ###   detail:  |
+        #  ###     * __blank__
+        #  ###   dependencies:
+        #  ###     - __blank__
+        #  ###   params:
+        #  ###    - param: jjinput ;; optarity ;; jinja raw input string
+        #  ### ##end_func_docs
+        #  '''
+        #
+        #  ##
+        #  vout = jjinput.__str__()
+        #
+        #  ##
+        #  try:
+        #    vout = __file__
+        #  ##
+        #  except Exception as msg:
+        #    print 'UNEXPECTED TERMINATION __dreftymacid__ msg@%s'%(msg.__repr__())
+        #    exc_type, exc_obj, exc_tb = sys.exc_info()
+        #    fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
+        #    print(exc_type, fname, exc_tb.tb_lineno)
+        #
+        #  ##
+        #  return vout
+        ###enddef
     
         def jjfromfile(self,jjinput,surl=''):
           '''
@@ -1002,8 +1260,11 @@ if('python_region'):
                   soup =  soup.contents[0]
                   print "%s :: %s"%('ok3' , type(soup))
                   
-            ## output
-            vout = soup.prettify()
+            ## bsoup annoyance_buster ;; nastier_uncover_opusz
+            ## href="../../../../../../mytrybits/u/tryunicode/txt/bsoupannoyance.txt"
+            reload(sys); sys.setdefaultencoding('utf-8')
+            vout =  soup.prettify()
+            vout =  vout.encode('ascii', 'ignore')
           except Exception as msg:
             print 'UNEXPECTED TERMINATION msg@%s'%(msg.__repr__())
             exc_type, exc_obj, exc_tb = sys.exc_info()
@@ -1045,6 +1306,7 @@ if('python_region'):
           if(hug=="["): aahug.append("[");aahug.append("]");
           if(hug=="]"): aahug.append("[");aahug.append("]");
           if(hug=="<"): aahug.append("<");aahug.append(">");
+          if(hug=="<!--"): aahug.append("<!--\n");aahug.append("\n-->");
           if(hug==">"): aahug.append("<");aahug.append(">");
           if(hug=="("): aahug.append("(");aahug.append(")");
           if(hug==")"): aahug.append("(");aahug.append(")");
@@ -1443,18 +1705,45 @@ if('python_region'):
           ##
           return vout
         ##enddef
-    
-        def jjregexreplace(self,jjinput,pattern='',replacement='',ignorecase=False):
+
+        def jjregexreplace(self,jjinput,pattern='',replacement='',flags=''):
           '''
-          jjregexreplace
+          ## function docs
+          - caption:  jjregexreplace
+            date:     lastmod="Fri Aug 14 16:27:17 2015"
+            grp_maj:      regex
+            grp_med:      string
+            grp_min:      replace
+            dreftymacid:  __dreftymacid__
+            desc:         __desc__
+            detail:  |
+              basename
+            dependencies:
+              - none
+            params:
+             - param: jjinput      ;;  required   ;;  placeholder argument for jinja
+             - param: pattern      ;;  optional   ;;  regex pattern
+             - param: replacement  ;;  optional   ;;  string replacement
+             - param: flags        ;;  optional   ;;  string representation of python's `re.M` style flags
           '''
+          
           ##
           vout      =   jjinput.__str__()
           
           ##
           try:
-            regex     =   re.compile(pattern)
+            ##
+            if(flags != ''):
+              flags     =   reduce(lambda xx,yy: xx|yy, [getattr(re,vxx.upper()) for vxx in list(flags)])
+                ## this complex line above is just converting a flat string of 'IM' style flags
+                ## into the native python re.I re.M constants
+            elif(True):
+                flags =   int(0)
+            ##
+            regex     =   re.compile(pattern,flags)
             vout      =   regex.sub(replacement, vout)
+            
+          ##
           except Exception as msg:
             print 'UNEXPECTED TERMINATION msg@%s'%(msg.__repr__())
             exc_type, exc_obj, exc_tb = sys.exc_info()
@@ -1465,13 +1754,47 @@ if('python_region'):
           return vout
         ##enddef
 
-        #@staticmethod
-        #def _regex_replace(value='', pattern='', replacement='', ignorecase=False):
-        #    if not isinstance(value, six.string_types):
-        #        value = str(value)
-        #    flags = CustomFilters._get_regex_flags(ignorecase)
-        #    regex = re.compile(pattern, flags)
-        #    return regex.sub(replacement, value)
+        def jjregexfindall(self,jjinput,ssregex='[\w]+'):
+          '''
+          ### ##beg_func_docs
+          ### - caption:      jjregexfindall
+          ###   date:         lastmod="Wed 2015-08-26 12:28:27"
+          ###   grp_maj:      regex
+          ###   grp_med:      string
+          ###   grp_min:      find
+          ###   desc:         python regex findall
+          ###   dreftymacid:  shaming_java_asocial
+          ###   detail:  |
+          ###     * __blank__
+          ###   seealso:  |
+          ###     * regain://joints_hugest_burt   (mytrybits python2)
+          ###     * regain://lofter_hyper_chorus  (mytrybits python2)
+          ###     * href="../../../../../../mytrybits/y/tryyaml/dynamicyaml/app/demo/barebonesplus.helloworld.txt" find="uuzappan"
+          ###   dependencies:
+          ###     - import re
+          ###   params:
+          ###    - param: jjinput ;; required ;; jinja raw input string
+          ###    - param: ssregex ;; required ;; string regex
+          ### ##end_func_docs
+          '''
+        
+          ##
+          vout = jjinput.__str__()
+          
+          ##
+          try:
+            oRegex =  re.compile(ssregex,re.M|re.S|re.I)
+            vout   =  oRegex.findall(vout)
+          ##
+          except Exception as msg:
+            print 'UNEXPECTED TERMINATION __dreftymacid__ msg@%s'%(msg.__repr__())
+            exc_type, exc_obj, exc_tb = sys.exc_info()
+            fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
+            print(exc_type, fname, exc_tb.tb_lineno)
+            
+          ##
+          return vout
+        ##enddef
     
         def jjregionreplace(self,jjinput,vreplace='',regbeg='',regend='',):
           """
@@ -1546,7 +1869,7 @@ if('python_region'):
               ## demo
               
             dependencies:
-              - import requests              
+              - import requests
             params:
              - param: jjinput   ;; ignored  ;; placeholder for raw input string
              - param: url       ;; optional ;; url defaults to example.com
@@ -1568,7 +1891,11 @@ if('python_region'):
             
           ##
           return vout
-        ##enddef    
+        ##enddef
+        ## alias_definition
+        def jjfromurl(self,jjinput,sgurl): return self.jjrequesturl(jjinput,sgurl)
+        ##enddef
+        
     
         def jjsplit(self,jjinput,sdelim=';;'):
           """
@@ -1812,7 +2139,7 @@ if('python_region'):
               #oFile.write(vout)
               #oFile.close();
               vout = outpath;
-              vout = "\n## create directory %s"%(vout)
+              vout = "## create directory %s"%(vout)
           except Exception as msg:
             pass
             #print 'UNEXPECTED TERMINATION gadgets_busby_damply msg@%s'%(msg.__repr__())
@@ -2051,6 +2378,47 @@ if('python_region'):
           ##
           return vout
         ##enddef
+        
+        def jjwinexplore(self,jjinput,path='',useback=True):
+          '''
+          ## function docs
+          - caption:  jjwinexplore
+            date:     lastmod="Fri Aug 14 16:05:31 2015"
+            grp_maj:      __grp_maj__
+            grp_med:      __grp_med__
+            grp_min:      __grp_min__
+            dreftymacid:  __dreftymacid__
+            desc:         open an explorer window
+            detail:  |
+              open explorer window on a path (currently windows-only)
+            dependencies:
+              - none
+            params:
+             - param: jjinput   ;; ignored  ;; placeholder argument for jinja
+             - param: path      ;; required ;; winexplore designated path
+             - param: path      ;; optional ;; use backslash instead of fwdslash
+          '''
+        
+          ## process
+          try:
+            vout  = "\n## jjwinexplore %s"%(path)
+            import subprocess
+            if(useback): path = path.replace('/',"\\")
+            subprocess.Popen(r'explorer /select,"%s"'%path)
+            pass;
+            
+          ## exception
+          except Exception as msg:
+            print 'UNEXPECTED TERMINATION msg@%s'%(msg.__repr__())
+            exc_type, exc_obj, exc_tb = sys.exc_info()
+            fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
+            print(exc_type, fname, exc_tb.tb_lineno)
+            
+          ## return
+          return vout
+        ##enddef
+        
+        
       ##endclass
 ###!}}}
 
@@ -2175,9 +2543,14 @@ if('python_region'):
           except Exception:
             return ''
             pass
-          orgconf_raw   =   open(ssgpath,'rb').read()
+          
+          ##
+          fo = codecs.open(ssgpath, 'r', 'utf-8')
+          orgconf_raw = fo.read()
+          #orgconf_raw   =   open(ssgpath,'rb').read()
           orgconf       =   yaml.safe_load(orgconf_raw)
           ##;;
+                 
                   
           ## init directives_dictionary
           directives = {}
@@ -2354,6 +2727,7 @@ if('python_region'):
             #oDumper.pprint( directives )
           ##endfor::iterate_yaml
           
+                    
           #print yaml.safe_dump( vout , default_flow_style=False  )
           ##vjj = "\n"
           vjj = ""
@@ -2361,7 +2735,10 @@ if('python_region'):
           #vjj = "\n### ------------------------------------------------------------------------\n"
           vout = [vjj +  vxx for vxx in vout]
           vout = "".join(vout)
+          
+          
           return vout
         ##enddef
       ##endclass
 ###!}}}
+
