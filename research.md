@@ -51,10 +51,11 @@ There is no reason against languages besides python, and there is no reason agai
 * http://twigkit.github.io/tempo/
 * https://open.blockspring.com/pkpp1233/xml-json-explorer
 
-## XSLT comparisons
+## XML and XSLT comparisons
 
 * http://fdik.org/yml/yslt
 * http://stackoverflow.com/questions/1618038/xslt-equivalent-for-json
+* http://stackoverflow.com/questions/561286/what-are-the-advantages-and-disadvantes-of-yaml-vs-xml-for-object-graph-de-seria
 
 ## Forums and groups (other projects)
 
