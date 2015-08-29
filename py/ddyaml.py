@@ -1231,12 +1231,12 @@ if('python_region'):
         #
         #  ##
         #  vout = jjinput.encode('ascii','ignore').__str__()
-        #  
+        #
         #  ##
         #  try:
         #    from lxml import etree, html
         #    #vout = "<html><body><h1>hello world</h1></body></html>"
-        #    reload(sys); sys.setdefaultencoding('utf-8')            
+        #    reload(sys); sys.setdefaultencoding('utf-8')
         #    document_root =   html.fromstring(vout)
         #    vout          =   (etree.tostring(document_root, encoding='unicode', pretty_print=True))
         #  ##
@@ -1245,10 +1245,10 @@ if('python_region'):
         #    exc_type, exc_obj, exc_tb = sys.exc_info()
         #    fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
         #    print(exc_type, fname, exc_tb.tb_lineno)
-        #    
+        #
         #  ##
         #  return vout
-        ###enddef      
+        ###enddef
         
         def jjhtml_pretty(self,jjinput,bforceascii=True,ballowfrag=False,):
           """
@@ -1286,12 +1286,12 @@ if('python_region'):
               html  = html.encode('ascii','ignore')
               
             # Double curly brackets to avoid problems with .format()
-            stripped_markup = html.replace('{','{{').replace('}','}}')            
+            stripped_markup = html.replace('{','{{').replace('}','}}')
                         
             ## init soup
             #soup = BeautifulSoup(html)
             
-            stripped_markup = BeautifulSoup(stripped_markup)            
+            stripped_markup = BeautifulSoup(stripped_markup)
             unformatted_tag_list = []
             
             for i, tag in enumerate(stripped_markup.find_all([ 'p'
@@ -1307,8 +1307,8 @@ if('python_region'):
                 unformatted_tag_list.append(str(tag))
                 tag.replace_with('{' + 'unformatted_tag_list[{0}]'.format(i) + '}')
             
-            reload(sys); sys.setdefaultencoding('utf-8')            
-            pretty_markup = stripped_markup.prettify().format(unformatted_tag_list=unformatted_tag_list)            
+            reload(sys); sys.setdefaultencoding('utf-8')
+            pretty_markup = stripped_markup.prettify().format(unformatted_tag_list=unformatted_tag_list)
             vout = pretty_markup
             
             ### handle the case with ballowfrag
@@ -1325,7 +1325,7 @@ if('python_region'):
             #      print "%s :: %s"%('ok3' , type(soup))
                   
             ## bsoup annoyance_buster ;; nastier_uncover_opusz
-            ## href="../../../../../../mytrybits/u/tryunicode/txt/bsoupannoyance.txt"            
+            ## href="../../../../../../mytrybits/u/tryunicode/txt/bsoupannoyance.txt"
             #vout =  soup.prettify()
             #vout =  vout.encode('ascii', 'ignore')
           except Exception as msg:
@@ -2691,11 +2691,19 @@ if('python_region'):
             
             ## @@@ templateincluede directive ;; allows template or templatefile to include content from other files
             ## and merge it with the data in the original_config_file
-            tmpname = ['template','include']
-            tmpkey  = sgg_directiveprefix_str + "".join(tmpname)
+            tmpname =   ['template','include']
+            tmpkey  =   sgg_directiveprefix_str + "".join(tmpname)
             if( (tmpkey) in row ):
               tmpval = row[tmpkey]
-              ## iterate includes (can be either scalar or list)
+              
+              ## iterate includes ;; force scalar to list
+              sstemp = ''
+              if(tmpval is None):
+                tmpval = ['']
+              if(  type(tmpval) == str ):
+                tmpval = [tmpval]     ## force scalar to list
+              
+              ## iterate items
               sstemp  = ''
               if(  type(tmpval) == str ):
                 tmpval = [tmpval]
@@ -2705,7 +2713,7 @@ if('python_region'):
               directives['current_'+tmpname[0]] = sstemp
               ## print tmpval
             ##;;
-  
+            
             ## @@@ datainclude directive ;; concatenate multiple yaml files to input additional data
             ## and merge it with the data in the original_config_file
             tmpname =   ['data','include']
@@ -2716,14 +2724,14 @@ if('python_region'):
               #oDumper.pprint( directives['current_'+tmpname[0]] )
               #oDumper.pprint( tmpval )
               
-              ## iterate includes (can be either scalar or list)
+              ## iterate includes ;; force scalar to list
               sstemp = ''
               if(tmpval is None):
-                tmpval = ''
+                tmpval = ['']
               if(  type(tmpval) == str ):
                 tmpval = [tmpval]     ## force scalar to list
                 
-              ## iterate list
+              ## iterate items
               for spath in tmpval:
                 sscurr        =   ''
                 sscurr        =   self.ff_resolvepath_read(spath)
