@@ -2,8 +2,7 @@
 ### main:
 ###   - date: created="Fri Jul 17 02:00:49 2015"
 ###     last: lastmod="Fri Jul 17 02:00:49 2015"
-###     tags:   tags 
-###     author: created="__author__"
+###     tags: python
 ###     dreftymacid:    "hounds_idols_jots"
 ###     seealso: |
 ###         *
