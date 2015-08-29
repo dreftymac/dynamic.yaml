@@ -2650,7 +2650,7 @@ if('python_region'):
             tmpkey  = sgg_directiveprefix_str + "".join(tmpname)
             if( (tmpkey) in row ):
               tmpval = row[tmpkey]
-              if(bool(tmpval) == False): continue;
+              directives["".join(tmpname)] = tmpval
             ##;;            
             
             ## @@@ rowkeep directive ;; skip this entire processing row if rowkeep evals to false
