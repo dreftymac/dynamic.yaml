@@ -2536,7 +2536,7 @@ if('python_region'):
           '''
           ### main:
           ###   - date: created="Thu Jul 16 15:30:22 2015"
-          ###     desc:	read a file with path that is potentially relative to path of orgconf_raw
+          ###     desc:	read a file with path that is potentially relative to path of parent_yaml_config
           ###     params:
           ###       - name: spath
           ###         opt:  required
@@ -2556,7 +2556,7 @@ if('python_region'):
           spath_mod01 =   '/'.join( [self.ffpath_pdir,'/',spath]  )
           ## check if spath is readable without modification
           if(os.access(spath,os.R_OK)):       getpath = spath
-          ## check if spath is readable as relative to path of orgconf_raw
+          ## check if spath is readable as relative to path of parent_yaml_config
           if(os.access(spath_mod01,os.R_OK)): getpath = spath_mod01
           ## try to read the file
           if(sscurr ==  '' and (not getpath == '')):
@@ -2599,7 +2599,7 @@ if('python_region'):
           sgg_directiveprefix_str =   ''
           ##;;
         
-          ## get original_config_file (dynamic_yaml)
+          ## get parent_yaml_config (dynamic_yaml)
           vout          =   []
           ssgpath       =   ''
           try:
@@ -2609,13 +2609,12 @@ if('python_region'):
             return ''
             pass
           
-          ##
+          ## open 
           fo = codecs.open(ssgpath, 'r', 'utf-8')
-          orgconf_raw = fo.read()
-          #orgconf_raw   =   open(ssgpath,'rb').read()
-          orgconf       =   yaml.safe_load(orgconf_raw)
+          parent_yaml_config = fo.read()
+          #parent_yaml_config   =   open(ssgpath,'rb').read()
+          orgconf       =   yaml.safe_load(parent_yaml_config)
           ##;;
-                 
                   
           ## init directives_dictionary
           directives = {}
@@ -2626,7 +2625,7 @@ if('python_region'):
           ##;;
           
           ## set defaults on directives_dictionary
-          ##    from the original_config_file
+          ##    from the parent_yaml_config
           ##    preserve every existing key, except remove the sgg_dynamicyaml_key
           directives['default_data']    = orgconf.copy()
           del(directives['default_data'][sgg_dynamicyaml_key])
@@ -2634,7 +2633,7 @@ if('python_region'):
           
           ## set default_template
           ##    use this as the default template if one not specified
-          directives['default_template']      = orgconf_raw
+          directives['default_template']      = parent_yaml_config
           ##;;
           
           ## iterate_yaml
@@ -2671,7 +2670,7 @@ if('python_region'):
               #print tmpval
             ##;;
             
-            ## @@@ templatefile directive ;; we get a template from an external included file
+            ## @@@ templatefile directive ;; we get a template from a single external file
             tmpname = ['template','file']
             tmpkey  = sgg_directiveprefix_str + "".join(tmpname)
             if( (tmpkey) in row ):
@@ -2680,7 +2679,8 @@ if('python_region'):
               ## print tmpval
             ##;;
             
-            ## @@@ template directive ;; we get template from original_config_file
+            ## bkmk001            
+            ## @@@ template directive ;; we get template from parent_yaml_config
             tmpname = ['template','']
             tmpkey  = sgg_directiveprefix_str + "".join(tmpname)
             if( (tmpkey) in row ):
@@ -2689,9 +2689,10 @@ if('python_region'):
               ## print tmpval
             ##;;
             
-            ## @@@ templateincluede directive ;; allows template or templatefile to include content from other files
-            ## and merge it with the data in the original_config_file
-            tmpname =   ['template','include']
+            ## bkmk001
+            ## @@@ templateincluede directive ;; we get one_or_more template from one_or_more external file
+            ## and merge it with the data in the parent_yaml_config
+            tmpname =   ['templateinclude']
             tmpkey  =   sgg_directiveprefix_str + "".join(tmpname)
             if( (tmpkey) in row ):
               tmpval = row[tmpkey]
@@ -2704,19 +2705,26 @@ if('python_region'):
                 tmpval = [tmpval]     ## force scalar to list
               
               ## iterate items
-              sstemp  = ''
-              if(  type(tmpval) == str ):
-                tmpval = [tmpval]
               for spath in tmpval:
-                sstemp += open(spath,'rb').read()
+                sscurr        =   ''
+                sscurr        =   self.ff_resolvepath_read(spath)
+                ## err_quiet
+                if(sscurr == ''):
+                  continue
+                ## err_verbose
+                if(sscurr ==  ''):
+                  raise ValueError('undid_sail_unleash: failed to access file content at %s '%(spath))
+                elif(True):
+                  sstemp += sscurr
               ##
-              directives['current_'+tmpname[0]] = sstemp
+              if(sstemp != ''):
+                directives['current_'+tmpname[0]]   =   sstemp
               ## print tmpval
             ##;;
             
             ## @@@ datainclude directive ;; concatenate multiple yaml files to input additional data
-            ## and merge it with the data in the original_config_file
-            tmpname =   ['data','include']
+            ## and merge it with the data in the parent_yaml_config
+            tmpname =   ['datainclude','']
             tmpkey  =   sgg_directiveprefix_str + "".join(tmpname)
             if( (tmpkey) in row ):
               tmpval = row[tmpkey]
@@ -2758,7 +2766,7 @@ if('python_region'):
             #  directives['current_'+tmpname[0]]   =   yaml.safe_load(open(tmpval,'rb').read())
             ##;;
             
-            ## @@@ data directive ;; we get data from original_config_file
+            ## @@@ data directive ;; we get data from parent_yaml_config
             tmpname = ['data','']
             tmpkey  = sgg_directiveprefix_str + "".join(tmpname)
             #print row
@@ -2767,9 +2775,10 @@ if('python_region'):
               directives['current_'+tmpname[0]]   =   yaml.safe_load(tmpval)
             ##;;
             
+            ## bkmk001
             ## preproc directives
-            if('current_include' in directives):
-              directives['current_template'] = directives['current_include'] + directives['current_template']
+            if('templateinclude' in directives):
+              directives['current_template'] = directives['templateinclude'] + directives['current_template']
             
             ## render output
             otemplate_data  =   self.data_struct_merge(directives['default_data'],directives['current_data'])
