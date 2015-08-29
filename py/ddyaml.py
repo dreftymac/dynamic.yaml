@@ -9,7 +9,7 @@
 ###         - testing         ;;  run through unit tests in demo for regressions from ddyaml.py
 ###         - pluggable       ;;  add python pip install support
 ###         - organization    ;;  context_specific filters should be moved out to user-space out core ddyaml
-###         - organization    ;;  rename the includefile and datainclude directives to 'templateinclude' and 'datainclude'
+###         - organization    ;;  take out the default_data directive (not sure what it is for, what is difference between default_data and current_data now that there is datainclude)
 ###         - pluggable       ;;  myclip snippet plugin filter
 ###         - feature         ;;  add support for pluggable filters besides JinjaFilterDynamicYAML
 ###         - feature         ;;  from cmdline ddyaml add support for raw input string and not just input file
@@ -2609,7 +2609,7 @@ if('python_region'):
             return ''
             pass
           
-          ## open 
+          ## open
           fo = codecs.open(ssgpath, 'r', 'utf-8')
           parent_yaml_config = fo.read()
           #parent_yaml_config   =   open(ssgpath,'rb').read()
@@ -2643,6 +2643,15 @@ if('python_region'):
             
             ### ********************
             ## process row
+            
+            ## @@@ usedataroot directive ;; wrap all the template data in a custom 'dataroot' element
+            ## BUGNAG ;; this is not working
+            tmpname = ['use','dataroot']
+            tmpkey  = sgg_directiveprefix_str + "".join(tmpname)
+            if( (tmpkey) in row ):
+              tmpval = row[tmpkey]
+              if(bool(tmpval) == False): continue;
+            ##;;            
             
             ## @@@ rowkeep directive ;; skip this entire processing row if rowkeep evals to false
             ## BUGNAG ;; this is not working
@@ -2679,7 +2688,7 @@ if('python_region'):
               ## print tmpval
             ##;;
             
-            ## bkmk001            
+            ## bkmk001
             ## @@@ template directive ;; we get template from parent_yaml_config
             tmpname = ['template','']
             tmpkey  = sgg_directiveprefix_str + "".join(tmpname)
@@ -2729,9 +2738,6 @@ if('python_region'):
             if( (tmpkey) in row ):
               tmpval = row[tmpkey]
               
-              #oDumper.pprint( directives['current_'+tmpname[0]] )
-              #oDumper.pprint( tmpval )
-              
               ## iterate includes ;; force scalar to list
               sstemp = ''
               if(tmpval is None):
@@ -2774,13 +2780,24 @@ if('python_region'):
               tmpval = row[tmpkey]
               directives['current_'+tmpname[0]]   =   yaml.safe_load(tmpval)
             ##;;
+                        
+            ## bkmk001
+            ## preproc directives
+            if('current_templateinclude' in directives):
+              directives['current_template'] = directives['current_templateinclude'] + directives['current_template']
+
+            if('current_datainclude' in directives):
+              directives['current_data'] = self.data_struct_merge(directives['current_datainclude'],directives['current_data'])
             
+            ## debug before render
             #oDumper.pprint( directives )
             #print yaml.safe_dump( directives )
             #print json.dumps(directives, sort_keys=True,indent=4, separators=(',', ': '))
             #print yaml.safe_dump(directives, default_flow_style=False)
-            if(not not 'debugging'):
-              for tmpkey in directives:              
+            if(not 'debugging'):
+              mykeys = directives.keys()
+              mykeys.sort()
+              for tmpkey in mykeys:
                 print "\n\n\n"
                 print "### ------------------------------------------------------------------------"
                 print "### %s" %(tmpkey)
@@ -2788,12 +2805,8 @@ if('python_region'):
                 print directives[tmpkey]
               exit()            
             
-            ## bkmk001
-            ## preproc directives
-            if('templateinclude' in directives):
-              directives['current_template'] = directives['templateinclude'] + directives['current_template']
-                        
             ## render output
+            ## TODO ;; allow customizable data merge semantics
             otemplate_data  =   self.data_struct_merge(directives['default_data'],directives['current_data'])
             template        =   oEnv.from_string(textwrap.dedent(directives['current_template']).encode('ascii', 'ignore'))
             tmpout          =   template.render(otemplate_data)

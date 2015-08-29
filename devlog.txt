@@ -14,4 +14,7 @@
 
 
 changelog: 
+  - organization ;; renamed the includefile and datainclude directives to 'templateinclude' and 'datainclude'
   - caption: includefile directive changed to templateinclude directive
+
+  
