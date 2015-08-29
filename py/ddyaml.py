@@ -2775,11 +2775,24 @@ if('python_region'):
               directives['current_'+tmpname[0]]   =   yaml.safe_load(tmpval)
             ##;;
             
+            #oDumper.pprint( directives )
+            #print yaml.safe_dump( directives )
+            #print json.dumps(directives, sort_keys=True,indent=4, separators=(',', ': '))
+            #print yaml.safe_dump(directives, default_flow_style=False)
+            if(not not 'debugging'):
+              for tmpkey in directives:              
+                print "\n\n\n"
+                print "### ------------------------------------------------------------------------"
+                print "### %s" %(tmpkey)
+                print "### ------------------------------------------------------------------------"
+                print directives[tmpkey]
+              exit()            
+            
             ## bkmk001
             ## preproc directives
             if('templateinclude' in directives):
               directives['current_template'] = directives['templateinclude'] + directives['current_template']
-            
+                        
             ## render output
             otemplate_data  =   self.data_struct_merge(directives['default_data'],directives['current_data'])
             template        =   oEnv.from_string(textwrap.dedent(directives['current_template']).encode('ascii', 'ignore'))
