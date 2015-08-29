@@ -1,0 +1,17 @@
+### <beg-file_info>
+### main:
+###   - date: created="Sat Aug 29 03:51:32 2015"
+###     last: lastmod="Sat Aug 29 03:51:32 2015"
+###     tags:   tags 
+###     author: created="__author__"
+###     dreftymacid:    "luckiest_udaipur_type"
+###     seealso: |
+###         *
+###     desc: |
+###         devlog.txt
+###         desc  
+### <end-file_info>
+
+
+changelog: 
+  - caption: includefile directive changed to templateinclude directive

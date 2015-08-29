@@ -16,6 +16,7 @@
 ###         - feature         ;;  if no __yaml__ sigil present, assume pure jinja syntax on an entire yaml file
 ###         - feature         ;;  add support for pluggable alternate template engines besides python/jinja2
 ###     seealso: |
+###         * href="../devlog.txt"
 ###         * href="../../../../../../mytrybits/y/tryyaml/dynamicyaml/devlog.txt"
 ###         * href="../../../../../../mytrybits/p/trypython2/2009/j/jinja.template/readme.md"
 ###         * cd c:/sm/docs/mymedia/2014/git/github/dynamic.yaml
