@@ -2688,6 +2688,7 @@ if('python_region'):
               ## print tmpval
             ##;;
             
+            ## templateinclude directive
             ## @@@ includefile directive ;; allows template or templatefile to include content from other files
             ## and merge it with the data in the original_config_file
             tmpname = ['include','file']
