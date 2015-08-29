@@ -9,7 +9,7 @@
 ###         - testing         ;;  run through unit tests in demo for regressions from ddyaml.py
 ###         - pluggable       ;;  add python pip install support
 ###         - organization    ;;  context_specific filters should be moved out to user-space out core ddyaml
-###         - organization    ;;  rename the includefile and datafile directives to 'templateinclude' and 'datainclude'
+###         - organization    ;;  rename the includefile and datainclude directives to 'templateinclude' and 'datainclude'
 ###         - pluggable       ;;  myclip snippet plugin filter
 ###         - feature         ;;  add support for pluggable filters besides JinjaFilterDynamicYAML
 ###         - feature         ;;  from cmdline ddyaml add support for raw input string and not just input file
@@ -2689,10 +2689,9 @@ if('python_region'):
               ## print tmpval
             ##;;
             
-            ## templateinclude directive
-            ## @@@ includefile directive ;; allows template or templatefile to include content from other files
+            ## @@@ templateincluede directive ;; allows template or templatefile to include content from other files
             ## and merge it with the data in the original_config_file
-            tmpname = ['include','file']
+            tmpname = ['template','include']
             tmpkey  = sgg_directiveprefix_str + "".join(tmpname)
             if( (tmpkey) in row ):
               tmpval = row[tmpkey]
@@ -2707,9 +2706,9 @@ if('python_region'):
               ## print tmpval
             ##;;
   
-            ## @@@ datafile directive ;; concatenate multiple yaml files to input additional data
+            ## @@@ datainclude directive ;; concatenate multiple yaml files to input additional data
             ## and merge it with the data in the original_config_file
-            tmpname =   ['data','file']
+            tmpname =   ['data','include']
             tmpkey  =   sgg_directiveprefix_str + "".join(tmpname)
             if( (tmpkey) in row ):
               tmpval = row[tmpkey]
