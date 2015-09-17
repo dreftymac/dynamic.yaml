@@ -1,0 +1,1126 @@
+### <beg-file_info>
+### main:
+###   - date: created="Sat Sep 05 09:13:53 2015"
+###     last: lastmod="Sat Sep 05 09:13:53 2015"
+###     tags:   tags 
+###     author: created="__author__"
+###     dreftymacid:    "__dreftymacid__"
+###     seealso: |
+###         * href="C:/sm/docs/mytrybits/m/trymyclip/txt"
+###     desc: |
+###         functiondocs.export.yaml.txt
+###         desc  
+### <end-file_info>
+
+table_main_brim:
+
+### <beg-datarows01>
+
+  ## function docs
+  - caption:  jjaod_getrecord
+    date:     lastmod="Mon 2014-10-20 16:45:46"
+    grp_maj:  data
+    grp_med:  array_of_dictionary
+    grp_min:  select
+    desc:     aod get record where `fieldname` == `fieldvalue`
+    detail:  |
+        * aod select record where `fieldname` == `fieldvalue`
+        * the return result may consist of more than one record
+        * iirec is used to specify which record is obtained from the return result
+        * iirec is zero-based
+    dependencies:
+      - none
+    example:  |
+        {%- set iirec         =  0  -%}
+        {%- set mydatarec     =  usertable |jjaod_getrecord('sex','female',iirec) -%}
+    params:
+      - param: jjinput    ;; required ;; python table_aod
+      - param: fieldname  ;; required ;; aod select field
+      - param: fieldvalue ;; required ;; aod select value
+      - param: iirec      ;; optional ;; optional record index if more than one record is obtained
+    dreftymacid:  byte_urethral_behold
+    output: python list (or `__blank__` if no result was found)
+  
+
+
+  ## function docs
+  - caption:  jjaod_select
+    date:     lastmod="Mon 2014-10-20 16:45:46"
+    grp_maj:  data
+    grp_med:  array_of_dictionary
+    grp_min:  select
+    desc:     aod select field
+    detail:  |
+        aod select single column from aod
+    dependencies:
+      - none
+    example:  |
+        {%- set iirec         =  0  -%}
+        {%- set mydatarec     =  usertable |jjaod_getrecord('sex','female',iirec) -%}
+    params:
+      - param: jjinput    ;; required ;; raw input string
+      - param: fieldname  ;; required ;; aod select field
+    dreftymacid: bra_bluntly_celt
+    output: python list
+  
+
+
+  ## function docs
+  - caption:  jjarray_fromdir
+    date:     lastmod="Mon 2014-10-20 16:45:46"
+    grp_maj:      FileIO
+    grp_med:      directory
+    grp_min:      traverse
+    dreftymacid:  pests_cow_vealing
+    desc: python  ArrayFromDirectory
+    alias:
+      - __blank__
+    detail: |
+      seealso:
+      * href="../../../../../mydaydirs/2015/week22/py/oswalk.demo.py"
+      return a python list result from os.walk
+    dependencies:
+      - none
+    params:
+      - param: jjinput    ;; ignored  ;; placeholder argument for jinja
+      - param: ssfilespec ;; required ;; path specification
+      - param: ssmode     ;; required ;; file traversal mode
+    output: python string
+  
+
+
+  ##beg_func_docs
+  - caption:      jjchr
+    date:         lastmod="__lastmod__"
+    grp_maj:      grp_maj
+    grp_med:      grp_med
+    grp_min:      grp_min
+    desc:         __desc__
+    dreftymacid:  word_orbits_leaver
+    detail:  |
+      * http://code.activestate.com/recipes/65117-converting-between-ascii-numbers-and-characters/
+    dependencies:
+      - __blank__
+    params:
+     - param: jjinput ;; optarity ;; placedholder arg for jinja raw input string
+  ##end_func_docs
+  
+
+
+  ##beg_func_docs
+  - caption:      jjcsv_load
+    date:         lastmod="20150821.1312"
+    grp_maj:      data
+    grp_med:      csv
+    grp_min:      load
+    desc:         load a csv file into a python aod
+    dreftymacid:  tourism_vans_cobra
+    detail:  |
+      * __blank__
+    dependencies:
+      - import csv
+    params:
+     - param: jjinput     ;; ignored  ;; jinja raw input string
+     - param: ssfilepath  ;; required ;; path to a csv file
+  ##end_func_docs
+  
+
+
+  #* href="c:/sm/docs/mymedia/2014/git/github/dynamic.yaml/py/ddyaml.py" find="jjd_alias"
+  #* regain://murky_frosts_farms
+  #* {{ ttsiteroot }}/admin/config/search/path/settings :: Strings to Remove
+  #
+  #TODO move this out to drupal specific, for now included here for deadlines
+  #drupal URL aliases settings
+  #
+  #MAKE SURE YOUR REMOVALS MATCH: compare this with
+  #    {{ ttsiteroot }}/admin/config/search/path/settings
+  #    https://businessgrp1-stage.uoregon.edu/admin/config/search/path/settings
+  
+  ##beg_func_docs
+  - caption:      jjd_alias
+    date:         lastmod="20150904.1651"
+    grp_maj:      grp_maj
+    grp_med:      grp_med
+    grp_min:      grp_min
+    desc:         mimic the functionality of drupal's pathauto noise-word removal
+    dreftymacid:  radius_symbolic_gerald
+    detail:  |
+      * __blank__
+    dependencies:
+      - __blank__
+    params:
+     - param: jjinput ;; optarity ;; jinja raw input string
+  ##end_func_docs
+  
+
+
+  ## function docs
+  - caption:  jjdata_formatas
+    date:     lastmod="Mon 2014-10-20 16:45:46"
+    grp_maj:  data
+    grp_med:  transform
+    grp_min:  reformat
+    desc:     reformat arbitrary data structures
+    detail:  |
+      * process input data and dump it out to another format
+      * seealso
+          * href="../../../../../appdata/home/smosley/.dreftymac/py/datadump_formatas.py" find="lookfor"
+          * href="../../../../../mytrybits/y/tryyaml/dynamicyaml/app/demo/demo.dataformatas.txt"
+    dependencies:
+      - none
+    params:
+     - param: jjinput ;; required ;; raw input string
+    dreftymacid: soil_kicks_torch
+  
+
+
+  ##beg_func_docs
+  - caption:      jjdata_load
+    date:         lastmod="20150903.1728"
+    grp_maj:      grp_maj
+    grp_med:      grp_med
+    grp_min:      grp_min
+    desc:         load string into python native data structure
+    dreftymacid:  brat_joints_twenty
+    detail:  |
+      * __blank__
+    dependencies:
+      - __blank__
+    params:
+     - param: jjinput   ;; required ;; jinja raw input string
+     - param: srcformat ;; optional ;; specify input data format
+  ##end_func_docs
+  
+
+
+  ## function docs
+  - caption:  jjdate_fmt
+    date:     lastmod="Mon 2014-10-20 16:45:46"
+    grp_maj:  datetime
+    grp_med:  output
+    grp_min:
+    desc:     get a pre-formatted date string based on a supported_format_keyword
+    detail:  |
+    supported_format_keyword:
+      - 'dates'
+      - 'datem'
+    dependencies:
+      - import datetime
+    params:
+     - param: jjinput ;; ignored ;; placeholder for raw input string
+    dreftymacid: wound_fancy_touring
+  
+
+
+  ## function docs
+  - caption:  jjdate_get
+    date:     lastmod="Mon 2014-10-20 16:45:46"
+    grp_maj:  datetime
+    grp_med:  output
+    grp_min:  current
+    desc:     get date components for current localtime
+    dreftymacid: tickets_docks_dan
+    detail:  |
+      output the current date value for a specific date component
+      supported date components:
+        - 'year'
+        - 'month'
+        - 'day'
+        - 'hour'
+        - 'minute'
+        - 'second'
+        - 'week'
+    dependencies:
+      - none
+    params:
+     - param: jjinput ;; required ;; raw input string
+  
+
+
+  ## function docs
+  - caption:  jjdate_now
+    date:     lastmod="Mon 2014-10-20 16:45:46"
+    grp_maj:  datetime
+    grp_med:  output
+    grp_min:  current
+    desc:     get current localtime
+    detail:  |
+      output the current date
+    dependencies:
+      - none
+    params:
+     - param: jjinput ;; required ;; raw input string
+    dreftymacid: slowest_ganger_unguent
+  
+
+
+  ## function docs
+  - caption:  jjdec64
+    date:     lastmod="Mon 2014-10-20 16:45:46"
+    grp_maj:  codec
+    grp_med:  base64
+    grp_min:  decode
+    desc:     base64 decode
+    detail:  |
+      base64 decode
+    dependencies:
+      - none
+    params:
+     - param: jjinput ;; required ;; raw input string
+    dreftymacid: angriest_rings_bertha
+  
+
+
+  ## function docs
+  - caption:  jjdedent
+    date:     lastmod="Mon 2014-10-20 16:45:46"
+    grp_maj:  string_transform
+    grp_med:  whitespace
+    grp_min:  dedent
+    desc:     textrap dedent
+    detail:  |
+      textrap dedent
+    dependencies:
+      - none
+    params:
+     - param: jjinput ;; required ;; raw input string
+    dreftymacid: rebuilt_lever_chariot
+  
+
+
+  ## function docs
+  - caption:  jjdubsplit
+    date:     lastmod="Mon 2014-10-20 16:45:46"
+    grp_maj:  string_transform
+    grp_med:  string
+    grp_min:  split
+    desc:     string split and return result from split index
+    example: |
+      {{ "hello;;fancy;;world" |jjdubsplit(';;',0)    }}{#- returns 'hello' -#}
+      {{ "hello;;fancy;;world" |jjdubsplit(';;',1)    }}{#- returns 'fancy' -#}
+      {{ "hello;;fancy;;world" |jjdubsplit(';;',2)    }}{#- returns 'world' -#}
+      {{ "hello;;fancy;;world" |jjdubsplit(';;',-1)   }}{#- returns 'world' -#}
+      {{ "hello;;fancy;;world" |jjdubsplit(';;',3)    }}{#- returns ''      -#}
+    detail:  |
+      * split a string on a delimiter and return the indexed portion
+      * uses zero-based index
+      * return empty string if there is no match at indexed portion
+    dependencies:
+      - none
+    params:
+      - param: jjinput   ;; required ;; raw input string
+      - param: spliton   ;; optional ;; string to split on (defaults to double-semicolon)
+      - param: splitget  ;; optional ;; extraction index (defaults to zero)
+    dreftymacid: zeros_cods_views
+  
+
+
+  ## function docs
+  - caption:  jjenc64
+    date:     lastmod="Mon 2014-10-20 16:45:46"
+    grp_maj:  codec
+    grp_med:  base64
+    grp_min:  encode
+    desc:     base64 encode
+    detail:  |
+      base64 encode
+    dependencies:
+      - none
+    params:
+     - param: jjinput ;; required ;; raw input string
+    dreftymacid: beanie_waksman_taunting
+  
+
+
+  ##beg_func_docs
+  - caption:  jjfilecopy
+    date:         lastmod="__lastmod__"
+    grp_maj:      grp_maj
+    grp_med:      grp_med
+    grp_min:      grp_min
+    desc:         __desc__
+    dreftymacid:  hue_beading_mural
+    detail:  |
+      __detail__
+    dependencies:
+      - __blank__
+    params:
+     - param: jjinput ;; ignored ;; placedholder arg for jinja raw input string
+     - param: sgsrc ;; required ;; source file path
+     - param: sgdest ;; required ;; destination file path
+  ##end_func_docs
+  
+
+
+  ## function docs
+  - caption:  jjfmt
+    date:     lastmod="Mon 2014-10-20 16:45:46"
+    grp_maj:  string_transform
+    grp_med:  reformat
+    grp_min:  sprintf
+    desc:     python-specific string sprintf-style format
+    detail:  |
+      seealso:
+      https://docs.python.org/2/library/string.html#formatspec
+      href="../py/string_examples.py" find="BarebonesStringFormatExample"
+    dependencies:
+      - none
+    params:
+     - param: jjinput ;; required ;; raw input string
+    dreftymacid: merits_axial_extra
+  
+
+
+  ## function docs
+  - caption:  jjfromfile
+    date:     lastmod="Mon 2014-10-20 16:45:46"
+    grp_maj:  FileIO
+    grp_med:  string
+    grp_min:  fromfile
+    desc: string.fromfile
+    detail:  |
+      pull in content from a file
+    dependencies:
+      - none
+    params:
+     - param: jjinput ;; required ;; placeholder argument for jinja
+     - param: surl    ;; required ;; file path
+    dreftymacid: waterage_eat_formal
+  
+
+
+  ## ANNOYANCE: this just gives the basename of this current py file
+  ## function docs
+  - caption:  jjget_basename
+    date:     lastmod="Mon 2014-10-20 16:45:46"
+    grp_maj:  getinfo
+    grp_med:  python
+    grp_min:  os.path.basename
+    desc: os.path.basename
+    detail:  |
+      os.path.basename of current file
+    dependencies:
+      - none
+    params:
+     - param: jjinput ;; required ;; placeholder argument for jinja
+    dreftymacid: fuel_cinema_ajax
+  
+
+
+  ## function docs
+  - caption:    jjgreplines
+    date:       lastmod="Mon 2014-10-20 16:45:46"
+    grp_maj:    string
+    grp_med:    process
+    grp_min:      __blank__
+    dreftymacid:  invoker_panic_inquire
+    desc: greplines for occurance of lookfor
+    detail: |
+      convert string to array and select lines matching lookfor
+    dependencies:
+      - none
+    params:
+     - param: jjinput   ;; required ;; input string
+     - param: lookfor   ;; optional ;; substring to find
+  
+
+
+  ##beg_func_docs
+  - caption:      jjhtml_findall
+    date:         lastmod="20150903.1402"
+    grp_maj:      string
+    grp_med:      html
+    grp_min:      scrape
+    desc:         use the findall method of beautifulsoup4
+    dreftymacid:  nudger_unto_permit
+    detail:  |
+      * todo ;; add support for attribute based query
+    dependencies:
+      - __blank__
+    params:
+     - param: jjinput ;; optarity ;; jinja raw input string
+  ##end_func_docs
+  
+
+
+  ## function docs
+  - caption:    jjhtml_pretty
+    date:       lastmod="Mon 2014-10-20 16:45:46"
+    grp_maj:      string
+    grp_med:      process
+    grp_min:      html
+    dreftymacid:  leave_fakery_brag
+    desc: pretty print html
+    seealso:
+      - jjrequesturl
+      - href="../../../../../../mytrybits/p/trypython2/lab2014/pyweb/htmlprettyprint.py"
+      - TODO ;; in frag mode, figure out how to always get bs4.element.Tag instead of bs4.NavagableString for prettify to always work
+    detail: |
+        pretty print html using beautifulsoup4
+    dependencies:
+      - BeautifulSoup bs4
+    params:
+     - param: jjinput     ;; required   ;; placeholder argument for jinja
+     - param: bforceascii ;; __blank__  ;; __blank__
+     - param: ballowfrag  ;; __blank__  ;; __blank__
+  
+
+
+  ## function docs
+  - caption:  jjhtml_squeeze
+    date:     lastmod="Mon 2014-10-20 16:45:46"
+    grp_maj:    string
+    grp_med:    process
+    grp_min:    __blank__
+    dreftymacid:  stealthy_pleasing_uncivil
+    desc: smush html
+    detail: |
+      squeeze html
+    dependencies:
+      - none
+    params:
+     - param: jjinput ;; required ;; placeholder argument for jinja
+     - param: __blank__ ;; required ;; __blank__
+  
+
+
+  ## function docs
+  - caption:  jjhug
+    date:     lastmod="Mon 2014-10-20 16:45:46"
+    grp_maj:    string_transform
+    grp_med:    wrap
+    grp_min:    balanced delimiters
+    dreftymacid:  visuals_sinus_breakage
+    desc: string wrap with delims
+    detail: |
+      string wrap with balanced delimiters
+      seealso
+      * href="../../../../../mytrybits/r/tryruby/myruby/private/addon/addon.rb" find="hug"
+    dependencies:
+      - none
+    params:
+     - param: jjinput   ;; required ;; raw input string
+     - param: hug       ;; optional ;; hug-character (default doublequote)
+    output: python string
+  
+
+
+  #TODO move this out to imacros specific, for now included here for deadlines
+  #imacros spacify
+  
+  ##beg_func_docs
+  - caption:  jji_ngsp
+    date:         lastmod="__dates__"
+    grp_maj:      grp_maj
+    grp_med:      grp_med
+    grp_min:      grp_min
+    desc:         __desc__
+    dreftymacid:  lobster_crime_areal
+    seealso:
+      - regain://jji_ngsp
+      - regain://jji_scripthead
+    detail:  |
+      __detail__
+    dependencies:
+      - __blank__
+    params:
+     - param: jjinput ;; ignored ;; placedholder for jinja raw input string
+    psrap_info:
+      context:        iim script that outputs code potentially containing angularjs (or any double-curly-brace syntax)
+      problem:        both NG and IIM use `{{ }}` for variable placeholders
+      solution:       in the output template, use jji_scripthead() which sets !VAR1 and !VAR2 to be equal to '{{' and '}}' respectively
+      rationale:      prevents IIM from trying to consume the NG placeholders
+      example:
+        - href="../../../../../../mytrybits/d/trydrupal/html/helloangular.000.yaml.txt" find="anchor_hunt_nailing_000"
+        - href="../../../../../../mytrybits/d/trydrupal/html/helloangular.000.yaml.txt" find="vanadic_urolith_chorus"
+  ##end_func_docs
+  
+
+
+  #TODO move this out to imacros specific, for now included here for deadlines
+  #imacros spacify
+  
+  ##beg_func_docs
+  - caption:  jji_scripthead
+    date:         lastmod="2015.08.05.1807"
+    grp_maj:      grp_maj
+    grp_med:      grp_med
+    grp_min:      grp_min
+    desc:         __desc__
+    dreftymacid:  surf_thuds_rhythm
+    detail:  |
+      __detail__
+    dependencies:
+      - __blank__
+    params:
+     - param: jjinput ;; ignored ;; placedholder for jinja raw input string
+  ##end_func_docs
+  
+
+
+  ## function docs
+  - caption:  jjindent
+    date:     lastmod="Mon 2014-10-20 16:45:46"
+    grp_maj:    string_transform
+    grp_med:    whitespace
+    grp_min:      indent
+    dreftymacid:  mustang_gunfire_being
+    desc:         string indent
+    detail: |
+        string indent
+        
+        NOTE A trick to using this filter, when dealing with a potentially multiline string,
+        put a newline before the indent to have all lines show up with a common and uniform indent.
+        
+        (see href="../../image/mustang_gunfire_being.001.png")
+        
+    dependencies:
+      - import re
+    params:
+     - param: jjinput   ;; required ;; raw input string
+     - param: strlead   ;; optional ;; leading indenter default (single whitespace char)
+     - param: imult     ;; optional ;; multiplier for indenter (default 2)
+    output: python string
+  
+
+
+  ## function docs
+  - caption:  jjlen
+    date:     lastmod="Mon 2014-10-20 16:45:46"
+    grp_maj:    getinfo
+    grp_med:
+    grp_min:
+    dreftymacid:  hazard_veg_ivy
+    desc: python len()
+    detail: |
+      python len() function
+      NOTE:
+        this is superfluous, you can easily do this in a jinja template
+        {%- set mtt_fldcount  = table001_fieldmeta.__len__()    -%}
+    dependencies:
+      - none
+    params:
+     - param: jjinput ;; required ;; raw input string
+     - param: jjinput ;; optional ;; optional delimiter string
+    output: python string
+  
+
+
+  ## function docs
+  - caption:  jjlistget
+    date:     lastmod="Mon 2014-10-20 16:45:46"
+    grp_maj:    getinfo
+    grp_med:    list
+    grp_min:    item
+    dreftymacid:  fakery_brats_diets
+    desc: try to return list item at index
+    detail: |
+        __blank__
+    dependencies:
+      - none
+    params:
+     - param: jjinput ;; required ;; python list
+     - param: jjinput ;; optional ;; optional index
+    output: python string
+  
+
+
+  ## function docs
+  - caption:  jjlistjoin
+    date:     lastmod="Mon 2014-10-20 16:45:46"
+    grp_maj:    list
+    grp_med:    join
+    grp_min:    items
+    dreftymacid:  vineyard_manly_grouping
+    desc: perform join on a list and return a string
+    detail: |
+        __blank__
+    dependencies:
+      - none
+    params:
+     - param: jjinput ;; required ;; python list
+     - param: joinwith ;; optional ;; join string
+    output: python string
+  
+
+
+  ## function docs
+  - caption:  jjmarkdown2html
+    date:     lastmod="Mon 2014-10-20 16:45:46"
+    grp_maj:      string_transform
+    grp_med:      markup
+    grp_min:      convert
+    dreftymacid:  grease_style_agnew
+    desc: markdown to html
+    detail: |
+      markdown to html
+    dependencies:
+      - import markdown
+    params:
+     - param: jjinput ;; required ;; raw input string
+    output: python string
+  
+
+
+  ## function docs
+  - caption:  jjnewline_erase
+    date:     lastmod="Mon 2014-10-20 16:45:46"
+    grp_maj:    string_transform
+    grp_med:    whitespace
+    grp_min:    remove
+    dreftymacid:  uranism_orate_hangar
+    alias:
+      - jjnne
+    desc: remove newlines
+    detail: |
+        __blank__
+    dependencies:
+      - none
+    params:
+     - param: jjinput ;; required ;; raw input string
+    output: python string
+  
+
+
+  ## function docs
+  - caption:  jjnewline_replace
+    date:     lastmod="Mon 2014-10-20 16:45:46"
+    grp_maj:    string_transform
+    grp_med:    whitespace
+    grp_min:    modify
+    dreftymacid:  gluily_smirky_logan
+    alias:
+    desc: replace newlines with alternate string
+    detail: |
+        __blank__
+    dependencies:
+      - none
+    params:
+     - param: jjinput ;; required ;; raw input string
+     - param: replacewith ;; optional ;; replacement string
+    output: python string
+  
+
+
+  ##TODO move this out to drupal specific, for now included here for deadlines
+  ##drupal URL aliases settings
+  
+  ##beg_func_docs
+  - caption:      jjp_imagetopdf
+    date:         lastmod="2015.08.05.1807"
+    grp_maj:      grp_maj
+    grp_med:      grp_med
+    grp_min:      grp_min
+    desc:         __desc__
+    dreftymacid:  irish_legality_blitz
+    detail:  |
+      __detail__
+    dependencies:
+      -     from PIL import Image, ImageDraw, ImageFilter
+      -     import pyscreenshot as ImageGrab
+    params:
+     - param: jjinput   ;; ignored  ;; placedholder for jinja raw input string
+     - param: sgfilein  ;; required ;; input image file
+     - param: sgfileout ;; required ;; output pdf file
+  ##end_func_docs
+  
+
+
+  ## function docs
+  - caption:  jjpath_isfile
+    date:     lastmod="Mon 2015-06-08 16:06:01"
+    grp_maj:      FileIO
+    grp_med:      path
+    grp_min:      info
+    dreftymacid:  drawer_coping_uniplex
+    desc: python os.path method call
+    alias:
+      - __blank__
+    detail: |
+      reference to all the single-argument method calls of os.path
+      seealso:
+      * https://docs.python.org/2/library/os.path.html
+    dependencies:
+      - none
+    params:
+      - param: jjinput ;; required ;; value evaluated as path
+    output: python string
+  
+
+
+  ## function docs
+  - caption:  jjq2x
+    date:     lastmod="Mon 2014-10-20 16:45:46"
+    grp_maj:    string_transform
+    grp_med:    substitute
+    grp_min:    characters
+    dreftymacid:  verbiage_wrapover_wreaths
+    desc: (single-quote) characters to (double-sinqle-quote)
+    detail: |
+      convert individual single-quote characters to double-sinqle-quote
+      for use with sqlite where the text has embedded single-quote-chars
+    dependencies:
+      - none
+    params:
+     - param: jjinput ;; required ;; raw input string
+    output: python string
+  
+
+
+  ##beg_func_docs
+  - caption:      jjregexfindall
+    date:         lastmod="Wed 2015-08-26 12:28:27"
+    grp_maj:      regex
+    grp_med:      string
+    grp_min:      find
+    desc:         python regex findall
+    dreftymacid:  shaming_java_asocial
+    detail:  |
+      * __blank__
+    seealso:  |
+      * regain://joints_hugest_burt   (mytrybits python2)
+      * regain://lofter_hyper_chorus  (mytrybits python2)
+      * href="../../../../../../mytrybits/y/tryyaml/dynamicyaml/app/demo/barebonesplus.helloworld.txt" find="uuzappan"
+    dependencies:
+      - import re
+    params:
+     - param: jjinput ;; required ;; jinja raw input string
+     - param: ssregex ;; required ;; string regex
+  ##end_func_docs
+  
+
+
+  ## function docs
+  - caption:  jjregexreplace
+    date:     lastmod="Fri Aug 14 16:27:17 2015"
+    grp_maj:      regex
+    grp_med:      string
+    grp_min:      replace
+    dreftymacid:  damp_slicing_leafy
+    desc:         __desc__
+    detail:  |
+      basename
+    dependencies:
+      - none
+    params:
+     - param: jjinput      ;;  required   ;;  placeholder argument for jinja
+     - param: pattern      ;;  optional   ;;  regex pattern
+     - param: replacement  ;;  optional   ;;  string replacement
+     - param: flags        ;;  optional   ;;  string representation of python's `re.M` style flags
+  
+
+
+  ## function docs
+  - caption:  jjregionreplace
+    date:     lastmod="Mon 2014-10-20 16:45:46"
+    grp_maj:    string_transform
+    grp_med:    replace
+    grp_min:    string
+    dreftymacid:  found_goliath_loyalty
+    desc: replace a subregion of a string with optional balanced delimiters
+    detail: |
+      ## overview
+      replace a subregion of a string with optional balanced delimiters
+      ## demo
+      regain://untwist_disobey_dolby
+      regain://dynamicyaml
+    dependencies:
+      - import uuid
+    params:
+     - param: jjinput   ;; required ;; raw input string
+     - param: vreplace  ;; optional ;; replacement string
+     - param: regbeg    ;; optional ;; delimiter begin string
+     - param: regend    ;; optional ;; delimiter end string
+    output: python array
+  
+
+
+  ## function docs
+  - caption:      jjrequesturl
+    date:         lastmod="Tue 2015-08-11 16:12:12"
+    grp_maj:      webscrape
+    grp_med:      request
+    grp_min:      url
+    dreftymacid:  viperine_dopey_estimate
+    desc:         request the content of a URL using python requests module
+    detail: |
+      ## overview
+      request the content of a URL using python requests module
+      
+      ## demo
+      
+    dependencies:
+      - import requests
+    params:
+     - param: jjinput   ;; ignored  ;; placeholder for raw input string
+     - param: url       ;; optional ;; url defaults to example.com
+    output: python array
+  
+
+
+  ## function docs
+  - caption:  jjslashback
+    date:     lastmod="Mon 2014-10-20 16:45:46"
+    grp_maj:    string_transform
+    grp_med:    slashes
+    grp_min:    back
+    dreftymacid:  enforcer_cube_herbs
+    alias:
+      - jjslb
+    detail: |
+      change all slashes to back slash
+    dependencies:
+      - none
+    params:
+     - param: jjinput ;; required ;; raw input string
+  
+
+
+  ## function docs
+  - caption:      jjslashdouble
+    date:         lastmod="20150624.1803"
+    grp_maj:      string_transform
+    grp_med:      slashes
+    grp_min:      doublebackslash
+    dreftymacid:  fix_pivots_dialog
+    alias:
+      - jjsldub
+    detail: |
+      change all slashes to double backslash
+    dependencies:
+      - none
+    params:
+     - param: jjinput ;; required ;; raw input string
+  
+
+
+  ## function docs
+  - caption:  jjslashforward
+    date:     lastmod="Mon 2014-10-20 16:45:46"
+    grp_maj:    string_transform
+    grp_med:    slashes
+    grp_min:    forward
+    dreftymacid:  pimple_timidity_sweating
+    alias:
+      - jjslf
+    detail: |
+      change all slashes to forward slash
+    dependencies:
+      - none
+    params:
+     - param: jjinput ;; required ;; raw input string
+  
+
+
+  ## function docs
+  - caption:  jjsplit
+    date:     lastmod="Mon 2014-10-20 16:45:46"
+    grp_maj:    string_transform
+    grp_med:    cast
+    grp_min:    array
+    dreftymacid:  wolfish_sword_darken
+    desc: return string.split(delim)
+    detail: |
+      split string on sdelim and return python list
+    dependencies:
+      - none
+    params:
+     - param: jjinput ;; required ;; raw input string
+     - param: sdelim  ;; optional ;; optional delimiter string (default ';;')
+    output: python array
+  
+
+
+  ## function docs
+  - caption:  jjsplit_re
+    date:     lastmod="Mon 2014-10-20 16:45:46"
+    grp_maj:    string_transform
+    grp_med:    cast
+    grp_min:    array
+    dreftymacid:  coping_inch_wreathe
+    desc: return re.split(regex)
+    detail: |
+      split string on regex and return python list
+    dependencies:
+      - none
+    params:
+     - param: jjinput ;; required ;; raw input string
+     - param: regex  ;; optional ;; optional delimiter string (default '\w')
+    output: python array
+  
+
+
+  ## function docs
+  - caption:  jjsplitlines
+    date:     lastmod="Mon 2014-10-20 16:45:46"
+    grp_maj:    string_convert
+    grp_med:    splitlines
+    grp_min:
+    dreftymacid:  analysts_gust_cruncher
+    alias:
+    detail: |
+      return a list of splitlines
+    dependencies:
+      - none
+    params:
+     - param: jjinput ;; required ;; raw input string
+  
+
+
+  ## function docs
+  - caption:  jjtodir
+    date:     lastmod="Mon 2014-10-20 16:45:46"
+    grp_maj:    FileIO
+    grp_med:    create
+    grp_min:    directory
+    dreftymacid:  glucose_visual_unweave
+    tags: directory, fileio
+    desc: output a directory
+    detail: |
+      output to a directory
+    dependencies:
+      - none
+    params:
+     - param: jjinput ;; optional ;; raw input string
+     - param: outpath ;; optional ;; output path for directory
+  
+
+
+  ## function docs
+  - caption:  jjtofile
+    date:     lastmod="Mon 2014-10-20 16:45:46"
+    grp_maj:    FileIO
+    grp_med:    __blank__
+    grp_min:    __blank__
+    dreftymacid:  youngest_drail_roaming
+    tags: stringtofile, stringtofilebom
+    example: |
+      {%filter jjtofile('./hello.txt','create',False)%}hello world!!!{%endfilter%}
+    desc: output to a file
+    detail: |
+      writemode
+      =========
+      * create    ;; only write if file does not already exist
+      * replace   ;; overwrite any existing file if it already exists
+      * append    ;; create file if not exist, append if already exists
+      
+    dependencies:
+      - none
+    params:
+      - param: jjinput    ;; required ;; raw input string
+      - param: outpath    ;; optional ;; output path for file
+      - param: writemode  ;; optional ;; output writemode (create|replace|append)
+      - param: usebom     ;; optional ;; true/false write unicode BOM
+  
+
+
+  ## function docs
+  - caption:  jjtozipfile
+    date:     lastmod="Mon 2014-10-20 16:45:46"
+    grp_maj:  FileIO
+    grp_med:  output
+    grp_min:  zipfile
+    dreftymacid: mckay_planets_richer
+    detail:  |
+        output to a zip archive
+    dependencies:
+        - import zipfile
+        - import time
+    params:
+        - param: jjinput      ;;  required  ;;  raw input string
+        - param: zipfilepath  ;;  optional  ;;  output path for zipfile
+        - param: archivpath   ;;  optional  ;;  output path internally stored zipfile
+  
+
+
+  ## function docs
+  - caption:  jjucfirst
+    date:     lastmod="Mon 2014-10-20 16:45:46"
+    grp_maj:  string_transform
+    grp_med:  change_case
+    grp_min:  uppercase first character
+    detail:  |
+      uppercase first character
+    dependencies:
+      - none
+    params:
+     - param: jjinput ;; required ;; raw input string
+    dreftymacid: heaven_bishop_diverts
+  
+
+
+  ## function docs
+  - caption:  jjuuid
+    date:     lastmod="Mon 2014-10-20 16:45:46"
+    grp_maj:  string.generate
+    grp_med:  __blank__
+    grp_min:  __blank__
+    dreftymacid: radius_disliker_empty
+    detail:  |
+      fake pseudo-uuid timestamp-based
+    dependencies:
+      - none
+    params:
+     - param: jjinput ;; required ;; placeholder argument for jinja
+     - param: enum ;; optional ;; add on additional enumeration component
+    dreftymacid: vehement_chewer_til
+  
+
+
+  ## function docs
+  - caption:  jjwinexplore
+    date:     lastmod="Fri Aug 14 16:05:31 2015"
+    grp_maj:      __grp_maj__
+    grp_med:      __grp_med__
+    grp_min:      __grp_min__
+    dreftymacid:  guidance_untie_quests
+    desc:         open an explorer window
+    detail:  |
+      open explorer window on a path (currently windows-only)
+    dependencies:
+      - none
+    params:
+     - param: jjinput   ;; ignored  ;; placeholder argument for jinja
+     - param: path      ;; required ;; winexplore designated path
+     - param: useback   ;; optional ;; use backslash instead of fwdslash
+### <end-datarows01>
+          
+          
+
+## href="c:/sm/docs/mytrybits/y/tryyaml/dynamicyaml/devlog.txt"
+__yaml__:
+
+  - &uuid001
+    caption:      transform01
+    rowkeep: 0
+    uuid:         uuid001
+    template:     |
+      {% for row in table_main_brim |sort(reverse=false,attribute='caption') -%}
+      {{ row.caption }}
+      {% endfor %}
+
+  - &uuthasm
+    caption:      output to file
+    rowkeep: 1
+    uuid:         uuthasm
+    template:         |
+      {#- ------------------------------------ -#}
+      {#- ------------------------------------ -#}
+      {%- set tthomedir   = 'c:/sm/docs/mytrybits/m/trymyclip/txt'  -%}
+      {%- set ttbasenam   = 'test'  -%}
+      {%- set ttoutfile   = "%s/list_%s.txt"%(tthomedir,ttbasenam)  -%}
+      {%- set ttoutmode   = 'replace'  -%}
+      {#- ------------------------------------ -#}
+      {#- ------------------------------------ -#}
+      {%filter string() |jjtofile(ttoutfile,ttoutmode)  -%}
+        {% for row in table_main_brim |sort(reverse=false,attribute='caption') -%}
+        {{- row.caption -}}{{-"\n"-}}
+        {% endfor %}
+      {%endfilter%}
+        
+      
+    
+
+
+

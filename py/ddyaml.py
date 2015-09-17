@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 ### <beg-file_info>
 ### main:
 ###   - date: created="Thu Jul 16 12:05:49 2015"
@@ -30,21 +31,21 @@
 """
 def __caption__(self,jjinput):
   '''
-  ### ##beg_func_docs
-  ### - caption:      __caption__
-  ###   date:         lastmod="__lastmod__"
-  ###   grp_maj:      grp_maj
-  ###   grp_med:      grp_med
-  ###   grp_min:      grp_min
-  ###   desc:         __desc__
-  ###   dreftymacid:  __dreftymacid__
-  ###   detail:  |
-  ###     * __blank__
-  ###   dependencies:
-  ###     - __blank__
-  ###   params:
-  ###    - param: jjinput ;; optarity ;; jinja raw input string
-  ### ##end_func_docs
+  ##beg_func_docs
+  - caption:      __caption__
+    date:         lastmod="__lastmod__"
+    grp_maj:      grp_maj
+    grp_med:      grp_med
+    grp_min:      grp_min
+    desc:         __desc__
+    dreftymacid:  __dreftymacid__
+    detail:  |
+      * __blank__
+    dependencies:
+      - __blank__
+    params:
+     - param: jjinput ;; optarity ;; jinja raw input string
+  ##end_func_docs
   '''
 
   ##
@@ -147,9 +148,9 @@ if('python_region'):
 ###!       __blank__
 ###!  tags:     yaml, addon
 ###!  seealso: |
-###!  		* __blank__
+###!          * __blank__
 ###!  desc: |
-###!  		__desc__
+###!          __desc__
 ###!
 ###!
 ###!  dreftymacid: granular_ever_milt
@@ -204,9 +205,9 @@ if('python_region'):
 ###!       __blank__
 ###!  tags:     __tags__
 ###!  seealso: |
-###!  		* __blank__
+###!          * __blank__
 ###!  desc: |
-###!  		__desc__
+###!          __desc__
 ###!
 ###!
 ###!  dreftymacid: __dreftymacid__
@@ -216,14 +217,17 @@ if('python_region'):
         Abstract Class for wrapping Jinja Custom Filters
         """
         
-        def yaml_function_docs(self):
+        def yaml_function_docs(self,filterfor=''):
           '''
           ## function docs
           - caption:  yaml_function_docs
             date:     lastmod="Mon 2014-10-20 16:45:46"
             desc:     produce the function docs for this module as yaml
           '''
-          vout = [str(getattr(self,vxx).__doc__) for vxx in dir(self) if(getattr(self,vxx).__doc__)and(vxx != '__module__')and(vxx != '__doc__') ]
+          #vout = [str(getattr(self,vxx).__doc__) for vxx in dir(self) if(getattr(self,vxx).__doc__)and(vxx != '__module__')and(vxx != '__doc__') ]
+          vout = [str(getattr(self,vxx).__doc__) for vxx in dir(self) if(str(vxx) != '' and str(vxx) != 'None' ) ]
+          if(str(filterfor!='') and str(filterfor!='None')):
+            vout = [item for item in vout if(filterfor in item)]
           return "\n\n".join(vout)
         ##enddef
         
@@ -237,7 +241,8 @@ if('python_region'):
             grp_min:  internal_use_only
             desc:     |
                 attach custom filters to the main jinja environment
-                current naming convention requires the filter function name to start with 'jj'
+                current naming convention requires the filter
+                function name to start with 'double letter j'
             dependencies:
               - import jinja2
             params:
@@ -269,7 +274,7 @@ if('python_region'):
             dependencies:
               - none
             params:
-             - param: jjinput ;; required ;; raw input string
+             - param: vstr ;; required ;; raw input string
             dreftymacid: __blank__
           '''
           vout = ''
@@ -293,11 +298,17 @@ if('python_region'):
 ###!       __blank__
 ###!  tags:     ddyaml, filter, addon, jinja
 ###!  seealso: |
-###!  		* __blank__
+###!          * __blank__
 ###!  desc: |
-###!  		Currently assumes jinja2 as the templating engine for ddyaml
+###!          Currently assumes jinja2 as the templating engine for ddyaml
 ###!  wwbody: |
       class JinjaFilterDynamicYAML(JinjaFilterBase):
+        
+        ##
+        ## Metadata
+        ##
+      
+        
         ##
         ## CustomAddons ;; context_specific
         ##
@@ -307,17 +318,17 @@ if('python_region'):
         
         def jjp_imagetopdf(self,jjinput,sgfilein='',sgfileout=''):
           '''
-          TODO move this out to drupal specific, for now included here for deadlines
-          drupal URL aliases settings
+          ##TODO move this out to drupal specific, for now included here for deadlines
+          ##drupal URL aliases settings
           
           ##beg_func_docs
-          - caption:      __caption__
+          - caption:      jjp_imagetopdf
             date:         lastmod="2015.08.05.1807"
             grp_maj:      grp_maj
             grp_med:      grp_med
             grp_min:      grp_min
             desc:         __desc__
-            dreftymacid:  __dreftymacid__
+            dreftymacid:  irish_legality_blitz
             detail:  |
               __detail__
             dependencies:
@@ -353,16 +364,32 @@ if('python_region'):
         ##
         def jjd_alias(self,jjinput):
           '''
-          * href="c:/sm/docs/mymedia/2014/git/github/dynamic.yaml/py/ddyaml.py" find="jjd_alias"
-          * regain://murky_frosts_farms
-          * {{ ttsiteroot }}/admin/config/search/path/settings :: Strings to Remove
+          #* href="c:/sm/docs/mymedia/2014/git/github/dynamic.yaml/py/ddyaml.py" find="jjd_alias"
+          #* regain://murky_frosts_farms
+          #* {{ ttsiteroot }}/admin/config/search/path/settings :: Strings to Remove
+          #
+          #TODO move this out to drupal specific, for now included here for deadlines
+          #drupal URL aliases settings
+          #
+          #MAKE SURE YOUR REMOVALS MATCH: compare this with
+          #    {{ ttsiteroot }}/admin/config/search/path/settings
+          #    https://businessgrp1-stage.uoregon.edu/admin/config/search/path/settings
           
-          TODO move this out to drupal specific, for now included here for deadlines
-          drupal URL aliases settings
-          
-          MAKE SURE YOUR REMOVALS MATCH: compare this with
-              {{ ttsiteroot }}/admin/config/search/path/settings
-              https://businessgrp1-stage.uoregon.edu/admin/config/search/path/settings
+          ##beg_func_docs
+          - caption:      jjd_alias
+            date:         lastmod="20150904.1651"
+            grp_maj:      grp_maj
+            grp_med:      grp_med
+            grp_min:      grp_min
+            desc:         mimic the functionality of drupal's pathauto noise-word removal
+            dreftymacid:  radius_symbolic_gerald
+            detail:  |
+              * __blank__
+            dependencies:
+              - __blank__
+            params:
+             - param: jjinput ;; optarity ;; jinja raw input string
+          ##end_func_docs
           '''
           ##
           vout = jjinput.__str__()
@@ -392,13 +419,13 @@ if('python_region'):
           #imacros spacify
           
           ##beg_func_docs
-          - caption:  __caption__
+          - caption:  jji_scripthead
             date:         lastmod="2015.08.05.1807"
             grp_maj:      grp_maj
             grp_med:      grp_med
             grp_min:      grp_min
             desc:         __desc__
-            dreftymacid:  __dreftymacid__
+            dreftymacid:  surf_thuds_rhythm
             detail:  |
               __detail__
             dependencies:
@@ -466,10 +493,10 @@ if('python_region'):
             params:
              - param: jjinput ;; ignored ;; placedholder for jinja raw input string
             psrap_info:
-              context:    	iim script that outputs code potentially containing angularjs (or any double-curly-brace syntax)
-              problem:    	both NG and IIM use `{{ }}` for variable placeholders
-              solution:   	in the output template, use jji_scripthead() which sets !VAR1 and !VAR2 to be equal to '{{' and '}}' respectively
-              rationale:  	prevents IIM from trying to consume the NG placeholders
+              context:        iim script that outputs code potentially containing angularjs (or any double-curly-brace syntax)
+              problem:        both NG and IIM use `{{ }}` for variable placeholders
+              solution:       in the output template, use jji_scripthead() which sets !VAR1 and !VAR2 to be equal to '{{' and '}}' respectively
+              rationale:      prevents IIM from trying to consume the NG placeholders
               example:
                 - href="../../../../../../mytrybits/d/trydrupal/html/helloangular.000.yaml.txt" find="anchor_hunt_nailing_000"
                 - href="../../../../../../mytrybits/d/trydrupal/html/helloangular.000.yaml.txt" find="vanadic_urolith_chorus"
@@ -585,7 +612,7 @@ if('python_region'):
               - none
             params:
              - param: jjinput ;; required ;; raw input string
-            dreftymacid: __blank__
+            dreftymacid: soil_kicks_torch
           '''
           ## init lib
           import json
@@ -593,7 +620,7 @@ if('python_region'):
           
           ## init vars
           vout          = jjinput
-          ddtransform   = {}
+          mytransform   = {}
           
           ## init yaml
           if(sfmt=='yamlpretty'):
@@ -601,26 +628,26 @@ if('python_region'):
             yaml.representer.BaseRepresenter.represent_scalar = DerivedBaseRepresenter().yaml_addon_represent_scalar
     
           ## init transform engines
-          ddtransform['yaml']        = lambda vxx: yaml.safe_dump(vxx)
-          ddtransform['yamlblock']   = lambda vxx: yaml.safe_dump(vxx
+          mytransform['yaml']        = lambda vxx: yaml.safe_dump(vxx)
+          mytransform['yamlblock']   = lambda vxx: yaml.safe_dump(vxx
                                                                  ,default_flow_style=True
                                                                  )
-          ddtransform['yamlfold']   = lambda vxx: yaml.safe_dump(vxx
+          mytransform['yamlfold']   = lambda vxx: yaml.safe_dump(vxx
                                                                  ,default_style='|'
                                                                  )
-          ddtransform['yamlpara']   = lambda vxx: yaml.safe_dump(vxx
+          mytransform['yamlpara']   = lambda vxx: yaml.safe_dump(vxx
                                                                  ,default_flow_style=False
                                                                  )
-          ddtransform['yamlpretty'] = lambda vxx: yaml.safe_dump(vxx, default_flow_style=False)
-          ddtransform['json']       = lambda vxx: json.dumps(vxx)
-          ddtransform['jsonpretty'] = lambda vxx: json.dumps(vxx
+          mytransform['yamlpretty'] = lambda vxx: yaml.safe_dump(vxx, default_flow_style=False)
+          mytransform['json']       = lambda vxx: json.dumps(vxx)
+          mytransform['jsonpretty'] = lambda vxx: json.dumps(vxx
                                                              ,sort_keys = True
                                                              ,indent = 2
                                                              ,separators  =(',', ': ')
                                                              )
           ##
           try:
-            vout = ddtransform[sfmt](vout)
+            vout = mytransform[sfmt](vout)
           except Exception as msg:
             print 'UNEXPECTED TERMINATION msg@%s'%(msg.__repr__())
             exc_type, exc_obj, exc_tb = sys.exc_info()
@@ -629,24 +656,61 @@ if('python_region'):
           ##
           return vout
         ##enddef
+
+        def jjdata_load(self,jjinput,srcformat='yaml'):
+          '''
+          ##beg_func_docs
+          - caption:      jjdata_load
+            date:         lastmod="20150903.1728"
+            grp_maj:      grp_maj
+            grp_med:      grp_med
+            grp_min:      grp_min
+            desc:         load string into python native data structure
+            dreftymacid:  brat_joints_twenty
+            detail:  |
+              * __blank__
+            dependencies:
+              - __blank__
+            params:
+             - param: jjinput   ;; required ;; jinja raw input string
+             - param: srcformat ;; optional ;; specify input data format
+          ##end_func_docs
+          '''
+        
+          ##
+          vout = yaml.safe_load( jjinput.__str__() )
+          
+          ##
+          try:
+            return vout
+          ##
+          except Exception as msg:
+            print 'UNEXPECTED TERMINATION brat_joints_twenty msg@%s'%(msg.__repr__())
+            exc_type, exc_obj, exc_tb = sys.exc_info()
+            fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
+            print(exc_type, fname, exc_tb.tb_lineno)
+            
+          ##
+          return vout
+        ##enddef
     
         def jjchr(self,jjinput):
           '''
-          ### ##beg_func_docs
-          ### - caption:  __caption__
-          ###   date:         lastmod="__lastmod__"
-          ###   grp_maj:      grp_maj
-          ###   grp_med:      grp_med
-          ###   grp_min:      grp_min
-          ###   desc:         __desc__
-          ###   dreftymacid:  __dreftymacid__
-          ###   detail:  |
-          ###     * http://code.activestate.com/recipes/65117-converting-between-ascii-numbers-and-characters/
-          ###   dependencies:
-          ###     - __blank__
-          ###   params:
-          ###    - param: jjinput ;; optarity ;; placedholder arg for jinja raw input string
-          ### ##end_func_docs
+          ##beg_func_docs
+          - caption:      jjchr
+            date:         lastmod="__lastmod__"
+            grp_maj:      grp_maj
+            grp_med:      grp_med
+            grp_min:      grp_min
+            desc:         __desc__
+            dreftymacid:  word_orbits_leaver
+            detail:  |
+              * http://code.activestate.com/recipes/65117-converting-between-ascii-numbers-and-characters/
+            dependencies:
+              - __blank__
+            params:
+             - param: jjinput ;; optarity ;; placedholder arg for jinja raw input string
+          ##end_func_docs
           '''
 
           ##
@@ -668,22 +732,22 @@ if('python_region'):
 
         def jjcsv_load(self,jjinput,ssfilepath=''):
           '''
-          ### ##beg_func_docs
-          ### - caption:      jjcsv_load
-          ###   date:         lastmod="20150821.1312"
-          ###   grp_maj:      data
-          ###   grp_med:      csv
-          ###   grp_min:      load
-          ###   desc:         load a csv file into a python aod
-          ###   dreftymacid:  tourism_vans_cobra
-          ###   detail:  |
-          ###     * __blank__
-          ###   dependencies:
-          ###     - import csv
-          ###   params:
-          ###    - param: jjinput     ;; ignored  ;; jinja raw input string
-          ###    - param: ssfilepath  ;; required ;; path to a csv file
-          ### ##end_func_docs
+          ##beg_func_docs
+          - caption:      jjcsv_load
+            date:         lastmod="20150821.1312"
+            grp_maj:      data
+            grp_med:      csv
+            grp_min:      load
+            desc:         load a csv file into a python aod
+            dreftymacid:  tourism_vans_cobra
+            detail:  |
+              * __blank__
+            dependencies:
+              - import csv
+            params:
+             - param: jjinput     ;; ignored  ;; jinja raw input string
+             - param: ssfilepath  ;; required ;; path to a csv file
+          ##end_func_docs
           '''
                   
           ##
@@ -716,6 +780,7 @@ if('python_region'):
             grp_med:  output
             grp_min:  current
             desc:     get date components for current localtime
+            dreftymacid: tickets_docks_dan
             detail:  |
               output the current date value for a specific date component
               supported date components:
@@ -730,7 +795,6 @@ if('python_region'):
               - none
             params:
              - param: jjinput ;; required ;; raw input string
-            dreftymacid: __blank__
           '''
           ##
           vout = jjinput.__str__()
@@ -778,7 +842,7 @@ if('python_region'):
               - import datetime
             params:
              - param: jjinput ;; ignored ;; placeholder for raw input string
-            dreftymacid: __blank__
+            dreftymacid: wound_fancy_touring
           '''
           
           ##
@@ -829,7 +893,7 @@ if('python_region'):
               - none
             params:
              - param: jjinput ;; required ;; raw input string
-            dreftymacid: __blank__
+            dreftymacid: slowest_ganger_unguent
           '''
           ##
           vout = jjinput.__str__()
@@ -861,7 +925,7 @@ if('python_region'):
               - none
             params:
              - param: jjinput ;; required ;; raw input string
-            dreftymacid: __blank__
+            dreftymacid: angriest_rings_bertha
           '''
           ##
           vout  =   base64.b64decode(jjinput.__str__())
@@ -884,7 +948,7 @@ if('python_region'):
               - none
             params:
              - param: jjinput ;; required ;; raw input string
-            dreftymacid: __blank__
+            dreftymacid: beanie_waksman_taunting
           '''
           ##
           vout  =   base64.b64encode(jjinput.__str__())
@@ -925,6 +989,7 @@ if('python_region'):
             grp_min:  split
             desc:     string split and return result from split index
             example: |
+              ## href="../"
               {{ "hello;;fancy;;world" |jjdubsplit(';;',0)    }}{#- returns 'hello' -#}
               {{ "hello;;fancy;;world" |jjdubsplit(';;',1)    }}{#- returns 'fancy' -#}
               {{ "hello;;fancy;;world" |jjdubsplit(';;',2)    }}{#- returns 'world' -#}
@@ -947,11 +1012,10 @@ if('python_region'):
           
           ##
           try:
-            vout = vout.split(spliton)
-            vout = vout[splitget]
+            vout  =   re.split(spliton, vout,)
+            vout  =   vout[splitget]
           except Exception as msg:
-            vout = ''
-            
+            vout  = ''            
           ##
           return vout
         ##enddef
@@ -998,7 +1062,7 @@ if('python_region'):
         def jjfilecopy(self,jjinput,sgsrc='',sgdest=''):
           '''
           ##beg_func_docs
-          - caption:  __caption__
+          - caption:  jjfilecopy
             date:         lastmod="__lastmod__"
             grp_maj:      grp_maj
             grp_med:      grp_med
@@ -1082,9 +1146,9 @@ if('python_region'):
             dependencies:
               - none
             params:
-             - param: jjinput ;; required ;; placeholder argument for jinja
-             - param: surl    ;; required ;; file path
-            dreftymacid: __blank__
+             - param: jjinput   ;;  required  ;;  placeholder argument for jinja
+             - param: surl      ;;  required  ;;  file path
+            dreftymacid: waterage_eat_formal
           '''
           ##
           vout  = ''
@@ -1093,15 +1157,20 @@ if('python_region'):
           ##
           try:
             ## BUGNAG ;; added encode ascii ignore
-            vout  = open(surl,'r').read()
-            vout  = vout.decode('utf-8').encode('ascii', 'ignore')
+            #vout  = codecs.open(surl, 'r', 'utf-8').read().replace(u'\xa0', u' ')
+            vout  =   codecs.open(surl, 'r', 'utf-8').read()
+            vout  =   vout.encode('utf-8')
+            ##print vout
+            #vout  = open(surl,'r').read().replace(u'\xa0', ' ')
+            #vout  = vout.decode('utf-8').encode('ascii', 'ignore')
           except Exception as msg:
             print 'UNEXPECTED TERMINATION sharing_client_smearing msg@%s %s'%(msg.__repr__(),surl)
             exc_type, exc_obj, exc_tb = sys.exc_info()
             fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
             print(exc_type, fname, exc_tb.tb_lineno)
           ##
-          return vout
+          #return vout.decode('ascii','replace')
+          return vout.decode('ascii','replace')
         ##enddef
         
         def jjget_basename(self,jjinput):
@@ -1174,6 +1243,44 @@ if('python_region'):
           return vout
         ##enddef
     
+        def jjhtml_findall(self,jjinput,mytagg='a'):
+          '''
+          ##beg_func_docs
+          - caption:      jjhtml_findall
+            date:         lastmod="20150903.1402"
+            grp_maj:      string
+            grp_med:      html
+            grp_min:      scrape
+            desc:         use the findall method of beautifulsoup4
+            dreftymacid:  nudger_unto_permit
+            detail:  |
+              * todo ;; add support for attribute based query
+            dependencies:
+              - __blank__
+            params:
+             - param: jjinput ;; optarity ;; jinja raw input string
+          ##end_func_docs
+          '''
+        
+          ##
+          vinput    =   jjinput.__str__()
+          soup      =   BeautifulSoup(vinput)
+          table     =   soup.findAll(mytagg)
+                    
+          ##
+          try:
+            vout = table
+          ##
+          except Exception as msg:
+            print 'UNEXPECTED TERMINATION nudger_unto_permit msg@%s'%(msg.__repr__())
+            exc_type, exc_obj, exc_tb = sys.exc_info()
+            fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
+            print(exc_type, fname, exc_tb.tb_lineno)
+            
+          ##
+          return vout
+        ##enddef
+    
         def jjhtml_squeeze(self,jjinput):
           """
           ## function docs
@@ -1182,7 +1289,7 @@ if('python_region'):
             grp_maj:    string
             grp_med:    process
             grp_min:    __blank__
-            dreftymacid:  __blank__
+            dreftymacid:  stealthy_pleasing_uncivil
             desc: smush html
             detail: |
               squeeze html
@@ -1201,6 +1308,150 @@ if('python_region'):
             vout = "".join(vout)
             #vout = vout.split(' ')
             #vout = "".join(vout)
+          except Exception as msg:
+            print 'UNEXPECTED TERMINATION msg@%s'%(msg.__repr__())
+            exc_type, exc_obj, exc_tb = sys.exc_info()
+            fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
+            print(exc_type, fname, exc_tb.tb_lineno)
+          ##
+          return vout
+        ##enddef
+        
+        def jjhtml5_pretty(self,jjinput):
+          """
+          ##beg_func_docs
+          - caption:      jjhtml5_pretty
+            date:         lastmod="20150916.1220"
+            grp_maj:      string
+            grp_med:      process
+            grp_min:      html
+            desc:         pretty print using html5print
+            dreftymacid:  easing_stricter_unblocks
+            detail:  |
+              * __blank__
+            dependencies:
+              - __blank__
+            params:
+             - param: jjinput ;; required ;; jinja raw input string
+          ##end_func_docs
+          """
+          
+          ##
+          from html5print import HTMLBeautifier
+          
+          ## 
+          ##vout    = jjinput.__str__()
+          #print jjinput[2737:]
+          #exit()
+          
+          #vout    = jjinput.__str__()
+          #vout    = jjinput.replace(u'\xa0', ' ').encode('utf-8')
+          vout      = jjinput.decode('ascii','replace')
+          #vout    = jjinput.encode('utf-8')
+          #vout    = jjinput.encode('ascii', 'ignore').decode('ascii')
+          myindd  = 4
+          
+          ##
+          try:
+            ##
+            vout    =   (HTMLBeautifier.beautify(vout,indent=myindd,encoding='utf-8'))
+            vout    =   re.sub(r"[\r\n]+" , "\n",  vout)
+            vout    =   vout.split('<body>')[1]
+            vout    =   vout.split('</body>')[0]
+            
+          ##
+          except Exception as msg:
+            print 'UNEXPECTED TERMINATION __dreftymacid__ msg@%s'%(msg.__repr__())
+            exc_type, exc_obj, exc_tb = sys.exc_info()
+            fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
+            print(exc_type, fname, exc_tb.tb_lineno)
+            
+          ##
+          return vout          
+        ##enddef
+                
+        def jjhtml_pretty(self,jjinput,bforceascii=True,ballowfrag=False,):
+          """
+          ## function docs
+          - caption:    jjhtml_pretty
+            date:       lastmod="Mon 2014-10-20 16:45:46"
+            grp_maj:      string
+            grp_med:      process
+            grp_min:      html
+            dreftymacid:  leave_fakery_brag
+            desc: pretty print html
+            seealso:
+              - jjrequesturl
+              - href="../../../../../../mytrybits/p/trypython2/lab2014/pyweb/htmlprettyprint.py"
+              - TODO ;; in frag mode, figure out how to always get bs4.element.Tag instead of bs4.NavagableString for prettify to always work
+            detail: |
+                pretty print html using beautifulsoup4
+            dependencies:
+              - BeautifulSoup bs4
+            params:
+             - param: jjinput     ;; required   ;; placeholder argument for jinja
+             - param: bforceascii ;; __blank__  ;; __blank__
+             - param: ballowfrag  ;; __blank__  ;; __blank__
+          """
+          
+          ##
+          rawdata   =   jjinput
+          vout      =   ''
+
+          ##
+          try:
+            ## handle the case with bforceascii
+            html  =  rawdata
+            if(bforceascii):
+              html  = html.decode('ascii','replace')
+              
+            # Double curly brackets to avoid problems with .format()
+            stripped_markup = html.replace('{','{{').replace('}','}}')
+                        
+            ## init soup
+            #soup = BeautifulSoup(html)
+            
+            stripped_markup = BeautifulSoup(stripped_markup)
+            unformatted_tag_list = []
+            
+            for i, tag in enumerate(stripped_markup.find_all([ 'a'
+                                                              , 'a'
+                                                              , 'b'
+                                                              , 'br'
+                                                              , 'button'
+                                                              , 'h1'
+                                                              , 'h2'
+                                                              , 'h3'
+                                                              , 'h4'
+                                                              , 'h5'
+                                                              , 'li'
+                                                              , 'span'
+                                                              , 'strong'
+                                                              ])):
+                unformatted_tag_list.append(str(tag))
+                tag.replace_with('{' + 'unformatted_tag_list[{0}]'.format(i) + '}')
+            
+            reload(sys); sys.setdefaultencoding('utf-8')
+            pretty_markup = stripped_markup.prettify().format(unformatted_tag_list=unformatted_tag_list)
+            vout = pretty_markup
+            
+            ### handle the case with ballowfrag
+            ### http://stackoverflow.com/questions/15980757/how-to-prevent-beautifulsoup4-from-adding-extra-htmlbody-tags-to-the-soup
+            #if(ballowfrag):
+            #  if soup.body:
+            #      soup =  soup.body.next
+            #      print "%s :: %s"%('ok1' , type(soup))
+            #  elif soup.html:
+            #      soup =  soup.html.next
+            #      print "%s :: %s"%('ok2' , type(soup))
+            #  else:
+            #      soup =  soup.contents[0]
+            #      print "%s :: %s"%('ok3' , type(soup))
+                  
+            ## bsoup annoyance_buster ;; nastier_uncover_opusz
+            ## href="../../../../../../mytrybits/u/tryunicode/txt/bsoupannoyance.txt"
+            #vout =  soup.prettify()
+            #vout =  vout.encode('ascii', 'ignore')
           except Exception as msg:
             print 'UNEXPECTED TERMINATION msg@%s'%(msg.__repr__())
             exc_type, exc_obj, exc_tb = sys.exc_info()
@@ -1249,95 +1500,6 @@ if('python_region'):
         #  ##
         #  return vout
         ###enddef
-        
-        def jjhtml_pretty(self,jjinput,bforceascii=True,ballowfrag=False,):
-          """
-          ## function docs
-          - caption:    jjhtml_pretty
-            date:       lastmod="Mon 2014-10-20 16:45:46"
-            grp_maj:      string
-            grp_med:      process
-            grp_min:      html
-            dreftymacid:  leave_fakery_brag
-            desc: pretty print html
-            seealso:
-              - jjrequesturl
-              - href="../../../../../../mytrybits/p/trypython2/lab2014/pyweb/htmlprettyprint.py"
-              - TODO ;; in frag mode, figure out how to always get bs4.element.Tag instead of bs4.NavagableString for prettify to always work
-            detail: |
-                pretty print html using beautifulsoup4
-            dependencies:
-              - BeautifulSoup bs4
-            params:
-             - param: jjinput     ;; required   ;; placeholder argument for jinja
-             - param: bforceascii ;; __blank__  ;; __blank__
-             - param: ballowfrag  ;; __blank__  ;; __blank__
-          """
-          
-          ##
-          rawdata   =   jjinput.__str__().encode('ascii','ignore')
-          vout      =   ''
-
-          ##
-          try:
-            ## handle the case with bforceascii
-            html  =  rawdata
-            if(bforceascii):
-              html  = html.encode('ascii','ignore')
-              
-            # Double curly brackets to avoid problems with .format()
-            stripped_markup = html.replace('{','{{').replace('}','}}')
-                        
-            ## init soup
-            #soup = BeautifulSoup(html)
-            
-            stripped_markup = BeautifulSoup(stripped_markup)
-            unformatted_tag_list = []
-            
-            for i, tag in enumerate(stripped_markup.find_all([ 'p'
-                                                              , 'li'
-                                                              , 'span'
-                                                              , 'a'
-                                                              , 'h1'
-                                                              , 'h2'
-                                                              , 'h3'
-                                                              , 'h4'
-                                                              , 'h5'
-                                                              ])):
-                unformatted_tag_list.append(str(tag))
-                tag.replace_with('{' + 'unformatted_tag_list[{0}]'.format(i) + '}')
-            
-            reload(sys); sys.setdefaultencoding('utf-8')
-            pretty_markup = stripped_markup.prettify().format(unformatted_tag_list=unformatted_tag_list)
-            vout = pretty_markup
-            
-            ### handle the case with ballowfrag
-            ### http://stackoverflow.com/questions/15980757/how-to-prevent-beautifulsoup4-from-adding-extra-htmlbody-tags-to-the-soup
-            #if(ballowfrag):
-            #  if soup.body:
-            #      soup =  soup.body.next
-            #      print "%s :: %s"%('ok1' , type(soup))
-            #  elif soup.html:
-            #      soup =  soup.html.next
-            #      print "%s :: %s"%('ok2' , type(soup))
-            #  else:
-            #      soup =  soup.contents[0]
-            #      print "%s :: %s"%('ok3' , type(soup))
-                  
-            ## bsoup annoyance_buster ;; nastier_uncover_opusz
-            ## href="../../../../../../mytrybits/u/tryunicode/txt/bsoupannoyance.txt"
-            #vout =  soup.prettify()
-            #vout =  vout.encode('ascii', 'ignore')
-          except Exception as msg:
-            print 'UNEXPECTED TERMINATION msg@%s'%(msg.__repr__())
-            exc_type, exc_obj, exc_tb = sys.exc_info()
-            fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
-            print(exc_type, fname, exc_tb.tb_lineno)
-          ##
-          return vout
-        ##enddef
-        
-        
                 
         def jjhug(self,jjinput,hug='"'):
           """
@@ -1443,7 +1605,7 @@ if('python_region'):
             grp_maj:    getinfo
             grp_med:
             grp_min:
-            dreftymacid:  __blank__
+            dreftymacid:  hazard_veg_ivy
             desc: python len()
             detail: |
               python len() function
@@ -1573,6 +1735,11 @@ if('python_region'):
           ##
           return vout
         ##enddef
+        ##enddef
+        ## alias_definition
+        def jjmarkdowntohtml(self,jjinput): return self.jjmarkdown2html(jjinput)
+        ##enddef
+    
     
         def jjnewline_erase(self,jjinput):
           """
@@ -1582,7 +1749,7 @@ if('python_region'):
             grp_maj:    string_transform
             grp_med:    whitespace
             grp_min:    remove
-            dreftymacid:  __blank__
+            dreftymacid:  uranism_orate_hangar
             alias:
               - jjnne
             desc: remove newlines
@@ -1686,7 +1853,7 @@ if('python_region'):
           return vout
         ##enddef
     
-        def jjarray_fromdir(self,jjinput,ssmode='glob',ssfilespec=''):
+        def jjarray_fromdir(self,jjinput,ssfilespec='',ssmode='glob'):
           """
           ## function docs
           - caption:  jjarray_fromdir
@@ -1705,9 +1872,9 @@ if('python_region'):
             dependencies:
               - none
             params:
-              - param: jjinput ;; required ;; placeholder argument for jinja
-              - param: ssmode ;; required ;; file traversal mode
+              - param: jjinput    ;; ignored  ;; placeholder argument for jinja
               - param: ssfilespec ;; required ;; path specification
+              - param: ssmode     ;; required ;; file traversal mode
             output: python string
           """
           ##
@@ -1745,7 +1912,7 @@ if('python_region'):
             grp_maj:    string_transform
             grp_med:    substitute
             grp_min:    characters
-            dreftymacid:  __blank__
+            dreftymacid:  verbiage_wrapover_wreaths
             desc: (single-quote) characters to (double-sinqle-quote)
             detail: |
               convert individual single-quote characters to double-sinqle-quote
@@ -1779,7 +1946,7 @@ if('python_region'):
             grp_maj:      regex
             grp_med:      string
             grp_min:      replace
-            dreftymacid:  __dreftymacid__
+            dreftymacid:  damp_slicing_leafy
             desc:         __desc__
             detail:  |
               basename
@@ -1821,26 +1988,26 @@ if('python_region'):
 
         def jjregexfindall(self,jjinput,ssregex='[\w]+'):
           '''
-          ### ##beg_func_docs
-          ### - caption:      jjregexfindall
-          ###   date:         lastmod="Wed 2015-08-26 12:28:27"
-          ###   grp_maj:      regex
-          ###   grp_med:      string
-          ###   grp_min:      find
-          ###   desc:         python regex findall
-          ###   dreftymacid:  shaming_java_asocial
-          ###   detail:  |
-          ###     * __blank__
-          ###   seealso:  |
-          ###     * regain://joints_hugest_burt   (mytrybits python2)
-          ###     * regain://lofter_hyper_chorus  (mytrybits python2)
-          ###     * href="../../../../../../mytrybits/y/tryyaml/dynamicyaml/app/demo/barebonesplus.helloworld.txt" find="uuzappan"
-          ###   dependencies:
-          ###     - import re
-          ###   params:
-          ###    - param: jjinput ;; required ;; jinja raw input string
-          ###    - param: ssregex ;; required ;; string regex
-          ### ##end_func_docs
+          ##beg_func_docs
+          - caption:      jjregexfindall
+            date:         lastmod="Wed 2015-08-26 12:28:27"
+            grp_maj:      regex
+            grp_med:      string
+            grp_min:      find
+            desc:         python regex findall
+            dreftymacid:  shaming_java_asocial
+            detail:  |
+              * __blank__
+            seealso:  |
+              * regain://joints_hugest_burt   (mytrybits python2)
+              * regain://lofter_hyper_chorus  (mytrybits python2)
+              * href="../../../../../../mytrybits/y/tryyaml/dynamicyaml/app/demo/barebonesplus.helloworld.txt" find="uuzappan"
+            dependencies:
+              - import re
+            params:
+             - param: jjinput ;; required ;; jinja raw input string
+             - param: ssregex ;; required ;; string regex
+          ##end_func_docs
           '''
         
           ##
@@ -1970,7 +2137,7 @@ if('python_region'):
             grp_maj:    string_transform
             grp_med:    cast
             grp_min:    array
-            dreftymacid:  __blank__
+            dreftymacid:  wolfish_sword_darken
             desc: return string.split(delim)
             detail: |
               split string on sdelim and return python list
@@ -2076,7 +2243,7 @@ if('python_region'):
             grp_maj:    string_transform
             grp_med:    slashes
             grp_min:    back
-            dreftymacid:  __blank__
+            dreftymacid:  enforcer_cube_herbs
             alias:
               - jjslb
             detail: |
@@ -2110,7 +2277,7 @@ if('python_region'):
             grp_maj:    string_transform
             grp_med:    slashes
             grp_min:    forward
-            dreftymacid:  __blank__
+            dreftymacid:  pimple_timidity_sweating
             alias:
               - jjslf
             detail: |
@@ -2379,7 +2546,7 @@ if('python_region'):
               - none
             params:
              - param: jjinput ;; required ;; raw input string
-            dreftymacid: __blank__
+            dreftymacid: heaven_bishop_diverts
           '''
           ##
           vinn      = jjinput.__str__()
@@ -2420,7 +2587,7 @@ if('python_region'):
             params:
              - param: jjinput ;; required ;; placeholder argument for jinja
              - param: enum ;; optional ;; add on additional enumeration component
-            dreftymacid: __blank__
+            dreftymacid: vehement_chewer_til
           '''
     
           ##
@@ -2452,7 +2619,7 @@ if('python_region'):
             grp_maj:      __grp_maj__
             grp_med:      __grp_med__
             grp_min:      __grp_min__
-            dreftymacid:  __dreftymacid__
+            dreftymacid:  guidance_untie_quests
             desc:         open an explorer window
             detail:  |
               open explorer window on a path (currently windows-only)
@@ -2461,7 +2628,7 @@ if('python_region'):
             params:
              - param: jjinput   ;; ignored  ;; placeholder argument for jinja
              - param: path      ;; required ;; winexplore designated path
-             - param: path      ;; optional ;; use backslash instead of fwdslash
+             - param: useback   ;; optional ;; use backslash instead of fwdslash
           '''
         
           ## process
@@ -2500,9 +2667,9 @@ if('python_region'):
 ###!       __blank__
 ###!  tags:     __tags__
 ###!  seealso: |
-###!  		* __blank__
+###!          * __blank__
 ###!  desc: |
-###!  		__desc__
+###!          __desc__
 ###!  wwbody: |
       class DynamicYAML(object):
         def __init__(self,ffpath):
@@ -2536,7 +2703,7 @@ if('python_region'):
           '''
           ### main:
           ###   - date: created="Thu Jul 16 15:30:22 2015"
-          ###     desc:	read a file with path that is potentially relative to path of parent_yaml_config
+          ###     desc:    read a file with path that is potentially relative to path of parent_yaml_config
           ###     params:
           ###       - name: spath
           ###         opt:  required
@@ -2610,8 +2777,7 @@ if('python_region'):
             pass
           
           ## open
-          fo = codecs.open(ssgpath, 'r', 'utf-8')
-          parent_yaml_config = fo.read()
+          parent_yaml_config = codecs.open(ssgpath, 'r', 'utf-8').read()
           #parent_yaml_config   =   open(ssgpath,'rb').read()
           orgconf       =   yaml.safe_load(parent_yaml_config)
           ##;;
@@ -2650,8 +2816,9 @@ if('python_region'):
             tmpkey  = sgg_directiveprefix_str + "".join(tmpname)
             if( (tmpkey) in row ):
               tmpval = row[tmpkey]
-              directives["".join(tmpname)] = tmpval
-            ##;;            
+              if(str(tmpval).strip() != ''):
+                directives["".join(tmpname)] = str(tmpval)
+            ##;;
             
             ## @@@ rowkeep directive ;; skip this entire processing row if rowkeep evals to false
             ## BUGNAG ;; this is not working
@@ -2788,6 +2955,10 @@ if('python_region'):
 
             if('current_datainclude' in directives):
               directives['current_data'] = self.data_struct_merge(directives['current_datainclude'],directives['current_data'])
+
+            if('usedataroot' in directives):
+              tmpname = directives['usedataroot']
+              directives['current_data'] = {tmpname: directives['current_data']}
             
             ## debug before render
             #oDumper.pprint( directives )
@@ -2803,7 +2974,7 @@ if('python_region'):
                 print "### %s" %(tmpkey)
                 print "### ------------------------------------------------------------------------"
                 print directives[tmpkey]
-              exit()            
+              exit()
             
             ## render output
             ## TODO ;; allow customizable data merge semantics
@@ -2850,3 +3021,30 @@ if('python_region'):
       ##endclass
 ###!}}}
 
+###{{{
+###!- caption:  nameismain
+###!  date:     created="Fri Sep 04 16:25:55 2015"
+###!  goal:     |
+###!       __blank__
+###!  result:   |
+###!       __blank__
+###!  tags:     __tags__
+###!  seealso: |
+###!          * __blank__
+###!  desc: |
+###!          __desc__
+###!
+###!
+###!  dreftymacid: __dreftymacid__
+###!  body: |
+
+      if __name__ == '__main__':
+        otest = JinjaFilterDynamicYAML()
+        aalist  =   otest.yaml_function_docs('jj')
+        print aalist
+
+###}}}
+
+
+
+  

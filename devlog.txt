@@ -2,19 +2,16 @@
 ### main:
 ###   - date: created="Sat Aug 29 03:51:32 2015"
 ###     last: lastmod="Sat Aug 29 03:51:32 2015"
-###     tags:   tags 
+###     tags:   tags
 ###     author: created="__author__"
 ###     dreftymacid:    "luckiest_udaipur_type"
 ###     seealso: |
-###         *
+###         * cd c:/sm/docs/mymedia/2014/git/github/dynamic.yaml
 ###     desc: |
 ###         devlog.txt
-###         desc  
+###         desc
 ### <end-file_info>
 
-
-changelog: 
-  - organization ;; renamed the includefile and datainclude directives to 'templateinclude' and 'datainclude'
+changelog:
   - caption: includefile directive changed to templateinclude directive
-
-  
+  - caption: datafile directive changed to datainclude directive
