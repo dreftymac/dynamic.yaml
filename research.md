@@ -24,6 +24,8 @@ This project is very similar to:
 ## Background, tutorials and complimentary resources
 * http://rhnh.net/2011/01/31/yaml-tutorial
 * http://docs.ansible.com/ansible/playbooks_filters.html
+* https://github.com/ansible/ansible/blob/devel/lib/ansible/plugins/filter/core.py
+  * custom jinja filters for use with ansible
 
 ## Similar or alternative approaches 
 * YAML-python
