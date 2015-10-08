@@ -24,6 +24,8 @@ This project is very similar to:
 * https://pypi.python.org/pypi/ruamel.yaml/0.6.1
 
 ## Background, tutorials and complimentary resources
+* python package distribution
+      * https://github.com/pypa/sampleproject
 * http://rhnh.net/2011/01/31/yaml-tutorial
 * http://docs.ansible.com/ansible/playbooks_filters.html
 * https://github.com/ansible/ansible/blob/devel/lib/ansible/plugins/filter/core.py
