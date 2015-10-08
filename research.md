@@ -20,6 +20,7 @@ This project depends on:
 This project is very similar to:
 
 * https://bitbucket.org/atagunov/metayaml
+* https://pypi.python.org/pypi/ruamel.yaml/0.6.1
 
 ## Background, tutorials and complimentary resources
 * http://rhnh.net/2011/01/31/yaml-tutorial
