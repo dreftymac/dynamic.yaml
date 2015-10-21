@@ -7,11 +7,14 @@
 ###     author:         created="dreftymac"
 ###     dreftymacid:    "beamer_weave_text"
 ###     TODO:
+###         - feature         ;;  radiotable write to file with indentation
 ###         - testing         ;;  run through unit tests in demo for regressions from ddyaml.py
+###         - testing         ;;  internal_call ... what does an internal call from a jjfunction to another looklike
 ###         - pluggable       ;;  add python pip install support
 ###         - organization    ;;  context_specific filters should be moved out to user-space out core ddyaml
 ###         - organization    ;;  take out the default_data directive (not sure what it is for, what is difference between default_data and current_data now that there is datainclude)
 ###         - pluggable       ;;  myclip snippet plugin filter
+###         - feature         ;;  saner support for unicode input (href="../../../../../../mydaydirs/2015/week37/txt/testingunicode.txt")
 ###         - feature         ;;  add support for pluggable filters besides JinjaFilterDynamicYAML
 ###         - feature         ;;  from cmdline ddyaml add support for raw input string and not just input file
 ###         - feature         ;;  if no __yaml__ sigil present, assume pure jinja syntax on an entire yaml file
@@ -84,6 +87,7 @@ if('python_region'):
       import glob
       import jinja2
       import json
+      import platform
       import markdown
       import os
       import random
@@ -91,6 +95,7 @@ if('python_region'):
       import re
       import shutil
       import string
+      import StringIO
       import sys
       import textwrap
       import time
@@ -106,8 +111,8 @@ if('python_region'):
       oDumper = pprint.PrettyPrinter(indent=4);
       
       ##
-      from PIL import Image, ImageDraw, ImageFilter
-      import pyscreenshot as ImageGrab
+      #from PIL import Image, ImageDraw, ImageFilter
+      #import pyscreenshot as ImageGrab
       
       ##
       ## TODO: improve handling of addon libraries
@@ -360,7 +365,7 @@ if('python_region'):
 
         ### ------------------------------------------------------------------------
         ### begin_: drupal_specific
-        
+                
         ##
         def jjd_alias(self,jjinput):
           '''
@@ -520,6 +525,67 @@ if('python_region'):
         ### ------------------------------------------------------------------------
         ### begin_: general_purpose
         
+        ## TODO ;; formalize this function and docs
+        def jjos_platform(self,jjinput):
+          vout = platform.system()
+          return vout
+        ##enddef
+        
+        def jjaod_tocsv(self,jjinput,delim="|"):
+          '''
+          ##beg_func_docs
+          - caption:      jjaod_tocsv
+            date:         lastmod="20151016.0745"
+            grp_maj:      grp_maj
+            grp_med:      grp_med
+            grp_min:      grp_min
+            desc:         python aod to csv string              
+            dreftymacid:  ranch_oilier_bulb
+            detail:  |
+              * convert python aod to csv string
+            dependencies:
+              - import csv
+              - import StringIO
+            params:
+             - param: jjinput ;; required ;; python array_of_dictionary
+             - param: delim   ;; optional ;; string delimiter defaults to pipe char "|"
+          ##end_func_docs
+          '''
+        
+          ##
+          odata = jjinput
+          vout  = ''
+          
+          ##
+          try:
+            ##
+            headers =   odata[0].keys()
+            rows    =   odata
+            for row in rows:
+              for key in row:
+                if type(row[key])==str:
+                  row[key] = row[key].replace("\n",' ')
+            
+            ##
+            output = StringIO.StringIO()        
+            f_csv = csv.DictWriter(output, headers, delimiter="|", lineterminator="\n")
+            f_csv.writeheader()
+            f_csv.writerows(rows)    
+            vout = output.getvalue()
+            output.close()
+            
+            return vout  
+          ##
+          except Exception as msg:
+            print 'UNEXPECTED TERMINATION __dreftymacid__ msg@%s'%(msg.__repr__())
+            exc_type, exc_obj, exc_tb = sys.exc_info()
+            fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
+            print(exc_type, fname, exc_tb.tb_lineno)
+            
+          ##
+          return vout
+        ##enddef        
+        
         def jjaod_getrecord(self,jjinput,fieldname='fname',fieldvalue='value',iirec=0):
           '''
           ## function docs
@@ -593,7 +659,7 @@ if('python_region'):
           ##
           return vout
         ##enddef
-    
+
         def jjdata_formatas(self,jjinput,sfmt='json'):
           '''
           ## function docs
@@ -606,8 +672,8 @@ if('python_region'):
             detail:  |
               * process input data and dump it out to another format
               * seealso
-                  * href="../../../../../appdata/home/smosley/.dreftymac/py/datadump_formatas.py" find="lookfor"
-                  * href="../../../../../mytrybits/y/tryyaml/dynamicyaml/app/demo/demo.dataformatas.txt"
+                  * href="../../../../../../appdata/home/smosley/.dreftymac/py/datadump_formatas.py" find="lookfor"
+                  * href="../../../../../../mytrybits/y/tryyaml/dynamicyaml/app/demo/demo.dataformatas.txt"
             dependencies:
               - none
             params:
@@ -668,7 +734,7 @@ if('python_region'):
             desc:         load string into python native data structure
             dreftymacid:  brat_joints_twenty
             detail:  |
-              * __blank__
+              * TODO ;; add support for source formats other than yaml
             dependencies:
               - __blank__
             params:
@@ -678,7 +744,12 @@ if('python_region'):
           '''
         
           ##
-          vout = yaml.safe_load( jjinput.__str__() )
+          if(False):
+            pass;
+          elif(srcformat == 'yaml'):
+            vout = yaml.safe_load( jjinput.__str__() )
+          elif(srcformat == 'json'):
+            vout = json.loads( jjinput.__str__() )
           
           ##
           try:
@@ -694,15 +765,56 @@ if('python_region'):
           return vout
         ##enddef
     
+        def jjdict_update(self,jjinput,ddaddon={}):
+          '''
+          ##beg_func_docs
+          - caption:      jjdict_update
+            date:         lastmod="20150928.1014"
+            grp_maj:      grp_maj
+            grp_med:      grp_med
+            grp_min:      grp_min
+            desc:         update a python dictionary using dictionary.update()
+            dreftymacid:  corby_welds_flier
+            detail:  |
+              * __blank__
+            dependencies:
+              - __blank__
+            params:
+             - param: jjinput ;; required ;; original python dictionary object
+             - param: ddaddon ;; required ;; new keys to add to the original python dictionary
+          ##end_func_docs
+          '''
+          if( type(jjinput) == str):
+            vout = {"__ERROR__":"__Bad_Dictionary_Input__"}
+          if( type(jjinput) == dict):
+            vout = jjinput
+          ##
+          try:
+            try:
+              vout.update(ddaddon)
+            except:
+              vout.update({"__blank__":"__blank__"})
+          ##
+          except Exception as msg:
+            return {"__blank__":"__blank__"}
+            print 'UNEXPECTED TERMINATION corby_welds_flier msg@%s'%(msg.__repr__())
+            exc_type, exc_obj, exc_tb = sys.exc_info()
+            fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
+            print(exc_type, fname, exc_tb.tb_lineno)
+            
+          ##
+          return vout
+        ##enddef
+        
         def jjchr(self,jjinput):
           '''
           ##beg_func_docs
           - caption:      jjchr
-            date:         lastmod="__lastmod__"
+            date:         lastmod="20150917.1254"
             grp_maj:      grp_maj
             grp_med:      grp_med
             grp_min:      grp_min
-            desc:         __desc__
+            desc:         python chr() function
             dreftymacid:  word_orbits_leaver
             detail:  |
               * http://code.activestate.com/recipes/65117-converting-between-ascii-numbers-and-characters/
@@ -729,6 +841,41 @@ if('python_region'):
           ##
           return vout
         ##enddef
+        
+        def jjint(self,jjinput):
+          '''
+          ##beg_func_docs
+          - caption:      jjint
+            date:         lastmod="20150917.1254"
+            grp_maj:      grp_maj
+            grp_med:      grp_med
+            grp_min:      grp_min
+            desc:         python int() function
+            dreftymacid:  ana_julius_yingkow
+            detail:  | 
+              __blank__
+            dependencies:
+              - __blank__
+            params:
+             - param: jjinput ;; required ;; jinja raw input string
+          ##end_func_docs
+          '''
+
+          ##
+          vout = jjinput.__str__()
+          
+          ##
+          try:
+            vout = int(vout)
+          ##
+          except Exception as msg:
+            print 'UNEXPECTED TERMINATION msg@%s'%(msg.__repr__())
+            exc_type, exc_obj, exc_tb = sys.exc_info()
+            fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
+            print(exc_type, fname, exc_tb.tb_lineno)            
+          ##
+          return vout
+        ##enddef        
 
         def jjcsv_load(self,jjinput,ssfilepath=''):
           '''
@@ -979,7 +1126,7 @@ if('python_region'):
           return vout
         ##enddef
         
-        def jjdubsplit(self,jjinput,spliton=';;',splitget=0):
+        def jjdubsplit(self,jjinput,spliton=';;',splitget=0,runmode='regex'):
           '''
           ## function docs
           - caption:  jjdubsplit
@@ -989,12 +1136,19 @@ if('python_region'):
             grp_min:  split
             desc:     string split and return result from split index
             example: |
-              ## href="../"
+              ## simple example
               {{ "hello;;fancy;;world" |jjdubsplit(';;',0)    }}{#- returns 'hello' -#}
               {{ "hello;;fancy;;world" |jjdubsplit(';;',1)    }}{#- returns 'fancy' -#}
               {{ "hello;;fancy;;world" |jjdubsplit(';;',2)    }}{#- returns 'world' -#}
               {{ "hello;;fancy;;world" |jjdubsplit(';;',-1)   }}{#- returns 'world' -#}
               {{ "hello;;fancy;;world" |jjdubsplit(';;',3)    }}{#- returns ''      -#}
+
+              ## simple example
+              {{ "[alpha:bravo:charlie]"  |jjdubsplit('[',1,'regex')    }}{#- returns 'hello' -#}
+              {{ "hello;;fancy;;world"    |jjdubsplit(';;',1)    }}{#- returns 'fancy' -#}
+              {{ "hello;;fancy;;world"    |jjdubsplit(';;',2)    }}{#- returns 'world' -#}
+              {{ "hello;;fancy;;world"    |jjdubsplit(';;',-1)   }}{#- returns 'world' -#}
+              {{ "hello;;fancy;;world"    |jjdubsplit(';;',3)    }}{#- returns ''      -#}
             detail:  |
               * split a string on a delimiter and return the indexed portion
               * uses zero-based index
@@ -1005,6 +1159,7 @@ if('python_region'):
               - param: jjinput   ;; required ;; raw input string
               - param: spliton   ;; optional ;; string to split on (defaults to double-semicolon)
               - param: splitget  ;; optional ;; extraction index (defaults to zero)
+              - param: runmode   ;; optional ;; type of split operation to use (regex|plain) (defaults to regex)
             dreftymacid: zeros_cods_views
           '''
           ##
@@ -1012,7 +1167,12 @@ if('python_region'):
           
           ##
           try:
-            vout  =   re.split(spliton, vout,)
+            if(False):
+              pass
+            elif(runmode=='plain'):
+              vout  =   vout.split(spliton)
+            elif(runmode=='regex'):
+              vout  =   re.split(spliton, vout,)
             vout  =   vout[splitget]
           except Exception as msg:
             vout  = ''            
@@ -1159,7 +1319,7 @@ if('python_region'):
             ## BUGNAG ;; added encode ascii ignore
             #vout  = codecs.open(surl, 'r', 'utf-8').read().replace(u'\xa0', u' ')
             vout  =   codecs.open(surl, 'r', 'utf-8').read()
-            vout  =   vout.encode('utf-8')
+            vout  =   vout.encode('ascii','replace')
             ##print vout
             #vout  = open(surl,'r').read().replace(u'\xa0', ' ')
             #vout  = vout.decode('utf-8').encode('ascii', 'ignore')
@@ -1170,9 +1330,9 @@ if('python_region'):
             print(exc_type, fname, exc_tb.tb_lineno)
           ##
           #return vout.decode('ascii','replace')
-          return vout.decode('ascii','replace')
+          return vout
         ##enddef
-        
+                
         def jjget_basename(self,jjinput):
           '''
           ## ANNOYANCE: this just gives the basename of this current py file
@@ -1346,9 +1506,12 @@ if('python_region'):
           
           #vout    = jjinput.__str__()
           #vout    = jjinput.replace(u'\xa0', ' ').encode('utf-8')
-          vout      = jjinput.decode('ascii','replace')
+          vout      =   jjinput.replace(u'\xa0',u' ')
+          #print vout.encode('utf-8')
+          #vout      =   vout.decode('ascii','replace')
           #vout    = jjinput.encode('utf-8')
           #vout    = jjinput.encode('ascii', 'ignore').decode('ascii')
+          print vout
           myindd  = 4
           
           ##
@@ -1552,7 +1715,7 @@ if('python_region'):
           return vout
         ##enddef
         
-        def jjindent(self,jjinput,strlead=' ',imult=2):
+        def jjindent(self,jjinput,imult=2,strlead=' ',):
           """
           ## function docs
           - caption:  jjindent
@@ -1574,8 +1737,8 @@ if('python_region'):
               - import re
             params:
              - param: jjinput   ;; required ;; raw input string
-             - param: strlead   ;; optional ;; leading indenter default (single whitespace char)
              - param: imult     ;; optional ;; multiplier for indenter (default 2)
+             - param: strlead   ;; optional ;; leading indenter default (single whitespace char)
             output: python string
           """
           
@@ -1938,6 +2101,60 @@ if('python_region'):
           return vout
         ##enddef
 
+        def jjradioreplace(self,jjinput,targfile='',rtregexbeg='',rtregexend=''):
+          '''
+          ##beg_func_docs
+          - caption:      jjradioreplace
+            date:         lastmod="20150917.1056"
+            grp_maj:      file
+            grp_med:      string
+            grp_min:      modify
+            desc:         replace a region of a text file using 'radiotable' style regions
+            dreftymacid:  extra_clamp_positive
+            seealso:
+              - href="../../../../../../mytrybits/y/tryyaml/dynamicyaml/app/demo/demo01command06.txt"
+              - href="../../../../../../mymedia/2014/git/github/myclip/myclip.ddyaml/transform01.yaml.txt"
+            detail:  |
+              * uses the emacs org mode 'radiotable' metaphor
+              * TODO ;; add passthrough support for USEBOM and unicode
+            dependencies:
+              - __blank__
+            params:
+             - param: jjinput ;; required ;; jinja raw input string
+             - param: targfile ;; required ;; target destination file for pasting in radiotable
+             - param: rtregexbeg ;; required ;; begin regex token for delimiting radiotable
+             - param: rtregexend ;; required ;; end regex token for delimiting radiotable
+          ##end_func_docs
+          '''
+        
+          ##
+          sgradiobody = jjinput.__str__()
+          sgrawtext   = self.jjfromfile(jjinput,targfile)
+          vout        =   ''
+          
+          ##
+          try:
+            rawpref   = re.split(rtregexbeg, sgrawtext,)[0]
+            rawsuff   = re.split(rtregexend, sgrawtext,)[1]
+            vout      = "".join([rawpref,sgradiobody,rawsuff])
+            self.jjtofile(vout,targfile,'replace')
+            vout = sgradiobody
+          ##
+          except IndexError as msg:
+            print 'Error: Bad regular expression or no match found for jjradioreplace? extra_clamp_positive msg@%s'%(msg.__repr__())
+            exc_type, exc_obj, exc_tb = sys.exc_info()
+            fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
+            print(exc_type, fname, exc_tb.tb_lineno)
+          except Exception as msg:
+            print 'UNEXPECTED TERMINATION extra_clamp_positive msg@%s'%(msg.__repr__())
+            exc_type, exc_obj, exc_tb = sys.exc_info()
+            fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
+            print(exc_type, fname, exc_tb.tb_lineno)
+            
+          ##
+          return vout
+        ##enddef
+
         def jjregexreplace(self,jjinput,pattern='',replacement='',flags=''):
           '''
           ## function docs
@@ -2017,9 +2234,10 @@ if('python_region'):
           try:
             oRegex =  re.compile(ssregex,re.M|re.S|re.I)
             vout   =  oRegex.findall(vout)
+            
           ##
           except Exception as msg:
-            print 'UNEXPECTED TERMINATION __dreftymacid__ msg@%s'%(msg.__repr__())
+            print 'UNEXPECTED TERMINATION formal_awing_wolf msg@%s'%(msg.__repr__())
             exc_type, exc_obj, exc_tb = sys.exc_info()
             fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
             print(exc_type, fname, exc_tb.tb_lineno)
@@ -2028,61 +2246,100 @@ if('python_region'):
           return vout
         ##enddef
     
-        def jjregionreplace(self,jjinput,vreplace='',regbeg='',regend='',):
-          """
-          ## function docs
-          - caption:  jjregionreplace
-            date:     lastmod="Mon 2014-10-20 16:45:46"
-            grp_maj:    string_transform
-            grp_med:    replace
-            grp_min:    string
-            dreftymacid:  found_goliath_loyalty
-            desc: replace a subregion of a string with optional balanced delimiters
-            detail: |
-              ## overview
-              replace a subregion of a string with optional balanced delimiters
-              ## demo
-              regain://untwist_disobey_dolby
-              regain://dynamicyaml
+        #def jjregionreplace(self,jjinput,vreplace='',regbeg='',regend='',):
+        #  """
+        #  ## function docs
+        #  - caption:  jjregionreplace
+        #    date:     lastmod="Mon 2014-10-20 16:45:46"
+        #    grp_maj:    string_transform
+        #    grp_med:    replace
+        #    grp_min:    string
+        #    dreftymacid:  found_goliath_loyalty
+        #    desc: replace a subregion of a string with optional balanced delimiters
+        #    detail: |
+        #      ## overview
+        #      replace a subregion of a string with optional balanced delimiters
+        #      ## demo
+        #      regain://untwist_disobey_dolby
+        #      regain://dynamicyaml
+        #    dependencies:
+        #      - import uuid
+        #    params:
+        #     - param: jjinput   ;; required ;; raw input string
+        #     - param: vreplace  ;; optional ;; replacement string
+        #     - param: regbeg    ;; optional ;; delimiter begin string
+        #     - param: regend    ;; optional ;; delimiter end string
+        #    output: python array
+        #  """
+        #  ##
+        #  vorigg  = jjinput.__str__()
+        #  
+        #  ##
+        #  try:
+        #    ## init
+        #    newdelim  =   str(uuid.uuid4())
+        #    ##;;
+        #    
+        #    ## process
+        #    vtempgg     =   vorigg
+        #    if(not regbeg == regend):
+        #      vtempgg     =   vtempgg.replace(regend,regbeg)
+        #    if(not vtempgg == ''):
+        #      vtempgg     =   vtempgg.replace(regbeg,newdelim)
+        #      vtempgg     =   vtempgg.split(newdelim)
+        #      vtempgg[1]  =   "".join([regbeg,vreplace,regend])
+        #      vtempgg     =   "".join(vtempgg)
+        #    ##;;
+        #    
+        #    ##
+        #    vout = vtempgg
+        #  except Exception as msg:
+        #    print 'UNEXPECTED TERMINATION msg@%s'%(msg.__repr__())
+        #    exc_type, exc_obj, exc_tb = sys.exc_info()
+        #    fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
+        #    print(exc_type, fname, exc_tb.tb_lineno)
+        #  ##
+        #  return vout
+        ###enddef
+    
+        def jjcurl(self,jjinput,method='put',target='',payload=''):
+          '''
+          ##beg_func_docs
+          - caption:      jjcurl
+            date:         lastmod="20151008.1636"
+            grp_maj:      grp_maj
+            grp_med:      grp_med
+            grp_min:      grp_min
+            desc:         __desc__
+            dreftymacid:  armpits_magnet_freshens
+            detail:  |
+              * __blank__
             dependencies:
-              - import uuid
+              - import requests
             params:
-             - param: jjinput   ;; required ;; raw input string
-             - param: vreplace  ;; optional ;; replacement string
-             - param: regbeg    ;; optional ;; delimiter begin string
-             - param: regend    ;; optional ;; delimiter end string
-            output: python array
-          """
+             - param: jjinput   ;; ignored  ;; jinja raw input string
+             - param: method    ;; optarity ;; target url
+             - param: target    ;; optarity ;; target url
+             - param: payload   ;; optarity ;; data payload
+          ##end_func_docs
+          '''
+        
           ##
-          vorigg  = jjinput.__str__()
+          ## vout = jjinput.__str__()
           
           ##
           try:
-            ## init
-            newdelim  =   str(uuid.uuid4())
-            ##;;
-            
-            ## process
-            vtempgg     =   vorigg
-            if(not regbeg == regend):
-              vtempgg     =   vtempgg.replace(regend,regbeg)
-            if(not vtempgg == ''):
-              vtempgg     =   vtempgg.replace(regbeg,newdelim)
-              vtempgg     =   vtempgg.split(newdelim)
-              vtempgg[1]  =   "".join([regbeg,vreplace,regend])
-              vtempgg     =   "".join(vtempgg)
-            ##;;
-            
-            ##
-            vout = vtempgg
+            vout       =     getattr(requests,method)(target,data=payload)            
+          ##
           except Exception as msg:
-            print 'UNEXPECTED TERMINATION msg@%s'%(msg.__repr__())
+            print 'UNEXPECTED TERMINATION armpits_magnet_freshens msg@%s'%(msg.__repr__())
             exc_type, exc_obj, exc_tb = sys.exc_info()
             fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
             print(exc_type, fname, exc_tb.tb_lineno)
+            
           ##
           return vout
-        ##enddef
+        ##enddef    
     
         def jjrequesturl(self,jjinput,sgurl='http://www.example.com',):
           '''
@@ -2128,7 +2385,6 @@ if('python_region'):
         def jjfromurl(self,jjinput,sgurl): return self.jjrequesturl(jjinput,sgurl)
         ##enddef
         
-    
         def jjsplit(self,jjinput,sdelim=';;'):
           """
           ## function docs
@@ -2770,13 +3026,12 @@ if('python_region'):
           vout          =   []
           ssgpath       =   ''
           try:
-            ##ssgpath       =   sys.argv[1]
             ssgpath       =   self.ffpath_main
           except Exception:
             return ''
             pass
           
-          ## open
+          ##
           parent_yaml_config = codecs.open(ssgpath, 'r', 'utf-8').read()
           #parent_yaml_config   =   open(ssgpath,'rb').read()
           orgconf       =   yaml.safe_load(parent_yaml_config)
@@ -2788,220 +3043,234 @@ if('python_region'):
           directives['default_template']    = ''
           directives['current_data']        = ''
           directives['current_template']    = ''
-          ##;;
-          
-          ## set defaults on directives_dictionary
-          ##    from the parent_yaml_config
-          ##    preserve every existing key, except remove the sgg_dynamicyaml_key
-          directives['default_data']    = orgconf.copy()
-          del(directives['default_data'][sgg_dynamicyaml_key])
-          ##;;
-          
-          ## set default_template
-          ##    use this as the default template if one not specified
-          directives['default_template']      = parent_yaml_config
-          ##;;
-          
-          ## iterate_yaml
-          for row in orgconf[sgg_dynamicyaml_key]:
-            directives['current_template']    = directives['default_template']
-            directives['current_data']        = directives['default_data']
-            
-            ### ********************
-            ## process row
-            
-            ## @@@ usedataroot directive ;; wrap all the template data in a custom 'dataroot' element
-            ## BUGNAG ;; this is not working
-            tmpname = ['use','dataroot']
-            tmpkey  = sgg_directiveprefix_str + "".join(tmpname)
-            if( (tmpkey) in row ):
-              tmpval = row[tmpkey]
-              if(str(tmpval).strip() != ''):
-                directives["".join(tmpname)] = str(tmpval)
+          ##;;          
+        
+          ## <beg-process01>
+          try:
+            ## set defaults on directives_dictionary
+            ##    from the parent_yaml_config
+            ##    preserve every existing key, except remove the sgg_dynamicyaml_key
+            directives['default_data']    = orgconf.copy()
+            del(directives['default_data'][sgg_dynamicyaml_key])
             ##;;
             
-            ## @@@ rowkeep directive ;; skip this entire processing row if rowkeep evals to false
-            ## BUGNAG ;; this is not working
-            tmpname = ['row','keep']
-            tmpkey  = sgg_directiveprefix_str + "".join(tmpname)
-            if( (tmpkey) in row ):
-              tmpval = row[tmpkey]
-              if(bool(tmpval) == False): continue;
+            ## set default_template
+            ##    use this as the default template if one not specified
+            directives['default_template']      = parent_yaml_config
             ##;;
             
-            ## @@@ rowskip directive ;; skip this entire processing row if rowskip evals to true
-            tmpname = ['row','skip']
-            tmpkey  = sgg_directiveprefix_str + "".join(tmpname)
-            if( (tmpkey) in row ):
-              tmpval = row[tmpkey]
-              if(True and tmpval): continue;
-            ##;;
-            
-            ## @@@ outputfile directive ;; output content to a file without having to use jjtofile
-            tmpname = ['output','file']
-            tmpkey  = sgg_directiveprefix_str + "".join(tmpname)
-            if( (tmpkey) in row ):
-              tmpval = row[tmpkey]
-              directives['current_'+''.join(tmpname)]   =   tmpval
-              #print tmpval
-            ##;;
-            
-            ## @@@ templatefile directive ;; we get a template from a single external file
-            tmpname = ['template','file']
-            tmpkey  = sgg_directiveprefix_str + "".join(tmpname)
-            if( (tmpkey) in row ):
-              tmpval = row[tmpkey]
-              directives['current_'+tmpname[0]]   =   textwrap.dedent(open(tmpval,'rb').read())
-              ## print tmpval
-            ##;;
-            
-            ## bkmk001
-            ## @@@ template directive ;; we get template from parent_yaml_config
-            tmpname = ['template','']
-            tmpkey  = sgg_directiveprefix_str + "".join(tmpname)
-            if( (tmpkey) in row ):
-              tmpval = row[tmpkey]
-              directives['current_'+tmpname[0]]   =   textwrap.dedent(tmpval)
-              ## print tmpval
-            ##;;
-            
-            ## bkmk001
-            ## @@@ templateincluede directive ;; we get one_or_more template from one_or_more external file
-            ## and merge it with the data in the parent_yaml_config
-            tmpname =   ['templateinclude']
-            tmpkey  =   sgg_directiveprefix_str + "".join(tmpname)
-            if( (tmpkey) in row ):
-              tmpval = row[tmpkey]
+            ## iterate_yaml
+            for row in orgconf[sgg_dynamicyaml_key]:
+              directives['current_template']    = directives['default_template']
+              directives['current_data']        = directives['default_data']
               
-              ## iterate includes ;; force scalar to list
-              sstemp = ''
-              if(tmpval is None):
-                tmpval = ['']
-              if(  type(tmpval) == str ):
-                tmpval = [tmpval]     ## force scalar to list
+              ### ********************
+              ## process row
               
-              ## iterate items
-              for spath in tmpval:
-                sscurr        =   ''
-                sscurr        =   self.ff_resolvepath_read(spath)
-                ## err_quiet
-                if(sscurr == ''):
-                  continue
-                ## err_verbose
-                if(sscurr ==  ''):
-                  raise ValueError('undid_sail_unleash: failed to access file content at %s '%(spath))
-                elif(True):
-                  sstemp += sscurr
-              ##
-              if(sstemp != ''):
-                directives['current_'+tmpname[0]]   =   sstemp
-              ## print tmpval
-            ##;;
-            
-            ## @@@ datainclude directive ;; concatenate multiple yaml files to input additional data
-            ## and merge it with the data in the parent_yaml_config
-            tmpname =   ['datainclude','']
-            tmpkey  =   sgg_directiveprefix_str + "".join(tmpname)
-            if( (tmpkey) in row ):
-              tmpval = row[tmpkey]
+              ## @@@ usedataroot directive ;; wrap all the template data in a custom 'dataroot' element
+              ## BUGNAG ;; this is not working
+              tmpname = ['use','dataroot']
+              tmpkey  = sgg_directiveprefix_str + "".join(tmpname)
+              if( (tmpkey) in row ):
+                tmpval = row[tmpkey]
+                if(str(tmpval).strip() != ''):
+                  directives["".join(tmpname)] = str(tmpval)
+              ##;;
               
-              ## iterate includes ;; force scalar to list
-              sstemp = ''
-              if(tmpval is None):
-                tmpval = ['']
-              if(  type(tmpval) == str ):
-                tmpval = [tmpval]     ## force scalar to list
+              ## @@@ rowkeep directive ;; skip this entire processing row if rowkeep evals to false
+              ## BUGNAG ;; this is not working
+              tmpname = ['row','keep']
+              tmpkey  = sgg_directiveprefix_str + "".join(tmpname)
+              if( (tmpkey) in row ):
+                tmpval = row[tmpkey]
+                if(bool(tmpval) == False): continue;
+              ##;;
+              
+              ## @@@ rowskip directive ;; skip this entire processing row if rowskip evals to true
+              tmpname = ['row','skip']
+              tmpkey  = sgg_directiveprefix_str + "".join(tmpname)
+              if( (tmpkey) in row ):
+                tmpval = row[tmpkey]
+                if(True and tmpval): continue;
+              ##;;
+              
+              ## @@@ outputfile directive ;; output content to a file without having to use jjtofile
+              tmpname = ['output','file']
+              tmpkey  = sgg_directiveprefix_str + "".join(tmpname)
+              if( (tmpkey) in row ):
+                tmpval = row[tmpkey]
+                directives['current_'+''.join(tmpname)]   =   tmpval
+                #print tmpval
+              ##;;
+              
+              ## @@@ templatefile directive ;; we get a template from a single external file
+              tmpname = ['template','file']
+              tmpkey  = sgg_directiveprefix_str + "".join(tmpname)
+              if( (tmpkey) in row ):
+                tmpval = row[tmpkey]
+                directives['current_'+tmpname[0]]   =   textwrap.dedent(open(tmpval,'rb').read())
+                ## print tmpval
+              ##;;
+              
+              ## bkmk001
+              ## @@@ template directive ;; we get template from parent_yaml_config
+              tmpname = ['template','']
+              tmpkey  = sgg_directiveprefix_str + "".join(tmpname)
+              if( (tmpkey) in row ):
+                tmpval = row[tmpkey]
+                directives['current_'+tmpname[0]]   =   textwrap.dedent(tmpval)
+                ## print tmpval
+              ##;;
+              
+              ## bkmk001
+              ## @@@ templateincluede directive ;; we get one_or_more template from one_or_more external file
+              ## and merge it with the data in the parent_yaml_config
+              tmpname =   ['templateinclude']
+              tmpkey  =   sgg_directiveprefix_str + "".join(tmpname)
+              if( (tmpkey) in row ):
+                tmpval = row[tmpkey]
                 
-              ## iterate items
-              for spath in tmpval:
-                sscurr        =   ''
-                sscurr        =   self.ff_resolvepath_read(spath)
-                ## err_quiet
-                if(sscurr == ''):
-                  continue
-                ## err_verbose
-                if(sscurr ==  ''):
-                  raise ValueError('undid_sail_unleash: failed to access file content at %s '%(spath))
-                elif(True):
-                  sstemp += sscurr
-              ##
-              if(sstemp != ''):
-                directives['current_'+tmpname[0]]   =   yaml.safe_load(sstemp)
-              ## print tmpval
-            ##;;
+                ## iterate includes ;; force scalar to list
+                sstemp = ''
+                if(tmpval is None):
+                  tmpval = ['']
+                if(  type(tmpval) == str ):
+                  tmpval = [tmpval]     ## force scalar to list
+                
+                ## iterate items
+                for spath in tmpval:
+                  sscurr        =   ''
+                  sscurr        =   self.ff_resolvepath_read(spath)
+                  ## err_quiet
+                  if(sscurr == ''):
+                    continue
+                  ## err_verbose
+                  if(sscurr ==  ''):
+                    raise ValueError('undid_sail_unleash: failed to access file content at %s '%(spath))
+                  elif(True):
+                    sstemp += sscurr
+                ##
+                if(sstemp != ''):
+                  directives['current_'+tmpname[0]]   =   sstemp
+                ## print tmpval
+              ##;;
+              
+              ## @@@ datainclude directive ;; concatenate multiple yaml files to input additional data
+              ## and merge it with the data in the parent_yaml_config
+              tmpname =   ['datainclude','']
+              tmpkey  =   sgg_directiveprefix_str + "".join(tmpname)
+              if( (tmpkey) in row ):
+                tmpval = row[tmpkey]
+                
+                ## iterate includes ;; force scalar to list
+                sstemp = ''
+                if(tmpval is None):
+                  tmpval = ['']
+                if(  type(tmpval) == str ):
+                  tmpval = [tmpval]     ## force scalar to list
+                  
+                ## iterate items
+                for spath in tmpval:
+                  sscurr        =   ''
+                  sscurr        =   self.ff_resolvepath_read(spath)
+                  ## err_quiet
+                  if(sscurr == ''):
+                    continue
+                  ## err_verbose
+                  if(sscurr ==  ''):
+                    raise ValueError('undid_sail_unleash: failed to access file content at %s '%(spath))
+                  elif(True):
+                    sstemp += sscurr
+                ##
+                if(sstemp != ''):
+                  ##print sstemp
+                  directives['current_'+tmpname[0]]   =   yaml.safe_load(sstemp)
+                ## print tmpval
+              ##;;
+    
+              ### TODO ;; NOT_YET_SUPPORTED
+              ### @@@ dataurl directive ;; we get a data from an included url
+              #tmpname = ['data','url']
+              #tmpkey  = sgg_directiveprefix_str + "".join(tmpname)
+              #if( (tmpkey) in row ):
+              #  tmpval = row[tmpkey]
+              #  directives['current_'+tmpname[0]]   =   yaml.safe_load(open(tmpval,'rb').read())
+              ##;;
+              
+              ## @@@ data directive ;; we get data from parent_yaml_config
+              tmpname = ['data','']
+              tmpkey  = sgg_directiveprefix_str + "".join(tmpname)
+              #print row
+              if( (tmpkey) in row ):
+                tmpval = row[tmpkey]
+                directives['current_'+tmpname[0]]   =   yaml.safe_load(tmpval)
+              ##;;
+                          
+              ## bkmk001
+              ## preproc directives
+              if('current_templateinclude' in directives):
+                directives['current_template'] = directives['current_templateinclude'] + directives['current_template']
   
-            ### TODO ;; NOT_YET_SUPPORTED
-            ### @@@ dataurl directive ;; we get a data from an included url
-            #tmpname = ['data','url']
-            #tmpkey  = sgg_directiveprefix_str + "".join(tmpname)
-            #if( (tmpkey) in row ):
-            #  tmpval = row[tmpkey]
-            #  directives['current_'+tmpname[0]]   =   yaml.safe_load(open(tmpval,'rb').read())
+              if('current_datainclude' in directives):
+                directives['current_data'] = self.data_struct_merge(directives['current_datainclude'],directives['current_data'])
+  
+              if('usedataroot' in directives):
+                tmpname = directives['usedataroot']
+                directives['current_data'] = {tmpname: directives['current_data']}
+              
+              ## debug before render
+              #oDumper.pprint( directives )
+              #print yaml.safe_dump( directives )
+              #print json.dumps(directives, sort_keys=True,indent=4, separators=(',', ': '))
+              #print yaml.safe_dump(directives, default_flow_style=False)
+              if(not 'debugging'):
+                mykeys = directives.keys()
+                mykeys.sort()
+                for tmpkey in mykeys:
+                  print "\n\n\n"
+                  print "### ------------------------------------------------------------------------"
+                  print "### %s" %(tmpkey)
+                  print "### ------------------------------------------------------------------------"
+                  print directives[tmpkey]
+                exit()
+              
+              ## render output
+              ## TODO ;; allow customizable data merge semantics
+              otemplate_data  =   self.data_struct_merge(directives['default_data'],directives['current_data'])
+              template        =   oEnv.from_string(textwrap.dedent(directives['current_template']))
+              tmpout          =   template.render(otemplate_data)
+              
+              ## force unix line endings
+              if(True):
+                tmpout = string.replace(tmpout, '\r\n', '')
+                tmpout = string.replace(tmpout, '\r', '')
+              vout.append( tmpout )
+            
+          ## exception ;; process01
+          except Exception as msg:
+            print 'UNEXPECTED TERMINATION voyeur_foulest_weirdly msg@%s'%(msg.__repr__())
+            exc_type, exc_obj, exc_tb = sys.exc_info()
+            fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
+            print(exc_type, fname, exc_tb.tb_lineno)          
+          
+            
+          ## print tmpout
+          #oDumper.pprint( otemplate_data )
+          #print( directives['current_template'] )
+          
+          ## postproc directives
+          try:
+            if('current_outputfile' in directives):
+              spath = directives['current_outputfile']
+              open(spath,'w').write(tmpout)
+          except Exception as msg:
+              print 'UNEXPECTED TERMINATION ariser_twister_teams msg@%s'%(msg.__repr__())
+              exc_type, exc_obj, exc_tb = sys.exc_info()
+              fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
+            #print(exc_type, fname, exc_tb.tb_lineno)
             ##;;
+          ## <end-process01>
             
-            ## @@@ data directive ;; we get data from parent_yaml_config
-            tmpname = ['data','']
-            tmpkey  = sgg_directiveprefix_str + "".join(tmpname)
-            #print row
-            if( (tmpkey) in row ):
-              tmpval = row[tmpkey]
-              directives['current_'+tmpname[0]]   =   yaml.safe_load(tmpval)
-            ##;;
-                        
-            ## bkmk001
-            ## preproc directives
-            if('current_templateinclude' in directives):
-              directives['current_template'] = directives['current_templateinclude'] + directives['current_template']
-
-            if('current_datainclude' in directives):
-              directives['current_data'] = self.data_struct_merge(directives['current_datainclude'],directives['current_data'])
-
-            if('usedataroot' in directives):
-              tmpname = directives['usedataroot']
-              directives['current_data'] = {tmpname: directives['current_data']}
-            
-            ## debug before render
-            #oDumper.pprint( directives )
-            #print yaml.safe_dump( directives )
-            #print json.dumps(directives, sort_keys=True,indent=4, separators=(',', ': '))
-            #print yaml.safe_dump(directives, default_flow_style=False)
-            if(not 'debugging'):
-              mykeys = directives.keys()
-              mykeys.sort()
-              for tmpkey in mykeys:
-                print "\n\n\n"
-                print "### ------------------------------------------------------------------------"
-                print "### %s" %(tmpkey)
-                print "### ------------------------------------------------------------------------"
-                print directives[tmpkey]
-              exit()
-            
-            ## render output
-            ## TODO ;; allow customizable data merge semantics
-            otemplate_data  =   self.data_struct_merge(directives['default_data'],directives['current_data'])
-            template        =   oEnv.from_string(textwrap.dedent(directives['current_template']).encode('ascii', 'ignore'))
-            tmpout          =   template.render(otemplate_data)
-            ## force unix line endings
-            if(True):
-              tmpout = string.replace(tmpout, '\r\n', '')
-              tmpout = string.replace(tmpout, '\r', '')
-            vout.append( tmpout )
-            
-            ## print tmpout
-            #oDumper.pprint( otemplate_data )
-            #print( directives['current_template'] )
-            
-            ## postproc directives
-            try:
-              if('current_outputfile' in directives):
-                spath = directives['current_outputfile']
-                open(spath,'w').write(tmpout)
-            except Exception as msg:
-                print 'UNEXPECTED TERMINATION msg@%s'%(msg.__repr__())
-                exc_type, exc_obj, exc_tb = sys.exc_info()
-                fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
-              #print(exc_type, fname, exc_tb.tb_lineno)
-            ##;;
             
             #oDumper.pprint( directives )
           ##endfor::iterate_yaml
@@ -3039,12 +3308,8 @@ if('python_region'):
 ###!  body: |
 
       if __name__ == '__main__':
-        otest = JinjaFilterDynamicYAML()
+        otest   =   JinjaFilterDynamicYAML()
         aalist  =   otest.yaml_function_docs('jj')
         print aalist
 
 ###}}}
-
-
-
-  

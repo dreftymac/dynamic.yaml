@@ -1,0 +1,57 @@
+### <beg-file_info>
+### main:
+###   - date: created="Wed Oct 21 08:12:02 2015"
+###     last: lastmod="Wed Oct 21 08:12:02 2015"
+###     tags:   tags 
+###     author: created="__author__"
+###     dreftymacid:    "__dreftymacid__"
+###     seealso: |
+###         *
+###     desc: |
+###         * jjaod_tocsv
+###         * jjdata_load
+### <end-file_info>
+
+demo01dataload01: |
+  [
+    {
+      "caption": "alpha",
+      "date": "Wed Oct 21 08:09:01 2015",
+      "rectype": "rrmini02"
+    },
+    {
+      "caption": "bravo",
+      "date": "Wed Oct 21 08:09:02 2015",
+      "rectype": "rrmini02"
+    },
+    {
+      "caption": "charlie",
+      "date": "Wed Oct 21 08:09:03 2015",
+      "rectype": "rrmini02"
+    },
+    {
+      "caption": "delta",
+      "date": "Wed Oct 21 08:09:04 2015",
+      "rectype": "rrmini02"
+    }
+  ]
+
+
+
+## href="c:/sm/docs/mytrybits/y/tryyaml/dynamicyaml/devlog.txt"
+## href="c:/sm/docs/mymedia/2014/git/github/dynamic.yaml/py/ddyaml.py"
+__yaml__:
+
+  - &uuchary
+    caption:      caption
+    rowkeep: 1
+    uuid:         uuchary
+    desc:         __desc__
+    dreftymacid:  __dreftymacid__
+    datainclude:      datainclude
+    templateinclude:  templateinclude
+    template:         |
+      {%- set ttstring =  demo01dataload01 -%}
+      {%- set ttvout   =  ttstring |jjdata_load('json')  -%}
+      {{ ttvout |jjaod_tocsv('|') }}
+      {{ ttvout }}
