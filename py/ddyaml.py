@@ -6,7 +6,7 @@
 ###     tags: dynamicyaml, python, yaml, blockspring
 ###     author:         created="dreftymac"
 ###     dreftymacid:    "beamer_weave_text"
-###     TODO:
+###     todo:
 ###         - feature         ;;  radiotable write to file with indentation
 ###         - testing         ;;  run through unit tests in demo for regressions from ddyaml.py
 ###         - testing         ;;  internal_call ... what does an internal call from a jjfunction to another looklike
@@ -19,6 +19,7 @@
 ###         - feature         ;;  from cmdline ddyaml add support for raw input string and not just input file
 ###         - feature         ;;  if no __yaml__ sigil present, assume pure jinja syntax on an entire yaml file
 ###         - feature         ;;  add support for pluggable alternate template engines besides python/jinja2
+###         - demo            ;;  centralize demo code into repo href="../../../../../../mytrybits/y/tryyaml/dynamicyaml/app/demo/readme.txt"
 ###     seealso: |
 ###         * href="../devlog.txt"
 ###         * href="../../../../../../mytrybits/y/tryyaml/dynamicyaml/devlog.txt"
@@ -568,7 +569,7 @@ if('python_region'):
             
             ##
             output = StringIO.StringIO()        
-            f_csv = csv.DictWriter(output, headers, delimiter="|", lineterminator="\n")
+            f_csv = csv.DictWriter(output, headers, delimiter=delim, lineterminator="\n")
             f_csv.writeheader()
             f_csv.writerows(rows)    
             vout = output.getvalue()
@@ -1303,6 +1304,9 @@ if('python_region'):
             desc: string.fromfile
             detail:  |
               pull in content from a file
+            todo: |
+              * figure out why jjfromfile not working
+                  * href="../../../../../../mydaydirs/2015/week42/json/proj01test01transform01.txt"
             dependencies:
               - none
             params:
@@ -3068,7 +3072,7 @@ if('python_region'):
               ## process row
               
               ## @@@ usedataroot directive ;; wrap all the template data in a custom 'dataroot' element
-              ## BUGNAG ;; this is not working
+              ## 
               tmpname = ['use','dataroot']
               tmpkey  = sgg_directiveprefix_str + "".join(tmpname)
               if( (tmpkey) in row ):

@@ -4,7 +4,7 @@
 ###     last: lastmod="Wed Oct 21 08:12:02 2015"
 ###     tags:   tags 
 ###     author: created="__author__"
-###     dreftymacid:    "__dreftymacid__"
+###     dreftymacid:    "cousin_upwards_tibetan"
 ###     seealso: |
 ###         *
 ###     desc: |
@@ -46,7 +46,8 @@ __yaml__:
     caption:      caption
     rowkeep: 1
     uuid:         uuchary
-    desc:         __desc__
+    desc: |
+        convert json to pipe-delimited dsv
     dreftymacid:  __dreftymacid__
     datainclude:      datainclude
     templateinclude:  templateinclude
