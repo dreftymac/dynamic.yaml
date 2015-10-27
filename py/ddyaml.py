@@ -8,11 +8,13 @@
 ###     dreftymacid:    "beamer_weave_text"
 ###     todo:
 ###         - feature         ;;  radiotable write to file with indentation
+###         - feature         ;;  diceword generator (separate class)
 ###         - testing         ;;  run through unit tests in demo for regressions from ddyaml.py
 ###         - testing         ;;  internal_call ... what does an internal call from a jjfunction to another looklike
 ###         - pluggable       ;;  add python pip install support
 ###         - organization    ;;  context_specific filters should be moved out to user-space out core ddyaml
 ###         - organization    ;;  take out the default_data directive (not sure what it is for, what is difference between default_data and current_data now that there is datainclude)
+###         - organization    ;;  separate jjfilters out into separate class files
 ###         - pluggable       ;;  myclip snippet plugin filter
 ###         - feature         ;;  saner support for unicode input (href="../../../../../../mydaydirs/2015/week37/txt/testingunicode.txt")
 ###         - feature         ;;  add support for pluggable filters besides JinjaFilterDynamicYAML
@@ -1017,6 +1019,14 @@ if('python_region'):
                                       ,getattr(now,'minute')
                                       ,getattr(now,'second')
                                       )
+            elif(getwhat.lower()=='uuid'):
+              vout  =   "%04d%02d%02d_%02d%02d%02d" %(getattr(now,'year')
+                                      ,getattr(now,'month')
+                                      ,getattr(now,'day')
+                                      ,getattr(now,'hour')
+                                      ,getattr(now,'minute')
+                                      ,getattr(now,'second')
+                                      )                            
           except Exception as msg:
             print 'UNEXPECTED TERMINATION msg@%s'%(msg.__repr__())
             exc_type, exc_obj, exc_tb = sys.exc_info()
@@ -2659,8 +2669,8 @@ if('python_region'):
             detail: |
               writemode
               =========
-              * create    ;; only write if file does not already exist
-              * replace   ;; overwrite any existing file if it already exists
+              * create    ;; create file if not exist, ignore if already exists 
+              * replace   ;; create file if not exist, overwrite if already exists
               * append    ;; create file if not exist, append if already exists
               
             dependencies:
@@ -2695,7 +2705,7 @@ if('python_region'):
               if( (os.path.isfile(outpath)) and (writemode=='create') ):
                 pymode  = ''
                 vout    = outpath;
-                vout    = "\nfailed to write output file %s (already exists?)"%(vout)
+                vout    = "\nfailed to write output file %s (permissions issue? or does file already exist?)"%(vout)
               ##
               elif( (os.path.isfile(outpath)) and (writemode=='replace') ):
                 pymode  = 'wb'
