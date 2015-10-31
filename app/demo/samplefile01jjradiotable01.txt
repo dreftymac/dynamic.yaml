@@ -1,0 +1,19 @@
+### <beg-file_info>
+### main:
+###   - date: created="Sat Oct 31 08:34:42 2015"
+###     last: lastmod="Sat Oct 31 08:34:42 2015"
+###     tags:   tags 
+###     author: created="__author__"
+###     dreftymacid:    "__dreftymacid__"
+###     seealso: |
+###         *
+###     desc: |
+###         desc  
+### <end-file_info>
+
+### <beg-region_simpledata_test>
+region_simpledata_test:
+- caption:  delta
+- caption:  delta
+- caption:  charlie
+### <end-region_simpledata_test>

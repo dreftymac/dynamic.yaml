@@ -1,15 +1,16 @@
 ### <beg-file_info>
 ### main:
-###   - date: created="Wed Oct 21 08:12:02 2015"
-###     last: lastmod="Wed Oct 21 08:12:02 2015"
-###     tags:   tags 
-###     author: created="__author__"
+###   - date:   created="Wed Oct 21 08:12:02 2015"
+###     last:   lastmod="Wed Oct 21 08:12:02 2015"
+###     tags:   datainclude, jjdata_load
 ###     dreftymacid:    "cousin_upwards_tibetan"
+###     caption: jjdata_load and jjaod_tocsv demo
 ###     seealso: |
 ###         *
 ###     desc: |
 ###         * jjaod_tocsv
 ###         * jjdata_load
+###         * load non-yaml-based data into ddyaml and process it
 ### <end-file_info>
 
 demo01dataload01: |
@@ -35,8 +36,6 @@ demo01dataload01: |
       "rectype": "rrmini02"
     }
   ]
-
-
 
 ## href="c:/sm/docs/mytrybits/y/tryyaml/dynamicyaml/devlog.txt"
 ## href="c:/sm/docs/mymedia/2014/git/github/dynamic.yaml/py/ddyaml.py"

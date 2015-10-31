@@ -27,6 +27,9 @@
 ###         * href="../../../../../../mytrybits/y/tryyaml/dynamicyaml/devlog.txt"
 ###         * href="../../../../../../mytrybits/p/trypython2/2009/j/jinja.template/readme.md"
 ###         * cd c:/sm/docs/mymedia/2014/git/github/dynamic.yaml
+###     demo_and_examples: | 
+###         * href="../../../../../../mytrybits/y/tryyaml/dynamicyaml/app/demo/readme.asc"
+###         * href="../../../../../../mytrybits/y/tryyaml/dynamicyaml/app/sample/readme.md"
 ###     desc: |
 ###         ddyaml.py
 ###         core dynamic yaml in a single standalone python file
@@ -1153,13 +1156,6 @@ if('python_region'):
               {{ "hello;;fancy;;world" |jjdubsplit(';;',2)    }}{#- returns 'world' -#}
               {{ "hello;;fancy;;world" |jjdubsplit(';;',-1)   }}{#- returns 'world' -#}
               {{ "hello;;fancy;;world" |jjdubsplit(';;',3)    }}{#- returns ''      -#}
-
-              ## simple example
-              {{ "[alpha:bravo:charlie]"  |jjdubsplit('[',1,'regex')    }}{#- returns 'hello' -#}
-              {{ "hello;;fancy;;world"    |jjdubsplit(';;',1)    }}{#- returns 'fancy' -#}
-              {{ "hello;;fancy;;world"    |jjdubsplit(';;',2)    }}{#- returns 'world' -#}
-              {{ "hello;;fancy;;world"    |jjdubsplit(';;',-1)   }}{#- returns 'world' -#}
-              {{ "hello;;fancy;;world"    |jjdubsplit(';;',3)    }}{#- returns ''      -#}
             detail:  |
               * split a string on a delimiter and return the indexed portion
               * uses zero-based index
@@ -2115,7 +2111,65 @@ if('python_region'):
           return vout
         ##enddef
 
-        def jjradioreplace(self,jjinput,targfile='',rtregexbeg='',rtregexend=''):
+        def jjradioextract(self,jjinput,targfile='',rtregexbeg='',rtregexend=''):
+          '''
+          ##beg_func_docs
+          - caption:      jjradioextract
+            date:         lastmod="20150917.1056"
+            grp_maj:      file
+            grp_med:      string
+            grp_min:      modify
+            desc:         replace a region of a text file using 'radiotable' style regions
+            dreftymacid:  atrocity_bluntest_coping
+            seealso:
+              - href="../../../../../../mymedia/2014/git/github/dynamic.yaml/app/demo/demo01jjradiotable01.txt"
+              - href="../../../../../../mytrybits/y/tryyaml/dynamicyaml/app/demo/demo01command06.txt"
+              - href="../../../../../../mymedia/2014/git/github/myclip/myclip.ddyaml/transform01.yaml.txt"
+              - href="https://www.gnu.org/software/emacs/manual/html_node/org/Radio-tables.html"
+            detail:  |
+              * uses the emacs org mode 'radiotable' metaphor
+              * TODO ;; add passthrough support for USEBOM and unicode
+            dependencies:
+              - import re
+            params:
+             - param: jjinput ;; required ;; jinja raw input string
+             - param: targfile ;; required ;; target destination file for pasting in radiotable
+             - param: rtregexbeg ;; required ;; begin regex token for delimiting radiotable
+             - param: rtregexend ;; required ;; end regex token for delimiting radiotable
+          ##end_func_docs
+          '''
+        
+          ##
+          sgradiobody =   jjinput.__str__()
+          sgrawtext   =   self.jjfromfile(jjinput,targfile)
+          vout        =   ''
+          
+          ##
+          try:
+            rawpref   = re.split(rtregexbeg, sgrawtext,)[0]
+            rawsuff   = re.split(rtregexend, sgrawtext,)[1]
+            vout      = "".join([rawpref,sgradiobody,rawsuff])
+            self.jjtofile(vout,targfile,'replace')
+            vout      = sgradiobody
+          ##
+          except IndexError as msg:
+            print 'Error: Bad regular expression or no match found for jjradioextract? atrocity_bluntest_coping msg@%s'%(msg.__repr__())
+            exc_type, exc_obj, exc_tb = sys.exc_info()
+            fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
+            print(exc_type, fname, exc_tb.tb_lineno)
+          except Exception as msg:
+            print 'UNEXPECTED TERMINATION atrocity_bluntest_coping msg@%s'%(msg.__repr__())
+            exc_type, exc_obj, exc_tb = sys.exc_info()
+            fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
+            print(exc_type, fname, exc_tb.tb_lineno)
+            
+          ##
+          return vout
+        ##enddef
+
+        def jjradioreplace(self,jjinput,targfile='',rtregexbeg='',rtregexend='',
+                           options={'verbose':False}
+                           ):
           '''
           ##beg_func_docs
           - caption:      jjradioreplace
@@ -2128,6 +2182,7 @@ if('python_region'):
             seealso:
               - href="../../../../../../mytrybits/y/tryyaml/dynamicyaml/app/demo/demo01command06.txt"
               - href="../../../../../../mymedia/2014/git/github/myclip/myclip.ddyaml/transform01.yaml.txt"
+              - href="https://www.gnu.org/software/emacs/manual/html_node/org/Radio-tables.html"
             detail:  |
               * uses the emacs org mode 'radiotable' metaphor
               * TODO ;; add passthrough support for USEBOM and unicode
@@ -2142,8 +2197,8 @@ if('python_region'):
           '''
         
           ##
-          sgradiobody = jjinput.__str__()
-          sgrawtext   = self.jjfromfile(jjinput,targfile)
+          sgradiobody =   jjinput.__str__()
+          sgrawtext   =   self.jjfromfile(jjinput,targfile)
           vout        =   ''
           
           ##
@@ -2152,7 +2207,7 @@ if('python_region'):
             rawsuff   = re.split(rtregexend, sgrawtext,)[1]
             vout      = "".join([rawpref,sgradiobody,rawsuff])
             self.jjtofile(vout,targfile,'replace')
-            vout = sgradiobody
+            vout      = sgradiobody
           ##
           except IndexError as msg:
             print 'Error: Bad regular expression or no match found for jjradioreplace? extra_clamp_positive msg@%s'%(msg.__repr__())
@@ -2164,7 +2219,15 @@ if('python_region'):
             exc_type, exc_obj, exc_tb = sys.exc_info()
             fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
             print(exc_type, fname, exc_tb.tb_lineno)
-            
+          
+          ##
+          if(options.has_key('verbose')):
+            if(options['verbose']==None):
+              pass
+            elif(options['verbose']==True):
+              vout = vout
+            elif(options['verbose']==False):
+              vout = ''
           ##
           return vout
         ##enddef

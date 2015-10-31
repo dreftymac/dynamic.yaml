@@ -5,7 +5,7 @@
 ###     tags:       barebones, demo, zip, blockspring
 ###     author:     created="dreftymac"
 ###     dreftymacid:    "heists_bely_numeric"
-###     caption:        generate zip archive
+###     caption:        datainclude directive
 ###     seealso: |
 ###         * href="./readme.md"
 ###     desc: |
@@ -15,7 +15,8 @@
 ### <end-file_info>
 
 __yaml__:
-  - datafile:
+
+  - datainclude:
       - "./demo.workbook.yaml.txt"
       - "./barebones.filezip.yaml.txt"
     template: |

@@ -4,6 +4,7 @@
 ###     last: lastmod="Wed Jul 08 11:29:25 2015"
 ###     tags: yaml, alias, anchor, database, normalize, demo
 ###     dreftymacid:    "grown_injector_had"
+###     caption: workbook-style and worksheet-style aliases
 ###     seealso: |
 ###         *
 ###     desc: |

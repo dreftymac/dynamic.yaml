@@ -1,0 +1,40 @@
+### <beg-file_info>
+### main:
+###   - date: created="Fri Oct 30 16:24:02 2015"
+###     last: lastmod="Fri Oct 30 16:24:02 2015"
+###     tags:   variable, set, jinja, block
+###     dreftymacid:    "lands_true_knew"
+###     caption:  set variable using block-style syntax
+###     seealso: |
+###         * https://github.com/mitsuhiko/jinja2/issues/232
+###     desc: |
+###         demonstrates setting a jinja variable using block-style syntax
+### <end-file_info>
+
+main:
+  - caption:  alpha
+    rectype:  rrmini02
+
+  - caption:  bravo
+    rectype:  rrmini02
+
+  - caption:  charlie
+    rectype:  rrmini02
+
+  - caption:  delta
+    rectype:  rrmini02
+
+__yaml__:
+
+  - &uuid001
+    caption:      block_style_set_01
+    rowkeep: 1    
+    uuid:         uuid001
+    template:         |
+      {#- ------------------------------------------------------------------------  -#}
+      {%set ttvar-%}
+        {% for item in range(15+1) -%}{{ item }}{{-"\n"-}}{% endfor %}        
+      {%-endset%}      
+      {#- ------------------------------------------------------------------------  -#}
+      {{ ttvar }}
+
