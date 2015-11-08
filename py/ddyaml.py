@@ -27,9 +27,10 @@
 ###         * href="../../../../../../mytrybits/y/tryyaml/dynamicyaml/devlog.txt"
 ###         * href="../../../../../../mytrybits/p/trypython2/2009/j/jinja.template/readme.md"
 ###         * cd c:/sm/docs/mymedia/2014/git/github/dynamic.yaml
-###     demo_and_examples: | 
+###     demo_and_examples: |
 ###         * href="../../../../../../mytrybits/y/tryyaml/dynamicyaml/app/demo/readme.asc"
 ###         * href="../../../../../../mytrybits/y/tryyaml/dynamicyaml/app/sample/readme.md"
+###         * href="../../../../../../mymedia/2014/git/github/dynamic.yaml/app/demo/readme.txt"
 ###     desc: |
 ###         ddyaml.py
 ###         core dynamic yaml in a single standalone python file
@@ -545,7 +546,7 @@ if('python_region'):
             grp_maj:      grp_maj
             grp_med:      grp_med
             grp_min:      grp_min
-            desc:         python aod to csv string              
+            desc:         python aod to csv string
             dreftymacid:  ranch_oilier_bulb
             detail:  |
               * convert python aod to csv string
@@ -573,14 +574,14 @@ if('python_region'):
                   row[key] = row[key].replace("\n",' ')
             
             ##
-            output = StringIO.StringIO()        
+            output = StringIO.StringIO()
             f_csv = csv.DictWriter(output, headers, delimiter=delim, lineterminator="\n")
             f_csv.writeheader()
-            f_csv.writerows(rows)    
+            f_csv.writerows(rows)
             vout = output.getvalue()
             output.close()
             
-            return vout  
+            return vout
           ##
           except Exception as msg:
             print 'UNEXPECTED TERMINATION __dreftymacid__ msg@%s'%(msg.__repr__())
@@ -590,7 +591,7 @@ if('python_region'):
             
           ##
           return vout
-        ##enddef        
+        ##enddef
         
         def jjaod_getrecord(self,jjinput,fieldname='fname',fieldvalue='value',iirec=0):
           '''
@@ -858,7 +859,7 @@ if('python_region'):
             grp_min:      grp_min
             desc:         python int() function
             dreftymacid:  ana_julius_yingkow
-            detail:  | 
+            detail:  |
               __blank__
             dependencies:
               - __blank__
@@ -878,10 +879,10 @@ if('python_region'):
             print 'UNEXPECTED TERMINATION msg@%s'%(msg.__repr__())
             exc_type, exc_obj, exc_tb = sys.exc_info()
             fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
-            print(exc_type, fname, exc_tb.tb_lineno)            
+            print(exc_type, fname, exc_tb.tb_lineno)
           ##
           return vout
-        ##enddef        
+        ##enddef
 
         def jjcsv_load(self,jjinput,ssfilepath=''):
           '''
@@ -968,7 +969,7 @@ if('python_region'):
             if(getwhat.lower()=='second'):
               vout  =   "%02d" % getattr(now,getwhat)
             if(getwhat.lower()=='week'):
-              vout  = "%02d" % (datetime.date(now.year, now.month, now.day).isocalendar()[1]-1)
+              vout  = "%02d" % datetime.datetime.utcnow().isocalendar()[1]
           except Exception as msg:
             print 'UNEXPECTED TERMINATION msg@%s'%(msg.__repr__())
             exc_type, exc_obj, exc_tb = sys.exc_info()
@@ -1029,7 +1030,7 @@ if('python_region'):
                                       ,getattr(now,'hour')
                                       ,getattr(now,'minute')
                                       ,getattr(now,'second')
-                                      )                            
+                                      )
           except Exception as msg:
             print 'UNEXPECTED TERMINATION msg@%s'%(msg.__repr__())
             exc_type, exc_obj, exc_tb = sys.exc_info()
@@ -1182,7 +1183,7 @@ if('python_region'):
               vout  =   re.split(spliton, vout,)
             vout  =   vout[splitget]
           except Exception as msg:
-            vout  = ''            
+            vout  = ''
           ##
           return vout
         ##enddef
@@ -1353,6 +1354,7 @@ if('python_region'):
             grp_med:  python
             grp_min:  os.path.basename
             desc: os.path.basename
+            dreftymacid: viremic_astray_wraiths
             detail:  |
               os.path.basename of current file
             dependencies:
@@ -1368,7 +1370,7 @@ if('python_region'):
             vout  = vout.split('.')[0:-1]
             vout  = ".".join(vout)
           except Exception as msg:
-            print 'UNEXPECTED TERMINATION sharing_client_smearing msg@%s'%(msg.__repr__())
+            print 'UNEXPECTED TERMINATION viremic_astray_wraiths msg@%s'%(msg.__repr__())
             exc_type, exc_obj, exc_tb = sys.exc_info()
             fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
             print(exc_type, fname, exc_tb.tb_lineno)
@@ -1509,7 +1511,7 @@ if('python_region'):
           ##
           from html5print import HTMLBeautifier
           
-          ## 
+          ##
           ##vout    = jjinput.__str__()
           #print jjinput[2737:]
           #exit()
@@ -1540,7 +1542,7 @@ if('python_region'):
             print(exc_type, fname, exc_tb.tb_lineno)
             
           ##
-          return vout          
+          return vout
         ##enddef
                 
         def jjhtml_pretty(self,jjinput,bforceascii=True,ballowfrag=False,):
@@ -1701,13 +1703,14 @@ if('python_region'):
           aahug = []
           
           ##
+          if(hug==''): aahug.append('');aahug.append('');
           if(hug=='"'): aahug.append('"');aahug.append('"');
           if(hug=="'"): aahug.append("'");aahug.append("'");
           if(hug=="["): aahug.append("[");aahug.append("]");
           if(hug=="]"): aahug.append("[");aahug.append("]");
           if(hug=="<"): aahug.append("<");aahug.append(">");
-          if(hug=="<!--"): aahug.append("<!--\n");aahug.append("\n-->");
           if(hug==">"): aahug.append("<");aahug.append(">");
+          if(hug=="<!--"): aahug.append("<!--\n");aahug.append("\n-->");
           if(hug=="("): aahug.append("(");aahug.append(")");
           if(hug==")"): aahug.append("(");aahug.append(")");
           if(hug=="{"): aahug.append("{");aahug.append("}");
@@ -2111,15 +2114,17 @@ if('python_region'):
           return vout
         ##enddef
 
-        def jjradioextract(self,jjinput,targfile='',rtregexbeg='',rtregexend=''):
+        def jjradioextract(self,jjinput,targfile='',rtregexbeg='',rtregexend='',
+                           options={'verbose':True}
+                           ):
           '''
           ##beg_func_docs
           - caption:      jjradioextract
-            date:         lastmod="20150917.1056"
+            date:         lastmod="20151031.0850"
             grp_maj:      file
             grp_med:      string
-            grp_min:      modify
-            desc:         replace a region of a text file using 'radiotable' style regions
+            grp_min:      extract
+            desc:         extract a region of a text file using 'radiotable' style regions
             dreftymacid:  atrocity_bluntest_coping
             seealso:
               - href="../../../../../../mymedia/2014/git/github/dynamic.yaml/app/demo/demo01jjradiotable01.txt"
@@ -2131,26 +2136,26 @@ if('python_region'):
               * TODO ;; add passthrough support for USEBOM and unicode
             dependencies:
               - import re
+              - self.jjfromfile
             params:
-             - param: jjinput ;; required ;; jinja raw input string
-             - param: targfile ;; required ;; target destination file for pasting in radiotable
-             - param: rtregexbeg ;; required ;; begin regex token for delimiting radiotable
-             - param: rtregexend ;; required ;; end regex token for delimiting radiotable
+             - param: jjinput     ;;  required  ;;  jinja raw input string
+             - param: targfile    ;;  required  ;;  target destination file for pasting in radiotable
+             - param: rtregexbeg  ;;  required  ;;  begin regex token for delimiting radiotable
+             - param: rtregexend  ;;  required  ;;  end regex token for delimiting radiotable
+             - param: options     ;;  optional  ;;  local options dictionary
           ##end_func_docs
           '''
         
           ##
-          sgradiobody =   jjinput.__str__()
+          sgradiobody =   ''
           sgrawtext   =   self.jjfromfile(jjinput,targfile)
           vout        =   ''
           
           ##
           try:
-            rawpref   = re.split(rtregexbeg, sgrawtext,)[0]
-            rawsuff   = re.split(rtregexend, sgrawtext,)[1]
-            vout      = "".join([rawpref,sgradiobody,rawsuff])
-            self.jjtofile(vout,targfile,'replace')
-            vout      = sgradiobody
+            vout      =   re.split(rtregexbeg, sgrawtext,)[1]
+            vout      =   re.split(rtregexend, vout,)[0]
+            
           ##
           except IndexError as msg:
             print 'Error: Bad regular expression or no match found for jjradioextract? atrocity_bluntest_coping msg@%s'%(msg.__repr__())
@@ -2163,13 +2168,25 @@ if('python_region'):
             fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
             print(exc_type, fname, exc_tb.tb_lineno)
             
+          ###
+          #if(options.has_key('verbose')):
+          #  if(options['verbose']==None):     pass
+          #  elif(options['verbose']==True):   vout = "".join([vout])
+          #  elif(options['verbose']==False):  vout = ''
+            
           ##
           return vout
         ##enddef
 
         def jjradioreplace(self,jjinput,targfile='',rtregexbeg='',rtregexend='',
-                           options={'verbose':False}
-                           ):
+                            options={'verbose':False,
+                                'cmmt'  : '###',
+                                'name'  : 'file_info',
+                                'beg'   : 'beg-',
+                                'end'   : 'end-',
+                                'wrap'  : '<',
+                            }
+                          ):
           '''
           ##beg_func_docs
           - caption:      jjradioreplace
@@ -2193,13 +2210,32 @@ if('python_region'):
              - param: targfile ;; required ;; target destination file for pasting in radiotable
              - param: rtregexbeg ;; required ;; begin regex token for delimiting radiotable
              - param: rtregexend ;; required ;; end regex token for delimiting radiotable
+             - param: options ;; optional ;; local options dictionary
           ##end_func_docs
           '''
         
-          ##
+          ## init vars
           sgradiobody =   jjinput.__str__()
           sgrawtext   =   self.jjfromfile(jjinput,targfile)
           vout        =   ''
+          zopts       =   options.copy()
+          zdefaults   =   {'verbose':False,
+                                'cmmt'  : '###',
+                                'name'  : 'file_info',
+                                'beg'   : 'beg-',
+                                'end'   : 'end-',
+                                'wrap'  : '<',
+                      }          
+          zopts.update(zdefaults)
+          
+          ## init vars
+          if(None): pass
+          elif(rtregexbeg == '' or rtregexend == ''):
+            tagbeg      =   self.jjhug(zopts['beg']+zopts['name'],zopts['wrap'])
+            tagend      =   self.jjhug(zopts['end']+zopts['name'],zopts['wrap'])
+            ##
+            rtregexbeg  =   '\s*'+zopts['cmmt']+'\s*'+tagbeg+''
+            rtregexend  =   '\s*'+zopts['cmmt']+'\s*'+tagend+''
           
           ##
           try:
@@ -2221,13 +2257,14 @@ if('python_region'):
             print(exc_type, fname, exc_tb.tb_lineno)
           
           ##
-          if(options.has_key('verbose')):
-            if(options['verbose']==None):
+          if(zopts.has_key('verbose')):
+            if(zopts['verbose']==None):
               pass
-            elif(options['verbose']==True):
+            elif(zopts['verbose']==True):
               vout = vout
-            elif(options['verbose']==False):
+            elif(zopts['verbose']==False):
               vout = ''
+              
           ##
           return vout
         ##enddef
@@ -2350,13 +2387,13 @@ if('python_region'):
         #  """
         #  ##
         #  vorigg  = jjinput.__str__()
-        #  
+        #
         #  ##
         #  try:
         #    ## init
         #    newdelim  =   str(uuid.uuid4())
         #    ##;;
-        #    
+        #
         #    ## process
         #    vtempgg     =   vorigg
         #    if(not regbeg == regend):
@@ -2367,7 +2404,7 @@ if('python_region'):
         #      vtempgg[1]  =   "".join([regbeg,vreplace,regend])
         #      vtempgg     =   "".join(vtempgg)
         #    ##;;
-        #    
+        #
         #    ##
         #    vout = vtempgg
         #  except Exception as msg:
@@ -2406,7 +2443,7 @@ if('python_region'):
           
           ##
           try:
-            vout       =     getattr(requests,method)(target,data=payload)            
+            vout       =     getattr(requests,method)(target,data=payload)
           ##
           except Exception as msg:
             print 'UNEXPECTED TERMINATION armpits_magnet_freshens msg@%s'%(msg.__repr__())
@@ -2416,7 +2453,7 @@ if('python_region'):
             
           ##
           return vout
-        ##enddef    
+        ##enddef
     
         def jjrequesturl(self,jjinput,sgurl='http://www.example.com',):
           '''
@@ -2732,7 +2769,7 @@ if('python_region'):
             detail: |
               writemode
               =========
-              * create    ;; create file if not exist, ignore if already exists 
+              * create    ;; create file if not exist, ignore if already exists
               * replace   ;; create file if not exist, overwrite if already exists
               * append    ;; create file if not exist, append if already exists
               
@@ -3120,7 +3157,7 @@ if('python_region'):
           directives['default_template']    = ''
           directives['current_data']        = ''
           directives['current_template']    = ''
-          ##;;          
+          ##;;
         
           ## <beg-process01>
           try:
@@ -3145,7 +3182,7 @@ if('python_region'):
               ## process row
               
               ## @@@ usedataroot directive ;; wrap all the template data in a custom 'dataroot' element
-              ## 
+              ##
               tmpname = ['use','dataroot']
               tmpkey  = sgg_directiveprefix_str + "".join(tmpname)
               if( (tmpkey) in row ):
@@ -3328,7 +3365,7 @@ if('python_region'):
             print 'UNEXPECTED TERMINATION voyeur_foulest_weirdly msg@%s'%(msg.__repr__())
             exc_type, exc_obj, exc_tb = sys.exc_info()
             fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
-            print(exc_type, fname, exc_tb.tb_lineno)          
+            print(exc_type, fname, exc_tb.tb_lineno)
           
             
           ## print tmpout

@@ -5,7 +5,7 @@
 ###     tags:   tags 
 ###     dreftymacid: "unfrozen_crueler_nuance"
 ###     seealso: |
-###         *
+###         * href="./samplefile01jjradiotable01.txt"
 ###     desc: |
 ###         jjradioreplace demo
 ### <end-file_info>
@@ -15,31 +15,76 @@
 __yaml__:
 
   - &uunaively
-    caption:      caption
+    caption:      jjradioreplace
     rowkeep: 1
-    uuid:         uuid001
-    desc:         __desc__
+    uuid:         uunaively
+    desc:         jjradioreplace with expressly-indicated regular expression strings
     dreftymacid:  naively_regret_kick
     datainclude:
       - "./samplefile01jjradiotable01.txt"
     template: |
       {#- ------------------------------------------------------------------------ -#}
-      {%- set ttcmmt        = '###'  -%}
+      {%- set ttcmmt        = '###'                               -%}
+      {%- set ttuuid        = "region_simpledata_test"            -%}
       {%- set ttfilein      = "./samplefile01jjradiotable01.txt"  -%}
-      {%- set ttuuid        = "region_simpledata_test"                             -%}
-      {%- set ttrtokenbeg   = '\s*'+ttcmmt+'\s*<beg-'+ttuuid+'>'                    -%}
-      {%- set ttrtokenend   = '\s*'+ttcmmt+'\s*<end-'+ttuuid+'>'                    -%}
-      {%- set ttoptions     = {'verbose':True}-%}
+      {%- set ttrtokenbeg   = '\s*'+ttcmmt+'\s*<beg-'+ttuuid+'>'  -%}
+      {%- set ttrtokenend   = '\s*'+ttcmmt+'\s*<end-'+ttuuid+'>'  -%}
+      {%- set ttoptions     = {'verbose':True} -%}
       {#- ------------------------------------------------------------------------ -#}
       {%filter string() |jjradioreplace(ttfilein,ttrtokenbeg,ttrtokenend,ttoptions) -%}
       {{"\n"}}
       {{ ttcmmt }} <beg-{{ ttuuid }}>
       region_simpledata_test:
-      {% for item in range(3) -%}
+      {% for item in range(7) -%}
       - caption:  {{ ['alpha','bravo','charlie','delta',]|random() }}
       {% endfor %}{{-""-}}
       {{ ttcmmt }} <end-{{ ttuuid }}>
       {{-""-}}
       {%endfilter%}
+      
+  - &uuoltlyz
+    caption:      jjradioreplace
+    rowkeep: 1
+    uuid:         uuoltlyz
+    desc:         jjradioreplace using the local options dictionary
+    dreftymacid:  oltlyz_regret_kick
+    datainclude:
+      - "./samplefile01jjradiotable01.txt"
+    template: |
+      {#- ------------------------------------------------------------------------ -#}
+      {%- set ttfilein      = "./samplefile01jjradiotable01.txt"  -%}
+      {%- set ttoptions     = {'verbose':True,'cmmt':'###','name':'region_simpledata_test'} -%}
+      {#- ------------------------------------------------------------------------ -#}
+      {%filter string() |jjradioreplace(ttfilein,'','',ttoptions) -%}
+      {{"\n"}}
+      {{ ttcmmt }} <beg-{{ ttuuid }}>
+      region_simpledata_test:
+      {% for item in range(7) -%}
+      - caption:  {{ ['alpha','bravo','charlie','delta',]|random() }}
+      {% endfor %}{{-""-}}
+      {{ ttcmmt }} <end-{{ ttuuid }}>
+      {{-""-}}
+      {%endfilter%}      
+      
+  - &uulungo12
+    caption:      jjradioextract
+    rowkeep: 1
+    uuid:         uulungo12
+    desc:         __desc__
+    dreftymacid:  lungo_regret_kick
+    datainclude:
+      - "./samplefile01jjradiotable01.txt"
+    template: |
+      {#- ------------------------------------------------------------------------ -#}
+      {%- set ttcmmt        = '###'                               -%}
+      {%- set ttuuid        = "region_simpledata_test"            -%}
+      {%- set ttfilein      = "./samplefile01jjradiotable01.txt"  -%}
+      {%- set ttrtokenbeg   = '\s*'+ttcmmt+'\s*<beg-'+ttuuid+'>'  -%}
+      {%- set ttrtokenend   = '\s*'+ttcmmt+'\s*<end-'+ttuuid+'>'  -%}
+      {%- set vout          = "" |jjradioextract(ttfilein,ttrtokenbeg,ttrtokenend)  -%}
+      {#- ------------------------------------------------------------------------ -#}
+      {{ vout }}
+      
+      
       
       

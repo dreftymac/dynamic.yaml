@@ -1,1 +1,1 @@
-## ddyaml demo
+## ddyaml demo directory
