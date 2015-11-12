@@ -23,10 +23,13 @@
 ###         - feature         ;;  add support for pluggable alternate template engines besides python/jinja2
 ###         - demo            ;;  centralize demo code into repo href="../../../../../../mytrybits/y/tryyaml/dynamicyaml/app/demo/readme.txt"
 ###     seealso: |
+###         ## github repo
+###         * cd c:/sm/docs/mymedia/2014/git/github/dynamic.yaml
+###
+###         ## devlog
 ###         * href="../devlog.txt"
 ###         * href="../../../../../../mytrybits/y/tryyaml/dynamicyaml/devlog.txt"
 ###         * href="../../../../../../mytrybits/p/trypython2/2009/j/jinja.template/readme.md"
-###         * cd c:/sm/docs/mymedia/2014/git/github/dynamic.yaml
 ###     demo_and_examples: |
 ###         * href="../../../../../../mytrybits/y/tryyaml/dynamicyaml/app/demo/readme.asc"
 ###         * href="../../../../../../mytrybits/y/tryyaml/dynamicyaml/app/sample/readme.md"
