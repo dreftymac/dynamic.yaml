@@ -351,9 +351,6 @@ if('python_region'):
               ## iterate columns (zero_based)
               for col_index in range(sheet.ncols):
                   sheet_cell = sheet.cell(row_index,col_index)
-                  #oDumper.pprint(sheet_cell)
-                  #oDumper.pprint(ddheaderrow)
-                  #oDumper.pprint(datadef)
                   rowout[ ddheaderrow[col_index] ] =  self.xlrd_get_value(book,sheet_cell,datadef[col_index])
               ##endfor
               aadataout.append(rowout)
