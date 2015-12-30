@@ -7,7 +7,7 @@
 ###     dreftymacid:    "brags_fragrant_lengthen"
 ###     seealso: |
 ###         * href="smartpath://mytrybits/e/tryexcel/devlog.txt"
-###         * href="smartpath://mytrybits/e/tryexcel/devlog.txt"
+###         * href="smartpath://mytrybits/p/trypython2/lab2014/xml/xmlssbase.py"
 ###         * href="apprun://c:/sm/docs/mytrybits/e/tryexcel/xls/people_multisheet30.xls"
 ###     desc: |
 ###         msft excel
@@ -37,9 +37,31 @@ ttschema:
 
 __yaml__:
   
-  - &uujunshortens
-    caption:      demo excel read WITHOUT dataschema multisheet demo
+## href="c:/sm/docs/mytrybits/y/tryyaml/dynamicyaml/devlog.txt"
+## href="c:/sm/docs/mymedia/2014/git/github/dynamic.yaml/py/ddyaml.py"
+__yaml__:
+
+  - &uupluckfoo
+    caption:      python aod table dump to xml spreadsheet
     rowkeep: 1
+    uuid:         uupluckfoo
+    desc:         __desc__
+    dreftymacid:  uupluckfoo
+    datainclude:      datainclude
+    templateinclude:  templateinclude
+    template:         |
+      {%- set ttdatatable = ttschema  -%}
+      {%- set vout = ''|jjdata_aod_to_excelsheet(ttdatatable)  -%}
+      {%- set ttoutfile   = './output.xml'  -%}
+      {%- set ttoutmode   = 'replace'       -%}
+      {%- set ttusebom    = False           -%}
+      {%filter string() |jjtofile(ttoutfile,ttoutmode,ttusebom) |jjdedent() %}
+      {{ vout }}
+      {%endfilter%}
+      
+  - &uujunshortens
+    caption:      demo excel load WITHOUT dataschema multisheet demo
+    rowkeep: 0
     uuid:         uujunshortens
     desc: |
       * YES_WORKY works with both xlsx and xls files
@@ -54,15 +76,15 @@ __yaml__:
       {%- set myfileggc   =   "c:/sm/docs/mytrybits/e/tryexcel/xls/people_frowning_floyd.xls"  -%}
       {%- set myfileggd   =   "c:/sm/docs/mytrybits/e/tryexcel/xls/people_multisheet30.xls"  -%}
       {#- ------------------------------------------------------------------------ -#} 
-      {%- set ttxlfile  = ''  -%}
-      {%- set ttxlsheet = 3 -%}
-      {%- set ttxldtrow = 1 -%}
+      {%- set ttxlfile    = ''  -%}
+      {%- set ttxlsheet   = 3   -%}
+      {%- set ttxldtrow   = 1   -%}
       {#- ------------------------------------------------------------------------ -#} 
       {%- set ttdata      =   myfileggd |jjdata_from_excelsheet(ttxlfile,ttxlsheet,ttxldtrow)  -%}
       {{ ttdata |jjdata_formatas('jsonpretty')  }}
       
   - &uuswearingstryke
-    caption:      demo excel read WITHOUT dataschema
+    caption:      demo excel load WITHOUT dataschema
     rowkeep: 0
     uuid:         uuswearingstryke
     desc: |
@@ -80,7 +102,7 @@ __yaml__:
       
   - &heritageearlier
     rowkeep: 0
-    caption:      demo excel read WITH dataschema
+    caption:      demo excel load WITH dataschema
     uuid:         heritageearlierf
     desc:         |
       * without dataschema
