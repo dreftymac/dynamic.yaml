@@ -6,41 +6,61 @@
 ###     author: created="__author__"
 ###     dreftymacid:    "brags_fragrant_lengthen"
 ###     seealso: |
-###         * 
+###         * href="smartpath://mytrybits/e/tryexcel/devlog.txt"
+###         * href="smartpath://mytrybits/e/tryexcel/devlog.txt"
+###         * href="apprun://c:/sm/docs/mytrybits/e/tryexcel/xls/people_multisheet30.xls"
 ###     desc: |
 ###         msft excel
+###         jjdata_from_excelsheet
 ### <end-file_info>
 
 ## href="c:/sm/docs/mytrybits/y/tryyaml/dynamicyaml/devlog.txt"
 ## href="c:/sm/docs/mymedia/2014/git/github/dynamic.yaml/py/ddyaml.py"
 
 ttschema:
-  - fldname:   fname
-    fldtype:  text
-    fldlabel: First Name
-  - fldname:   lname
-    fldtype:  text
-    fldlabel: Last Name
-  - fldname:   amount
-    fldtype:  int
-    fldlabel: Amount
-  - fldname:   age
-    fldtype:  int
-    fldlabel: Age
-  - fldname:   nation
-    fldtype:  text
-    fldlabel: Nation
-  - fldname:   platform
-    fldtype:  text
-    fldlabel: Platform
-  - fldname:  date
-    fldtype:  date
-    fldlabel: date
-  #- fldname:  rando
-  #  fldtype:  float
-  #  fldlabel: myfunction
+  - fldname: fname
+    fldtype: text
+  - fldname: lname
+    fldtype: text
+  - fldname: amount
+    fldtype: int
+  - fldname: age
+    fldtype: int
+  - fldname: nation
+    fldtype: text
+  - fldname: platform
+    fldtype: text
+  - fldname: date
+    fldtype: date
+  - fldname: rando
+    fldtype: float
 
 __yaml__:
+  
+  - &uujunshortens
+    caption:      demo excel read WITHOUT dataschema multisheet demo
+    rowkeep: 1
+    uuid:         uujunshortens
+    desc: |
+      * YES_WORKY works with both xlsx and xls files
+      * NO_WORKY  works NOT with xmlss format
+    dreftymacid:  uujunshortens
+    datainclude:      datainclude
+    templateinclude:  templateinclude
+    template:         |
+      {#- ------------------------------------------------------------------------ -#} 
+      {%- set myfilegga   =   "c:/sm/docs/mytrybits/d/trydata/data_msft_excel/people_simple_30.xls"  -%}
+      {%- set myfileggb   =   "c:/sm/docs/mytrybits/d/trydata/data_msft_excel/people_simple_30.xlsx"  -%}
+      {%- set myfileggc   =   "c:/sm/docs/mytrybits/e/tryexcel/xls/people_frowning_floyd.xls"  -%}
+      {%- set myfileggd   =   "c:/sm/docs/mytrybits/e/tryexcel/xls/people_multisheet30.xls"  -%}
+      {#- ------------------------------------------------------------------------ -#} 
+      {%- set ttxlfile  = ''  -%}
+      {%- set ttxlsheet = 3 -%}
+      {%- set ttxldtrow = 1 -%}
+      {#- ------------------------------------------------------------------------ -#} 
+      {%- set ttdata      =   myfileggd |jjdata_from_excelsheet(ttxlfile,ttxlsheet,ttxldtrow)  -%}
+      {{ ttdata |jjdata_formatas('jsonpretty')  }}
+      
   - &uuswearingstryke
     caption:      demo excel read WITHOUT dataschema
     rowkeep: 0
@@ -52,30 +72,38 @@ __yaml__:
     datainclude:      datainclude
     templateinclude:  templateinclude
     template:         |
-      {%- set ttfilegga   =   "c:/sm/docs/mytrybits/d/trydata/data_msft_excel/people_simple_30.xls"  -%}
-      {%- set ttfileggb   =   "c:/sm/docs/mytrybits/d/trydata/data_msft_excel/people_simple_30.xlsx"  -%}
-      {%- set ttfileggc   =   "c:/sm/docs/mytrybits/e/tryexcel/xls/people_frowning_floyd.xls"  -%}
-      {%- set ttdata      =   ttfileggc |jjdata_from_excelsheet()  -%}
+      {%- set myfilegga   =   "c:/sm/docs/mytrybits/d/trydata/data_msft_excel/people_simple_30.xls"  -%}
+      {%- set myfileggb   =   "c:/sm/docs/mytrybits/d/trydata/data_msft_excel/people_simple_30.xlsx"  -%}
+      {%- set myfileggc   =   "c:/sm/docs/mytrybits/e/tryexcel/xls/people_frowning_floyd.xls"  -%}
+      {%- set ttdata      =   myfileggc |jjdata_from_excelsheet()  -%}
       {{ ttdata |jjdata_formatas('jsonpretty')  }}
       
   - &heritageearlier
-    rowkeep: 1
+    rowkeep: 0
     caption:      demo excel read WITH dataschema
     uuid:         heritageearlierf
-    desc:         __desc__
+    desc:         |
+      * without dataschema
+          * PRO   easy to load with minimal code
+          * PRO   underlying data can change without having to change the jinja code
+          * CON   if schema does not match data exactly the whole schema is scrapped
+      * with datashema
+          * PRO   typed comparison operators and math
+          * PRO   predictable fieldnames
+          * CON   more code to write
     dreftymacid:  heritageearlier
     template:         |
       {#- ------------------------------------------------------------------------ -#}     
-      {%- set ttfilegga   =   "c:/sm/docs/mytrybits/d/trydata/data_msft_excel/people_simple_30.xls"   -%}
-      {%- set ttfileggb   =   "c:/sm/docs/mytrybits/d/trydata/data_msft_excel/people_simple_30.xlsx"  -%}
-      {%- set ttfileggc   =   "c:/sm/docs/mytrybits/e/tryexcel/xls/people_frowning_floyd.xls"  -%}
-      {%- set ttdata      =   ttfileggc |jjdata_from_excelsheet('',1,1,ttschema) -%}
+      {%- set myfilegga   =   "c:/sm/docs/mytrybits/d/trydata/data_msft_excel/people_simple_30.xls"   -%}
+      {%- set myfileggb   =   "c:/sm/docs/mytrybits/d/trydata/data_msft_excel/people_simple_30.xlsx"  -%}
+      {%- set myfileggc   =   "c:/sm/docs/mytrybits/e/tryexcel/xls/people_frowning_floyd.xls"  -%}
+      {%- set ttdata      =   myfileggc |jjdata_from_excelsheet('',1,1,ttschema) -%}
       {#- ------------------------------------------------------------------------ -#} 
       {%- set myquery01 = ""
           +""" lambda mytable: """
           +""" [row for row in mytable
           if(
-            (row['age'] > 55)
+            (row['age'] >  50 )
             and ('windows' in row['platform'])
           )
           ]"""

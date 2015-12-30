@@ -10,7 +10,7 @@
 ###         - link ;; TODO_LINK ;; ddyaml todo href="../.private/txt/devlog.txt" find="chain_stifling_is"
 ###
 ###     seealso: |
-###         ## github repo
+###         ## cygwin github repo
 ###         * cd c:/sm/docs/mymedia/2014/git/github/dynamic.yaml
 ###
 ###         ## devlog
@@ -259,7 +259,6 @@ if('python_region'):
             ssfileorig      =   self.dict_find_multikey(myparam,['xlpath','path','filepath'],'')
             sheet           =   int(self.dict_find_multikey(myparam,['xlsheet','sheet'],'1'))
             firstrow        =   int(self.dict_find_multikey(myparam,['xlfirstrow','firstrow'],'1'))
-            datadef         =   myparam['datadef']
             ##;;
             
             ## testing
@@ -270,36 +269,37 @@ if('python_region'):
             ##;;                    
             
             ## init
-            book            =   xlrd.open_workbook(ssfileorig)
-            sheet           =   book.sheet_by_index(int(sheet-1))
+            book              =   xlrd.open_workbook(ssfileorig)
+            sheet             =   book.sheet_by_index(int(sheet-1))
             aadataout         =   []
             ddheaderrow       =   []
             iitotcols         =   (sheet.ncols)
+            #print iitotcols
             ##;;
   
             ## init ;; validate dataschema if exist
             if(True
               and myparam["datadef"].__len__()    != 0      ## user-defined-dataschema (udd) exists
-              and isinstance( myparam['datadef'], list )    ## udd is a list
-              and isinstance( myparam['datadef'][0], dict)  ## udd[0] is a dict
-              and iitotcols > myparam['datadef']            ## udd has fewer fields than sheet.ncols
+              and iitotcols > myparam['datadef'].__len__()  ## udd has fewer fields than sheet.ncols
               ):
-              print '''
-              ## Caution: 
-              ## Possible mismatch or non-well-formed user defined dataschema
-              '''
-              for tmpcol, ixx in enumerate(range(sheet.ncols)):
-                ##
-                if(ixx <= myparam["datadef"].__len__()):
-                  continue
-                ##
-                tmprec  = {}              
-                tmprec["fldname"]   = 'fld%03d'%(ixx)
-                tmprec["fldtype"]   = 'text'
-                tmprec["fldlabel"]  = 'fld%03d'%(ixx)              
-                myparam["datadef"].append(tmprec)
-                #print ixx
-                #print self.xlrd_get_value(book,sheet.cell(1,ixx),'fld%s'%(ixx))
+              ## wipeout any datadef and create_datadef_from_scratch
+              myparam["datadef"] = []              
+              # print '''
+              # ## Caution: 
+              # ## Possible mismatch or non-well-formed user defined dataschema
+              # '''
+              # for tmpcol, ixx in enumerate(range(sheet.ncols)):
+              #   ##
+              #   if(ixx <= myparam["datadef"].__len__()):
+              #     continue
+              #   ##
+              #   tmprec  = {}              
+              #   tmprec["fldname"]   = 'fld%03d'%(ixx)
+              #   tmprec["fldtype"]   = 'text'
+              #   tmprec["fldlabel"]  = 'fld%03d'%(ixx)              
+              #   myparam["datadef"].append(tmprec)
+              #   #print ixx
+              #   #print self.xlrd_get_value(book,sheet.cell(1,ixx),'fld%s'%(ixx))
             ##;;
           except Exception as msg:
             print 'EXCEPTION adi_dining_servants msg@%s'%(msg.__repr__())
@@ -310,16 +310,13 @@ if('python_region'):
           
           ## try-catch
           try:          
-            ## init dataschema if empty
+            ## init dataschema if empty create_datadef_from_scratch
             if(myparam["datadef"].__len__() == 0):
-              #print "empty datadef!!!"
               for tmpcol, ixx in enumerate(range(sheet.ncols)):
                 tmprec  = {}              
                 tmprec["fldname"]   = 'fld%03d'%(ixx)
                 tmprec["fldtype"]   = 'text'
-                tmprec["fldlabel"]  = 'fld%03d'%(ixx)              
-                #print ixx
-                #print self.xlrd_get_value(book,sheet.cell(1,ixx),'fld%s'%(ixx))
+                tmprec["fldlabel"]  = 'fld%03d'%(ixx)
                 myparam["datadef"].append(tmprec)
             ##;;
           except Exception as msg:
@@ -332,7 +329,7 @@ if('python_region'):
           ## try-catch
           try:          
             ## process dataschema
-            for row in datadef:
+            for row in myparam["datadef"]:
               ddheaderrow.append(self.dict_find_multikey(row,['fldname','fieldname',]))
             ##;;
           except Exception as msg:
@@ -344,14 +341,14 @@ if('python_region'):
           
           ## try-catch
           try:          
-            ## iterate
+            ## iterate rows
             for row_index in range(sheet.nrows):
               if(row_index  < firstrow): continue  ## skip until we reach first datarow
               rowout        = {}
-              ## iterate columns (zero_based)
+              ## iterate columns
               for col_index in range(sheet.ncols):
                   sheet_cell = sheet.cell(row_index,col_index)
-                  rowout[ ddheaderrow[col_index] ] =  self.xlrd_get_value(book,sheet_cell,datadef[col_index])
+                  rowout[ ddheaderrow[col_index] ] =  self.xlrd_get_value(book,sheet_cell,myparam["datadef"][col_index])
               ##endfor
               aadataout.append(rowout)
             ##endfor
