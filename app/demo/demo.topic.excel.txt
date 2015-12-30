@@ -11,7 +11,7 @@
 ###         * href="apprun://c:/sm/docs/mytrybits/e/tryexcel/xls/people_multisheet30.xls"
 ###     desc: |
 ###         msft excel
-###         jjdata_from_excelsheet
+###         jjdata_table_load_fromexcelsheet
 ### <end-file_info>
 
 ## href="c:/sm/docs/mytrybits/y/tryyaml/dynamicyaml/devlog.txt"
@@ -42,7 +42,7 @@ __yaml__:
 __yaml__:
 
   - &uupluckfoo
-    caption:      python aod table dump to xml spreadsheet
+    caption:      jjdata_table_dump_toexcelsheet
     rowkeep: 1
     uuid:         uupluckfoo
     desc:         __desc__
@@ -51,16 +51,16 @@ __yaml__:
     templateinclude:  templateinclude
     template:         |
       {%- set ttdatatable = ttschema  -%}
-      {%- set vout = ''|jjdata_aod_to_excelsheet(ttdatatable)  -%}
+      {%- set vout = ''|jjdata_table_dump_toexcelsheet(ttdatatable)  -%}
       {%- set ttoutfile   = './output.xml'  -%}
       {%- set ttoutmode   = 'replace'       -%}
       {%- set ttusebom    = False           -%}
-      {%filter string() |jjtofile(ttoutfile,ttoutmode,ttusebom) |jjdedent() %}
+      {%filter string() |jjtofile(ttoutfile,ttoutmode,ttusebom) |jjdedent() -%}
       {{ vout }}
       {%endfilter%}
       
   - &uujunshortens
-    caption:      demo excel load WITHOUT dataschema multisheet demo
+    caption:      jjdata_table_load_fromexcelsheet
     rowkeep: 0
     uuid:         uujunshortens
     desc: |
@@ -80,11 +80,11 @@ __yaml__:
       {%- set ttxlsheet   = 3   -%}
       {%- set ttxldtrow   = 1   -%}
       {#- ------------------------------------------------------------------------ -#} 
-      {%- set ttdata      =   myfileggd |jjdata_from_excelsheet(ttxlfile,ttxlsheet,ttxldtrow)  -%}
+      {%- set ttdata      =   myfileggd |jjdata_table_load_fromexcelsheet(ttxlfile,ttxlsheet,ttxldtrow)  -%}
       {{ ttdata |jjdata_formatas('jsonpretty')  }}
       
   - &uuswearingstryke
-    caption:      demo excel load WITHOUT dataschema
+    caption:      jjdata_table_load_fromexcelsheet
     rowkeep: 0
     uuid:         uuswearingstryke
     desc: |
@@ -97,12 +97,12 @@ __yaml__:
       {%- set myfilegga   =   "c:/sm/docs/mytrybits/d/trydata/data_msft_excel/people_simple_30.xls"  -%}
       {%- set myfileggb   =   "c:/sm/docs/mytrybits/d/trydata/data_msft_excel/people_simple_30.xlsx"  -%}
       {%- set myfileggc   =   "c:/sm/docs/mytrybits/e/tryexcel/xls/people_frowning_floyd.xls"  -%}
-      {%- set ttdata      =   myfileggc |jjdata_from_excelsheet()  -%}
+      {%- set ttdata      =   myfileggc |jjdata_table_load_fromexcelsheet()  -%}
       {{ ttdata |jjdata_formatas('jsonpretty')  }}
       
   - &heritageearlier
     rowkeep: 0
-    caption:      demo excel load WITH dataschema
+    caption:      jjdata_table_load_fromexcelsheet
     uuid:         heritageearlierf
     desc:         |
       * without dataschema
@@ -119,7 +119,7 @@ __yaml__:
       {%- set myfilegga   =   "c:/sm/docs/mytrybits/d/trydata/data_msft_excel/people_simple_30.xls"   -%}
       {%- set myfileggb   =   "c:/sm/docs/mytrybits/d/trydata/data_msft_excel/people_simple_30.xlsx"  -%}
       {%- set myfileggc   =   "c:/sm/docs/mytrybits/e/tryexcel/xls/people_frowning_floyd.xls"  -%}
-      {%- set ttdata      =   myfileggc |jjdata_from_excelsheet('',1,1,ttschema) -%}
+      {%- set ttdata      =   myfileggc |jjdata_table_load_fromexcelsheet('',1,1,ttschema) -%}
       {#- ------------------------------------------------------------------------ -#} 
       {%- set myquery01 = ""
           +""" lambda mytable: """

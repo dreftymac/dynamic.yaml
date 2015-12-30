@@ -2,12 +2,13 @@
 ### main:
 ###   - date: created="Sat Aug 29 03:51:32 2015"
 ###     last: lastmod="Sat Aug 29 03:51:32 2015"
-###     tags:   tags
-###     author: created="__author__"
-###     dreftymacid:    "luckiest_udaipur_type"
+###     tags: yaml, data, coldfusion, dynamicyaml, dreftymac, ddyaml
+###     dreftymacid: "luckiest_udaipur_type"
 ###     seealso: |
+###         ## github
 ###         * cd c:/sm/docs/mymedia/2014/git/github/dynamic.yaml
-###         
+###
+###         ## dynamicyaml
 ###         * href="../../../../../mytrybits/y/tryyaml/dynamicyaml/devlog.txt"
 ###         * href="../../../../../mytrybits/p/trypython2/2009/j/jinja.template/readme.md"
 ###         
@@ -18,7 +19,7 @@
 ###         
 ###     desc: |
 ###         devlog.txt
-###         desc
+###         
 ### <end-file_info>
 
 changelog:
