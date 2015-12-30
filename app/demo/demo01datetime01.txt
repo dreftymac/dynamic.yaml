@@ -1,0 +1,43 @@
+### <beg-file_info>
+### main:
+###   - date: created="Tue Dec 08 07:48:44 2015"
+###     last: lastmod="Tue Dec 08 07:48:44 2015"
+###     tags: tags 
+###     dreftymacid:    "wish_patent_gargle"
+###     seealso: |
+###         *
+###     desc: |
+###         desc  
+### <end-file_info>
+
+
+main:
+  
+  - outfmt:  unix
+    rawstrr:  "201511240251"
+    innfmt:   '%Y%m%d%H%M'
+
+  - outfmt:  unix
+    rawstrr:  "2015-11-24T0251"
+    innfmt:   '%Y-%m-%dT%H%M'
+
+  - outfmt:  unix
+    rawstrr:  "11/24/2015T0251"
+    innfmt:   '%m/%d/%YT%H%M'
+
+__yaml__:
+
+  - &uuiwishpatga
+    caption:      jjdate_reformat
+    rowkeep: 1    
+    uuid:         uuiwishpatga
+    template: |
+      {#- ------------------------------------------------------------------------  -#}
+        {% for item in main -%}
+        {{ item.rawstrr.__str__() |jjdate_reformat(item.innfmt.__str__(),item.outfmt) }} ;; ( {{
+            item.rawstrr }} converted to {{ item.outfmt }} )
+        {{-"\n"-}}
+        {% endfor %}        
+      {#- ------------------------------------------------------------------------  -#}
+
+

@@ -1,0 +1,19 @@
+## href="c:/sm/docs/mytrybits/y/tryyaml/dynamicyaml/devlog.txt"
+## href="c:/sm/docs/mymedia/2014/git/github/dynamic.yaml/py/ddyaml.py"
+__yaml__:
+
+  - &uuid001
+    caption:      caption
+    rowkeep: 1
+    uuid:         uuid001
+    desc:         |
+        using ddyaml templateinclude instead of jinja import
+        http://jinja.pocoo.org/docs/dev/templates/#import
+    dreftymacid:  hankow_insects_adultly
+    templateinclude:
+      - 'demo01macroimport01a.txt.twig'
+    template: |
+      {{ input('alpha-bravo') }}
+      {{ textarea('bravo-charlie') }}
+
+

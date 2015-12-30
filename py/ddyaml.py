@@ -7,21 +7,8 @@
 ###     author:         created="dreftymac"
 ###     dreftymacid:    "beamer_weave_text"
 ###     todo:
-###         - feature         ;;  radiotable write to file with indentation
-###         - feature         ;;  diceword generator (separate class)
-###         - testing         ;;  run through unit tests in demo for regressions from ddyaml.py
-###         - testing         ;;  internal_call ... what does an internal call from a jjfunction to another looklike
-###         - pluggable       ;;  add python pip install support
-###         - organization    ;;  context_specific filters should be moved out to user-space out core ddyaml
-###         - organization    ;;  take out the default_data directive (not sure what it is for, what is difference between default_data and current_data now that there is datainclude)
-###         - organization    ;;  separate jjfilters out into separate class files
-###         - pluggable       ;;  myclip snippet plugin filter
-###         - feature         ;;  saner support for unicode input (href="../../../../../../mydaydirs/2015/week37/txt/testingunicode.txt")
-###         - feature         ;;  add support for pluggable filters besides JinjaFilterDynamicYAML
-###         - feature         ;;  from cmdline ddyaml add support for raw input string and not just input file
-###         - feature         ;;  if no __yaml__ sigil present, assume pure jinja syntax on an entire yaml file
-###         - feature         ;;  add support for pluggable alternate template engines besides python/jinja2
-###         - demo            ;;  centralize demo code into repo href="../../../../../../mytrybits/y/tryyaml/dynamicyaml/app/demo/readme.txt"
+###         - link ;; TODO_LINK ;; ddyaml todo href="../.private/txt/devlog.txt" find="chain_stifling_is"
+###
 ###     seealso: |
 ###         ## github repo
 ###         * cd c:/sm/docs/mymedia/2014/git/github/dynamic.yaml
@@ -30,10 +17,12 @@
 ###         * href="../devlog.txt"
 ###         * href="../../../../../../mytrybits/y/tryyaml/dynamicyaml/devlog.txt"
 ###         * href="../../../../../../mytrybits/p/trypython2/2009/j/jinja.template/readme.md"
+###
 ###     demo_and_examples: |
+###         * href="../../../../../../mymedia/2014/git/github/dynamic.yaml/app/demo/readme.txt"
 ###         * href="../../../../../../mytrybits/y/tryyaml/dynamicyaml/app/demo/readme.asc"
 ###         * href="../../../../../../mytrybits/y/tryyaml/dynamicyaml/app/sample/readme.md"
-###         * href="../../../../../../mymedia/2014/git/github/dynamic.yaml/app/demo/readme.txt"
+###
 ###     desc: |
 ###         ddyaml.py
 ###         core dynamic yaml in a single standalone python file
@@ -63,7 +52,7 @@ def __caption__(self,jjinput):
 
   ##
   vout = jjinput.__str__()
-  
+
   ##
   try:
     vout = vout
@@ -73,7 +62,7 @@ def __caption__(self,jjinput):
     exc_type, exc_obj, exc_tb = sys.exc_info()
     fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
     print(exc_type, fname, exc_tb.tb_lineno)
-    
+
   ##
   return vout
 ##enddef
@@ -110,27 +99,29 @@ if('python_region'):
       import textwrap
       import time
       import uuid
+      import xlrd
       import yaml
       import zipfile
-      
+
       ##
       from bs4 import BeautifulSoup
-      
+
       ##
       import pprint
       oDumper = pprint.PrettyPrinter(indent=4);
-      
+
       ##
       #from PIL import Image, ImageDraw, ImageFilter
       #import pyscreenshot as ImageGrab
-      
+
       ##
       ## TODO: improve handling of addon libraries
       ## os.sys.path.insert(0,'c:/sm/docs/mytrybits/p/trypython2/lab2014/libpy')
-      
+
       ##
       def py_mergedict(dict1, dict2):
         '''
+        TODO: move this into DataHelperUtils
         python addon function for merging nested dictionaries
         see also:
         * http://stackoverflow.com/a/7205672/42223
@@ -151,6 +142,319 @@ if('python_region'):
       ##enddef
 ###!}}}
 
+
+### @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+### DataHelperUtils
+if('python_region'):
+### <beg-region_testiff_20151229121946>
+###!- caption:  DataHelperUtils
+###!  date:     created="Tue Dec 29 12:19:46 2015"
+###!  goal:     |
+###!       __blank__
+###!  result:   |
+###!       __blank__
+###!  tags:     __tags__
+###!  seealso: |   
+###!  		* __blank__
+###!  desc: |   
+###!  		__desc__
+###!  
+###!  
+###!  dreftymacid: itch_drain_resorts
+###!  wwbody: |
+      class DataHelperUtils():
+        
+        ##
+        def dict_find_multikey(self,dd_source={},knownkeys=[],sdefault=''):
+          """
+          find a value associated with potential synonym keys
+          http://stackoverflow.com/questions/29259204/how-to-get-a-value-from
+          """
+          ##
+          vfind           =   [dd_source.get(vxx) for vxx in knownkeys if(not dd_source.get(vxx) is None)]
+          vout            =   vfind[0] if vfind else sdefault
+          ##
+          return vout
+        ##enddef
+        
+        ##
+        def dict_to_nvptable(self,vdict,fldorder=[]):
+          """
+          changes BEFORE into AFTER
+          
+          BEFORE (native python dictionary):  
+            {"fname":"homer","lname":"simpson","age":33}
+  
+          AFTER (native python aod represented as yaml):
+              - name:   age
+                value:  33
+              - name:   fname
+                value:  homer
+              - name    lname
+                value:  simpson
+          """
+          
+          ##
+          vout = []
+  
+          ##
+          if (len(fldorder) == 0): fldorder = sorted(vdict.keys())
+          
+          ##
+          for fld in fldorder:
+            orec = {}
+            if fld in vdict:
+              orec['value']   =   vdict[fld]
+              orec['name']    =   fld
+              vout.append(orec)
+            
+          ##
+          return vout
+        ##enddef        
+        
+        ##
+        def excel_sheet_to_python_aod(self,oparams={}):
+          """
+          desc: convert excel spreadsheet to python aod
+          arr_fldtypes:
+            - int
+            - text
+            - float
+            - date
+          usage: |
+              oparams = {}
+              oparams['xlpath']     =   '../excel/people.simple30.xls'  ## excel filepath
+              oparams['xlsheet']    =   1                               ## wkbk sheet index (one-based)
+              oparams['xlfirstrow'] =   4                               ## first datarow    (one-based)
+              oparams['datadef']    =   yaml.safe_load('''              ## sheet dataschema
+                - {fldname: lname     ,    fldtype: TEXT , fldlabel: "Last Name" }
+                - {fldname: fname     ,    fldtype: TEXT , fldlabel: "First Name" }
+                - {fldname: amount    ,    fldtype: INT  , fldlabel: "Amount" }
+                - {fldname: age       ,    fldtype: INT  , fldlabel: "Age" }
+                - {fldname: nation    ,    fldtype: TEXT , fldlabel: "Nation" }
+                - {fldname: platform  ,    fldtype: TEXT , fldlabel: "Platform" }
+                - {fldname: date      ,    fldtype: DATE , fldlabel: "Current Date" }
+              ''')
+              excel_sheet_to_python_aod(oparams)
+          """
+          
+          ## try-catch
+          try:
+            ## init defaults smartmerge
+            myparam = {}
+            myparam['xlpath']       =   ''
+            myparam['xlsheet']      =   1
+            myparam['xlfirstrow']   =   2
+            myparam['datadef']      =   []
+            myparam.update(oparams)
+            ##;;
+            
+            ## testing
+            # print"""### ------------------------------------------------------------------------ """
+            # oDumper.pprint( myparam )
+            # exit()
+            ##;;            
+            
+            ## init
+            ssfileorig      =   self.dict_find_multikey(myparam,['xlpath','path','filepath'],'')
+            sheet           =   int(self.dict_find_multikey(myparam,['xlsheet','sheet'],'1'))
+            firstrow        =   int(self.dict_find_multikey(myparam,['xlfirstrow','firstrow'],'1'))
+            datadef         =   myparam['datadef']
+            ##;;
+            
+            ## testing
+            # print"""### ------------------------------------------------------------------------ """
+            # oDumper.pprint( myparam )
+            # oDumper.pprint( datadef )
+            # exit()
+            ##;;                    
+            
+            ## init
+            book            =   xlrd.open_workbook(ssfileorig)
+            sheet           =   book.sheet_by_index(int(sheet-1))
+            aadataout         =   []
+            ddheaderrow       =   []
+            iitotcols         =   (sheet.ncols)
+            ##;;
+  
+            ## init ;; validate dataschema if exist
+            if(True
+              and myparam["datadef"].__len__()    != 0      ## user-defined-dataschema (udd) exists
+              and isinstance( myparam['datadef'], list )    ## udd is a list
+              and isinstance( myparam['datadef'][0], dict)  ## udd[0] is a dict
+              and iitotcols > myparam['datadef']            ## udd has fewer fields than sheet.ncols
+              ):
+              print '''
+              ## Caution: 
+              ## Possible mismatch or non-well-formed user defined dataschema
+              '''
+              for tmpcol, ixx in enumerate(range(sheet.ncols)):
+                ##
+                if(ixx <= myparam["datadef"].__len__()):
+                  continue
+                ##
+                tmprec  = {}              
+                tmprec["fldname"]   = 'fld%03d'%(ixx)
+                tmprec["fldtype"]   = 'text'
+                tmprec["fldlabel"]  = 'fld%03d'%(ixx)              
+                myparam["datadef"].append(tmprec)
+                #print ixx
+                #print self.xlrd_get_value(book,sheet.cell(1,ixx),'fld%s'%(ixx))
+            ##;;
+          except Exception as msg:
+            print 'EXCEPTION adi_dining_servants msg@%s'%(msg.__repr__())
+            exc_type, exc_obj, exc_tb = sys.exc_info()
+            fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
+            print(exc_type, fname, exc_tb.tb_lineno)
+          ##;;
+          
+          ## try-catch
+          try:          
+            ## init dataschema if empty
+            if(myparam["datadef"].__len__() == 0):
+              #print "empty datadef!!!"
+              for tmpcol, ixx in enumerate(range(sheet.ncols)):
+                tmprec  = {}              
+                tmprec["fldname"]   = 'fld%03d'%(ixx)
+                tmprec["fldtype"]   = 'text'
+                tmprec["fldlabel"]  = 'fld%03d'%(ixx)              
+                #print ixx
+                #print self.xlrd_get_value(book,sheet.cell(1,ixx),'fld%s'%(ixx))
+                myparam["datadef"].append(tmprec)
+            ##;;
+          except Exception as msg:
+            print 'EXCEPTION toplofty_hyper_dreamily msg@%s'%(msg.__repr__())
+            exc_type, exc_obj, exc_tb = sys.exc_info()
+            fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
+            print(exc_type, fname, exc_tb.tb_lineno)
+          ##;;            
+          
+          ## try-catch
+          try:          
+            ## process dataschema
+            for row in datadef:
+              ddheaderrow.append(self.dict_find_multikey(row,['fldname','fieldname',]))
+            ##;;
+          except Exception as msg:
+            print 'EXCEPTION minks_merge_unsound msg@%s'%(msg.__repr__())
+            exc_type, exc_obj, exc_tb = sys.exc_info()
+            fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
+            print(exc_type, fname, exc_tb.tb_lineno)
+          ##;;
+          
+          ## try-catch
+          try:          
+            ## iterate
+            for row_index in range(sheet.nrows):
+              if(row_index  < firstrow): continue  ## skip until we reach first datarow
+              rowout        = {}
+              ## iterate columns (zero_based)
+              for col_index in range(sheet.ncols):
+                  sheet_cell = sheet.cell(row_index,col_index)
+                  #oDumper.pprint(sheet_cell)
+                  #oDumper.pprint(ddheaderrow)
+                  #oDumper.pprint(datadef)
+                  rowout[ ddheaderrow[col_index] ] =  self.xlrd_get_value(book,sheet_cell,datadef[col_index])
+              ##endfor
+              aadataout.append(rowout)
+            ##endfor
+          except Exception as msg:
+            print 'EXCEPTION clueing_henchman_swam msg@%s'%(msg.__repr__())
+            exc_type, exc_obj, exc_tb = sys.exc_info()
+            fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
+            print(exc_type, fname, exc_tb.tb_lineno)
+          ##;;              
+          
+          ## return aadataout
+          ## print yaml.dump(aadataout,default_flow_style = False)
+          return aadataout
+        ##enddef        
+        
+        ##
+        def xlrd_get_value(self,book,sheet_cell,rec_datadef={}):
+          """
+          /**
+            * dependencies:
+            *   import xlrd
+            *   import datetime
+            * 
+            * rec_datadef:
+            *    {fldname: ID , fldtype: INTEGER }    
+            *
+            * example: 
+            * @code
+            *   _example_
+            * @endcode
+            *
+            * @param xlrd book       $book (required|) xlrd workbook object
+            * @param xlrd sheet_cell $sheet_cell (required|) xlrd sheet_cell object
+            * @param rec_datadef    rec_datadef (optional|) python dict datadef 
+            * @return var output
+            *   
+            */ 
+          """
+          ## init vars
+          vout        =   ''
+          rxnewline   =   re.compile('\n|\r\n|\r|\n\r')
+          
+          ### ------------------------------------------------------------------------
+          ## handle excel type
+          if(False): vout = ''
+          ##
+          elif(sheet_cell.ctype == 3): # 3 means 'xldate' , 1 means 'text'
+            ms_date_number = sheet_cell.value # Correct option 2
+            year, month, day, hour, minute, second = xlrd.xldate_as_tuple(ms_date_number,book.datemode)
+            py_date = datetime.datetime(year, month, day, hour, minute)
+            vout    = py_date.__str__()
+          ##
+          elif(True):    
+            vout = sheet_cell.value
+          
+          #oDumper.pprint(vout)
+          
+          ### ------------------------------------------------------------------------
+          ## handle datadef type
+          try:
+            if(False):
+              pass
+            elif(rec_datadef['fldtype'].lower().startswith("int")):
+              vout = int(vout)
+            elif(rec_datadef['fldtype'].lower().startswith("text")):
+              vout = str(vout).strip()
+            elif(rec_datadef['fldtype'].lower().startswith("float")):
+              vout = float(vout)
+            elif(rec_datadef['fldtype'].lower().startswith("date")):
+              vout = str(vout)
+          except Exception as msg:
+            pass
+          ##endtry
+          
+          ### ------------------------------------------------------------------------
+          ## handle python type
+          if(False):
+            pass
+          elif(type(vout) is int):
+            vout = vout
+          elif(type(vout) is long):
+            vout = vout
+          elif(type(vout) is float):
+            vout = vout
+          elif(type(vout) is str):
+            vout = re.sub(rxnewline, " ", vout)
+          elif(type(vout) is unicode):
+            vout = re.sub(rxnewline, " ", vout).encode('utf-8')
+          ##endif
+        
+          ### ********************
+          ## postprocess
+          ##
+          return vout
+        ##enddef        
+        
+      ##endclass
+
+### <end-region_testiff_20151229121946>  
+  
 ### @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 ### yaml helper DerivedBaseRepresenter
 if('python_region'):
@@ -171,7 +475,7 @@ if('python_region'):
 ###!  dreftymacid: granular_ever_milt
 ###!  wwbody: |
       class DerivedBaseRepresenter(yaml.representer.BaseRepresenter):
-        
+
         def yaml_addon_should_use_block(self,value):
           '''
           ## function docs
@@ -185,7 +489,7 @@ if('python_region'):
                   vout = True
           return vout
         ##enddef
-    
+
         def yaml_addon_represent_scalar(self, tag, value, style=None):
           '''
           ## function docs
@@ -231,7 +535,7 @@ if('python_region'):
         """
         Abstract Class for wrapping Jinja Custom Filters
         """
-        
+
         def yaml_function_docs(self,filterfor=''):
           '''
           ## function docs
@@ -245,7 +549,7 @@ if('python_region'):
             vout = [item for item in vout if(filterfor in item)]
           return "\n\n".join(vout)
         ##enddef
-        
+
         def attach_filters(self,env):
           '''
           ## function docs
@@ -270,7 +574,7 @@ if('python_region'):
             env.filters[item] = getattr(self,item)
           return env
         ##enddef
-        
+
         def prefilter(self,vstr):
           '''
           ## function docs
@@ -318,24 +622,23 @@ if('python_region'):
 ###!          Currently assumes jinja2 as the templating engine for ddyaml
 ###!  wwbody: |
       class JinjaFilterDynamicYAML(JinjaFilterBase):
-        
+
         ##
         ## Metadata
         ##
-      
-        
+
+
         ##
         ## CustomAddons ;; context_specific
         ##
-        
+
         ### ------------------------------------------------------------------------
         ### begin_: pillow_specific
-        
+
         def jjp_imagetopdf(self,jjinput,sgfilein='',sgfileout=''):
           '''
-          ##TODO move this out to drupal specific, for now included here for deadlines
-          ##drupal URL aliases settings
-          
+          ##TODO move this out to pillow_specific, for now included here for deadlines
+
           ##beg_func_docs
           - caption:      jjp_imagetopdf
             date:         lastmod="2015.08.05.1807"
@@ -355,7 +658,7 @@ if('python_region'):
              - param: sgfileout ;; required ;; output pdf file
           ##end_func_docs
           '''
-          
+
           ##
           try:
             ## open the image file in RGB format, this is important if we miss
@@ -375,7 +678,7 @@ if('python_region'):
 
         ### ------------------------------------------------------------------------
         ### begin_: drupal_specific
-                
+
         ##
         def jjd_alias(self,jjinput):
           '''
@@ -389,7 +692,7 @@ if('python_region'):
           #MAKE SURE YOUR REMOVALS MATCH: compare this with
           #    {{ ttsiteroot }}/admin/config/search/path/settings
           #    https://businessgrp1-stage.uoregon.edu/admin/config/search/path/settings
-          
+
           ##beg_func_docs
           - caption:      jjd_alias
             date:         lastmod="20150904.1651"
@@ -432,7 +735,7 @@ if('python_region'):
           '''
           #TODO move this out to imacros specific, for now included here for deadlines
           #imacros spacify
-          
+
           ##beg_func_docs
           - caption:  jji_scripthead
             date:         lastmod="2015.08.05.1807"
@@ -451,7 +754,7 @@ if('python_region'):
           '''
           ##
           vout    = jjinput.__str__()
-          
+
           ##
           vout = '''
           TAB T=1
@@ -460,12 +763,12 @@ if('python_region'):
           SET !VAR1 "{{ "
           SET !VAR2 " }}"
           '''
-          
+
           ##
           vout  = textwrap.dedent(vout)
           return vout
         ##enddef
-        
+
         ##
         def jji_sp(self,jjinput):
           '''
@@ -483,13 +786,13 @@ if('python_region'):
           ##
           return vout
         ##enddef
-                
+
         ##
         def jji_ngsp(self,jjinput):
           '''
           #TODO move this out to imacros specific, for now included here for deadlines
           #imacros spacify
-          
+
           ##beg_func_docs
           - caption:  jji_ngsp
             date:         lastmod="__dates__"
@@ -531,16 +834,62 @@ if('python_region'):
           ##
           return vout
         ##enddef
-        
+
         ### ------------------------------------------------------------------------
         ### begin_: general_purpose
-        
+
         ## TODO ;; formalize this function and docs
         def jjos_platform(self,jjinput):
           vout = platform.system()
           return vout
         ##enddef
+
+        ##
+        def jjapplyfunction(self,jjinput,jjfunc='lambda vxx: vxx',jjdatt=''):
+          '''
+          ##beg_func_docs
+          - caption:      jjapplyfunction
+            date:         lastmod="Wed Dec 23 06:29:25 2015"
+            grp_maj:      jinja
+            grp_med:      filter
+            grp_min:      addon
+            desc:         __desc__
+            dreftymacid:  pets_marvel_dave
+            seealso:
+              - href="smartpath://mymedia/2014/git/github/dynamic.yaml/app/demo/demo01jjapplyfunction01.txt"
+              - href="smartpath://mytrybits/m/trymyclip/github_symlink/myclip/publiclab/pythonallgeneral.txt" find="uureload_holocopy_001" 
+            detail:  |
+              * NOTE: need to make this a security-sensitive function that can be turned off
+            dependencies:
+              - __blank__
+            params:
+             - param: jjinput ;; optarity ;; jinja raw input string
+             - param: jjdatt ;; optarity ;; data to operate on
+             - param: jjfunc ;; optarity ;; function to apply
+          ##end_func_docs
+          '''
         
+          ##
+          vout  = ''
+          if(jjinput):
+            jjdatt  =  jjinput
+        
+          ##
+          try:
+            ## BUGNAG ;; ANNOYANCE ;; SECURITY ;; string-eval
+            jjfunc =  eval(jjfunc)
+            vout   =  jjfunc(jjdatt)
+          ##
+          except Exception as msg:
+            print 'UNEXPECTED TERMINATION pets_marvel_dave msg@%s'%(msg.__repr__())
+            exc_type, exc_obj, exc_tb = sys.exc_info()
+            fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
+            print(exc_type, fname, exc_tb.tb_lineno)
+        
+          ##
+          return vout
+        ##enddef
+
         def jjaod_tocsv(self,jjinput,delim="|"):
           '''
           ##beg_func_docs
@@ -561,11 +910,11 @@ if('python_region'):
              - param: delim   ;; optional ;; string delimiter defaults to pipe char "|"
           ##end_func_docs
           '''
-        
+
           ##
           odata = jjinput
           vout  = ''
-          
+
           ##
           try:
             ##
@@ -575,7 +924,7 @@ if('python_region'):
               for key in row:
                 if type(row[key])==str:
                   row[key] = row[key].replace("\n",' ')
-            
+
             ##
             output = StringIO.StringIO()
             f_csv = csv.DictWriter(output, headers, delimiter=delim, lineterminator="\n")
@@ -583,7 +932,7 @@ if('python_region'):
             f_csv.writerows(rows)
             vout = output.getvalue()
             output.close()
-            
+
             return vout
           ##
           except Exception as msg:
@@ -591,11 +940,11 @@ if('python_region'):
             exc_type, exc_obj, exc_tb = sys.exc_info()
             fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
             print(exc_type, fname, exc_tb.tb_lineno)
-            
+
           ##
           return vout
         ##enddef
-        
+
         def jjaod_getrecord(self,jjinput,fieldname='fname',fieldvalue='value',iirec=0):
           '''
           ## function docs
@@ -623,7 +972,7 @@ if('python_region'):
             dreftymacid:  byte_urethral_behold
             output: python list (or `__blank__` if no result was found)
           '''
-          
+
           ##
           try:
             table_aod = jjinput
@@ -638,7 +987,7 @@ if('python_region'):
           ##
           return vout
         ##enddef
-        
+
         def jjaod_select(self,jjinput,fieldname='fname'):
           '''
           ## function docs
@@ -661,7 +1010,7 @@ if('python_region'):
             dreftymacid: bra_bluntly_celt
             output: python list
           '''
-          
+
           ##
           table = jjinput
           ##
@@ -682,8 +1031,8 @@ if('python_region'):
             detail:  |
               * process input data and dump it out to another format
               * seealso
-                  * href="../../../../../../appdata/home/smosley/.dreftymac/py/datadump_formatas.py" find="lookfor"
-                  * href="../../../../../../mytrybits/y/tryyaml/dynamicyaml/app/demo/demo.dataformatas.txt"
+                  * href="smartpath://appdata/home/smosley/.dreftymac/py/datadump_formatas.py" find="lookfor"
+                  * href="smartpath://mytrybits/y/tryyaml/dynamicyaml/app/demo/demo.dataformatas.txt"
             dependencies:
               - none
             params:
@@ -693,16 +1042,16 @@ if('python_region'):
           ## init lib
           import json
           import yaml
-          
+
           ## init vars
           vout          = jjinput
           mytransform   = {}
-          
+
           ## init yaml
           if(sfmt=='yamlpretty'):
             ## see also (regain://listener_faze_whenever)
             yaml.representer.BaseRepresenter.represent_scalar = DerivedBaseRepresenter().yaml_addon_represent_scalar
-    
+
           ## init transform engines
           mytransform['yaml']        = lambda vxx: yaml.safe_dump(vxx)
           mytransform['yamlblock']   = lambda vxx: yaml.safe_dump(vxx
@@ -752,29 +1101,95 @@ if('python_region'):
              - param: srcformat ;; optional ;; specify input data format
           ##end_func_docs
           '''
-        
-          ##
-          if(False):
-            pass;
-          elif(srcformat == 'yaml'):
-            vout = yaml.safe_load( jjinput.__str__() )
-          elif(srcformat == 'json'):
-            vout = json.loads( jjinput.__str__() )
-          
+
+          vout = """ {"ERROR":"jjdata_load failed"} """
+
           ##
           try:
-            return vout
+            if(False):
+              pass;
+            elif(srcformat == 'yaml'):
+              vout = yaml.safe_load( jjinput.__str__() )
+            elif(srcformat == 'json'):
+              vout = json.loads( jjinput.__str__() )
           ##
           except Exception as msg:
-            print 'UNEXPECTED TERMINATION brat_joints_twenty msg@%s'%(msg.__repr__())
-            exc_type, exc_obj, exc_tb = sys.exc_info()
-            fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
-            print(exc_type, fname, exc_tb.tb_lineno)
-            
+            pass
+            # print 'UNEXPECTED TERMINATION brat_joints_twenty msg@%s'%(msg.__repr__())
+            # exc_type, exc_obj, exc_tb = sys.exc_info()
+            # fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
+            # print(exc_type, fname, exc_tb.tb_lineno)
+
           ##
           return vout
         ##enddef
-    
+
+        def jjdata_from_excelsheet(self,jjinput,sgginfile='',iggsheetindex=0,iggfirsdatarow=2,tableschema=[]):
+          '''
+          ##beg_func_docs
+          - caption:      jjdata_from_excelsheet
+            date:         lastmod="2015-12-29T12:40:51"
+            grp_maj:      data
+            grp_med:      extract
+            grp_min:      spreadsheet
+            desc:         __desc__
+            dreftymacid:  vial_snaring_jocks
+            detail:  |
+              * __blank__
+            dependencies:
+              - __blank__
+            params:
+             - param: jjinput ;; optional ;; input source filename
+          ##end_func_docs
+          '''
+        
+          ## init args
+          if( jjinput.__str__() == ''):
+            pass
+          elif(True):
+            sgginfile   = jjinput.__str__()
+          ##;;
+          
+          ## init vars
+          oDHH  =   DataHelperUtils()
+          vout  =   ''
+          ##;;
+        
+          ## processing
+          try:
+            oparams = {}
+            oparams['xlpath']     =   sgginfile                       ## excel filepath
+            oparams['xlsheet']    =   iggsheetindex                   ## wkbk sheet index (zero-based)
+            oparams['xlfirstrow'] =   iggfirsdatarow                  ## first datarow (one-based)
+            oparams['datadef']    =   tableschema                     ## sheet dataschema
+            
+            # oDumper.pprint( oparams )
+            
+            ## Example datadef dataschema
+            # oparams['datadef']    =   yaml.safe_load('''                
+            #   - {fldname: lname     ,    fldtype: TEXT , fldlabel: "Last Name" }
+            #   - {fldname: fname     ,    fldtype: TEXT , fldlabel: "First Name" }
+            #   - {fldname: amount    ,    fldtype: INT  , fldlabel: "Amount" }
+            #   - {fldname: age       ,    fldtype: INT  , fldlabel: "Age" }
+            #   - {fldname: nation    ,    fldtype: TEXT , fldlabel: "Nation" }
+            #   - {fldname: platform  ,    fldtype: TEXT , fldlabel: "Platform" }
+            #   - {fldname: date      ,    fldtype: DATE , fldlabel: "Current Date" }
+            # ''')
+            
+            vout = oDHH.excel_sheet_to_python_aod(oparams)
+            
+          ##
+          except Exception as msg:
+            print 'EXCEPTION skcoj_gnirans_laiv msg@%s'%(msg.__repr__())
+            exc_type, exc_obj, exc_tb = sys.exc_info()
+            fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
+            print(exc_type, fname, exc_tb.tb_lineno)
+          ##;;
+          
+          ##
+          return vout
+        ##enddef
+
         def jjdict_update(self,jjinput,ddaddon={}):
           '''
           ##beg_func_docs
@@ -811,11 +1226,11 @@ if('python_region'):
             exc_type, exc_obj, exc_tb = sys.exc_info()
             fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
             print(exc_type, fname, exc_tb.tb_lineno)
-            
+
           ##
           return vout
         ##enddef
-        
+
         def jjchr(self,jjinput):
           '''
           ##beg_func_docs
@@ -837,7 +1252,7 @@ if('python_region'):
 
           ##
           vout = jjinput.__str__()
-          
+
           ##
           try:
             vout = chr(int(vout))
@@ -847,11 +1262,11 @@ if('python_region'):
             exc_type, exc_obj, exc_tb = sys.exc_info()
             fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
             print(exc_type, fname, exc_tb.tb_lineno)
-            
+
           ##
           return vout
         ##enddef
-        
+
         def jjint(self,jjinput):
           '''
           ##beg_func_docs
@@ -873,7 +1288,7 @@ if('python_region'):
 
           ##
           vout = jjinput.__str__()
-          
+
           ##
           try:
             vout = int(vout)
@@ -906,7 +1321,7 @@ if('python_region'):
              - param: ssfilepath  ;; required ;; path to a csv file
           ##end_func_docs
           '''
-                  
+
           ##
           try:
               ##
@@ -923,11 +1338,196 @@ if('python_region'):
             exc_type, exc_obj, exc_tb = sys.exc_info()
             fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
             print(exc_type, fname, exc_tb.tb_lineno)
-            
+
           ##
           return vout
         ##enddef
-    
+
+        def jjdevlog_paths_byyear(self,jjinput,stryear='2015'):
+          '''
+          ##beg_func_docs
+          - caption:      jjdevlog_paths_byyear
+            date:         lastmod="Tue Dec 22 16:44:13 2015"
+            grp_maj:      devlog
+            grp_med:      grp_med
+            grp_min:      grp_min
+            desc:         |
+              BUGNAG: hardwired ssroot path
+            dreftymacid:  discs_henhouse_unbundle
+            detail:  |
+              * __blank__
+            dependencies:
+              - __blank__
+            params:
+             - param: jjinput ;; optarity ;; jinja raw input string
+          ##end_func_docs
+          '''
+          
+          ## trycatch
+          try:
+            ## init vars
+            #vout      =   jjinput.__str__()
+            vout      =   []
+            ssroot    =   'c:/sm/docs/mydaydirs/%s/*'%(stryear)
+            aalist    =   self.jjarray_fromdir("",ssroot)
+            ##;;
+  
+            ## filter list
+            aalist    = [ item for item in aalist if(True
+                                       and self.jjfiletest(item) == 'dir'
+                                       and 'week' in item.__str__().lower()                                     
+                                       )]
+            ## transform list
+            for item in aalist:
+              item     = item.replace("\\","/")                
+              ttfrag01 = item.split('/')[-1]                   
+              ttpath   = "%s/%s%s"%(item,ttfrag01,'devlog.txt')
+              if not (self.jjfiletest(ttpath) == 'file'): continue
+              vout.append( ttpath )            
+            ##;;
+            
+          ##
+          except Exception as msg:
+            print 'UNEXPECTED TERMINATION __dreftymacid__ msg@%s'%(msg.__repr__())
+            exc_type, exc_obj, exc_tb = sys.exc_info()
+            fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
+            print(exc_type, fname, exc_tb.tb_lineno)
+          ##;;
+          
+          ## return
+          return vout
+        ##enddef
+
+        def jjdevlog_load(self,jjinput):
+          '''
+          ##beg_func_docs
+          - caption:      jjdevlog_load
+            date:         lastmod="Tue Dec 22 15:43:42 2015"
+            grp_maj:      devlog
+            grp_med:      file
+            grp_min:      load
+            desc:         load a dreftymac-format devlog file
+            dreftymacid:  awash_sneaky_lawmaker
+            detail:  |
+              * __blank__
+            dependencies:
+              - __blank__
+            params:
+             - param: jjinput ;; required ;; devlog path
+          ##end_func_docs
+          '''
+
+          ##
+          fpath =   jjinput.__str__()
+          vdefault  =   { "workstuff" : [], "mystuff" : [] ,"head" : [] }
+
+          ### ********************
+          ## trycatch loadfile
+          try:
+            vraw  =   self.jjfromfile("",fpath)
+            if( vraw ):
+              vout = vraw
+            elif( True ):
+              vout = ''
+          ##
+          except Exception as msg:
+            print fpath
+            print 'LOAD RAW FILE FAILED stank_verglas_variety msg@%s'%(msg.__repr__())
+            exc_type, exc_obj, exc_tb = sys.exc_info()
+            fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
+            print(exc_type, fname, exc_tb.tb_lineno)
+            vout = vdefault
+          ##;;
+
+          ### ********************
+          ## trycatch parseyaml
+          try:
+            vout  =   vout.replace("\t","  ")
+            vout  =   yaml.safe_load(vout)
+            if (not isinstance(vout,dict)):
+              vout = vdefault
+          ##
+          except Exception as msg:
+            print fpath
+            print 'YAML PARSE SAFE_LOAD FAILED adapting_exploit_cliche msg@%s'%(msg.__repr__())
+            exc_type, exc_obj, exc_tb = sys.exc_info()
+            fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
+            print(exc_type, fname, exc_tb.tb_lineno)
+            vout = vdefault
+          ##;;
+
+          ## return
+          return vout
+        ##enddef
+
+        def jjdevlog_trybits_xref(self,jjinput):
+          '''
+          ##beg_func_docs
+          - caption:      jjdevlog_trybits_xref
+            date:         lastmod="Tue Dec 22 15:43:42 2015"
+            grp_maj:      devlog
+            grp_med:      trybits
+            grp_min:      lookup
+            desc:         |
+              crossreference trybits directoies with string containing potential crossrefs
+            dreftymacid:  yamaha_merger_hankow
+            detail:  |
+              * __blank__
+            dependencies:
+              - __blank__
+            params:
+             - param: jjinput ;; required ;; devlog path
+          ##end_func_docs
+          '''
+
+          ##
+          fpath =   jjinput.__str__()
+          vout  =   ''
+
+          ### ********************
+          ## trycatch loadfile
+          try:
+            vraw  = self.jjfromfile("",fpath)
+            vout  =   vraw
+          ##
+          except Exception as msg:
+            print 'LOAD RAW FILE FAILED stank_verglas_variety msg@%s'%(msg.__repr__())
+            exc_type, exc_obj, exc_tb = sys.exc_info()
+            fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
+            print(exc_type, fname, exc_tb.tb_lineno)
+          ##;;
+
+          ### ********************
+          ## trycatch parseyaml wellformed
+          try:
+            vout = yaml.safe_load(vout)
+          ##
+          except Exception as msg:
+            print 'YAML PARSE SAFE_LOAD FAILED adapting_exploit_cliche msg@%s'%(msg.__repr__())
+            exc_type, exc_obj, exc_tb = sys.exc_info()
+            fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
+            print(exc_type, fname, exc_tb.tb_lineno)
+          ##;;
+
+          ### ********************
+          ## trycatch validity
+          try:
+            if(not vout["workstuff"] ): vout["workstuff"]   = []
+            if(not vout["mystuff"] ):   vout["mystuff"]   = []
+            if(not vout["head"] ):      vout["head"]   = []
+            vout = yaml.safe_load(vout)
+          ##
+          except Exception as msg:
+            print 'VALIDITY CHECK FAILED evenly_ululant_charm msg@%s'%(msg.__repr__())
+            exc_type, exc_obj, exc_tb = sys.exc_info()
+            fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
+            print(exc_type, fname, exc_tb.tb_lineno)
+          ##;;
+
+          ## return
+          return vout
+        ##enddef
+
         def jjdate_get(self,jjinput,getwhat='year'):
           '''
           ## function docs
@@ -955,7 +1555,7 @@ if('python_region'):
           '''
           ##
           vout = jjinput.__str__()
-          
+
           ##
           try:
             now   =   datetime.datetime.now()
@@ -981,7 +1581,49 @@ if('python_region'):
           ##
           return vout
         ##enddef
-    
+
+        def jjdate_reformat(self,jjinput,innfmt='%Y%m%d%H%M',outfmt='unix'):
+          '''
+          ## function docs
+          - caption:  jjdate_reformat
+            date:     lastmod="Tue Dec 08 07:35:57 2015"
+            grp_maj:  datetime
+            grp_med:  reformat
+            grp_min:
+            desc:       grab in a date string and reformat and send it to output
+            dreftymacid: wish_patent_gargle
+            seealso:
+              - href="smartpath://mymedia/2014/git/github/myclip/publiclab/pythondatetime.txt" find="slim_poser_hate"
+              - href="smartpath://mymedia/2014/git/github/dynamic.yaml/app/demo/demo01datetime01.txt"
+            detail:  |
+            ary_supported_getwhat:
+              - ''
+              - 'datem'
+            dependencies:
+              - import datetime
+            params:
+             - param: jjinput  ;; __blank__ ;; __blank__
+             - param: getwhat  ;; __blank__ ;; __blank__
+             - param: sendwhat ;; __blank__ ;; __blank__
+          '''
+
+          ##
+          vout  =   ''
+          ssg   =   jjinput.__str__()
+
+          ##
+          try:
+            if(outfmt=='unix'):
+              vout  =   time.mktime(datetime.datetime.strptime(ssg, innfmt).timetuple()).__int__()
+          except Exception as msg:
+            print 'UNEXPECTED TERMINATION msg@%s'%(msg.__repr__())
+            exc_type, exc_obj, exc_tb = sys.exc_info()
+            fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
+            print(exc_type, fname, exc_tb.tb_lineno)
+          ##
+          return vout
+        ##enddef
+
         def jjdate_fmt(self,jjinput,getwhat='dates'):
           '''
           ## function docs
@@ -1001,10 +1643,10 @@ if('python_region'):
              - param: jjinput ;; ignored ;; placeholder for raw input string
             dreftymacid: wound_fancy_touring
           '''
-          
+
           ##
           vout = jjinput.__str__()
-          
+
           ##
           try:
             now   =   datetime.datetime.now()
@@ -1042,7 +1684,7 @@ if('python_region'):
           ##
           return vout
         ##enddef
-    
+
         def jjdate_now(self,jjinput,sfmt=''):
           '''
           ## function docs
@@ -1062,7 +1704,7 @@ if('python_region'):
           '''
           ##
           vout = jjinput.__str__()
-          
+
           ##
           try:
             vout = str(datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S'))
@@ -1074,7 +1716,7 @@ if('python_region'):
           ##
           return vout
         ##enddef
-        
+
         def jjdec64(self,jjinput):
           '''
           ## function docs
@@ -1097,7 +1739,7 @@ if('python_region'):
           ##
           return vout
         ##enddef
-        
+
         def jjenc64(self,jjinput):
           '''
           ## function docs
@@ -1120,7 +1762,7 @@ if('python_region'):
           ##
           return vout
         ##enddef
-    
+
         def jjdedent(self,jjinput):
           '''
           ## function docs
@@ -1143,7 +1785,7 @@ if('python_region'):
           ##
           return vout
         ##enddef
-        
+
         def jjdubsplit(self,jjinput,spliton=';;',splitget=0,runmode='regex'):
           '''
           ## function docs
@@ -1175,7 +1817,7 @@ if('python_region'):
           '''
           ##
           vout = jjinput.__str__()
-          
+
           ##
           try:
             if(False):
@@ -1190,7 +1832,7 @@ if('python_region'):
           ##
           return vout
         ##enddef
-    
+
         def jjfmt(self,jjinput,fmt='{0}',typeof='str'):
           '''
           ## function docs
@@ -1212,7 +1854,7 @@ if('python_region'):
           '''
           ##
           vout  = jjinput.__str__()
-                
+
           ##
           try:
             if typeof=='str':
@@ -1229,7 +1871,7 @@ if('python_region'):
           ##
           return vout
         ##enddef
-             
+
         def jjfilecopy(self,jjinput,sgsrc='',sgdest=''):
           '''
           ##beg_func_docs
@@ -1250,10 +1892,10 @@ if('python_region'):
              - param: sgdest ;; required ;; destination file path
           ##end_func_docs
           '''
-          
+
           ##
           vout  = "\n## %s copied to %s"%(sgsrc,sgdest)
-          
+
           ##
           try:
             shutil.copyfile(sgsrc, sgdest)
@@ -1265,7 +1907,65 @@ if('python_region'):
           ##
           return vout
         ##enddef
-        
+
+        def jjfiletest(self,jjinput):
+          '''
+          ##beg_func_docs
+          - caption:      jjfiletest
+            date:         lastmod="Fri Dec 18 11:05:12 2015"
+            grp_maj:      fileio
+            grp_med:      grp_med
+            grp_min:      grp_min
+            desc:         |
+              determine if the input string represents a path to a file or directory
+              return 'dir'  if dir
+              return 'file' if file
+              return ''     if not file and not dir
+            dreftymacid:  takeaway_magnum_unisex
+            detail:  |
+              * __blank__
+            dependencies:
+              - __blank__
+            params:
+             - param: jjinput ;; optarity ;; jinja raw input string
+          ##end_func_docs
+          '''
+
+          ##
+          vout = jjinput.__str__()
+
+          ##
+          try:
+            vout = vout
+            if (False): pass
+            elif (os.path.isdir(vout) == True): vout = 'dir'
+            elif (os.path.isfile(vout) == True): vout = 'file'
+            elif (True): vout = ''
+          ##
+          except Exception as msg:
+            print 'UNEXPECTED TERMINATION __dreftymacid__ msg@%s'%(msg.__repr__())
+            exc_type, exc_obj, exc_tb = sys.exc_info()
+            fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
+            print(exc_type, fname, exc_tb.tb_lineno)
+
+          ##
+          return vout
+        ##enddef
+
+        # import os, time
+        # dirList = os.listdir("./")
+        # for d in dirList:
+        #     if os.path.isdir(d) == True:
+        #         stat = os.stat(d)
+        #         created = os.stat(d).st_mtime
+        #         asciiTime = time.asctime( time.gmtime( created ) )
+        #         print d, "is a dir  (created", asciiTime, ")"
+        #     else:
+        #         stat = os.stat(d)
+        #         created = os.stat(d).st_mtime
+        #         asciiTime = time.asctime( time.gmtime( created ) )
+        #         print d, "is a file (created", asciiTime, ")"
+
         # useless for intended purpose, always returns ddyaml.py
         #def jjfile_currpath(self,jjinput):
         #  '''
@@ -1302,7 +2002,7 @@ if('python_region'):
         #  ##
         #  return vout
         ###enddef
-    
+
         def jjfromfile(self,jjinput,surl=''):
           '''
           ## function docs
@@ -1311,33 +2011,48 @@ if('python_region'):
             grp_maj:  FileIO
             grp_med:  string
             grp_min:  fromfile
-            desc: string.fromfile
+            desc:     string.fromfile
+            tags:     jjfromfile, jjfile_load,
+            dreftymacid: waterage_eat_formal
             detail:  |
               pull in content from a file
             todo: |
               * figure out why jjfromfile not working
-                  * href="../../../../../../mydaydirs/2015/week42/json/proj01test01transform01.txt"
+                  * href="csm://mydaydirs/2015/week42/json/proj01test01transform01.txt"
             dependencies:
               - none
             params:
              - param: jjinput   ;;  required  ;;  placeholder argument for jinja
              - param: surl      ;;  required  ;;  file path
-            dreftymacid: waterage_eat_formal
           '''
           ##
           vout  = ''
           #vout  = open(surl,'r').read()
-          
+
           ##
           try:
             ## BUGNAG ;; added encode ascii ignore
             #vout  = codecs.open(surl, 'r', 'utf-8').read().replace(u'\xa0', u' ')
             vout  =   codecs.open(surl, 'r', 'utf-8').read()
+            vout  =   filter(lambda vxx: vxx in string.printable, vout)
             vout  =   vout.encode('ascii','replace')
             ##print vout
             #vout  = open(surl,'r').read().replace(u'\xa0', ' ')
             #vout  = vout.decode('utf-8').encode('ascii', 'ignore')
           except Exception as msg:
+            print """
+
+            ### ------------------------------------------------------------------------
+            ### ------------------------------------------------------------------------
+            ### ------------------------------------------------------------------------
+
+            FILE ENCODING HASSLE ;; href="%s"
+            
+            ### ------------------------------------------------------------------------
+            ### ------------------------------------------------------------------------
+            ### ------------------------------------------------------------------------
+
+            """ %(surl)
             print 'UNEXPECTED TERMINATION sharing_client_smearing msg@%s %s'%(msg.__repr__(),surl)
             exc_type, exc_obj, exc_tb = sys.exc_info()
             fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
@@ -1346,7 +2061,7 @@ if('python_region'):
           #return vout.decode('ascii','replace')
           return vout
         ##enddef
-                
+
         def jjget_basename(self,jjinput):
           '''
           ## ANNOYANCE: this just gives the basename of this current py file
@@ -1380,7 +2095,7 @@ if('python_region'):
           ##
           return vout
         ##enddef
-    
+
         def jjgreplines(self,jjinput,lookfor=''):
           """
           ## function docs
@@ -1402,7 +2117,7 @@ if('python_region'):
           ##
           vinp = jjinput.splitlines()
           vout = []
-          
+
           ##
           try:
             for line in vinp:
@@ -1417,7 +2132,7 @@ if('python_region'):
           ##
           return vout
         ##enddef
-    
+
         def jjhtml_findall(self,jjinput,mytagg='a'):
           '''
           ##beg_func_docs
@@ -1436,12 +2151,12 @@ if('python_region'):
              - param: jjinput ;; optarity ;; jinja raw input string
           ##end_func_docs
           '''
-        
+
           ##
           vinput    =   jjinput.__str__()
           soup      =   BeautifulSoup(vinput)
           table     =   soup.findAll(mytagg)
-                    
+
           ##
           try:
             vout = table
@@ -1451,11 +2166,11 @@ if('python_region'):
             exc_type, exc_obj, exc_tb = sys.exc_info()
             fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
             print(exc_type, fname, exc_tb.tb_lineno)
-            
+
           ##
           return vout
         ##enddef
-    
+
         def jjhtml_squeeze(self,jjinput):
           """
           ## function docs
@@ -1476,7 +2191,7 @@ if('python_region'):
           """
           ##
           vout  = jjinput.__str__()
-          
+
           ##
           try:
             vout = vout.split("\n")
@@ -1491,7 +2206,7 @@ if('python_region'):
           ##
           return vout
         ##enddef
-        
+
         def jjhtml5_pretty(self,jjinput):
           """
           ##beg_func_docs
@@ -1510,15 +2225,15 @@ if('python_region'):
              - param: jjinput ;; required ;; jinja raw input string
           ##end_func_docs
           """
-          
+
           ##
           from html5print import HTMLBeautifier
-          
+
           ##
           ##vout    = jjinput.__str__()
           #print jjinput[2737:]
           #exit()
-          
+
           #vout    = jjinput.__str__()
           #vout    = jjinput.replace(u'\xa0', ' ').encode('utf-8')
           vout      =   jjinput.replace(u'\xa0',u' ')
@@ -1528,7 +2243,7 @@ if('python_region'):
           #vout    = jjinput.encode('ascii', 'ignore').decode('ascii')
           print vout
           myindd  = 4
-          
+
           ##
           try:
             ##
@@ -1536,18 +2251,18 @@ if('python_region'):
             vout    =   re.sub(r"[\r\n]+" , "\n",  vout)
             vout    =   vout.split('<body>')[1]
             vout    =   vout.split('</body>')[0]
-            
+
           ##
           except Exception as msg:
             print 'UNEXPECTED TERMINATION __dreftymacid__ msg@%s'%(msg.__repr__())
             exc_type, exc_obj, exc_tb = sys.exc_info()
             fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
             print(exc_type, fname, exc_tb.tb_lineno)
-            
+
           ##
           return vout
         ##enddef
-                
+
         def jjhtml_pretty(self,jjinput,bforceascii=True,ballowfrag=False,):
           """
           ## function docs
@@ -1571,7 +2286,7 @@ if('python_region'):
              - param: bforceascii ;; __blank__  ;; __blank__
              - param: ballowfrag  ;; __blank__  ;; __blank__
           """
-          
+
           ##
           rawdata   =   jjinput
           vout      =   ''
@@ -1582,16 +2297,16 @@ if('python_region'):
             html  =  rawdata
             if(bforceascii):
               html  = html.decode('ascii','replace')
-              
+
             # Double curly brackets to avoid problems with .format()
             stripped_markup = html.replace('{','{{').replace('}','}}')
-                        
+
             ## init soup
             #soup = BeautifulSoup(html)
-            
+
             stripped_markup = BeautifulSoup(stripped_markup)
             unformatted_tag_list = []
-            
+
             for i, tag in enumerate(stripped_markup.find_all([ 'a'
                                                               , 'a'
                                                               , 'b'
@@ -1608,11 +2323,11 @@ if('python_region'):
                                                               ])):
                 unformatted_tag_list.append(str(tag))
                 tag.replace_with('{' + 'unformatted_tag_list[{0}]'.format(i) + '}')
-            
+
             reload(sys); sys.setdefaultencoding('utf-8')
             pretty_markup = stripped_markup.prettify().format(unformatted_tag_list=unformatted_tag_list)
             vout = pretty_markup
-            
+
             ### handle the case with ballowfrag
             ### http://stackoverflow.com/questions/15980757/how-to-prevent-beautifulsoup4-from-adding-extra-htmlbody-tags-to-the-soup
             #if(ballowfrag):
@@ -1625,7 +2340,7 @@ if('python_region'):
             #  else:
             #      soup =  soup.contents[0]
             #      print "%s :: %s"%('ok3' , type(soup))
-                  
+
             ## bsoup annoyance_buster ;; nastier_uncover_opusz
             ## href="../../../../../../mytrybits/u/tryunicode/txt/bsoupannoyance.txt"
             #vout =  soup.prettify()
@@ -1638,7 +2353,7 @@ if('python_region'):
           ##
           return vout
         ##enddef
-        
+
         #def jjhtml_pretty(self,jjinput):
         #  '''
         #  ### ##beg_func_docs
@@ -1678,7 +2393,7 @@ if('python_region'):
         #  ##
         #  return vout
         ###enddef
-                
+
         def jjhug(self,jjinput,hug='"'):
           """
           ## function docs
@@ -1700,11 +2415,11 @@ if('python_region'):
              - param: hug       ;; optional ;; hug-character (default doublequote)
             output: python string
           """
-          
+
           ##
           vout  = jjinput.__str__()
           aahug = []
-          
+
           ##
           if(hug==''): aahug.append('');aahug.append('');
           if(hug=='"'): aahug.append('"');aahug.append('"');
@@ -1718,7 +2433,7 @@ if('python_region'):
           if(hug==")"): aahug.append("(");aahug.append(")");
           if(hug=="{"): aahug.append("{");aahug.append("}");
           if(hug=="}"): aahug.append("{");aahug.append("}");
-          
+
           ##
           try:
             vout = "".join([ aahug[0], vout , aahug[1] ])
@@ -1730,7 +2445,7 @@ if('python_region'):
           ##
           return vout
         ##enddef
-        
+
         def jjindent(self,jjinput,imult=2,strlead=' ',):
           """
           ## function docs
@@ -1743,12 +2458,12 @@ if('python_region'):
             desc:         string indent
             detail: |
                 string indent
-                
+
                 NOTE A trick to using this filter, when dealing with a potentially multiline string,
                 put a newline before the indent to have all lines show up with a common and uniform indent.
-                
+
                 (see href="../../image/mustang_gunfire_being.001.png")
-                
+
             dependencies:
               - import re
             params:
@@ -1757,10 +2472,10 @@ if('python_region'):
              - param: strlead   ;; optional ;; leading indenter default (single whitespace char)
             output: python string
           """
-          
+
           ##
           vout = jjinput.__str__()
-          
+
           ##
           try:
             vout = re.sub(re.compile('^', re.MULTILINE), str(strlead * imult), vout,)
@@ -1770,12 +2485,12 @@ if('python_region'):
             exc_type, exc_obj, exc_tb = sys.exc_info()
             fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
             print(exc_type, fname, exc_tb.tb_lineno)
-            
+
           ##
           return vout
           pass
         ##enddef
-    
+
         def jjlen(self,jjinput):
           """
           ## function docs
@@ -1800,7 +2515,7 @@ if('python_region'):
           """
           ##
           vout = jjinput.__str__()
-          
+
           ##
           try:
             vout = len(vout)
@@ -1812,7 +2527,7 @@ if('python_region'):
           ##
           return vout
         ##enddef
-    
+
         def jjlistget(self,jjinput,index=0):
           """
           ## function docs
@@ -1834,7 +2549,7 @@ if('python_region'):
           """
           ##
           vout = jjinput
-          
+
           ##
           try:
             vout = jjinput[index]
@@ -1846,7 +2561,7 @@ if('python_region'):
           ##
           return vout
         ##enddef
-    
+
         def jjlistjoin(self,jjinput,joinwith=" "):
           """
           ## function docs
@@ -1868,7 +2583,7 @@ if('python_region'):
           """
           ##
           vout = jjinput
-          
+
           ##
           try:
             vout = joinwith.join(jjinput)
@@ -1880,7 +2595,7 @@ if('python_region'):
           ##
           return vout
         ##enddef
-    
+
         def jjmarkdown2html(self,jjinput):
           """
           ## function docs
@@ -1901,7 +2616,7 @@ if('python_region'):
           """
           ##
           vout = jjinput.__str__()
-          
+
           ##
           try:
             vout  =   textwrap.dedent(vout)
@@ -1918,8 +2633,8 @@ if('python_region'):
         ## alias_definition
         def jjmarkdowntohtml(self,jjinput): return self.jjmarkdown2html(jjinput)
         ##enddef
-    
-    
+
+
         def jjnewline_erase(self,jjinput):
           """
           ## function docs
@@ -1942,7 +2657,7 @@ if('python_region'):
           """
           ##
           vout = jjinput.__str__()
-          
+
           ##
           try:
             vout = re.sub("\n", "" , vout)
@@ -1957,7 +2672,7 @@ if('python_region'):
         ## alias_definition
         def jjnne(self,jjinput): return self.jjnewline_erase(jjinput)
         ##enddef
-    
+
         def jjnewline_replace(self,jjinput,replacewith="\n"):
           """
           ## function docs
@@ -1980,7 +2695,7 @@ if('python_region'):
           """
           ##
           vout = jjinput.__str__()
-          
+
           ##
           try:
             vout = re.sub("\n", replacewith , vout)
@@ -1994,7 +2709,7 @@ if('python_region'):
         ##enddef
         ## alias_definition
         ##enddef
-    
+
         def jjpath(self,jjinput,ssmethod='isdir'):
           """
           ## function docs
@@ -2019,7 +2734,7 @@ if('python_region'):
           """
           ##
           vout = jjinput.__str__()
-           
+
           ##
           try:
             vout = getattr(os.path,ssmethod)(vout)
@@ -2031,7 +2746,7 @@ if('python_region'):
           ##
           return vout
         ##enddef
-    
+
         def jjarray_fromdir(self,jjinput,ssfilespec='',ssmode='glob'):
           """
           ## function docs
@@ -2045,9 +2760,12 @@ if('python_region'):
             alias:
               - __blank__
             detail: |
-              seealso:
-              * href="../../../../../mydaydirs/2015/week22/py/oswalk.demo.py"
-              return a python list result from os.walk
+              ## ssmode
+              * glob    ;; uses glob.glob to traverse dirs
+              * walk    ;; uses os.walk to traverse dirs
+              ## seealso
+              * href="smartpath://mydaydirs/2015/week22/py/oswalk.demo.py"
+              * return a python list result from os.walk
             dependencies:
               - none
             params:
@@ -2058,7 +2776,7 @@ if('python_region'):
           """
           ##
           vout = jjinput.__str__()
-           
+
           ##
           try:
             if(ssmode.lower()==''):
@@ -2082,7 +2800,7 @@ if('python_region'):
           ##
           return vout
         ##enddef
-       
+
         def jjq2x(self,jjinput):
           """
           ## function docs
@@ -2104,7 +2822,7 @@ if('python_region'):
           """
           ##
           vout = jjinput.__str__()
-          
+
           ##
           try:
             vout = re.sub("'", "''" , vout)
@@ -2148,17 +2866,17 @@ if('python_region'):
              - param: options     ;;  optional  ;;  local options dictionary
           ##end_func_docs
           '''
-        
+
           ##
           sgradiobody =   ''
           sgrawtext   =   self.jjfromfile(jjinput,targfile)
           vout        =   ''
-          
+
           ##
           try:
             vout      =   re.split(rtregexbeg, sgrawtext,)[1]
             vout      =   re.split(rtregexend, vout,)[0]
-            
+
           ##
           except IndexError as msg:
             print 'Error: Bad regular expression or no match found for jjradioextract? atrocity_bluntest_coping msg@%s'%(msg.__repr__())
@@ -2170,13 +2888,13 @@ if('python_region'):
             exc_type, exc_obj, exc_tb = sys.exc_info()
             fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
             print(exc_type, fname, exc_tb.tb_lineno)
-            
+
           ###
           #if(options.has_key('verbose')):
           #  if(options['verbose']==None):     pass
           #  elif(options['verbose']==True):   vout = "".join([vout])
           #  elif(options['verbose']==False):  vout = ''
-            
+
           ##
           return vout
         ##enddef
@@ -2216,7 +2934,7 @@ if('python_region'):
              - param: options ;; optional ;; local options dictionary
           ##end_func_docs
           '''
-        
+
           ## init vars
           sgradiobody =   jjinput.__str__()
           sgrawtext   =   self.jjfromfile(jjinput,targfile)
@@ -2228,9 +2946,9 @@ if('python_region'):
                                 'beg'   : 'beg-',
                                 'end'   : 'end-',
                                 'wrap'  : '<',
-                      }          
+                      }
           zopts.update(zdefaults)
-          
+
           ## init vars
           if(None): pass
           elif(rtregexbeg == '' or rtregexend == ''):
@@ -2239,7 +2957,7 @@ if('python_region'):
             ##
             rtregexbeg  =   '\s*'+zopts['cmmt']+'\s*'+tagbeg+''
             rtregexend  =   '\s*'+zopts['cmmt']+'\s*'+tagend+''
-          
+
           ##
           try:
             rawpref   = re.split(rtregexbeg, sgrawtext,)[0]
@@ -2258,7 +2976,7 @@ if('python_region'):
             exc_type, exc_obj, exc_tb = sys.exc_info()
             fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
             print(exc_type, fname, exc_tb.tb_lineno)
-          
+
           ##
           if(zopts.has_key('verbose')):
             if(zopts['verbose']==None):
@@ -2267,7 +2985,7 @@ if('python_region'):
               vout = vout
             elif(zopts['verbose']==False):
               vout = ''
-              
+
           ##
           return vout
         ##enddef
@@ -2292,10 +3010,10 @@ if('python_region'):
              - param: replacement  ;;  optional   ;;  string replacement
              - param: flags        ;;  optional   ;;  string representation of python's `re.M` style flags
           '''
-          
+
           ##
           vout      =   jjinput.__str__()
-          
+
           ##
           try:
             ##
@@ -2308,14 +3026,14 @@ if('python_region'):
             ##
             regex     =   re.compile(pattern,flags)
             vout      =   regex.sub(replacement, vout)
-            
+
           ##
           except Exception as msg:
             print 'UNEXPECTED TERMINATION msg@%s'%(msg.__repr__())
             exc_type, exc_obj, exc_tb = sys.exc_info()
             fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
             print(exc_type, fname, exc_tb.tb_lineno)
-            
+
           ##
           return vout
         ##enddef
@@ -2343,26 +3061,26 @@ if('python_region'):
              - param: ssregex ;; required ;; string regex
           ##end_func_docs
           '''
-        
+
           ##
           vout = jjinput.__str__()
-          
+
           ##
           try:
             oRegex =  re.compile(ssregex,re.M|re.S|re.I)
             vout   =  oRegex.findall(vout)
-            
+
           ##
           except Exception as msg:
             print 'UNEXPECTED TERMINATION formal_awing_wolf msg@%s'%(msg.__repr__())
             exc_type, exc_obj, exc_tb = sys.exc_info()
             fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
             print(exc_type, fname, exc_tb.tb_lineno)
-            
+
           ##
           return vout
         ##enddef
-    
+
         #def jjregionreplace(self,jjinput,vreplace='',regbeg='',regend='',):
         #  """
         #  ## function docs
@@ -2418,7 +3136,7 @@ if('python_region'):
         #  ##
         #  return vout
         ###enddef
-    
+
         def jjcurl(self,jjinput,method='put',target='',payload=''):
           '''
           ##beg_func_docs
@@ -2427,7 +3145,7 @@ if('python_region'):
             grp_maj:      grp_maj
             grp_med:      grp_med
             grp_min:      grp_min
-            desc:         __desc__
+            desc:         simulate a curl call. seealso jjrequesturl
             dreftymacid:  armpits_magnet_freshens
             detail:  |
               * __blank__
@@ -2440,10 +3158,10 @@ if('python_region'):
              - param: payload   ;; optarity ;; data payload
           ##end_func_docs
           '''
-        
+
           ##
           ## vout = jjinput.__str__()
-          
+
           ##
           try:
             vout       =     getattr(requests,method)(target,data=payload)
@@ -2453,11 +3171,11 @@ if('python_region'):
             exc_type, exc_obj, exc_tb = sys.exc_info()
             fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
             print(exc_type, fname, exc_tb.tb_lineno)
-            
+
           ##
           return vout
         ##enddef
-    
+
         def jjrequesturl(self,jjinput,sgurl='http://www.example.com',):
           '''
           ## function docs
@@ -2471,9 +3189,9 @@ if('python_region'):
             detail: |
               ## overview
               request the content of a URL using python requests module
-              
+
               ## demo
-              
+
             dependencies:
               - import requests
             params:
@@ -2483,7 +3201,7 @@ if('python_region'):
           '''
           ##
           vout      =   ''
-          
+
           ##
           try:
               ## init_content
@@ -2494,14 +3212,14 @@ if('python_region'):
             exc_type, exc_obj, exc_tb = sys.exc_info()
             fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
             print(exc_type, fname, exc_tb.tb_lineno)
-            
+
           ##
           return vout
         ##enddef
         ## alias_definition
         def jjfromurl(self,jjinput,sgurl): return self.jjrequesturl(jjinput,sgurl)
         ##enddef
-        
+
         def jjsplit(self,jjinput,sdelim=';;'):
           """
           ## function docs
@@ -2523,7 +3241,7 @@ if('python_region'):
           """
           ##
           vout = jjinput.__str__()
-          
+
           ##
           try:
             vout = vout.split(sdelim)
@@ -2535,7 +3253,7 @@ if('python_region'):
           ##
           return vout
         ##enddef
-        
+
         def jjsplit_re(self,jjinput,regex='\w'):
           """
           ## function docs
@@ -2557,7 +3275,7 @@ if('python_region'):
           """
           ##
           vout = jjinput.__str__()
-          
+
           ##
           try:
             vout = re.split(regex,vout)
@@ -2570,7 +3288,7 @@ if('python_region'):
           ##
           return vout
         ##enddef
-        
+
         def jjslashdouble(self,jjinput):
           """
           ## function docs
@@ -2607,7 +3325,7 @@ if('python_region'):
         ## alias_definition
         def jjsldub(self,jjinput): return self.jjslashdouble(jjinput)
         ##enddef
-        
+
         def jjslashback(self,jjinput):
           """
           ## function docs
@@ -2641,7 +3359,7 @@ if('python_region'):
         ## alias_definition
         def jjslb(self,jjinput): return self.jjslashback(jjinput)
         ##enddef
-        
+
         def jjslashforward(self,jjinput):
           """
           ## function docs
@@ -2675,7 +3393,7 @@ if('python_region'):
         ## alias_definition
         def jjslf(self,jjinput): return self.jjslashforward(jjinput)
         ##enddef
-        
+
         def jjsplitlines(self,jjinput):
           """
           ## function docs
@@ -2706,7 +3424,7 @@ if('python_region'):
         ##enddef
         ## alias_definition
         ##enddef
-    
+
         def jjtodir(self,jjinput,outpath=''):
           '''
           ## function docs
@@ -2728,7 +3446,7 @@ if('python_region'):
           '''
           ##
           vout = jjinput.__str__()
-          
+
           ##
           try:
             #print(os.path.exists(outpath))
@@ -2751,11 +3469,11 @@ if('python_region'):
             #exc_type, exc_obj, exc_tb = sys.exc_info()
             #fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
             #print(exc_type, fname, exc_tb.tb_lineno)
-            
+
           ##
           return vout
         ##enddef
-    
+
         def jjtofile(self,jjinput,outpath='',writemode='create',usebom=False):
           '''
           ## function docs
@@ -2775,7 +3493,7 @@ if('python_region'):
               * create    ;; create file if not exist, ignore if already exists
               * replace   ;; create file if not exist, overwrite if already exists
               * append    ;; create file if not exist, append if already exists
-              
+
             dependencies:
               - none
             params:
@@ -2788,22 +3506,22 @@ if('python_region'):
           vbody = jjinput.__str__()
           vout  = ''
           bwrite = True
-          
+
           ##
           try:
             ## outpath is empty
             if( outpath == ''):
               vout = vout ## just return jjinput and do not try to write to file
-              
+
             ## outpath is nonempty
             elif( not outpath == '' ):
               pymode = 'wb'
-              
+
               ## mkdir-p
               if( not os.path.exists(os.path.dirname(outpath)) ):
                 os.makedirs( os.path.dirname(outpath) )
               ##---
-                        
+
               ## check writemode
               if( (os.path.isfile(outpath)) and (writemode=='create') ):
                 pymode  = ''
@@ -2820,11 +3538,11 @@ if('python_region'):
                 vout    = outpath;
                 vout    = "\nappend file %s"%(vout)
               ##---
-              
+
               #print writemode
               #print outpath
               #print pymode
-              
+
               ## process
               if( not pymode == '' ):
                 oFile = open(outpath,pymode)
@@ -2838,18 +3556,18 @@ if('python_region'):
                 vout = outpath;
                 vout = "\n## failed to write output file %s (already exists?)"%(vout)
               ##---
-              
+
           except Exception as msg:
             pass
             print 'UNEXPECTED TERMINATION gadgets_busby_damply msg@%s'%(msg.__repr__())
             exc_type, exc_obj, exc_tb = sys.exc_info()
             fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
             print(exc_type, fname, exc_tb.tb_lineno)
-            
+
           ##
           return vout
         ##enddef
-                
+
         def jjtozipfile(self,jjinput,zipfilepath='ddyaml_output',archivpath='',stamp=''):
           '''
           ## function docs
@@ -2872,19 +3590,19 @@ if('python_region'):
           ##
           vout = jjinput.__str__()
           if(zipfilepath == ''): zipfilepath = 'ddyaml_output'
-          
+
           ##
           zipmode     =   None
           wrtmode     =   'a'
           ssfzipout   =   '%s%s.zip'%(zipfilepath,stamp)
-          
+
           ##
           try:
               import zlib
               zipmode= zipfile.ZIP_DEFLATED
           except:
               zipmode= zipfile.ZIP_STORED
-              
+
           ##
           ##
           try:
@@ -2904,7 +3622,7 @@ if('python_region'):
           ##
           return vout
         ##enddef
-    
+
         def jjucfirst(self,jjinput):
           '''
           ## function docs
@@ -2923,10 +3641,10 @@ if('python_region'):
           '''
           ##
           vinn      = jjinput.__str__()
-          
+
           ##
           vtokens   = re.split('(\W)', vinn)
-          
+
           ##
           vtokens   =   [
             (str(item)[0].upper() + str(item)[1:])
@@ -2936,14 +3654,14 @@ if('python_region'):
                 (item)
             for item in vtokens
             ]
-          
+
           ##
           vout      =   "".join(vtokens)
-          
+
           ##
           return vout
         ##enddef
-            
+
         def jjuuid(self,jjinput,enum=0):
           '''
           ## function docs
@@ -2962,7 +3680,7 @@ if('python_region'):
              - param: enum ;; optional ;; add on additional enumeration component
             dreftymacid: vehement_chewer_til
           '''
-    
+
           ##
           try:
             vout  = []
@@ -2983,7 +3701,7 @@ if('python_region'):
           ##
           return vout
         ##enddef
-        
+
         def jjwinexplore(self,jjinput,path='',useback=True):
           '''
           ## function docs
@@ -3003,7 +3721,7 @@ if('python_region'):
              - param: path      ;; required ;; winexplore designated path
              - param: useback   ;; optional ;; use backslash instead of fwdslash
           '''
-        
+
           ## process
           try:
             vout  = "\n## jjwinexplore %s"%(path)
@@ -3011,19 +3729,19 @@ if('python_region'):
             if(useback): path = path.replace('/',"\\")
             subprocess.Popen(r'explorer /select,"%s"'%path)
             pass;
-            
+
           ## exception
           except Exception as msg:
             print 'UNEXPECTED TERMINATION msg@%s'%(msg.__repr__())
             exc_type, exc_obj, exc_tb = sys.exc_info()
             fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
             print(exc_type, fname, exc_tb.tb_lineno)
-            
+
           ## return
           return vout
         ##enddef
-        
-        
+
+
       ##endclass
 ###!}}}
 
@@ -3047,7 +3765,7 @@ if('python_region'):
       class DynamicYAML(object):
         def __init__(self,ffpath):
           ##
-          self.Environment  =   jinja2.Environment(extensions=['jinja2.ext.do'])
+          self.Environment  =   jinja2.Environment(extensions=['jinja2.ext.do','jinja2.ext.loopcontrols'])
           self.oenv         =   self.Environment
           self.ffpath_main  =   ffpath
           self.ffpath_abso  =   "/".join( os.path.abspath(ffpath).split("\\") )
@@ -3055,7 +3773,7 @@ if('python_region'):
           #oDumper.pprint( self.ffpath_abso )
           #oDumper.pprint( self.ffpath_pdir )
         ##enddef
-        
+
         def data_struct_merge(self,ob001,ob002,path=None):
           """
           ### main:
@@ -3071,7 +3789,7 @@ if('python_region'):
           """
           return dict(py_mergedict(ob001,ob002))
         ##enddef
-        
+
         def ff_resolvepath_read(self,spath):
           '''
           ### main:
@@ -3106,7 +3824,7 @@ if('python_region'):
               pass
           return sscurr
         ##enddef
-        
+
         def ddtransform(self):
           """
           ### main:
@@ -3122,7 +3840,7 @@ if('python_region'):
           ## init jinja environment (oEnv) and extensions
           oEnv      =   self.oenv
           ##;;
-          
+
           ## init custom filters for oEnv
           #import JinjaCustomFilter
           #import JinjaHTMLBasicFilter
@@ -3132,13 +3850,13 @@ if('python_region'):
           ## href="../../../../../../mytrybits/p/trypython2/lab2014/libpy/jinjaimacrosfilter.py"
           #oEnv      =   JinjaHTMLBasicFilter.attach_filters(oEnv)  ## href="../libpy/JinjaHTMLBasicFilter.py"
           ##;;
-          
+
           ## placeholder syntax
           sgg_dynamicyaml_key     =   '__yaml__'
           sgg_dynamicyaml_key     =   sgg_dynamicyaml_key.lower()
           sgg_directiveprefix_str =   ''
           ##;;
-        
+
           ## get parent_yaml_config (dynamic_yaml)
           vout          =   []
           ssgpath       =   ''
@@ -3147,13 +3865,13 @@ if('python_region'):
           except Exception:
             return ''
             pass
-          
+
           ##
           parent_yaml_config = codecs.open(ssgpath, 'r', 'utf-8').read()
           #parent_yaml_config   =   open(ssgpath,'rb').read()
           orgconf       =   yaml.safe_load(parent_yaml_config)
           ##;;
-                  
+
           ## init directives_dictionary
           directives = {}
           directives['default_data']        = ''
@@ -3161,7 +3879,7 @@ if('python_region'):
           directives['current_data']        = ''
           directives['current_template']    = ''
           ##;;
-        
+
           ## <beg-process01>
           try:
             ## set defaults on directives_dictionary
@@ -3170,20 +3888,20 @@ if('python_region'):
             directives['default_data']    = orgconf.copy()
             del(directives['default_data'][sgg_dynamicyaml_key])
             ##;;
-            
+
             ## set default_template
             ##    use this as the default template if one not specified
             directives['default_template']      = parent_yaml_config
             ##;;
-            
+
             ## iterate_yaml
             for row in orgconf[sgg_dynamicyaml_key]:
               directives['current_template']    = directives['default_template']
               directives['current_data']        = directives['default_data']
-              
+
               ### ********************
               ## process row
-              
+
               ## @@@ usedataroot directive ;; wrap all the template data in a custom 'dataroot' element
               ##
               tmpname = ['use','dataroot']
@@ -3193,7 +3911,7 @@ if('python_region'):
                 if(str(tmpval).strip() != ''):
                   directives["".join(tmpname)] = str(tmpval)
               ##;;
-              
+
               ## @@@ rowkeep directive ;; skip this entire processing row if rowkeep evals to false
               ## BUGNAG ;; this is not working
               tmpname = ['row','keep']
@@ -3202,7 +3920,7 @@ if('python_region'):
                 tmpval = row[tmpkey]
                 if(bool(tmpval) == False): continue;
               ##;;
-              
+
               ## @@@ rowskip directive ;; skip this entire processing row if rowskip evals to true
               tmpname = ['row','skip']
               tmpkey  = sgg_directiveprefix_str + "".join(tmpname)
@@ -3210,7 +3928,7 @@ if('python_region'):
                 tmpval = row[tmpkey]
                 if(True and tmpval): continue;
               ##;;
-              
+
               ## @@@ outputfile directive ;; output content to a file without having to use jjtofile
               tmpname = ['output','file']
               tmpkey  = sgg_directiveprefix_str + "".join(tmpname)
@@ -3219,7 +3937,7 @@ if('python_region'):
                 directives['current_'+''.join(tmpname)]   =   tmpval
                 #print tmpval
               ##;;
-              
+
               ## @@@ templatefile directive ;; we get a template from a single external file
               tmpname = ['template','file']
               tmpkey  = sgg_directiveprefix_str + "".join(tmpname)
@@ -3228,7 +3946,7 @@ if('python_region'):
                 directives['current_'+tmpname[0]]   =   textwrap.dedent(open(tmpval,'rb').read())
                 ## print tmpval
               ##;;
-              
+
               ## bkmk001
               ## @@@ template directive ;; we get template from parent_yaml_config
               tmpname = ['template','']
@@ -3238,7 +3956,7 @@ if('python_region'):
                 directives['current_'+tmpname[0]]   =   textwrap.dedent(tmpval)
                 ## print tmpval
               ##;;
-              
+
               ## bkmk001
               ## @@@ templateincluede directive ;; we get one_or_more template from one_or_more external file
               ## and merge it with the data in the parent_yaml_config
@@ -3246,14 +3964,14 @@ if('python_region'):
               tmpkey  =   sgg_directiveprefix_str + "".join(tmpname)
               if( (tmpkey) in row ):
                 tmpval = row[tmpkey]
-                
+
                 ## iterate includes ;; force scalar to list
                 sstemp = ''
                 if(tmpval is None):
                   tmpval = ['']
                 if(  type(tmpval) == str ):
                   tmpval = [tmpval]     ## force scalar to list
-                
+
                 ## iterate items
                 for spath in tmpval:
                   sscurr        =   ''
@@ -3271,21 +3989,21 @@ if('python_region'):
                   directives['current_'+tmpname[0]]   =   sstemp
                 ## print tmpval
               ##;;
-              
+
               ## @@@ datainclude directive ;; concatenate multiple yaml files to input additional data
               ## and merge it with the data in the parent_yaml_config
               tmpname =   ['datainclude','']
               tmpkey  =   sgg_directiveprefix_str + "".join(tmpname)
               if( (tmpkey) in row ):
                 tmpval = row[tmpkey]
-                
+
                 ## iterate includes ;; force scalar to list
                 sstemp = ''
                 if(tmpval is None):
                   tmpval = ['']
                 if(  type(tmpval) == str ):
                   tmpval = [tmpval]     ## force scalar to list
-                  
+
                 ## iterate items
                 for spath in tmpval:
                   sscurr        =   ''
@@ -3304,7 +4022,7 @@ if('python_region'):
                   directives['current_'+tmpname[0]]   =   yaml.safe_load(sstemp)
                 ## print tmpval
               ##;;
-    
+
               ### TODO ;; NOT_YET_SUPPORTED
               ### @@@ dataurl directive ;; we get a data from an included url
               #tmpname = ['data','url']
@@ -3313,7 +4031,7 @@ if('python_region'):
               #  tmpval = row[tmpkey]
               #  directives['current_'+tmpname[0]]   =   yaml.safe_load(open(tmpval,'rb').read())
               ##;;
-              
+
               ## @@@ data directive ;; we get data from parent_yaml_config
               tmpname = ['data','']
               tmpkey  = sgg_directiveprefix_str + "".join(tmpname)
@@ -3322,19 +4040,19 @@ if('python_region'):
                 tmpval = row[tmpkey]
                 directives['current_'+tmpname[0]]   =   yaml.safe_load(tmpval)
               ##;;
-                          
+
               ## bkmk001
               ## preproc directives
               if('current_templateinclude' in directives):
                 directives['current_template'] = directives['current_templateinclude'] + directives['current_template']
-  
+
               if('current_datainclude' in directives):
                 directives['current_data'] = self.data_struct_merge(directives['current_datainclude'],directives['current_data'])
-  
+
               if('usedataroot' in directives):
                 tmpname = directives['usedataroot']
                 directives['current_data'] = {tmpname: directives['current_data']}
-              
+
               ## debug before render
               #oDumper.pprint( directives )
               #print yaml.safe_dump( directives )
@@ -3350,31 +4068,30 @@ if('python_region'):
                   print "### ------------------------------------------------------------------------"
                   print directives[tmpkey]
                 exit()
-              
+
               ## render output
               ## TODO ;; allow customizable data merge semantics
               otemplate_data  =   self.data_struct_merge(directives['default_data'],directives['current_data'])
               template        =   oEnv.from_string(textwrap.dedent(directives['current_template']))
               tmpout          =   template.render(otemplate_data)
-              
+
               ## force unix line endings
               if(True):
                 tmpout = string.replace(tmpout, '\r\n', '')
                 tmpout = string.replace(tmpout, '\r', '')
               vout.append( tmpout )
-            
+
           ## exception ;; process01
           except Exception as msg:
             print 'UNEXPECTED TERMINATION voyeur_foulest_weirdly msg@%s'%(msg.__repr__())
             exc_type, exc_obj, exc_tb = sys.exc_info()
             fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
             print(exc_type, fname, exc_tb.tb_lineno)
-          
-            
+
           ## print tmpout
           #oDumper.pprint( otemplate_data )
           #print( directives['current_template'] )
-          
+
           ## postproc directives
           try:
             if('current_outputfile' in directives):
@@ -3387,12 +4104,12 @@ if('python_region'):
             #print(exc_type, fname, exc_tb.tb_lineno)
             ##;;
           ## <end-process01>
-            
-            
+
+
             #oDumper.pprint( directives )
           ##endfor::iterate_yaml
-          
-                    
+
+
           #print yaml.safe_dump( vout , default_flow_style=False  )
           ##vjj = "\n"
           vjj = ""
@@ -3400,8 +4117,8 @@ if('python_region'):
           #vjj = "\n### ------------------------------------------------------------------------\n"
           vout = [vjj +  vxx for vxx in vout]
           vout = "".join(vout)
-          
-          
+
+
           return vout
         ##enddef
       ##endclass

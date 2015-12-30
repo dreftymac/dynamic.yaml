@@ -1,0 +1,72 @@
+### <beg-file_info>
+### main:
+###   - date: created="Tue Dec 22 19:08:54 2015"
+###     last: lastmod="Tue Dec 22 19:08:54 2015"
+###     tags:   python ,list, array
+###     dreftymacid:    "chew_virilism_ultraism"
+###     seealso: |
+###         *
+###     desc: |
+###         dealing with variable assignments in jinja
+###         python lists
+### <end-file_info>
+
+## href="c:/sm/docs/mytrybits/y/tryyaml/dynamicyaml/devlog.txt"
+## href="c:/sm/docs/mymedia/2014/git/github/dynamic.yaml/py/ddyaml.py"
+__yaml__:
+
+
+
+  - &uubiasing_rene
+    caption:      jinja list append ;; YES_WORKY
+    rowkeep: 1
+    uuid:         uubiasing_rene
+    desc:         __desc__
+    dreftymacid:  leaflet_olivia_masker
+    seealso:
+        - http://stackoverflow.com/a/4880398/42223    
+    templateinclude:  templateinclude
+    template:         |
+      {%- set aademoalpha = [ ]  -%}
+      {%- for item in range(15+1) -%}{% do aademoalpha.append(item) %}{% endfor -%}
+      {{ aademoalpha }}
+
+  - &undrunk_wind_merit
+    caption:      jinja variables list concat ;; YES_WORKY
+    rowkeep: 0
+    uuid:         undrunk_wind_merit
+    desc:         __desc__
+    dreftymacid:  undrunk_wind_merit
+    datainclude:      datainclude
+    templateinclude:  templateinclude
+    template:         |
+      {%- set aademoalpha = [11,22,33]  -%}
+      {%- set aademobravo = [44,55,66]  -%}
+      {%- set aademocharl = aademoalpha + aademobravo  -%}
+      {{ aademocharl }}
+
+  - &nitwit_rioting
+    caption:       jinja list append ;; NO_WORKY
+    rowkeep: 0
+    uuid:         nitwit_rioting
+    desc:         __desc__
+    dreftymacid:  mick_ariser_cults
+    datainclude:      datainclude
+    templateinclude:  templateinclude
+    template:         |
+      {%- set aademoalpha = [11,22,33]  -%}
+      {% for item in range(15+1) -%}
+        {%- set aademoalpha = aademoalpha + [item]  -%}        
+      {% endfor %}
+      {{ aademoalpha }}
+      
+  - &uu003
+    caption:      jinja list comprehension ;; NO_WORKY
+    rowkeep: 0
+    uuid:         uu003
+    desc:         __desc__
+    dreftymacid:  portal_servant_vicenza
+    template:         |
+      {%- set aademoalpha = [ ]  -%}
+      {%- do aademoalpha.extend( [vxx for vxx in range(12)] ) -%}
+      {{ aademoalpha }}

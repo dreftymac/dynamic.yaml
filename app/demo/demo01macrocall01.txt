@@ -1,0 +1,29 @@
+## href="c:/sm/docs/mytrybits/y/tryyaml/dynamicyaml/devlog.txt"
+## href="c:/sm/docs/mymedia/2014/git/github/dynamic.yaml/py/ddyaml.py"
+__yaml__:
+
+  - &uu778abnQaayz
+    caption:      demo call feature of jinja macros
+    rowkeep: 1
+    uuid:         uu778abnQaayz
+    desc:         __desc__
+    dreftymacid:  __dreftymacid__
+    datainclude:      datainclude
+    templateinclude:  templateinclude
+    template:         |
+      {% macro render_dialog(title, class='dialog') -%}
+          <div class="{{ class }}">
+              <h2>{{ title }}</h2>
+              <div class="contents">
+                  {{ caller() }}
+              </div>
+          </div>
+      {%- endmacro %}
+      
+      {% call render_dialog('Hello World') %}alpha bravo charlie{% endcall %}
+      {% call render_dialog('Bye bye World','fooclass') %}alpha bravo charlie{% endcall %}
+
+
+      
+      
+

@@ -1,0 +1,32 @@
+## href="c:/sm/docs/mytrybits/y/tryyaml/dynamicyaml/devlog.txt"
+## href="c:/sm/docs/mymedia/2014/git/github/dynamic.yaml/py/ddyaml.py"
+__yaml__:
+
+  - &uucampusarch
+    caption:      demo the slice() filter in jinja
+    rowkeep: 1
+    uuid:         uucampusarch
+    desc:         __desc__
+    dreftymacid:  __dreftymacid__
+    template:         |
+      ### ******************** 
+      BEFORE:
+      [11,22,33,44,55,66,77,88,99]
+      
+      AFTER:
+      [11, 22, 33] 
+      [44, 55, 66] 
+      [77, 88, 99]
+      
+      ### ******************** {{-"\n"-}} 
+      {%- set ttlist = [11,22,33,44,55,66,77,88,99]  -%}
+      {%- set ttslice   =   ttlist |slice(3)  -%}
+      {% for item in ttslice -%}
+      {{ item }} 
+      {% endfor %}
+      
+
+
+      
+      
+

@@ -1,0 +1,36 @@
+## href="c:/sm/docs/mytrybits/y/tryyaml/dynamicyaml/devlog.txt"
+## href="c:/sm/docs/mymedia/2014/git/github/dynamic.yaml/py/ddyaml.py"
+__yaml__:
+
+  - &pests_cow_vealing
+    caption:      jjarray_fromdir demo    
+    rowkeep: 1
+    uuid:         pests_cow_vealing
+    desc:         |
+      * demo jjarray_fromdir
+      * demo jjfiletest
+      * demo convenience syntax of if() statemen in loop
+    dreftymacid:  pests_cow_vealing 
+    #datainclude:      datainclude
+    #templateinclude:  templateinclude
+    offtemplate: |
+      {%- set ttdataload  =     ""|jjfromfile( ttpath ) |replace("\t","    ") |jjdata_load('yaml')  -%}  
+    template: |
+      {#- ------------------------------------------------------------------------ -#}
+      {%- set ttmylist =  ""| jjarray_fromdir('c:/sm/docs/mydaydirs/2015/*')  -%}
+      {#- ------------------------------------------------------------------------ -#}
+      {% for item in ttmylist[0:-10] if( item |jjfiletest() == 'dir' and 'week' in item)  -%}
+      {#- ------------------------------------------------------------------------ -#} 
+      {%- set ttfrag01    =     item |jjsplit('/') |jjlistget(-1)                   -%}
+      {%- set ttpath      =     "%s/%s%s"%(item,ttfrag01,'devlog.txt')              -%}
+      {%- set ttdataload  =     ""|jjfromfile( ttpath ) |replace("\t","    ") |jjdata_load('yaml') -%}
+      {#- ------------------------------------------------------------------------ -#} 
+      {%- if (not "ERROR" in ttdataload ) -%}
+      {{-"\n"-}} 
+      href="{{ ttpath }}"
+      {{ ttdataload }}
+      {%- endif -%}      
+      {#- ------------------------------------------------------------------------ -#} 
+      {% endfor %}
+      
+      

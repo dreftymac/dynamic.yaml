@@ -1,0 +1,24 @@
+## href="c:/sm/docs/mytrybits/y/tryyaml/dynamicyaml/devlog.txt"
+## href="c:/sm/docs/mymedia/2014/git/github/dynamic.yaml/py/ddyaml.py"
+__yaml__:
+
+  - &uudraftsmart
+    caption:      load a devlog file using a custom jinja filter
+    rowkeep: 1
+    uuid:         uudraftsmart
+    seealso:
+      - href="c:/sm/docs/mymedia/2014/git/github/dynamic.yaml/py/ddyaml.py" find="awash_sneaky_lawmaker" 
+    dreftymacid:      weaving_adjust_standing
+    datainclude:      datainclude
+    templateinclude:  templateinclude
+    template:         |
+      {%- set ttdevlogpath = "c:/sm/docs/mydaydirs/2015/week50/week50devlog.txt"  -%}
+      {%- set vtest = ttdevlogpath |jjdevlog_load()  -%}
+      {% for row in vtest.mystuff  -%}
+      caption:  {{ row.caption }}
+      tags:     {{ row.tags }}
+      {{-"\n"-}}
+      {{-"\n"-}}      
+      {% endfor %}
+      
+

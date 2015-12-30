@@ -47,7 +47,7 @@ __yaml__:
     uuid:         uuchary
     desc: |
         convert json to pipe-delimited dsv
-    dreftymacid:  __dreftymacid__
+    dreftymacid:  muse_vavasor_mustard
     datainclude:      datainclude
     templateinclude:  templateinclude
     template:         |

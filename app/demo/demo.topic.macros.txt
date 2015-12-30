@@ -1,0 +1,31 @@
+### <beg-file_info>
+### main:
+###   - date: created="Tue Dec 22 19:08:54 2015"
+###     last: lastmod="Tue Dec 22 19:08:54 2015"
+###     tags:   python ,list, array
+###     dreftymacid:    "orate_warnings_athletic"
+###     seealso: |
+###         *
+###     desc: |
+###         dealing with macros in jinja
+###         
+### <end-file_info>
+
+## href="c:/sm/docs/mytrybits/y/tryyaml/dynamicyaml/devlog.txt"
+## href="c:/sm/docs/mymedia/2014/git/github/dynamic.yaml/py/ddyaml.py"
+__yaml__:
+
+  - &founds_curer_musty
+    caption:      jinja macros do not work like functions, you cant return variables, only strings
+    rowkeep: 1
+    uuid:         founds_curer_musty
+    desc:         __desc__
+    dreftymacid:  founds_curer_musty
+    template:         |
+      {%- macro tt_output_list(appendval='') -%}
+        {{ appendval }}        
+      {%- endmacro -%}
+      {%- set mylist = [0]  -%}
+      {% do mylist.append(1212) %}
+      {% do mylist.extend([1,2,4]) %} 
+      {{ mylist }}
