@@ -25,7 +25,9 @@ if('python_region'):
       import zipfile
       
       ## init local
-      from DynamicYAML import DynamicYAML
-      from JinjaFilterBase import JinjaFilterBase
-      from JinjaFilterDynamicYAML import JinjaFilterDynamicYAML
-      from YamlDerivedBaseRepresenter import YamlDerivedBaseRepresenter
+      from DataHelperUtils              import DataHelperUtils
+      from DynamicYAML                  import DynamicYAML
+      from JinjaFilterBase              import JinjaFilterBase
+      from JinjaFilterDynamicYAML       import JinjaFilterDynamicYAML
+      from XmlssBase                    import XmlssBase
+      from YamlDerivedBaseRepresenter   import YamlDerivedBaseRepresenter   

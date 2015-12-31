@@ -56,12 +56,12 @@ if('python_region'):
       oDumper = pprint.PrettyPrinter(indent=4);
 
       ## local import
-      from DynamicYAML import DynamicYAML                 ## href="./DynamicYAML/DynamicYAML.py"
-      from DynamicYAML import JinjaFilterBase             ## href="./DynamicYAML/JinjaFilterBase.py"
-      from DynamicYAML import JinjaFilterDynamicYAML      ## href="./DynamicYAML/DynamicYAML.py"
-      from DynamicYAML import YamlDerivedBaseRepresenter  ## href="./DynamicYAML/DynamicYAML.py"
-      from TymacUtils import  DataHelperUtils             ## href="./DynamicYAML/DynamicYAML.py"
-      from TymacUtils import  XmlssBase                   ## href="./DynamicYAML/DynamicYAML.py"
+      from DynamicYAML  import  DynamicYAML                 ## href="./DynamicYAML/DynamicYAML.py"
+      from DynamicYAML  import  JinjaFilterBase             ## href="./DynamicYAML/JinjaFilterBase.py"
+      from DynamicYAML  import  JinjaFilterDynamicYAML      ## href="./DynamicYAML/DynamicYAML.py"
+      from DynamicYAML  import  YamlDerivedBaseRepresenter  ## href="./DynamicYAML/DynamicYAML.py"
+      from TymacUtils   import  DataHelperUtils             ## href="./DynamicYAML/DynamicYAML.py"
+      from TymacUtils   import  XmlssBase                   ## href="./DynamicYAML/DynamicYAML.py"
 ###!}}}
 
 ### <beg-region_testiff_20151230125723>
@@ -81,7 +81,9 @@ if('python_region'):
 ###!  dreftymacid: __dreftymacid__
 ###!  body: |
       if (__name__ == "__main__"):
+        vout    =   ''
         ffpath  =   "c:/sm/docs/mymedia/2014/git/github/dynamic.yaml/app/demo/barebones.helloworld.yaml.txt"
+        ffpath  =   "c:/sm/docs/mymedia/2014/git/github/dynamic.yaml/app/demo/demo.topic.excel.txt"        
         odyna   =   DynamicYAML(ffpath)
         vout    =   odyna.ddtransform()
         print vout.encode('utf-8','replace')
