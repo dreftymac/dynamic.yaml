@@ -1,3 +1,16 @@
+### <beg-file_info>
+### main:
+###   - date: created="Thu Dec 31 07:08:46 2015"
+###     last: lastmod="Thu Dec 31 07:08:46 2015"
+###     tags:   ddyaml, barebones, demo
+###     dreftymacid:    "tending_buds_harbor"
+###     seealso: |
+###         *
+###     desc: |
+###         barebones demo 
+### <end-file_info>
+
+
 main:
   - firstname:  Homer
     lastname:   Simpson

@@ -12,6 +12,7 @@
 ###         * href="smartpath://mymedia/2014/git/github/dynamic.yaml/py/dynamicyaml/dynamicyaml.py"
 ###     desc: |
 ###         desc
+###         TODO_LINK ;; ddyaml todo href="../.private/txt/devlog.txt" find="chain_stifling_is"
 ### <end-file_info>
 
 ### @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
@@ -25,36 +26,6 @@ if('python_region'):
 ###!      init python libraries and globals
 ###!  dreftymacid: sensible_warm_latex
 ###!  wwbody: |
-      ## init py
-      import base64
-      import codecs
-      import csv
-      import datetime
-      import glob
-      import jinja2
-      import json
-      import platform
-      import markdown
-      import os
-      import random
-      import requests
-      import re
-      import shutil
-      import string
-      import StringIO
-      import sys
-      import textwrap
-      import time
-      import uuid
-      import xlrd
-      import yaml
-      import zipfile
-    
-      ## init py
-      from bs4 import BeautifulSoup
-      import pprint
-      oDumper = pprint.PrettyPrinter(indent=4);      
-
       ## local import
       from DDYAML  import  DynamicYAML                 ## href="./DDYAML/DynamicYAML.py"
       from DDYAML  import  JinjaFilterBase             ## href="./DDYAML/JinjaFilterBase.py"
@@ -62,7 +33,6 @@ if('python_region'):
       from DDYAML  import  YamlDerivedBaseRepresenter  ## href="./DDYAML/YamlDerivedBaseRepresenter.py"
       from DDYAML  import  DataHelperUtils             ## href="./DDYAML/DataHelperUtils.py"
       from DDYAML  import  XmlssBase                   ## href="./DDYAML/XmlssBase.py"
-      #print sys.path
 ###!}}}
 
 ### <beg-region_testiff_20151230125723>
@@ -84,8 +54,8 @@ if('python_region'):
       if (__name__ == "__main__"):
         ##
         vout    =   ''
-        ffpath  =   "c:/sm/docs/mymedia/2014/git/github/dynamic.yaml/app/demo/barebones.helloworld.yaml.txt"
         ffpath  =   "c:/sm/docs/mymedia/2014/git/github/dynamic.yaml/app/demo/demo.topic.excel.txt"
+        ffpath  =   "c:/sm/docs/mymedia/2014/git/github/dynamic.yaml/app/demo/barebones.helloworld.yaml.txt"
         aaJinjaAddonFilters = [
           JinjaFilterDynamicYAML(),
         ]

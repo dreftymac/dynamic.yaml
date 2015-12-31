@@ -43,7 +43,7 @@ __yaml__:
 
   - &uupluckfoo
     caption:      jjdata_table_dump_toexcelsheet
-    rowkeep: 1
+    rowkeep: 0 
     uuid:         uupluckfoo
     desc:         __desc__
     dreftymacid:  uupluckfoo
@@ -61,7 +61,7 @@ __yaml__:
       
   - &uujunshortens
     caption:      jjdata_table_load_fromexcelsheet
-    rowkeep: 0
+    rowkeep: 0 
     uuid:         uujunshortens
     desc: |
       * YES_WORKY works with both xlsx and xls files
@@ -85,7 +85,7 @@ __yaml__:
       
   - &uuswearingstryke
     caption:      jjdata_table_load_fromexcelsheet
-    rowkeep: 0
+    rowkeep: 0 
     uuid:         uuswearingstryke
     desc: |
       * YES_WORKY works with both xlsx and xls files
@@ -101,7 +101,7 @@ __yaml__:
       {{ ttdata |jjdata_formatas('jsonpretty')  }}
       
   - &heritageearlier
-    rowkeep: 0
+    rowkeep: 0 
     caption:      jjdata_table_load_fromexcelsheet
     uuid:         heritageearlierf
     desc:         |

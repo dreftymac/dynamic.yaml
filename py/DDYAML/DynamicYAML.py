@@ -26,6 +26,8 @@ if('python_region'):
       import yaml
       import zipfile
       
+      #from DDYAML import DataHelperUtils
+      
 ### @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 ### DynamicYAML
 if('python_region'):
@@ -69,6 +71,29 @@ if('python_region'):
         ##enddef
         
         ##
+        def py_mergedict(self, dict1, dict2):
+          '''
+          TODO: move this into DataHelperUtils
+          python addon function for merging nested dictionaries
+          see also:
+          * http://stackoverflow.com/a/7205672/42223
+          '''
+          for ppk in set(dict1.keys()).union(dict2.keys()):
+              if ppk in dict1 and ppk in dict2:
+                  if isinstance(dict1[ppk], dict) and isinstance(dict2[ppk], dict):
+                      yield (ppk, self.dict(py_mergedict(dict1[ppk], dict2[ppk])))
+                  else:
+                      # If one of the values is not a dict, you can't continue merging it.
+                      # Value from second dict overrides one in first and we move on.
+                      yield (ppk, dict2[ppk])
+                      # Alternatively, replace this with exception raiser to alert you of value conflicts
+              elif ppk in dict1:
+                  yield (ppk, dict1[ppk])
+              else:
+                  yield (ppk, dict2[ppk])
+        ##enddef         
+        
+        ##
         def data_struct_merge(self,ob001,ob002,path=None):
           """
           ### main:
@@ -86,11 +111,10 @@ if('python_region'):
           #import  DataHelperUtils          
           #print DataHelperUtils
           # print DynamicYAML
-          from DDYAML import DataHelperUtils
-          # print DataHelperUtils
+          #print DataHelperUtils
           # #print dir(DDYAML)
           # exit()
-          return dict(DataHelperUtils().py_mergedict(ob001,ob002))
+          return dict(self.py_mergedict(ob001,ob002))
         ##enddef
         
         ##

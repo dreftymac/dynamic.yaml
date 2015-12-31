@@ -42,7 +42,7 @@ demo01dataload01: |
 __yaml__:
 
   - &uuchary
-    caption:      caption
+    caption:      jjaod_tocsv jjdata_load
     rowkeep: 1
     uuid:         uuchary
     desc: |
