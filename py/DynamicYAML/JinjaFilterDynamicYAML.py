@@ -1,4 +1,34 @@
 ### @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+### init py
+if('python_region'):
+      ## init py
+      import base64
+      import codecs
+      import csv
+      import datetime
+      import glob
+      import jinja2
+      import json
+      import platform
+      import markdown
+      import os
+      import random
+      import requests
+      import re
+      import shutil
+      import string
+      import StringIO
+      import sys
+      import textwrap
+      import time
+      import uuid
+      import xlrd
+      import yaml
+      import zipfile
+      ##
+      from JinjaFilterBase import JinjaFilterBase
+
+### @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 ### jinja helper JinjaFilterDynamicYAML
 if('python_region'):
 ###!{{{
@@ -14,6 +44,10 @@ if('python_region'):
 ###!          * __blank__
 ###!  desc: |
 ###!          Currently assumes jinja2 as the templating engine for ddyaml
+###!          TODO ;; extract out the 'subtopic' filters (like imacros) into different JinjaFilter files
+###!
+###!
+###!          
 ###!  wwbody: |
       class JinjaFilterDynamicYAML(JinjaFilterBase):
 
@@ -444,7 +478,7 @@ if('python_region'):
           ## init yaml
           if(sfmt=='yamlpretty'):
             ## see also (regain://listener_faze_whenever)
-            yaml.representer.BaseRepresenter.represent_scalar = DerivedBaseRepresenter().yaml_addon_represent_scalar
+            yaml.representer.BaseRepresenter.represent_scalar = YamlDerivedBaseRepresenter().yaml_addon_represent_scalar
 
           ## init transform engines
           mytransform['yaml']        = lambda vxx: yaml.safe_dump(vxx)

@@ -1,0 +1,15 @@
+main:
+  - firstname:  Homer
+    lastname:   Simpson
+  - firstname:  Marge
+    lastname:   Simpson
+  - firstname:  Lisa
+    lastname:   Simpson
+
+__yaml__:
+
+  - caption:      dynamicyaml helloworld example
+    template:     | 
+      {% for row in main -%}
+      Hello {{ row.firstname }} {{ row.lastname }}!
+      {% endfor %}

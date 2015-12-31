@@ -1,4 +1,37 @@
 ### @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+### init py
+if('python_region'):
+      ## init py
+      import base64
+      import codecs
+      import csv
+      import datetime
+      import glob
+      import jinja2
+      import json
+      import platform
+      import markdown
+      import os
+      import random
+      import requests
+      import re
+      import shutil
+      import string
+      import StringIO
+      import sys
+      import textwrap
+      import time
+      import uuid
+      import xlrd
+      import yaml
+      import zipfile
+      ##
+      from JinjaFilterBase import JinjaFilterBase
+      from JinjaFilterDynamicYAML import JinjaFilterDynamicYAML
+      from TymacUtils import DataHelperUtils
+      from TymacUtils import XmlssBase
+      
+### @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 ### DynamicYAML
 if('python_region'):
 ###!{{{
@@ -16,13 +49,20 @@ if('python_region'):
 ###!          __desc__
 ###!  wwbody: |
       class DynamicYAML(object):
-        def __init__(self,ffpath):
+        
+        def __init__(self,ffpath=''):
           ## init jinja
           self.Environment  =   jinja2.Environment(extensions=['jinja2.ext.do','jinja2.ext.loopcontrols'])
           self.oenv         =   self.Environment
-          self.ffpath_main  =   ffpath
-          self.ffpath_abso  =   "/".join( os.path.abspath(ffpath).split("\\") )
-          self.ffpath_pdir  =   "/".join( os.path.dirname(self.ffpath_abso).split("\\") )
+          if(ffpath.__str__() != ''):
+            self.ffpath_main  =   ffpath
+            self.ffpath_abso  =   "/".join( os.path.abspath(ffpath).split("\\") )
+            self.ffpath_pdir  =   "/".join( os.path.dirname(self.ffpath_abso).split("\\") )
+          elif(True):
+            sgtemp = ("""
+            \n## parent_yaml_config file not specified or unreachable
+            """)
+            print sgtemp
           #oDumper.pprint( self.ffpath_abso )
           #oDumper.pprint( self.ffpath_pdir )
         ##enddef
@@ -42,7 +82,7 @@ if('python_region'):
           ###         merges ob002 into ob001
           ###         * TODO ;; move this to datahelperutils
           """
-          return dict(py_mergedict(ob001,ob002))
+          return dict(DataHelperUtils().py_mergedict(ob001,ob002))
         ##enddef
 
         def ff_resolvepath_read(self,spath):
