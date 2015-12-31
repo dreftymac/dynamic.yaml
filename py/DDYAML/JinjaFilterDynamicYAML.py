@@ -25,6 +25,7 @@ if('python_region'):
       import xlrd
       import yaml
       import zipfile
+      
       ##
       from JinjaFilterBase import JinjaFilterBase
 
@@ -578,6 +579,7 @@ if('python_region'):
           ## jjdata_table_dump_toexcelsheet
           try:
             ## init
+            from DDYAML import XmlssBase
             oXMLSS  =   XmlssBase()
             vout    =   ''
             params  =   {}

@@ -1,0 +1,114 @@
+<?xml version="1.0"?>
+<?mso-application progid="Excel.Sheet"?>
+<Workbook xmlns="urn:schemas-microsoft-com:office:spreadsheet"
+  xmlns:o="urn:schemas-microsoft-com:office:office"
+  xmlns:x="urn:schemas-microsoft-com:office:excel"
+  xmlns:ss="urn:schemas-microsoft-com:office:spreadsheet"
+  xmlns:html="http://www.w3.org/TR/REC-html40">
+ <DocumentProperties xmlns="urn:schemas-microsoft-com:office:office">
+  <Author>nobody@example.com</Author>
+  <LastAuthor>nobody@example.com</LastAuthor>
+  <Created>2015-12-30T18:36:32Z</Created>
+  <LastSaved>2015-12-30T18:36:32Z</LastSaved>
+  <Version>15.00</Version>
+ </DocumentProperties>
+ <OfficeDocumentSettings xmlns="urn:schemas-microsoft-com:office:office">
+  <AllowPNG/>
+ </OfficeDocumentSettings>
+ <ExcelWorkbook xmlns="urn:schemas-microsoft-com:office:excel">
+  <WindowHeight>11565</WindowHeight>
+  <WindowWidth>22035</WindowWidth>
+  <WindowTopX>6090</WindowTopX>
+  <WindowTopY>30</WindowTopY>
+  <ProtectStructure>False</ProtectStructure>
+  <ProtectWindows>False</ProtectWindows>
+ </ExcelWorkbook>
+  <Styles>
+   <Style ss:ID="Default" ss:Name="Normal">
+    <Alignment ss:Vertical="Bottom"/>
+    <Borders/>
+    <Font ss:FontName="Calibri" x:Family="Swiss" ss:Size="11" ss:Color="#000000"/>
+    <Interior/>
+    <NumberFormat/>
+    <Protection/>
+   </Style>
+   <Style ss:ID="s62">
+    <Borders>
+     <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1"/>
+     <Border ss:Position="Left" ss:LineStyle="Continuous" ss:Weight="1"/>
+     <Border ss:Position="Right" ss:LineStyle="Continuous" ss:Weight="1"/>
+     <Border ss:Position="Top" ss:LineStyle="Continuous" ss:Weight="1"/>
+    </Borders>
+    <Interior ss:Color="#FFFF00" ss:Pattern="Solid"/>
+   </Style>
+   <Style ss:ID="s63">
+    <NumberFormat ss:Format="Short Date"/>
+   </Style>
+  </Styles><Worksheet ss:Name="sheet01">
+      <Table
+        ss:ExpandedColumnCount="2"
+        ss:ExpandedRowCount="9"
+        x:FullColumns="1"
+        x:FullRows="1"
+        ss:DefaultRowHeight="15">
+
+        <!-- -->
+<Row ss:StyleID="s62">
+ <Cell><Data ss:Type="String">fldname</Data></Cell><Cell><Data ss:Type="String">fldtype</Data></Cell>
+</Row>
+
+        <Row>
+<Cell><Data ss:Type="String">fname</Data></Cell><Cell><Data ss:Type="String">text</Data></Cell>
+</Row>
+
+<Row>
+<Cell><Data ss:Type="String">lname</Data></Cell><Cell><Data ss:Type="String">text</Data></Cell>
+</Row>
+
+<Row>
+<Cell><Data ss:Type="String">amount</Data></Cell><Cell><Data ss:Type="String">int</Data></Cell>
+</Row>
+
+<Row>
+<Cell><Data ss:Type="String">age</Data></Cell><Cell><Data ss:Type="String">int</Data></Cell>
+</Row>
+
+<Row>
+<Cell><Data ss:Type="String">nation</Data></Cell><Cell><Data ss:Type="String">text</Data></Cell>
+</Row>
+
+<Row>
+<Cell><Data ss:Type="String">platform</Data></Cell><Cell><Data ss:Type="String">text</Data></Cell>
+</Row>
+
+<Row>
+<Cell><Data ss:Type="String">date</Data></Cell><Cell><Data ss:Type="String">date</Data></Cell>
+</Row>
+
+<Row>
+<Cell><Data ss:Type="String">rando</Data></Cell><Cell><Data ss:Type="String">float</Data></Cell>
+</Row>
+
+      </Table>
+      <WorksheetOptions xmlns="urn:schemas-microsoft-com:office:excel">
+ <Unsynced/>
+ <Selected/>
+ <FreezePanes/>
+ <FrozenNoSplit/>
+ <SplitHorizontal>1</SplitHorizontal>
+ <TopRowBottomPane>1</TopRowBottomPane>
+ <ActivePane>2</ActivePane>
+ <Panes>
+  <Pane>
+   <Number>3</Number>
+  </Pane>
+  <Pane>
+   <Number>2</Number>
+   <ActiveRow>0</ActiveRow>
+   <RangeSelection>R1</RangeSelection>
+  </Pane>
+ </Panes>
+ <ProtectObjects>False</ProtectObjects>
+ <ProtectScenarios>False</ProtectScenarios>
+</WorksheetOptions>
+      </Worksheet></Workbook>

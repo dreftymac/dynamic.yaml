@@ -49,19 +49,20 @@ if('python_region'):
       import xlrd
       import yaml
       import zipfile
-
+    
       ## init py
       from bs4 import BeautifulSoup
       import pprint
-      oDumper = pprint.PrettyPrinter(indent=4);
+      oDumper = pprint.PrettyPrinter(indent=4);      
 
       ## local import
-      from DynamicYAML  import  DynamicYAML                 ## href="./DynamicYAML/DynamicYAML.py"
-      from DynamicYAML  import  JinjaFilterBase             ## href="./DynamicYAML/JinjaFilterBase.py"
-      from DynamicYAML  import  JinjaFilterDynamicYAML      ## href="./DynamicYAML/DynamicYAML.py"
-      from DynamicYAML  import  YamlDerivedBaseRepresenter  ## href="./DynamicYAML/DynamicYAML.py"
-      from TymacUtils   import  DataHelperUtils             ## href="./DynamicYAML/DynamicYAML.py"
-      from TymacUtils   import  XmlssBase                   ## href="./DynamicYAML/DynamicYAML.py"
+      from DDYAML  import  DynamicYAML                 ## href="./DDYAML/DynamicYAML.py"
+      from DDYAML  import  JinjaFilterBase             ## href="./DDYAML/JinjaFilterBase.py"
+      from DDYAML  import  JinjaFilterDynamicYAML      ## href="./DDYAML/JinjaFilterDynamicYAML.py"
+      from DDYAML  import  YamlDerivedBaseRepresenter  ## href="./DDYAML/YamlDerivedBaseRepresenter.py"
+      from DDYAML  import  DataHelperUtils             ## href="./DDYAML/DataHelperUtils.py"
+      from DDYAML  import  XmlssBase                   ## href="./DDYAML/XmlssBase.py"
+      #print sys.path
 ###!}}}
 
 ### <beg-region_testiff_20151230125723>
@@ -78,14 +79,21 @@ if('python_region'):
 ###!  		__desc__
 ###!
 ###!
-###!  dreftymacid: __dreftymacid__
+###!  dreftymacid: uhuru_vagrant_means
 ###!  body: |
       if (__name__ == "__main__"):
+        ##
         vout    =   ''
         ffpath  =   "c:/sm/docs/mymedia/2014/git/github/dynamic.yaml/app/demo/barebones.helloworld.yaml.txt"
-        ffpath  =   "c:/sm/docs/mymedia/2014/git/github/dynamic.yaml/app/demo/demo.topic.excel.txt"        
-        odyna   =   DynamicYAML(ffpath)
+        ffpath  =   "c:/sm/docs/mymedia/2014/git/github/dynamic.yaml/app/demo/demo.topic.excel.txt"
+        aaJinjaAddonFilters = [
+          JinjaFilterDynamicYAML(),
+        ]
+        oparams = {}
+        oparams['path']         = ffpath
+        oparams['addonFilters'] = aaJinjaAddonFilters
+        ##
+        odyna   =   DynamicYAML(oparams)
         vout    =   odyna.ddtransform()
         print vout.encode('utf-8','replace')
 ### <end-region_testiff_20151230125723>
-

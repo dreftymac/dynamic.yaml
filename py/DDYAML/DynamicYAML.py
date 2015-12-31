@@ -25,12 +25,6 @@ if('python_region'):
       import xlrd
       import yaml
       import zipfile
-      ##
-      #from DynamicYAML import DynamicYAML
-      from JinjaFilterBase import JinjaFilterBase
-      from JinjaFilterDynamicYAML import JinjaFilterDynamicYAML
-      from TymacUtils import DataHelperUtils
-      from TymacUtils import XmlssBase
       
 ### @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 ### DynamicYAML
@@ -51,21 +45,27 @@ if('python_region'):
 ###!  wwbody: |
       class DynamicYAML(object):
         
-        def __init__(self,ffpath=''):
-          ## init jinja
-          self.Environment  =   jinja2.Environment(extensions=['jinja2.ext.do','jinja2.ext.loopcontrols'])
-          self.oenv         =   self.Environment
-          if(ffpath.__str__() != ''):
-            self.ffpath_main  =   ffpath
-            self.ffpath_abso  =   "/".join( os.path.abspath(ffpath).split("\\") )
+        ##
+        def __init__(self,ddparams={}):          
+          ## init
+          ## ffpath='',filterAddonClasses=[]          
+          self.Environment      =   jinja2.Environment(extensions=['jinja2.ext.do','jinja2.ext.loopcontrols'])
+          self.oenv             =   self.Environment
+          ##
+          self.primaryYamlPath  =   ddparams.get('path', '')          ## primaryYamlPath
+          self.addonFilters     =   ddparams.get('addonFilters', [])  ## addonFilterClasses
+          ##
+          if(self.primaryYamlPath.__str__() != ''):
+            self.ffpath_main  =   self.primaryYamlPath
+            self.ffpath_abso  =   "/".join( os.path.abspath(self.primaryYamlPath).split("\\") )
             self.ffpath_pdir  =   "/".join( os.path.dirname(self.ffpath_abso).split("\\") )
           elif(True):
             sgtemp = ("""
-            \n## parent_yaml_config file not specified or unreachable
+            \n## primaryYamlPath file not specified or unreachable
             """)
             print sgtemp
-          #oDumper.pprint( self.ffpath_abso )
-          #oDumper.pprint( self.ffpath_pdir )
+            #oDumper.pprint( self.ffpath_abso )
+            #oDumper.pprint( self.ffpath_pdir )
         ##enddef
         
         ##
@@ -83,14 +83,22 @@ if('python_region'):
           ###         merges ob002 into ob001
           ###         * TODO ;; move this to datahelperutils
           """
+          #import  DataHelperUtils          
+          #print DataHelperUtils
+          # print DynamicYAML
+          from DDYAML import DataHelperUtils
+          # print DataHelperUtils
+          # #print dir(DDYAML)
+          # exit()
           return dict(DataHelperUtils().py_mergedict(ob001,ob002))
         ##enddef
-
-        def ff_resolvepath_read(self,spath):
+        
+        ##
+        def ff_resolvepath_read(self,spath=''):
           '''
           ### main:
           ###   - date: created="Thu Jul 16 15:30:22 2015"
-          ###     desc:    read a file with path that is potentially relative to path of parent_yaml_config
+          ###     desc:    read a file with path that is potentially relative to path of primaryYamlPath
           ###     params:
           ###       - name: spath
           ###         opt:  required
@@ -110,7 +118,7 @@ if('python_region'):
           spath_mod01 =   '/'.join( [self.ffpath_pdir,'/',spath]  )
           ## check if spath is readable without modification
           if(os.access(spath,os.R_OK)):       getpath = spath
-          ## check if spath is readable as relative to path of parent_yaml_config
+          ## check if spath is readable as relative to path of primaryYamlPath
           if(os.access(spath_mod01,os.R_OK)): getpath = spath_mod01
           ## try to read the file
           if(sscurr ==  '' and (not getpath == '')):
@@ -120,7 +128,8 @@ if('python_region'):
               pass
           return sscurr
         ##enddef
-
+        
+        ##
         def ddtransform(self):
           """
           ### main:
@@ -141,7 +150,8 @@ if('python_region'):
           #import JinjaCustomFilter
           #import JinjaHTMLBasicFilter
           #import JinjaImacrosFilter
-          oEnv  =   JinjaFilterDynamicYAML().attach_filters(oEnv)   ## href="#JinjaFilterDynamicYAML"
+          for addonclass in self.addonFilters:
+            oEnv  = addonclass.attach_filters(oEnv)                  ## href="#JinjaFilterDynamicYAML"
           #oEnv  =   JinjaImacrosFilter.attach_filters(oEnv)         ## href="../libpy/JinjaImacrosFilter.py"
           ## href="../../../../../../mytrybits/p/trypython2/lab2014/libpy/jinjaimacrosfilter.py"
           #oEnv      =   JinjaHTMLBasicFilter.attach_filters(oEnv)  ## href="../libpy/JinjaHTMLBasicFilter.py"
@@ -153,7 +163,7 @@ if('python_region'):
           sgg_directiveprefix_str =   ''
           ##;;
 
-          ## get parent_yaml_config (dynamic_yaml)
+          ## get primaryYamlPath (dynamic_yaml)
           vout          =   []
           ssgpath       =   ''
           try:
@@ -163,9 +173,9 @@ if('python_region'):
             pass
 
           ##
-          parent_yaml_config = codecs.open(ssgpath, 'r', 'utf-8').read()
-          #parent_yaml_config   =   open(ssgpath,'rb').read()
-          orgconf       =   yaml.safe_load(parent_yaml_config)
+          primaryYamlPath = codecs.open(ssgpath, 'r', 'utf-8').read()
+          #primaryYamlPath   =   open(ssgpath,'rb').read()
+          orgconf       =   yaml.safe_load(primaryYamlPath)
           ##;;
 
           ## init directives_dictionary
@@ -179,7 +189,7 @@ if('python_region'):
           ## <beg-process01>
           try:
             ## set defaults on directives_dictionary
-            ##    from the parent_yaml_config
+            ##    from the primaryYamlPath
             ##    preserve every existing key, except remove the sgg_dynamicyaml_key
             directives['default_data']    = orgconf.copy()
             del(directives['default_data'][sgg_dynamicyaml_key])
@@ -187,7 +197,7 @@ if('python_region'):
 
             ## set default_template
             ##    use this as the default template if one not specified
-            directives['default_template']      = parent_yaml_config
+            directives['default_template']      = primaryYamlPath
             ##;;
 
             ## iterate_yaml
@@ -244,7 +254,7 @@ if('python_region'):
               ##;;
 
               ## bkmk001
-              ## @@@ template directive ;; we get template from parent_yaml_config
+              ## @@@ template directive ;; we get template from primaryYamlPath
               tmpname = ['template','']
               tmpkey  = sgg_directiveprefix_str + "".join(tmpname)
               if( (tmpkey) in row ):
@@ -255,7 +265,7 @@ if('python_region'):
 
               ## bkmk001
               ## @@@ templateincluede directive ;; we get one_or_more template from one_or_more external file
-              ## and merge it with the data in the parent_yaml_config
+              ## and merge it with the data in the primaryYamlPath
               tmpname =   ['templateinclude']
               tmpkey  =   sgg_directiveprefix_str + "".join(tmpname)
               if( (tmpkey) in row ):
@@ -287,7 +297,7 @@ if('python_region'):
               ##;;
 
               ## @@@ datainclude directive ;; concatenate multiple yaml files to input additional data
-              ## and merge it with the data in the parent_yaml_config
+              ## and merge it with the data in the primaryYamlPath
               tmpname =   ['datainclude','']
               tmpkey  =   sgg_directiveprefix_str + "".join(tmpname)
               if( (tmpkey) in row ):
@@ -328,7 +338,7 @@ if('python_region'):
               #  directives['current_'+tmpname[0]]   =   yaml.safe_load(open(tmpval,'rb').read())
               ##;;
 
-              ## @@@ data directive ;; we get data from parent_yaml_config
+              ## @@@ data directive ;; we get data from primaryYamlPath
               tmpname = ['data','']
               tmpkey  = sgg_directiveprefix_str + "".join(tmpname)
               #print row
@@ -400,12 +410,9 @@ if('python_region'):
             #print(exc_type, fname, exc_tb.tb_lineno)
             ##;;
           ## <end-process01>
-
-
-            #oDumper.pprint( directives )
+          #oDumper.pprint( directives )
           ##endfor::iterate_yaml
-
-
+          
           #print yaml.safe_dump( vout , default_flow_style=False  )
           ##vjj = "\n"
           vjj = ""
@@ -413,8 +420,9 @@ if('python_region'):
           #vjj = "\n### ------------------------------------------------------------------------\n"
           vout = [vjj +  vxx for vxx in vout]
           vout = "".join(vout)
-
-
+          ##;;
+          
+          ##
           return vout
         ##enddef
       ##endclass
