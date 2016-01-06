@@ -73,12 +73,11 @@ if('python_region'):
         ##
         def py_mergedict(self, dict1, dict2):
           '''
-          TODO: move this into DataHelperUtils
           python addon function for merging nested dictionaries
           see also:
           * http://stackoverflow.com/a/7205672/42223
           '''
-          for ppk in set(dict1.keys()).union(dict2.keys()):
+          for ppk in set( dict1.keys()).union(dict2.keys() ):
               if ppk in dict1 and ppk in dict2:
                   if isinstance(dict1[ppk], dict) and isinstance(dict2[ppk], dict):
                       yield (ppk, self.dict(py_mergedict(dict1[ppk], dict2[ppk])))
@@ -108,13 +107,9 @@ if('python_region'):
           ###         merges ob002 into ob001
           ###         * TODO ;; move this to datahelperutils
           """
-          #import  DataHelperUtils          
-          #print DataHelperUtils
-          # print DynamicYAML
-          #print DataHelperUtils
-          # #print dir(DDYAML)
-          # exit()
-          return dict(self.py_mergedict(ob001,ob002))
+          ##
+          vout  =  dict( self.py_mergedict(ob001,ob002) )
+          return vout
         ##enddef
         
         ##
@@ -401,7 +396,8 @@ if('python_region'):
 
               ## render output
               ## TODO ;; allow customizable data merge semantics
-              otemplate_data  =   self.data_struct_merge(directives['default_data'],directives['current_data'])
+              directives['default_data'].update(directives['current_data'])
+              otemplate_data  =   directives['default_data']
               template        =   oEnv.from_string(textwrap.dedent(directives['current_template']))
               tmpout          =   template.render(otemplate_data)
 

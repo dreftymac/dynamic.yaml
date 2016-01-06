@@ -2,10 +2,11 @@
 ### main:
 ###   - date: created="Tue Dec 29 13:25:09 2015"
 ###     last: lastmod="Tue Dec 29 13:25:09 2015"
-###     tags:   tags 
-###     author: created="__author__"
-###     dreftymacid:    "brags_fragrant_lengthen"
+###     tags: tags 
+###     dreftymacid: "brags_fragrant_lengthen"
 ###     seealso: |
+###         * href="./demo.topic.excel.txt"
+###         * href="./demo.topic.interop.txt"
 ###         * href="smartpath://mytrybits/e/tryexcel/devlog.txt"
 ###         * href="smartpath://mytrybits/p/trypython2/lab2014/xml/xmlssbase.py"
 ###         * href="apprun://c:/sm/docs/mytrybits/e/tryexcel/xls/people_multisheet30.xls"
@@ -35,8 +36,6 @@ ttschema:
   - fldname: rando
     fldtype: float
 
-__yaml__:
-  
 ## href="c:/sm/docs/mytrybits/y/tryyaml/dynamicyaml/devlog.txt"
 ## href="c:/sm/docs/mymedia/2014/git/github/dynamic.yaml/py/ddyaml.py"
 __yaml__:
@@ -61,7 +60,7 @@ __yaml__:
       
   - &uujunshortens
     caption:      jjdata_table_load_fromexcelsheet
-    rowkeep: 0 
+    rowkeep: 0
     uuid:         uujunshortens
     desc: |
       * YES_WORKY works with both xlsx and xls files
@@ -101,7 +100,7 @@ __yaml__:
       {{ ttdata |jjdata_formatas('jsonpretty')  }}
       
   - &heritageearlier
-    rowkeep: 0 
+    rowkeep: 10 
     caption:      jjdata_table_load_fromexcelsheet
     uuid:         heritageearlierf
     desc:         |

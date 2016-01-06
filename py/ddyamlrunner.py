@@ -7,11 +7,13 @@
 ###     author: created="dreftymac"
 ###     dreftymacid: "drawing_verlaine_neck"
 ###     seealso: |
-###         * href="smartpath://mytrybits/p/trypython2/lab2014/pyjinja/dynamic_yaml.py"
-###         * href="smartpath://mymedia/2014/git/github/dynamic.yaml/py/ddyaml.py"
-###         * href="smartpath://mymedia/2014/git/github/dynamic.yaml/py/dynamicyaml/dynamicyaml.py"
+###         * href="smartpath://mytrybits/y/tryyaml/dynamicyaml/devlog.txt"
+###         * href="smartpath://mymedia/2014/git/github/dynamic.yaml/app/demo/readme.md"
+###         * href="smartpath://mymedia/2014/git/github/dynamic.yaml/py/ddyamlrunner.py"
+###         * href="smartpath://mymedia/2014/git/github/dynamic.yaml/py/ddyaml/dynamicyaml.py"
+###         * href="smartpath://mymedia/2014/git/github/dynamic.yaml/py/ddyaml/jinjafilterdynamicyaml.py"
 ###     desc: |
-###         desc
+###         
 ###         TODO_LINK ;; ddyaml todo href="../.private/txt/devlog.txt" find="chain_stifling_is"
 ### <end-file_info>
 
@@ -30,6 +32,7 @@ if('python_region'):
       from DDYAML  import  DynamicYAML                 ## href="./DDYAML/DynamicYAML.py"
       from DDYAML  import  JinjaFilterBase             ## href="./DDYAML/JinjaFilterBase.py"
       from DDYAML  import  JinjaFilterDynamicYAML      ## href="./DDYAML/JinjaFilterDynamicYAML.py"
+      from DDYAML  import  JinjaFilterJJrun            ## href="./DDYAML/JinjaFilterJJrun.py"
       from DDYAML  import  YamlDerivedBaseRepresenter  ## href="./DDYAML/YamlDerivedBaseRepresenter.py"
       from DDYAML  import  DataHelperUtils             ## href="./DDYAML/DataHelperUtils.py"
       from DDYAML  import  XmlssBase                   ## href="./DDYAML/XmlssBase.py"
@@ -44,20 +47,24 @@ if('python_region'):
 ###!       __blank__
 ###!  tags:     __tags__
 ###!  seealso: |
-###!  		* __blank__
+###!  		* href="c:/sm/docs/mytrybits/p/trypython2/lab2014/pyjinja/dynamic_yaml.py"
 ###!  desc: |
 ###!  		__desc__
 ###!
-###!
 ###!  dreftymacid: uhuru_vagrant_means
+###!
 ###!  body: |
       if (__name__ == "__main__"):
         ##
         vout    =   ''
         ffpath  =   "c:/sm/docs/mymedia/2014/git/github/dynamic.yaml/app/demo/demo.topic.excel.txt"
         ffpath  =   "c:/sm/docs/mymedia/2014/git/github/dynamic.yaml/app/demo/barebones.helloworld.yaml.txt"
+        ffpath  =   "c:/sm/docs/mymedia/2014/git/github/dynamic.yaml/app/demo/demo.topic.interop.txt"
+        ## IMPORTANT  ;; if you have any addon filter classes, add them here ;; viaducts_juiciest_painting
+        ## SEEALSO    ;; href="c:/sm/docs/mytrybits/p/trypython2/lab2014/pyjinja/dynamic_yaml.py" find="viaducts_juiciest_painting" 
         aaJinjaAddonFilters = [
           JinjaFilterDynamicYAML(),
+          JinjaFilterJJrun(),
         ]
         oparams = {}
         oparams['path']         = ffpath

@@ -29,6 +29,47 @@ if('python_region'):
       ##
       from JinjaFilterBase import JinjaFilterBase
       from DataHelperUtils import DataHelperUtils
+      from DataHelperDiceware import DataHelperDiceware
+
+### @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+### new_function_snippet
+"""
+        def __caption__(self,jjinput):
+          '''
+          ##beg_func_docs
+          - caption:      __caption__
+            date:         lastmod="__lastmod__"
+            grp_maj:      grp_maj
+            grp_med:      grp_med
+            grp_min:      grp_min
+            desc:         __desc__
+            dreftymacid:  __dreftymacid__
+            detail:  |
+              * __blank__
+            dependencies:
+              - __blank__
+            params:
+             - param: jjinput ;; optarity ;; jinja raw input string
+          ##end_func_docs
+          '''
+        
+          ##
+          vout = jjinput.__str__()
+        
+          ##
+          try:
+            vout = vout
+          ##
+          except Exception as msg:
+            print 'UNEXPECTED TERMINATION __dreftymacid__ msg@%s'%(msg.__repr__())
+            exc_type, exc_obj, exc_tb = sys.exc_info()
+            fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
+            print(exc_type, fname, exc_tb.tb_lineno)
+        
+          ##
+          return vout
+        ##enddef
+"""
 
 ### @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 ### jinja helper JinjaFilterDynamicYAML
@@ -445,6 +486,44 @@ if('python_region'):
           table = jjinput
           ##
           vout = [row[fieldname] for row in table]
+          ##
+          return vout
+        ##enddef
+
+        ##
+        def jjdata_diceword(self,jjinput,ilen=3,ssepa='_'):
+          '''
+          ##beg_func_docs
+          - caption:      jjdata_diceword
+            date:         lastmod="2015-12-31T08:55:49"
+            grp_maj:      data
+            grp_med:      generate
+            grp_min:      diceword
+            desc:         __desc__
+            dreftymacid:  flyer_afield_zealand
+            detail:  |
+              * __blank__
+            dependencies:
+              - __blank__
+            params:
+             - param: jjinput ;; optarity ;; jinja raw input string
+          ##end_func_docs
+          '''
+        
+          ##
+          vout = ''
+        
+          ##
+          try:
+            odatt = DataHelperDiceware()
+            vout  = odatt.get_ngram(ilen,ssepa)
+          ##
+          except Exception as msg:
+            print 'UNEXPECTED TERMINATION flyer_afield_zealand msg@%s'%(msg.__repr__())
+            exc_type, exc_obj, exc_tb = sys.exc_info()
+            fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
+            print(exc_type, fname, exc_tb.tb_lineno)
+        
           ##
           return vout
         ##enddef
@@ -1909,6 +1988,7 @@ if('python_region'):
           ##
           vout  = jjinput.__str__()
           aahug = []
+          ##;;
 
           ##
           if(hug==''): aahug.append('');aahug.append('');
@@ -1923,15 +2003,19 @@ if('python_region'):
           if(hug==")"): aahug.append("(");aahug.append(")");
           if(hug=="{"): aahug.append("{");aahug.append("}");
           if(hug=="}"): aahug.append("{");aahug.append("}");
+          ##;;
 
           ##
           try:
             vout = "".join([ aahug[0], vout , aahug[1] ])
           except Exception as msg:
-            print 'UNEXPECTED TERMINATION msg@%s'%(msg.__repr__())
-            exc_type, exc_obj, exc_tb = sys.exc_info()
-            fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
-            print(exc_type, fname, exc_tb.tb_lineno)
+            pass
+          try:
+            vout = "".join( [hug, vout, hug] )
+          except:
+            pass
+          ##;;
+          
           ##
           return vout
         ##enddef
@@ -2237,6 +2321,7 @@ if('python_region'):
           return vout
         ##enddef
 
+        ## TODO ;; rename to jjfile_arrayfromdir and put into jjfile_ namespace
         def jjarray_fromdir(self,jjinput,ssfilespec='',ssmode='glob'):
           """
           ## function docs

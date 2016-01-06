@@ -1,0 +1,49 @@
+### <beg-file_info>
+### main:
+###   - date: created="Thu Dec 31 07:08:46 2015"
+###     last: lastmod="Thu Dec 31 07:08:46 2015"
+###     tags:   ddyaml, barebones, demo
+###     dreftymacid:    "tending_buds_harbor"
+###     seealso: |
+###         * href="./demo.topic.excel.txt"
+###         * href="./demo.topic.interop.txt"
+###     desc: |
+###         barebones demo budgetmodel
+### <end-file_info>
+
+
+maintable:
+
+  - caption:  run cygwin bash script
+    reckeyy:  alpha
+    seealso:
+      - href="smartpath://mydaydirs/2016/week01/shell/demogga.sh"
+    wwcmd: >
+          c:/programs/cygwin/bin/mintty.exe
+          --exec c:/programs/cygwin/bin/bash --login -i
+          -c "c:/sm/docs/mydaydirs/2016/week01/shell/demogga.sh"
+          
+
+  - caption:  run cygwin bash
+    reckeyy:  bravo
+    wwcmd: >
+          c:/programs/cygwin/bin/mintty.exe
+          --exec c:/programs/cygwin/bin/bash --login -i
+          -c "find /cygdrive/c/sm/docs/mydaydirs/2015"
+  
+  - caption:  run windows calc.exe 
+    reckeyy:  charlie
+    wwcmd: |
+        %windir%\system32\calc.exe
+  
+__yaml__:
+
+  - caption:      jjrun_popen demo
+    offtemplate: |
+
+    template:     |
+      {%- set myfunc  =   "lambda mytable:[row for row in mytable if(row['reckeyy'] == 'alpha')]"  -%}
+      {%- set myrow   =   maintable |jjapplyfunction(myfunc) |jjlistget(0) -%}
+      {%- set mycmd   =   myrow.wwcmd  -%}
+      {{ ''|jjrun_popen(mycmd) }}
+

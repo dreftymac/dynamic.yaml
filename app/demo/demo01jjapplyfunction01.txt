@@ -49,9 +49,10 @@ __yaml__:
     caption:      jjapplyfunction demo table data
     rowkeep: 1
     uuid:         uuid003
+    tags: map, filter, listcomprehension, select, data
     desc:         |
       * ANNOYANCE: since the lambda function has to be passed in as a string, remember to avoid quoting delimiter collisions
-      * jjapplyfunction demo
+      * jjapplyfunction demo      
     dreftymacid:  pets_marvel_dave_003
     template:         |
       {#- ------------------------------------------------------------------------ -#} 

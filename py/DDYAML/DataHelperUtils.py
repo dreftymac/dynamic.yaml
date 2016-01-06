@@ -218,6 +218,7 @@ if('python_region'):
           try:          
             ## init dataschema if empty create_datadef_from_scratch
             if(myparam["datadef"].__len__() == 0):
+              print """### excel_sheet_to_python_aod: missing or incomplete dataschema, using generic auto-generated schema instead"""
               for tmpcol, ixx in enumerate(range(sheet.ncols)):
                 tmprec  = {}              
                 tmprec["fldname"]   = 'fld%03d'%(ixx)

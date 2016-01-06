@@ -12,6 +12,7 @@
 
 
 main:
+  
   - firstname:  Homer
     lastname:   Simpson
   - firstname:  Marge
@@ -26,3 +27,4 @@ __yaml__:
       {% for row in main -%}
       Hello {{ row.firstname }} {{ row.lastname }}!
       {% endfor %}
+

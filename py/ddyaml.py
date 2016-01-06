@@ -1,3 +1,14 @@
+##
+##
+##
+##
+## DEPRECATED
+## see instead href="./ddyamlrunner.py"
+##
+##
+##
+##
+
 # -*- coding: utf-8 -*-
 ### <beg-file_info>
 ### main:

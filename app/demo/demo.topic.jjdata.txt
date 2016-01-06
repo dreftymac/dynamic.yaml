@@ -1,0 +1,11 @@
+## href="c:/sm/docs/mytrybits/y/tryyaml/dynamicyaml/devlog.txt"
+## href="c:/sm/docs/mymedia/2014/git/github/dynamic.yaml/py/ddyaml.py"
+__yaml__:
+
+  - &jolting012
+    caption:      jjdata_diceword
+    rowkeep: 1
+    uuid:         jolting012
+    template:         |
+      {{ ""|jjdata_diceword(1) |jjenc64() |replace('=','') }}
+
