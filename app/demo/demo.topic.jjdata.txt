@@ -1,11 +1,49 @@
-## href="c:/sm/docs/mytrybits/y/tryyaml/dynamicyaml/devlog.txt"
-## href="c:/sm/docs/mymedia/2014/git/github/dynamic.yaml/py/ddyaml.py"
+demotable:
+- {age: '13', fname: Wilburn, lname: Zieme, nation: uk, payment: '30.00', platform: vms}
+- {age: '8', fname: Berta, lname: Moore, nation: germany, payment: '20.00', platform: vms}
+- {age: '45', fname: Muriel, lname: Hettinger, nation: france, payment: '50.00', platform: mac_osx}
+- {age: '56', fname: Maximus, lname: Gislason, nation: france, payment: '40.00', platform: redhat}
+- {age: '36', fname: Frida, lname: Rowe, nation: uk, payment: '10.00', platform: mac_osx}
+- {age: '40', fname: Marcia, lname: Halvorson, nation: canada, payment: '50.00', platform: windows_vista}
+- {age: '16', fname: Holden, lname: Bashirian, nation: france, payment: '20.00', platform: windows_vista}
+- {age: '9', fname: Marquis, lname: Hickle, nation: canada, payment: '40.00', platform: debian}
+- {age: '54', fname: Quincy, lname: Reinger, nation: uk, payment: '30.00', platform: windows_2003}
+- {age: '26', fname: Caitlyn, lname: Stiedemann, nation: france, payment: '50.00', platform: mac_osx}
+- {age: '12', fname: Remington, lname: Marquardt, nation: germany, payment: '10.00', platform: mac_osx}
+- {age: '20', fname: Easton, lname: Armstrong, nation: canada, payment: '20.00', platform: windows_vista}
+- {age: '27', fname: Maybelle, lname: Tillman, nation: usa, payment: '10.00', platform: windows_xp}
+- {age: '13', fname: Lizzie, lname: Schmitt, nation: uk, payment: '20.00', platform: mac_osx}
+- {age: '7', fname: Kristoffer, lname: Cremin, nation: canada, payment: '10.00', platform: windows_xp}
+- {age: '34', fname: Zakary, lname: Dibbert, nation: germany, payment: '40.00', platform: debian}
+
+## href="smartpath://mytrybits/y/tryyaml/dynamicyaml/devlog.txt"
+## href="smartpath://mymedia/2014/git/github/dynamic.yaml/app/demo/readme.md"
+## href="smartpath://mymedia/2014/git/github/dynamic.yaml/py/ddyamlrunner.py"
+## href="smartpath://mymedia/2014/git/github/dynamic.yaml/py/ddyaml/jinjafilterdynamicyaml.py"
 __yaml__:
+
+  - &uuid001
+    caption:      caption
+    processthis: 1
+    uuid:         uuid001
+    desc:         __desc__
+    dreftymacid:  __dreftymacid__
+    datainclude:      datainclude
+    templateinclude:  templateinclude
+    template:         |
+      {#- ------------------------------------------------------------------------ -#}
+      {%- set opts  = dict()  -%}
+      {%- set noop  = opts.update({'tableformat':'aod'}) -%}
+      {%- set noop  = opts.update({'rowfilter':""" if(  row['nation'] == 'uk' and int(row['age']) > 13  ) """}) -%}
+      {#- ------------------------------------------------------------------------ -#} 
+      {%- set ttoutdata = demotable |jjdata_table_rowfilter(opts) |jjdata_formatas('jsonpretty') -%}
+      {#- ------------------------------------------------------------------------ -#} 
+      {{ ttoutdata }}
+      {#- ------------------------------------------------------------------------ -#} 
 
   - &jolting012
     caption:      jjdata_diceword
-    rowkeep: 1
+    processthis: 0
     uuid:         jolting012
     template:         |
       {{ ""|jjdata_diceword(1) |jjenc64() |replace('=','') }}
-

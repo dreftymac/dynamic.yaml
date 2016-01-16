@@ -238,8 +238,15 @@ if('python_region'):
               ##;;
 
               ## @@@ rowkeep directive ;; skip this entire processing row if rowkeep evals to false
-              ## BUGNAG ;; this is not working
               tmpname = ['row','keep']
+              tmpkey  = sgg_directiveprefix_str + "".join(tmpname)
+              if( (tmpkey) in row ):
+                tmpval = row[tmpkey]
+                if(bool(tmpval) == False): continue;
+              ##;;
+
+              ## @@@ processthis directive ;; skip this entire processing row if processthis evals to false
+              tmpname = ['process','this']
               tmpkey  = sgg_directiveprefix_str + "".join(tmpname)
               if( (tmpkey) in row ):
                 tmpval = row[tmpkey]

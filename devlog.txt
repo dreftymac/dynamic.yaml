@@ -24,7 +24,8 @@
 ### <end-file_info>
 
 changelog:
-  
+  - caption: jjfile_array_fromdir changed function name
+    details: DONE ;; rename to jjfile_arrayfromdir and put into jjfile_ namespace
   - caption: includefile directive changed to templateinclude directive
   - caption: datafile directive changed to datainclude directive
 

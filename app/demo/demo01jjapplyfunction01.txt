@@ -64,7 +64,7 @@ __yaml__:
           ]"""
           -%}
       {#- ------------------------------------------------------------------------ -#} 
-      {%- set ttfiltered = (demotable_20151223 |jjapplyfunction(myfunc))  -%}
+      {%- set ttfiltered = (demotable_20151223 |jjapplyfunction(myfunc)) -%}
       {#- ------------------------------------------------------------------------ -#} 
       {% for row in ttfiltered -%}
       {{ row |jjdata_formatas('jsonpretty') }}

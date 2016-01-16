@@ -759,6 +759,64 @@ if('python_region'):
           return vout
         ##enddef
 
+        def jjdata_table_rowfilter(self,jjinput,dictops={}):
+          '''
+          ##beg_func_docs
+          - caption:      jjdata_table_rowfilter
+            date:         lastmod="2015-12-29T12:40:51"
+            grp_maj:      data
+            grp_med:      filter
+            grp_min:      python array_of_dictionary (simpletable aod)
+            desc: |
+              * filter rows based on a row_filter_clause (eg  if( row['fname']!='homer' )   )
+              * the row_filter_clause works by using a python lambda function
+              * the row_filter_clause is interpolated into the python lambda function
+            dreftymacid: aware_flourish_influx
+            detail:  |
+              * TODO ;; complete the function docs for this function
+              * TODO ;; add support for specifying input table format
+            dependencies: __blank__
+            params:
+             - param: jjinput ;; optional ;; input source filename (as passed by jinja filter)
+             - param: rowfilter ;; optional ;; 
+          ##end_func_docs
+          '''
+        
+          ## init args
+          vout = jjinput
+          optsdefault   = {"rowfilter":"","tableformat":"python_aod"}
+          for vkey in optsdefault:
+            if(not vkey in dictops): dictops[vkey] = optsdefault[vkey]
+          ##
+          if(False
+             or dictops['tableformat'].__str__().lower() == ''
+             or dictops['tableformat'].__str__().lower() == 'python_aod'
+             ):
+            dictops['tableformat'] = 'aod'
+          ##;;
+          
+          ## processing
+          try:
+            if(dictops['tableformat'] == 'aod'):
+              if(dictops['rowfilter'].__str__() != ''):
+                  rowfilter     =   dictops['rowfilter'].replace('\n', ' ').replace('\r', '')
+                  filterfunc    =   eval( "lambda vout: [row for row in vout %s ]"%(rowfilter) )
+                  vout          =   filterfunc(vout)
+            elif(True):
+                pass
+            
+          ##
+          except Exception as msg:
+            print 'EXCEPTION aware_flourish_influx msg@%s'%(msg.__repr__())
+            exc_type, exc_obj, exc_tb = sys.exc_info()
+            fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
+            print(exc_type, fname, exc_tb.tb_lineno)
+          ##;;
+          
+          ##
+          return vout
+        ##enddef
+
         def jjdict_update(self,jjinput,ddaddon={}):
           '''
           ##beg_func_docs
@@ -938,7 +996,7 @@ if('python_region'):
             #vout      =   jjinput.__str__()
             vout      =   []
             ssroot    =   'c:/sm/docs/mydaydirs/%s/*'%(stryear)
-            aalist    =   self.jjarray_fromdir("",ssroot)
+            aalist    =   self.jjfile_array_fromdir("",ssroot)
             ##;;
   
             ## filter list
@@ -1440,7 +1498,90 @@ if('python_region'):
           ##
           return vout
         ##enddef
+        
+        ##
+        def jjfile_toarray(self,jjinput,sgpath=''):
+          '''
+          ##beg_func_docs
+          - caption:  jjfile_toarray
+            date:         lastmod="2016-01-08T15:56:02"
+            grp_maj:      FileIO
+            grp_med:      loadfile
+            grp_min:      toarray
+            desc:         delete a file using python os.remove
+            dreftymacid:  cleric_clam_thaws
+            detail:  |
+              python os.remove
+            dependencies:
+              - os
+            params:
+             - param: jjinput ;; optional ;; path to file
+             - param: sgpath ;; optional ;; path to file
+          ##end_func_docs
+          '''
+          
+          ##
+          if(str(jjinput)!=''):
+            # (self,jjinput,surl=''):
+            # sgpath = jjinput.__str__()
+            pass
+          ##;;
+          
+          ##
+          try:
+            vraw  =   self.jjfromfile(jjinput,sgpath)
+            vout  =   vraw.splitlines()            
+          except Exception as msg:
+            print 'FILE HANDLING EXCEPTION ;; cleric_clam_thaws msg@%s %s'%(msg.__repr__(),surl)
+            exc_type, exc_obj, exc_tb = sys.exc_info()
+            fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
+            print(exc_type, fname, exc_tb.tb_lineno)            
+            pass
+          ##;;
+          
+          ##
+          return vout
+        ##enddef        
+        
+        ##
+        def jjfiledelete(self,jjinput,sgpath=''):
+          '''
+          ##beg_func_docs
+          - caption:  jjfiledelete
+            date:         lastmod="2016-01-08T15:56:02"
+            grp_maj:      grp_maj
+            grp_med:      grp_med
+            grp_min:      grp_min
+            desc:         delete a file using python os.remove
+            dreftymacid:  cleric_clam_thaws
+            detail:  |
+              python os.remove
+            dependencies:
+              - os
+            params:
+             - param: jjinput ;; optional ;; path to file
+             - param: sgpath ;; optional ;; path to file
+          ##end_func_docs
+          '''
+          
+          ##
+          if(str(jjinput)!=''):
+            sgpath = jjinput.__str__()
+          ##;;
+          
+          ##
+          try:
+            os.remove(sgpath)
+          except Exception as msg:
+            ## '## File not found cleric_clam_thaws msg@%s %s'%(msg.__repr__(),sgpath)
+            pass
+          ##;;
+          
+          ##
+          return ''
+        ##enddef
 
+        ##
         def jjfilecopy(self,jjinput,sgsrc='',sgdest=''):
           '''
           ##beg_func_docs
@@ -1485,6 +1626,7 @@ if('python_region'):
             grp_maj:      fileio
             grp_med:      grp_med
             grp_min:      grp_min
+            tags:         filetest, isdir, isfile, 
             desc:         |
               determine if the input string represents a path to a file or directory
               return 'dir'  if dir
@@ -1571,20 +1713,22 @@ if('python_region'):
         #  ##
         #  return vout
         ###enddef
-
+        
+        ## TODO ;; rename this to jjfile_tostring more consistent naming convention with
+        ## jjfile_toarray
         def jjfromfile(self,jjinput,surl=''):
           '''
           ## function docs
           - caption:  jjfromfile
             date:     lastmod="Mon 2014-10-20 16:45:46"
             grp_maj:  FileIO
-            grp_med:  string
+            grp_med:  loadfile 
             grp_min:  fromfile
             desc:     string.fromfile
-            tags:     jjfromfile, jjfile_load,
+            tags:     jjfromfile, jjfile_load, jjfile
             dreftymacid: waterage_eat_formal
             detail:  |
-              pull in content from a file
+              pull in content from a file to a string
             todo: |
               * figure out why jjfromfile not working
                   * href="csm://mydaydirs/2015/week42/json/proj01test01transform01.txt"
@@ -1615,7 +1759,7 @@ if('python_region'):
             ### ------------------------------------------------------------------------
             ### ------------------------------------------------------------------------
 
-            FILE ENCODING HASSLE ;; href="%s"
+            FILE IO HASSLE ;; href="%s"
             
             ### ------------------------------------------------------------------------
             ### ------------------------------------------------------------------------
@@ -2006,12 +2150,13 @@ if('python_region'):
           ##;;
 
           ##
-          try:
+          try:            
             vout = "".join([ aahug[0], vout , aahug[1] ])
           except Exception as msg:
             pass
           try:
-            vout = "".join( [hug, vout, hug] )
+            if( aahug.__len__() == 0 ):
+              vout = "".join( [hug, vout, hug] )
           except:
             pass
           ##;;
@@ -2321,17 +2466,24 @@ if('python_region'):
           return vout
         ##enddef
 
-        ## TODO ;; rename to jjfile_arrayfromdir and put into jjfile_ namespace
-        def jjarray_fromdir(self,jjinput,ssfilespec='',ssmode='glob'):
+        def jjfile_array_fromdir(self,jjinput,ssfilespec='',ssmode='glob'):
           """
           ## function docs
-          - caption:  jjarray_fromdir
-            date:     lastmod="Mon 2014-10-20 16:45:46"
+          - caption:      jjfile_array_fromdir
+            date:         lastmod="Mon 2014-10-20 16:45:46"
             grp_maj:      FileIO
             grp_med:      directory
             grp_min:      traverse
             dreftymacid:  pests_cow_vealing
             desc: python  ArrayFromDirectory
+            example: |
+              {#- ------------------------------------------------------------------------ -#}
+              {%- set ttrootpath  = 'c:/sm/docs/mytrybits/*/*'  -%}
+              {%- set ttpathmode  = 'glob'                      -%}
+              {%- set mypaths     = ''|jjfile_array_fromdir(ttrootpath,ttpathmode)   -%}
+              {#- ------------------------------------------------------------------------ -#}
+              {{ mypaths }}
+                
             alias:
               - __blank__
             detail: |
@@ -2342,7 +2494,8 @@ if('python_region'):
               * href="smartpath://mydaydirs/2015/week22/py/oswalk.demo.py"
               * return a python list result from os.walk
             dependencies:
-              - none
+              - import glob
+              - import os
             params:
               - param: jjinput    ;; ignored  ;; placeholder argument for jinja
               - param: ssfilespec ;; required ;; path specification
@@ -2350,8 +2503,8 @@ if('python_region'):
             output: python string
           """
           ##
-          vout = jjinput.__str__()
-
+          ## vout = jjinput.__str__()
+          
           ##
           try:
             if(ssmode.lower()==''):
@@ -2360,18 +2513,20 @@ if('python_region'):
               aResults    =   glob.glob(ssfilespec)
               aResults    =   [ vxx.replace('\\','/') for vxx in aResults ]
               vout        =   aResults
-            elif(ssmode.lower()=='walk' or True):
-              vout    = []
+            elif(ssmode.lower()=='walk' or True):                       
+              vout    =   []
               aatemp  =   []
               for root, dirs, files in os.walk(ssfilespec):
                 aatemp.extend(  [ "/".join([root,vxx]) for vxx in dirs ] )
               aatemp = [vxx.replace('\\','/') for vxx in aatemp]
               vout = aatemp
           except Exception as msg:
-            print 'UNEXPECTED TERMINATION msg@%s'%(msg.__repr__())
+            print 'EXCEPTION pests_cow_vealing msg@%s'%(msg.__repr__())
             exc_type, exc_obj, exc_tb = sys.exc_info()
             fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
             print(exc_type, fname, exc_tb.tb_lineno)
+          ##;;
+          
           ##
           return vout
         ##enddef
@@ -2511,10 +2666,12 @@ if('python_region'):
           '''
 
           ## init vars
+          tagbeg      =   ''
+          tagend      =   ''
           sgradiobody =   jjinput.__str__()
           sgrawtext   =   self.jjfromfile(jjinput,targfile)
           vout        =   ''
-          zopts       =   options.copy()
+          zopts       =   {}
           zdefaults   =   {'verbose':False,
                                 'cmmt'  : '###',
                                 'name'  : 'file_info',
@@ -2522,7 +2679,12 @@ if('python_region'):
                                 'end'   : 'end-',
                                 'wrap'  : '<',
                       }
-          zopts.update(zdefaults)
+          for vkey in zdefaults:
+            if( (vkey in options) and (options[vkey].__str__() != '') ):
+              zopts[vkey] = options[vkey]
+            elif( True ):
+              zopts[vkey] = zdefaults[vkey]
+          ##;;
 
           ## init vars
           if(None): pass
@@ -2532,7 +2694,13 @@ if('python_region'):
             ##
             rtregexbeg  =   '\s*'+zopts['cmmt']+'\s*'+tagbeg+''
             rtregexend  =   '\s*'+zopts['cmmt']+'\s*'+tagend+''
-
+          ##;;
+          
+          ##
+          # print tagbeg
+          # print tagend
+          ##;;
+          
           ##
           try:
             rawpref   = re.split(rtregexbeg, sgrawtext,)[0]
@@ -2551,6 +2719,7 @@ if('python_region'):
             exc_type, exc_obj, exc_tb = sys.exc_info()
             fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
             print(exc_type, fname, exc_tb.tb_lineno)
+          ##;;
 
           ##
           if(zopts.has_key('verbose')):
@@ -2560,7 +2729,8 @@ if('python_region'):
               vout = vout
             elif(zopts['verbose']==False):
               vout = ''
-
+          ##;;
+          
           ##
           return vout
         ##enddef

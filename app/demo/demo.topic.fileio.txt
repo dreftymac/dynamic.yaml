@@ -1,0 +1,60 @@
+### <beg-file_info>
+### main:
+###   - date: created="Mon Jan 11 15:35:55 2016"
+###     last: lastmod="Mon Jan 11 15:35:55 2016"
+###     tags:   ddyaml, barebones, demo, fileio
+###     dreftymacid:    "sticks_tingeing_alerting"
+###     filetype:       "yaml"
+###     seealso: |
+###         *
+###     desc: |
+###         desc
+### <end-file_info>
+
+## href="smartpath://mytrybits/y/tryyaml/dynamicyaml/devlog.txt"
+## href="smartpath://mymedia/2014/git/github/dynamic.yaml/app/demo/readme.md"
+## href="smartpath://mymedia/2014/git/github/dynamic.yaml/py/ddyamlrunner.py"
+## href="smartpath://mymedia/2014/git/github/dynamic.yaml/py/ddyaml/jinjafilterdynamicyaml.py"
+__yaml__:
+
+  - &uuuumarking
+    caption:      jjfile_toarray test
+    processthis: 0
+    uuid:         uuuumarking
+    desc:         __desc__
+    dreftymacid:  agfa_crank_aztec
+    template: |
+      {#- ------------------------------------------------------------------------ -#}
+      {%- set ttoplevel   =   "c:/sm/docs/mymedia/2014/git/github/dynamic.yaml/app/demo"  -%}
+      {%- set ttinpfile   =   "%s/zzdummy.js"%(ttoplevel)  -%}
+      {#- ------------------------------------------------------------------------ -#}  
+      {%- set ttfilebody  =   '' |jjfile_toarray(ttinpfile)  -%}
+      {#- ------------------------------------------------------------------------ -#} 
+      {%- set ttscriptbody -%}
+      {{ ttfilebody |jjdata_formatas('jsonpretty')  }}
+      {%- endset -%}
+      {#- ------------------------------------------------------------------------ -#} 
+      {{ ttscriptbody }}
+      {#- ------------------------------------------------------------------------ -#}
+      
+  - &uuid001
+    caption:      jjarray_fromdir jjapplyfunction demo
+    processthis: 1
+    uuid:         uuid001
+    desc:         __desc__
+    dreftymacid:  shadows_madam_aerosols
+    template: |
+      {#- ------------------------------------------------------------------------ -#}
+      {%- set ttdirroot =   'c:/sm/docs/mytrybits/*/*'  -%}
+      {%- set ttdirlist =   '' |jjarray_fromdir(ttdirroot)  -%}
+      {#- ------------------------------------------------------------------------ -#} 
+      {%- set ttfilterfunc  = """lambda mytable: [{'winpath':item, 'basename':item.split('/')[-1]} for item in mytable
+          if( os.path.isdir(item) )
+          ]"""
+          -%}
+      {%- set ttfiltered = (ttdirlist |jjapplyfunction(ttfilterfunc))  -%}      
+      {#- ------------------------------------------------------------------------ -#}      
+      {% for row in ttfiltered -%}
+      alias go.{{ row.basename }}="cd {{ row.winpath }};"
+      {% endfor %}
+      

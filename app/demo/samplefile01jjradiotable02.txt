@@ -1,0 +1,23 @@
+### <beg-file_info>
+### main:
+###   - date: created="Sat Oct 31 08:34:42 2015"
+###     last: lastmod="Sat Oct 31 08:34:42 2015"
+###     tags:   tags 
+###     author: created="__author__"
+###     dreftymacid:    "wrangler_ruler_mustard"
+###     seealso: |
+###         * href="./demo01jjradiotable01.txt"
+###     desc: |
+###         desc  
+### <end-file_info>
+
+### <beg-region_zero_claws_bunks>
+region_zero_claws_bunks:
+- caption:  charlie
+- caption:  delta
+- caption:  bravo
+- caption:  delta
+- caption:  charlie
+- caption:  bravo
+- caption:  bravo
+### <end-region_zero_claws_bunks>

@@ -11,39 +11,60 @@
 ###         barebones demo budgetmodel
 ### <end-file_info>
 
-
+## href="smartpath://mytrybits/p/trypython2/2009/e/tryexecprocess/tryrun_explorerdirectory000.py"
+## href="smartpath://mymedia/2014/git/github/dynamic.yaml/app/demo/demo.topic.interop.txt"
 maintable:
 
+  - caption:  run git refresh
+    reckeyy:  shellrunrefresh
+    dreftymacid: beast_soda_nucleus
+    seealso:
+    wwbody:  >
+          c:/programs/cygwin/bin/mintty.exe
+          --exec c:/programs/cygwin/bin/bash --login -i
+          -c "c:/sm/docs/mymedia/2014/git/github/public.lab/.ignore/shellrunrefresh.sh"
+          
   - caption:  run cygwin bash script
     reckeyy:  alpha
+    dreftymacid: weanling_gland_wavering
     seealso:
       - href="smartpath://mydaydirs/2016/week01/shell/demogga.sh"
-    wwcmd: >
+    wwbody:  >
           c:/programs/cygwin/bin/mintty.exe
           --exec c:/programs/cygwin/bin/bash --login -i
           -c "c:/sm/docs/mydaydirs/2016/week01/shell/demogga.sh"
           
-
   - caption:  run cygwin bash
     reckeyy:  bravo
-    wwcmd: >
+    dreftymacid: instinct_mega_timeous
+    wwbody:  >
           c:/programs/cygwin/bin/mintty.exe
           --exec c:/programs/cygwin/bin/bash --login -i
           -c "find /cygdrive/c/sm/docs/mydaydirs/2015"
   
   - caption:  run windows calc.exe 
-    reckeyy:  charlie
-    wwcmd: |
+    reckeyy:  windowscalc
+    dreftymacid: failure_yawns_creaks
+    desc:       opening calc.exe on windows
+    wwbody:  >
         %windir%\system32\calc.exe
-  
+        
+  - caption:  open windows explorer window
+    reckeyy:  windowswin
+    datebeg:  Sat Jan 09 11:35:25 2016 
+    dateend:  Sat Jan 09 11:35:25 2016 
+    dreftymacid: washaway_glady_amuser
+    desc:       opening explorer.exe to a specific window location
+    wwbody: >
+        %windir%\explorer.exe /e,c:\sm\docs\mydaydirs
+        
 __yaml__:
 
   - caption:      jjrun_popen demo
-    offtemplate: |
-
     template:     |
-      {%- set myfunc  =   "lambda mytable:[row for row in mytable if(row['reckeyy'] == 'alpha')]"  -%}
+      {%- set mykeyn  =   'windowswin'  -%}
+      {%- set myfunc  =   """lambda mytable:[row for row in mytable if( row['reckeyy'] == '%s' )]"""%(mykeyn)  -%}
       {%- set myrow   =   maintable |jjapplyfunction(myfunc) |jjlistget(0) -%}
-      {%- set mycmd   =   myrow.wwcmd  -%}
+      {%- set mycmd   =   myrow.wwbody  -%}
       {{ ''|jjrun_popen(mycmd) }}
 
