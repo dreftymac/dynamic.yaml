@@ -4,22 +4,12 @@
 ###     last: lastmod="Sat Aug 29 03:51:32 2015"
 ###     tags: yaml, data, coldfusion, dynamicyaml, dreftymac, ddyaml
 ###     dreftymacid: "luckiest_udaipur_type"
-###
 ###     seealso: |
 ###         ## github
 ###         * cd c:/sm/docs/mymedia/2014/git/github/dynamic.yaml
 ###
 ###         ## dynamicyaml
-###         * href="../../../../../mytrybits/y/tryyaml/dynamicyaml/devlog.txt"
-###         * href="../../../../../mytrybits/p/trypython2/2009/j/jinja.template/readme.md"
-###         
-###     demo_and_examples: | 
-###         * href="../../../../../mytrybits/y/tryyaml/dynamicyaml/app/demo/readme.asc"
-###         * href="../../../../../mytrybits/y/tryyaml/dynamicyaml/app/sample/readme.md"
-###         * href="../../../../../mymedia/2014/git/github/dynamic.yaml/app/demo/readme.txt"
-###         
-###     desc: |
-###         devlog.txt
+###         * href="smartpath://mytrybits/y/tryyaml/dynamicyaml/devlog.txt"
 ###         
 ### <end-file_info>
 
@@ -28,4 +18,4 @@ changelog:
     details: DONE ;; rename to jjfile_arrayfromdir and put into jjfile_ namespace
   - caption: includefile directive changed to templateinclude directive
   - caption: datafile directive changed to datainclude directive
-
+  

@@ -7,6 +7,7 @@
 ###     seealso: |
 ###         * href="./demo.topic.excel.txt"
 ###         * href="./demo.topic.interop.txt"
+###         * href="smartpath://mydaydirs/2016/week03/week03devlog.txt" find="admit_sixth_burnt"
 ###     desc: |
 ###         barebones demo budgetmodel
 ### <end-file_info>
@@ -58,9 +59,26 @@ maintable:
     wwbody: >
         %windir%\explorer.exe /e,c:\sm\docs\mydaydirs
         
+## href="smartpath://mytrybits/y/tryyaml/dynamicyaml/devlog.txt"
+## href="smartpath://mymedia/2014/git/github/dynamic.yaml/app/demo/readme.md"
+## href="smartpath://mymedia/2014/git/github/dynamic.yaml/py/ddyamlrunner.py"
+## href="smartpath://mymedia/2014/git/github/dynamic.yaml/py/ddyaml/jinjafilterdynamicyaml.py"
 __yaml__:
 
+  - caption:    jjrun_popen quickdemo
+    processthis:  true  
+    template: |
+      {#- ------------------------------------------------------------------------ -#} 
+      {%- set mycmd   =   '%windir%\system32\calc.exe' -%}
+      {%- set mycmd   =   "c:/sm/docs/mymedia/2014/git/github/dynamic.yaml/app/demo/zzdummy.html" -%}
+      {%- set mycmd   =   "C:\\Program Files (x86)\\Mozilla Firefox\\firefox.exe"  -%}
+      {#- ------------------------------------------------------------------------ -#}
+      {{ mycmd }}
+      {{ ''|jjrun_popen(mycmd) }}
+      {#- ------------------------------------------------------------------------ -#} 
+
   - caption:      jjrun_popen demo
+    processthis:  false
     template:     |
       {%- set mykeyn  =   'windowswin'  -%}
       {%- set myfunc  =   """lambda mytable:[row for row in mytable if( row['reckeyy'] == '%s' )]"""%(mykeyn)  -%}

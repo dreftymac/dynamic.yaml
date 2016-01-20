@@ -1,0 +1,25 @@
+{#-
+### <beg-macro_info>
+### main:
+###   - date: created="Tue Jan 19 10:39:49 2016"
+###     last: lastmod="Tue Jan 19 10:39:49 2016"
+###     tags:   helloworld, loop, range 
+###     dreftymacid:    "cramp_bench_gyrating"
+###     filetype:       "twig"
+###     seealso: |
+###         *
+###     desc: |
+###         simple macro that outputs a loop using block set
+### <end-macro_info>
+-#}
+{#- ------------------------------------------------------------------------ -#}
+{%- macro ttmacro_helloworld(arg1='') -%}
+{%set ttoutput-%}
+{% for row in range(3) -%}
+  {%- set row = row + 1  -%}
+  {{ row }}) Hello World from {{arg1}}!!
+{% endfor %}
+{%- endset -%}
+{{ ttoutput }}
+{%- endmacro -%}
+{#- ------------------------------------------------------------------------ -#} 

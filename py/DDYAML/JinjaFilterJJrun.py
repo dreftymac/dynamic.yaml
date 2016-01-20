@@ -1,29 +1,42 @@
+### <beg-file_info>
+### main:
+###   - date: created="Tue Jan 19 22:05:55 2016"
+###     last: lastmod="Tue Jan 19 22:05:55 2016"
+###     tags:   tags 
+###     dreftymacid:    "funds_cola_handhold"
+###     filetype:       "yaml"
+###     seealso: |
+###         *
+###     desc: |
+###         desc
+### <end-file_info>
+
 ### @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 ### init py
 if('python_region'):
       ## init py
-      import base64
-      import codecs
-      import csv
-      import datetime
-      import glob
-      import jinja2
-      import json
-      import platform
       import os
-      import random
-      import requests
-      import re
-      import shutil
-      import string
-      import StringIO
-      import sys
-      import textwrap
-      import time
-      import uuid
-      import xlrd
-      import yaml
-      import zipfile
+      # import base64
+      # import codecs
+      # import csv
+      # import datetime
+      # import glob
+      # import jinja2
+      # import json
+      # import platform
+      # import random
+      # import requests
+      # import re
+      # import shutil
+      # import string
+      # import StringIO
+      # import sys
+      # import textwrap
+      # import time
+      # import uuid
+      # import xlrd
+      # import yaml
+      # import zipfile
       
       ##
       from JinjaFilterBase import JinjaFilterBase
@@ -143,6 +156,44 @@ if('python_region'):
             print(exc_type, fname, exc_tb.tb_lineno)
           ##;;
           
+          ##
+          return vout
+        ##enddef
+        
+        def jjrun_firefox(self,jjinput):
+          '''
+          ##beg_func_docs
+          - caption:      jjrun_firefox
+            date:         lastmod="2016-01-19T21:08:04"
+            grp_maj:      python  
+            grp_med:      interop
+            grp_min:      firefox
+            desc:         run firefox with optional args
+            dreftymacid:  venatic_impure_forego
+            seealso: 
+              - href="https://developer.mozilla.org/en-US/docs/Mozilla/Command_Line_Options?redirectlocale=en-US&redirectslug=Command_Line_Options"
+            detail:  |
+              * __blank__
+            dependencies:
+              - __blank__
+            params:
+             - param: jjinput ;; optarity ;; jinja raw input string
+          ##end_func_docs
+          '''
+        
+          ##
+          vout = jjinput.__str__()
+        
+          ##
+          try:
+            vout = vout
+          ##
+          except Exception as msg:
+            print 'UNEXPECTED TERMINATION __dreftymacid__ msg@%s'%(msg.__repr__())
+            exc_type, exc_obj, exc_tb = sys.exc_info()
+            fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
+            print(exc_type, fname, exc_tb.tb_lineno)
+        
           ##
           return vout
         ##enddef

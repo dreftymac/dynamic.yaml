@@ -13,6 +13,5 @@
 /// <end-file_info>
 
 alert(12+12);
-
 alert("Hello world from javascript!");
 

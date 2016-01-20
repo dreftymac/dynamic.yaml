@@ -2482,8 +2482,7 @@ if('python_region'):
               {%- set ttpathmode  = 'glob'                      -%}
               {%- set mypaths     = ''|jjfile_array_fromdir(ttrootpath,ttpathmode)   -%}
               {#- ------------------------------------------------------------------------ -#}
-              {{ mypaths }}
-                
+              {{ mypaths }}                
             alias:
               - __blank__
             detail: |

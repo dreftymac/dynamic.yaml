@@ -7,9 +7,7 @@ __yaml__:
     rowkeep: 1
     uuid:         uu778abnQaayz
     desc:         __desc__
-    dreftymacid:  __dreftymacid__
-    datainclude:      datainclude
-    templateinclude:  templateinclude
+    dreftymacid:  nil_items_bloating
     template:         |
       {% macro render_dialog(title, class='dialog') -%}
           <div class="{{ class }}">

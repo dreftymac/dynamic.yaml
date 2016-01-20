@@ -1,0 +1,25 @@
+list_names:
+  - Homer Simpson
+  - Marge Simpson
+  - Bart Simpson
+
+## href="smartpath://mytrybits/y/tryyaml/dynamicyaml/devlog.txt"
+## href="smartpath://mymedia/2014/git/github/dynamic.yaml/app/demo/readme.md"
+## href="smartpath://mymedia/2014/git/github/dynamic.yaml/py/ddyamlrunner.py"
+## href="smartpath://mymedia/2014/git/github/dynamic.yaml/py/ddyaml/jinjafilterdynamicyaml.py"
+__yaml__:
+
+  - &uuid001
+    caption:      caption
+    processthis: 1
+    uuid:         uuid001
+    desc:         __desc__
+    dreftymacid:  __dreftymacid__
+    datainclude:      datainclude
+    templateinclude:  
+      - "./demo01macroinclude00.txt"
+    template: |
+      {% for item in list_names -%}
+      {{ ttmacro_helloworld(item) }}
+      {% endfor %}
+      
