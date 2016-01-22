@@ -8,6 +8,7 @@ This directory contains sample dynamic YAML files for demonstration.
 
 ## Examples and demos
 
+* ddyaml from the commandline       ;; __blank__
 * block assignment                  ;; href="smartpath://mymedia/2014/git/github/dynamic.yaml/app/demo/demo01blockassign01.txt.twig"
 * file/io                           ;; href="smartpath://mymedia/2014/git/github/dynamic.yaml/app/demo/demo.topic.fileio.txt"
 * run command shell popen interop   ;; href="smartpath://mymedia/2014/git/github/dynamic.yaml/app/demo/demo.topic.interop.txt"

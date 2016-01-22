@@ -10,12 +10,15 @@
 ###         barebones demo 
 ### <end-file_info>
 
+
 main:
   
   - firstname:  Homer
     lastname:   Simpson
+    
   - firstname:  Marge
     lastname:   Simpson
+    
   - firstname:  Lisa
     lastname:   Simpson
 

@@ -16,27 +16,7 @@
 if('python_region'):
       ## init py
       import os
-      # import base64
-      # import codecs
-      # import csv
-      # import datetime
-      # import glob
-      # import jinja2
-      # import json
-      # import platform
-      # import random
-      # import requests
-      # import re
-      # import shutil
-      # import string
-      # import StringIO
-      # import sys
-      # import textwrap
-      # import time
-      # import uuid
-      # import xlrd
-      # import yaml
-      # import zipfile
+      import subprocess
       
       ##
       from JinjaFilterBase import JinjaFilterBase
@@ -160,7 +140,11 @@ if('python_region'):
           return vout
         ##enddef
         
-        def jjrun_firefox(self,jjinput):
+        def jjrun_firefox(self,jjinput
+                          ,srunwebl='https://www.google.com'
+                          ,srunargs='-new-tab'
+                          ,srunpath=r'C:\Program Files (x86)\Mozilla Firefox\firefox.exe'
+                          ):
           '''
           ##beg_func_docs
           - caption:      jjrun_firefox
@@ -172,12 +156,16 @@ if('python_region'):
             dreftymacid:  venatic_impure_forego
             seealso: 
               - href="https://developer.mozilla.org/en-US/docs/Mozilla/Command_Line_Options?redirectlocale=en-US&redirectslug=Command_Line_Options"
+              - href="../../../app/demo/demo.topic.interop.txt"
             detail:  |
               * __blank__
             dependencies:
               - __blank__
             params:
-             - param: jjinput ;; optarity ;; jinja raw input string
+             - param: jjinput ;; ignored ;; jinja raw input string
+             - param: srunwebl ;; optional ;; target weblink
+             - param: srunargs ;; optional ;; cmdline flags
+             - param: srunpath ;; optional ;; path to firefox executable
           ##end_func_docs
           '''
         
@@ -186,7 +174,7 @@ if('python_region'):
         
           ##
           try:
-            vout = vout
+            subprocess.call([srunpath,srunargs,srunwebl])
           ##
           except Exception as msg:
             print 'UNEXPECTED TERMINATION __dreftymacid__ msg@%s'%(msg.__repr__())

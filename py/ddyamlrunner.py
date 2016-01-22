@@ -67,8 +67,11 @@ if('python_region'):
           JinjaFilterJJrun(),
         ]
         oparams = {}
-        oparams['path']         = ffpath
-        oparams['addonFilters'] = aaJinjaAddonFilters
+        oparams['path']           =   ffpath
+        oparams['addonFilters']   =   aaJinjaAddonFilters
+        oparams['cmdDataValue']   =   ''
+        oparams['cmdDataFormat']  =   ''
+        oparams['cmdDataKey']     =   'ddyaml_cmdline'        
         ##
         odyna   =   DynamicYAML(oparams)
         vout    =   odyna.ddtransform()

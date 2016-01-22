@@ -58,15 +58,58 @@ maintable:
     desc:       opening explorer.exe to a specific window location
     wwbody: >
         %windir%\explorer.exe /e,c:\sm\docs\mydaydirs
-        
+##;;
+
 ## href="smartpath://mytrybits/y/tryyaml/dynamicyaml/devlog.txt"
 ## href="smartpath://mymedia/2014/git/github/dynamic.yaml/app/demo/readme.md"
 ## href="smartpath://mymedia/2014/git/github/dynamic.yaml/py/ddyamlrunner.py"
 ## href="smartpath://mymedia/2014/git/github/dynamic.yaml/py/ddyaml/jinjafilterdynamicyaml.py"
 __yaml__:
 
+  - caption:    jjrun_firefox quickdemo
+    processthis:  false
+    template: |
+      {#- ------------------------------------------------------------------------ -#}
+      {%- set ttmylink = 'https://bing.com'  -%}
+      {%- set ttmylink = 'imacros://run/?m=Macros/current_demo.iim'  -%}      
+      {{ ''|jjrun_firefox(ttmylink) }}
+      {#- ------------------------------------------------------------------------ -#} 
+
+  - &uuiundoer
+    caption:      jjrun_firefox demo
+    processthis:  true
+    uuid:         uuiundoer
+    dreftymacid:  undoer_clean_unafraid
+    desc: imacros autorun 
+    datainclude:
+      - "../.ignore_d7iim/yydata_iimscript_001.txt"
+    templateinclude:  
+      - "../.ignore_d7iim/d7iim_macro_001.txt"
+    template: |
+      {#- ------------------------------------------------------------------------ -#} 
+      {%- set opts      = dict()  -%}
+      {%- set noop      = opts.update({'sitebase':  siteinfo.sitebase           }) -%}
+      {%- set noop      = opts.update({'username':  siteinfo.username           }) -%}      
+      {%- set noop      = opts.update({'userpass':  siteinfo.userpass |jjdec64  }) -%}
+      {#- ------------------------------------------------------------------------ -#}
+      {#- ------------------------------------------------------------------------ -#} 
+      {%- set ttoutbaseiim = 'current_autogen'  -%}
+      {%- set ttoutfile = "c:/sm/docs/mytrybits/i/tryimacros/imacros/macros/%s.iim"%(ttoutbaseiim) -%}
+      {%- set ttoutmode = 'replace'  -%}
+      {#- ------------------------------------------------------------------------ -#}
+      {#- ------------------------------------------------------------------------ -#} 
+      {% filter string() |jjdedent() |jjtofile(ttoutfile,ttoutmode) %}
+      VERSION  BUILD=7500718 RECORDER=FX
+      TAB T=1
+      {{ ttmacro_sitelogin(opts) }}
+      {%endfilter%}
+      {#- ------------------------------------------------------------------------ -#} 
+      {%- set ttmylink = "imacros://run/?m=Macros/current_demo.iim"%(ttoutbaseiim)  -%}      
+      {{ ''|jjrun_firefox(ttmylink) }}
+      {#- ------------------------------------------------------------------------ -#} 
+
   - caption:    jjrun_popen quickdemo
-    processthis:  true  
+    processthis:  false
     template: |
       {#- ------------------------------------------------------------------------ -#} 
       {%- set mycmd   =   '%windir%\system32\calc.exe' -%}
@@ -86,3 +129,4 @@ __yaml__:
       {%- set mycmd   =   myrow.wwbody  -%}
       {{ ''|jjrun_popen(mycmd) }}
 
+##;;
