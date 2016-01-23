@@ -10,6 +10,7 @@
 ###     seealso: |
 ###         ## mytrybits devlog
 ###         * href="smartpath://mytrybits/y/tryyaml/dynamicyaml/devlog.txt"
+###         * cd /cygdrive/c/sm/docs/mymedia/2014/git/github/dynamic.yaml
 ###
 ###         ## local paths
 ###         * href="smartpath://mymedia/2014/git/github/dynamic.yaml/app/demo/readme.md"
@@ -62,79 +63,86 @@ if('python_region'):
 ###!
 ###!  dreftymacid: uhuru_vagrant_means
 ###!
-###!  body: |
+###!  wwbody: |
 if (__name__ == "__main__"):
 
-        ### ------------------------------------------------------------------------
-        ##  process_commandline_input
-        desc   = (
-        '''dynamic yaml runner -- see https://github.com/dreftymac/dynamic.yaml
-        ''')        
-        strversion  = 'dynamic yaml runner -- version 20160122.001'
-        parser      = OptionParser(description=desc,version=strversion)
-        
-        ### ********************                
-        parser.add_option("-f", "--fileinput"
-                          ,type="string"
-                          ,default=''
-                          ,action='store'
-                          ,dest="fileinput"
-                          ,metavar="<INPUT_FILEPATH>"
-                          ,nargs=1
-                          ,help="Specify a primary input file containing dynamic yaml."
-                          )                        
+      ### ------------------------------------------------------------------------
+      ##  process_commandline_input
+      desc   = (
+      '''dynamic yaml runner -- see https://github.com/dreftymac/dynamic.yaml
+      ''')
+      strversion  = 'dynamic yaml runner -- version 20160122.001'
+      parser      = OptionParser(description=desc,version=strversion)
     
-        parser.add_option("-g", "--globalvar"
-                      ,type="string"
-                      ,default=[]
-                      ,action='append'
-                      ,dest="globalvar"
-                      ,metavar="<VARNAME> <VARVALUE>"
-                      ,nargs=2
-                      ,help="Specify a global variable to make available to all templates."
-                      )
+      ### ********************
+      parser.add_option("-f", "--fileinput"
+                        ,type="string"
+                        ,default=''
+                        ,action='store'
+                        ,dest="fileinput"
+                        ,metavar="<INPUT_FILEPATH>"
+                        ,nargs=1
+                        ,help="Specify a primary input file containing dynamic yaml."
+                        )
+      parser.add_option("-g", "--globalvar"
+                    ,type="string"
+                    ,default=[]
+                    ,action='append'
+                    ,dest="globals"
+                    ,metavar="<VARNAME> <VARVALUE>"
+                    ,nargs=2
+                    ,help="Specify a global variable to make available to all templates."
+                    )
     
-        ### ********************        
-        (options, args) = parser.parse_args()
+      ### ********************
+      (options, args) = parser.parse_args()
     
-        ### ********************        
-        options_dict = vars(options)
-        print( options_dict )
-        # oDumper.pprint( args )
-        pass;      
-        exit()
-
-        ### ------------------------------------------------------------------------
-        ##  invoke_ddyaml_runner
-        vout    =   ''
-        ffpath  =   ''
-        oparams =   {}        
-        ##;;
-
-        ##
-        try:
-          ffpath  =   sys.argv[1]
-        except:
-          ffpath  =   "c:/sm/docs/mymedia/2014/git/github/dynamic.yaml/app/demo/bare.hello.txt"
-        ## IMPORTANT  ;; if you have any addon filter classes, add them here ;; viaducts_juiciest_painting
-        ## SEEALSO    ;; href="c:/sm/docs/mytrybits/p/trypython2/lab2014/pyjinja/dynamic_yaml.py" find="viaducts_juiciest_painting"
-        aaJinjaAddonFilters = [
-          JinjaFilterDynamicYAML(),
-          JinjaFilterJJrun(),
-        ]
-        ##;;
-
-        ##
-        oparams['path']           =   ffpath
-        oparams['addonFilters']   =   aaJinjaAddonFilters
-        oparams['externalVars']   =   {}
-        oparams['externalVars']['ttblank'] = '__blank__'
-        ##;;
-
-        ##
-        odyna   =   DynamicYAML(oparams)
-        vout    =   odyna.ddtransform()
-        print vout.encode('utf-8','replace')
-        ##;;
+      ### ********************
+      options_dict = vars(options)
+      # print( options_dict )
+      # oDumper.pprint( args )
+      pass;
+    
+      ### ------------------------------------------------------------------------
+      ##  invoke_ddyaml_runner
+      vout    =   ''
+      ffpath  =   ''
+      oparams =   {}
+      ##;;
+    
+      ##
+      try:
+        ffpath  =   options_dict["fileinput"]
+      except:
+        ffpath  =   ""
+      ##;;
+      
+      ##
+      aaJinjaAddonFilters = [
+        JinjaFilterDynamicYAML(),
+        JinjaFilterJJrun(),
+      ]
+      ##;;
+    
+      ##
+      oparams['path']               =   ffpath
+      oparams['addonFilters']       =   aaJinjaAddonFilters
+      oparams['globals']            =   options_dict['globals']
+      #oparams['globals']['ggblank'] =   '__blank__'
+      ##;;
+    
+      ##
+      odyna   =   DynamicYAML(oparams)
+      vout    =   odyna.ddtransform()
+      print vout.encode('utf-8','replace')
+      ##;;
 ### <end-region_testiff_20151230125723>
 
+'''
+sample runlines
+
+cd /cygdrive/c/sm/docs/mymedia/2014/git/github/dynamic.yaml/py
+./ddyamlrunner.py --file="../app/demo/bare.hello.txt"
+./ddyamlrunner.py --file="../app/demo/barebones.globalvar.txt" --globalvar=ggto "World" --globalvar=ggfrom "Homer Simpson"
+
+'''

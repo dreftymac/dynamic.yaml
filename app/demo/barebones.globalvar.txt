@@ -1,0 +1,19 @@
+### <beg-file_info>
+### main:
+###   - date: created="Thu Dec 31 07:08:46 2015"
+###     last: lastmod="Thu Dec 31 07:08:46 2015"
+###     tags:   ddyaml, barebones, demo
+###     desc: |
+###         barebones demo 
+### <end-file_info>
+
+__yaml__:
+
+  - caption: ddyaml globalvar demo (requires globals ggto and ggfrom)
+    runline:      |
+      ./ddyamlrunner.py --file="../app/demo/barebones.globalvar.txt" --globalvar=ggto "world" --globalvar=ggfrom "homer simpson"
+    template:     | 
+      {%- set name    = ggto    or 'noname' -%}
+      {%- set sender  = ggfrom  or 'no-one' -%}
+      Hello {{ name }} from {{ sender }}!
+      

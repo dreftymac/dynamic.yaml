@@ -25,11 +25,11 @@ if('python_region'):
       import xlrd
       import yaml
       import zipfile
-      
+
       ## pprint
       import pprint
-      oDumper = pprint.PrettyPrinter(indent=4);      
-      
+      oDumper = pprint.PrettyPrinter(indent=4);
+
 ### @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 ### DynamicYAML
 if('python_region'):
@@ -48,9 +48,9 @@ if('python_region'):
 ###!          __desc__
 ###!  wwbody: |
       class DynamicYAML(object):
-        
+
         ##
-        def __init__(self,ddparams={}):          
+        def __init__(self,ddparams={}):
           ## init
           self.Environment      =   jinja2.Environment(
             extensions=[
@@ -61,20 +61,42 @@ if('python_region'):
             )
           self.oenv             =   self.Environment
           ##;;
-          
+
           ## init globals
           ## supports variables that are accessible to every jinja template
           self.oenv.globals = {"noop" : ""
             }
+          try:
+            for item in ddparams['globals']: self.oenv.globals[item[0]] = item[1]
+          except:
+            pass
           ##;;
-          
+
+          ## init ;; syntaxconfig -- standard initializtion parameters for 
+          '''
+          syntaxconfig          ;; syncondesc    ;; synconvalue
+          block_start_string    ;; blockstart    ;; '{%'       
+          block_end_string      ;; blockend      ;; '%}'       
+          variable_start_string ;; variablestart ;; '{{'       
+          variable_end_string   ;; variableend   ;; '}}'       
+          comment_start_string  ;; commentstart  ;; '{#'       
+          comment_end_string    ;; commentend    ;; '#}'       
+          '''
+          self.oenv.block_start_string    = ddparams.get('block_start_string'    , '{%')
+          self.oenv.block_end_string      = ddparams.get('block_end_string'      , '%}')
+          self.oenv.variable_start_string = ddparams.get('variable_start_string' , '{{')
+          self.oenv.variable_end_string   = ddparams.get('variable_end_string'   , '}}')
+          self.oenv.comment_start_string  = ddparams.get('comment_start_string'  , '{#')
+          self.oenv.comment_end_string    = ddparams.get('comment_end_string'    , '#}')
+          ##;;
+
           ##
-          self.primaryYamlPath  =   ddparams.get('path', '')          ## primaryYamlPath
-          self.addonFilters     =   ddparams.get('addonFilters', [])  ## addonFilterClasses
+          self.primaryYamlPath    =   ddparams.get('path', '')          ## primaryYamlPath
+          self.addonFilters       =   ddparams.get('addonFilters', [])  ## addonFilterClasses
           ##
           if(self.primaryYamlPath.__str__() != ''):
             self.ffpath_main  =   self.primaryYamlPath
-            self.ffpath_abso  =   "/".join( os.path.abspath(self.primaryYamlPath).split("\\") )
+            self.ffpath_abso  =   "/".join( os.path.abspath(self.ffpath_main).split("\\") )
             self.ffpath_pdir  =   "/".join( os.path.dirname(self.ffpath_abso).split("\\") )
           elif(True):
             sgtemp = ("""
@@ -84,7 +106,7 @@ if('python_region'):
           #oDumper.pprint( self.ffpath_pdir )
           #oDumper.pprint( ddparams )
         ##enddef
-        
+
         #@ figure out how jinja finalize works
         #@ def oenv_finalize(self,vinput):
         #@   vout = ''
@@ -93,7 +115,7 @@ if('python_region'):
         #@   ##
         #@   return vout
         #@ ##enddef
-        
+
         def py_mergedict(self, dict1, dict2):
           '''
           python addon function for merging nested dictionaries
@@ -113,8 +135,8 @@ if('python_region'):
                   yield (ppk, dict1[ppk])
               else:
                   yield (ppk, dict2[ppk])
-        ##enddef         
-        
+        ##enddef
+
         ##
         def data_struct_merge(self,ob001,ob002,path=None):
           """
@@ -134,13 +156,13 @@ if('python_region'):
           vout  =  dict( self.py_mergedict(ob001,ob002) )
           return vout
         ##enddef
-        
+
         ##
         def ff_resolvepath_read(self,spath=''):
           '''
           ### main:
           ###   - date: created="Thu Jul 16 15:30:22 2015"
-          ###     desc:    read a file with path that is potentially relative to path of primaryYamlPath
+          ###     desc:    read a file with path that is potentially relative to path of primaryYamlWwbody
           ###     params:
           ###       - name: spath
           ###         opt:  required
@@ -160,7 +182,7 @@ if('python_region'):
           spath_mod01 =   '/'.join( [self.ffpath_pdir,'/',spath]  )
           ## check if spath is readable without modification
           if(os.access(spath,os.R_OK)):       getpath = spath
-          ## check if spath is readable as relative to path of primaryYamlPath
+          ## check if spath is readable as relative to path of primaryYamlWwbody
           if(os.access(spath_mod01,os.R_OK)): getpath = spath_mod01
           ## try to read the file
           if(sscurr ==  '' and (not getpath == '')):
@@ -170,7 +192,7 @@ if('python_region'):
               pass
           return sscurr
         ##enddef
-        
+
         ##
         def ddtransform(self):
           """
@@ -185,13 +207,14 @@ if('python_region'):
           ###         desc
           """
           ## init jinja environment (oEnv) and extensions
-          oEnv      =   self.oenv
+          oEnv   =  self.oenv
           ##;;
 
           ## init custom filters for oEnv
           for addonclass in self.addonFilters:
             oEnv  = addonclass.attach_filters( oEnv )
                 ## href="./JinjaFilterDynamicYAML.py"
+            pass
           ##;;
 
           ## placeholder syntax
@@ -200,53 +223,83 @@ if('python_region'):
           sgg_directiveprefix_str =   ''
           ##;;
 
-          ## get primaryYamlPath (dynamic_yaml)
-          vout          =   []
-          ssgpath       =   ''
-          try:
-            ssgpath       =   self.ffpath_main
-          except Exception:
-            return ''
-            pass
-
-          ##
-          primaryYamlPath = codecs.open(ssgpath, 'r', 'utf-8').read()
-          #primaryYamlPath   =   open(ssgpath,'rb').read()
-          orgconf       =   yaml.safe_load(primaryYamlPath)
+          ## init vars
+          vout      =   []
+          ssgpath   =   ''
+          originalconfig = {}
           ##;;
 
+          ## get primaryYamlWwbody from primaryYamlPath
+          try:
+            ssgpath = self.ffpath_main
+          except Exception:            
+            #return ''
+            pass
+          ##;;
+
+          ### ------------------------------------------------------------------------          
+          if('load_attempt_stora_areal'):
+            ##
+            try:
+              primaryYamlWwbody     =    codecs.open(ssgpath, 'r', 'utf-8').read()
+              originalconfig        =    yaml.safe_load(primaryYamlWwbody)
+            except:
+              pass
+            ##;;
+  
+            ##
+            try:
+              primaryYamlWwbody     =    codecs.open(ssgpath, 'r', 'utf-8').read()
+              iiSpPref = 32
+              svirtualtemplate      = '''
+              __yaml__:
+              - template: |\n%s
+              '''%("\n".join((iiSpPref * " ") + ix for ix in primaryYamlWwbody.splitlines()))
+              
+              originalconfig = yaml.safe_load(svirtualtemplate)
+            except:
+              pass
+            ##;;
+          
+            # print originalconfig
+            # print primaryYamlWwbody
+            # print svirtualtemplate
+          
+          ### ------------------------------------------------------------------------          
           ## init directives_dictionary
           directives = {}
           directives['default_data']        = ''
           directives['default_template']    = ''
           directives['current_data']        = ''
           directives['current_template']    = ''
+          directives['default_data'] = originalconfig.copy()          
+          ##;;
+
+          ##
+          try:
+            ## remove the sgg_dynamicyaml_key
+            del(directives['default_data'][sgg_dynamicyaml_key])
+          except:
+            pass
           ##;;
 
           ## <beg-process01>
           try:
-            ## set defaults on directives_dictionary
-            ##    from the primaryYamlPath
-            ##    preserve every existing key, except remove the sgg_dynamicyaml_key
-            directives['default_data']    = orgconf.copy()
-            del(directives['default_data'][sgg_dynamicyaml_key])
-            ##;;
-
             ## set default_template
             ##    use this as the default template if one not specified
-            directives['default_template']      = primaryYamlPath
+            if( directives['default_template'].__str__() == ''):
+              directives['default_template'] = primaryYamlWwbody
             ##;;
 
             ## iterate_yaml
-            for row in orgconf[sgg_dynamicyaml_key]:
+            for row in originalconfig[sgg_dynamicyaml_key]:
               directives['current_template']    = directives['default_template']
               directives['current_data']        = directives['default_data']
 
               ### ********************
               ## process row
 
-              ## @@@ usedataroot directive ;; wrap all the template data in a custom 'dataroot' element
-              ##
+              ## @@@ usedataroot directive ;; wrap all the template data in a common 'dataroot' element
               tmpname = ['use','dataroot']
               tmpkey  = sgg_directiveprefix_str + "".join(tmpname)
               if( (tmpkey) in row ):
@@ -255,6 +308,7 @@ if('python_region'):
                   directives["".join(tmpname)] = str(tmpval)
               ##;;
 
+              ## DEPRECATED ;; use processthis directive instead
               ## @@@ rowkeep directive ;; skip this entire processing row if rowkeep evals to false
               tmpname = ['row','keep']
               tmpkey  = sgg_directiveprefix_str + "".join(tmpname)
@@ -298,7 +352,7 @@ if('python_region'):
               ##;;
 
               ## bkmk001
-              ## @@@ template directive ;; we get template from primaryYamlPath
+              ## @@@ template directive ;; we get template from primaryYamlWwbody
               tmpname = ['template','']
               tmpkey  = sgg_directiveprefix_str + "".join(tmpname)
               if( (tmpkey) in row ):
@@ -309,7 +363,7 @@ if('python_region'):
 
               ## bkmk001
               ## @@@ templateincluede directive ;; we get one_or_more template from one_or_more external file
-              ## and merge it with the data in the primaryYamlPath
+              ## and merge it with the data in the primaryYamlWwbody
               tmpname =   ['templateinclude']
               tmpkey  =   sgg_directiveprefix_str + "".join(tmpname)
               if( (tmpkey) in row ):
@@ -341,7 +395,7 @@ if('python_region'):
               ##;;
 
               ## @@@ datainclude directive ;; concatenate multiple yaml files to input additional data
-              ## and merge it with the data in the primaryYamlPath
+              ## and merge it with the data in the primaryYamlWwbody
               tmpname =   ['datainclude','']
               tmpkey  =   sgg_directiveprefix_str + "".join(tmpname)
               if( (tmpkey) in row ):
@@ -382,7 +436,7 @@ if('python_region'):
               #  directives['current_'+tmpname[0]]   =   yaml.safe_load(open(tmpval,'rb').read())
               ##;;
 
-              ## @@@ data directive ;; we get data from primaryYamlPath
+              ## @@@ data directive ;; we get data from primaryYamlWwbody
               tmpname = ['data','']
               tmpkey  = sgg_directiveprefix_str + "".join(tmpname)
               #print row
@@ -449,27 +503,25 @@ if('python_region'):
               spath = directives['current_outputfile']
               open(spath,'w').write(tmpout)
           except Exception as msg:
-              print 'EXCEPTION ariser_twister_teams msg@%s'%(msg.__repr__())
-              exc_type, exc_obj, exc_tb = sys.exc_info()
-              fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
+            print 'EXCEPTION ariser_twister_teams msg@%s'%(msg.__repr__())
+            exc_type, exc_obj, exc_tb = sys.exc_info()
+            fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
             #print(exc_type, fname, exc_tb.tb_lineno)
             ##;;
           ## <end-process01>
           #oDumper.pprint( directives )
           ##endfor::iterate_yaml
-          
+
           #print yaml.safe_dump( vout , default_flow_style=False  )
           ##vjj = "\n"
           vjj = ""
-          #vjj = "\n### ------------------------------------------------------------------------\n"
-          #vjj = "\n### ------------------------------------------------------------------------\n"
           vout = [vjj +  vxx for vxx in vout]
           vout = "".join(vout)
           ##;;
-          
+
           #print self.oenv.filters
           #print self.oenv.finalize
-          
+
           ##
           return vout
         ##enddef
