@@ -95,9 +95,18 @@ if('python_region'):
       class JinjaFilterDynamicYAML(JinjaFilterBase):
 
         ##
-        ## Metadata
+        ## __init__ class initialize
         ##
-
+        
+        ##
+        def __init__(self,ddparams={}):          
+          ## init
+          self.externalVars    =   {}
+          if 'externalVars' in ddparams.keys():
+            for key in ddparams.keys():
+              self.externalVars[key] = ddparams['externalVars'][key]
+          ##;;
+        ##enddef
 
         ##
         ## CustomAddons ;; context_specific
@@ -312,6 +321,48 @@ if('python_region'):
         ## TODO ;; formalize this function and docs
         def jjos_platform(self,jjinput):
           vout = platform.system()
+          return vout
+        ##enddef
+
+        def jjget_var(self,jjinput,varname=''):
+          '''
+          ##beg_func_docs
+          - caption:      jjget_var
+            date:         lastmod="2016-01-22T16:11:32"
+            grp_maj:      variable
+            grp_med:      get
+            grp_min:      external
+            desc:         get an external variable from the externalVars setting
+            dreftymacid:  janis_beanie_altruist
+            detail:  |
+              * __blank__
+            dependencies:
+              - __blank__
+            params:
+             - param: jjinput ;; optarity ;; jinja raw input string
+          ##end_func_docs
+          '''
+        
+          ##
+          if (jjinput.__str__() != ''):
+            mykey = jjinput.__str__()
+          if (varname.__str__() != ''):
+            mykey = varname.__str__()
+          ##;;
+          
+          ##
+          try:
+            vout = self.externalVars[mykey]
+          ##
+          except Exception as msg:
+            vout = ''
+            # print 'EXCEPTION janis_beanie_altruist msg@%s'%(msg.__repr__())
+            # exc_type, exc_obj, exc_tb = sys.exc_info()
+            # fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
+            # print(exc_type, fname, exc_tb.tb_lineno)
+            pass
+        
+          ##
           return vout
         ##enddef
 

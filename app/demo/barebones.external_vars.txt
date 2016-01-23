@@ -11,5 +11,4 @@ __yaml__:
 
   - caption: ddyaml hello
     template:     | 
-      {%- set ttname = 'World'  -%}
-      Hello {{ ttname }}!
+      Hello {{ '' |jjget_var('ttblank') }}!

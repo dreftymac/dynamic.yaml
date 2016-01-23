@@ -13,7 +13,7 @@
 ###         * href="smartpath://mymedia/2014/git/github/dynamic.yaml/py/ddyaml/dynamicyaml.py"
 ###         * href="smartpath://mymedia/2014/git/github/dynamic.yaml/py/ddyaml/jinjafilterdynamicyaml.py"
 ###     desc: |
-###         
+###
 ###         TODO_LINK ;; ddyaml todo href="../.private/txt/devlog.txt" find="chain_stifling_is"
 ### <end-file_info>
 
@@ -28,6 +28,10 @@ if('python_region'):
 ###!      init python libraries and globals
 ###!  dreftymacid: sensible_warm_latex
 ###!  wwbody: |
+      ## init
+      import os
+      import sys
+
       ## local import
       from DDYAML  import  DynamicYAML                 ## href="./DDYAML/DynamicYAML.py"
       from DDYAML  import  JinjaFilterBase             ## href="./DDYAML/JinjaFilterBase.py"
@@ -55,25 +59,38 @@ if('python_region'):
 ###!
 ###!  body: |
       if (__name__ == "__main__"):
+
         ##
         vout    =   ''
-        ffpath  =   "c:/sm/docs/mymedia/2014/git/github/dynamic.yaml/app/demo/demo.topic.excel.txt"
-        ffpath  =   "c:/sm/docs/mymedia/2014/git/github/dynamic.yaml/app/demo/barebones.helloworld.yaml.txt"
-        ffpath  =   "c:/sm/docs/mymedia/2014/git/github/dynamic.yaml/app/demo/demo.topic.interop.txt"
+        ffpath  =   ''
+        oparams =   {}        
+        ##;;
+
+        ##
+        try:
+          ffpath  =   sys.argv[1]
+        except:
+          ffpath  =   "c:/sm/docs/mymedia/2014/git/github/dynamic.yaml/app/demo/bare.hello.txt"
         ## IMPORTANT  ;; if you have any addon filter classes, add them here ;; viaducts_juiciest_painting
-        ## SEEALSO    ;; href="c:/sm/docs/mytrybits/p/trypython2/lab2014/pyjinja/dynamic_yaml.py" find="viaducts_juiciest_painting" 
+        ## SEEALSO    ;; href="c:/sm/docs/mytrybits/p/trypython2/lab2014/pyjinja/dynamic_yaml.py" find="viaducts_juiciest_painting"
         aaJinjaAddonFilters = [
           JinjaFilterDynamicYAML(),
           JinjaFilterJJrun(),
         ]
-        oparams = {}
+        ##;;
+
+        ##
         oparams['path']           =   ffpath
         oparams['addonFilters']   =   aaJinjaAddonFilters
-        oparams['cmdDataValue']   =   ''
-        oparams['cmdDataFormat']  =   ''
-        oparams['cmdDataKey']     =   'ddyaml_cmdline'        
+        oparams['externalVars']   =   {}
+        oparams['externalVars']['ttblank'] = '__blank__'
+        ##;;
+
         ##
         odyna   =   DynamicYAML(oparams)
         vout    =   odyna.ddtransform()
         print vout.encode('utf-8','replace')
+        ##;;
+
 ### <end-region_testiff_20151230125723>
+

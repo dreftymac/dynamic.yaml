@@ -26,7 +26,9 @@ if('python_region'):
       import yaml
       import zipfile
       
-      #from DDYAML import DataHelperUtils
+      ## pprint
+      import pprint
+      oDumper = pprint.PrettyPrinter(indent=4);      
       
 ### @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 ### DynamicYAML
@@ -50,7 +52,6 @@ if('python_region'):
         ##
         def __init__(self,ddparams={}):          
           ## init
-          ## ffpath='',filterAddonClasses=[]          
           self.Environment      =   jinja2.Environment(extensions=['jinja2.ext.do','jinja2.ext.loopcontrols'])
           self.oenv             =   self.Environment
           ##
@@ -66,8 +67,8 @@ if('python_region'):
             \n## primaryYamlPath file not specified or unreachable
             """)
             print sgtemp
-            #oDumper.pprint( self.ffpath_abso )
-            #oDumper.pprint( self.ffpath_pdir )
+          #oDumper.pprint( self.ffpath_pdir )
+          #oDumper.pprint( ddparams )
         ##enddef
         
         ##
@@ -166,14 +167,8 @@ if('python_region'):
           ##;;
 
           ## init custom filters for oEnv
-          #import JinjaCustomFilter
-          #import JinjaHTMLBasicFilter
-          #import JinjaImacrosFilter
           for addonclass in self.addonFilters:
-            oEnv  = addonclass.attach_filters(oEnv)                  ## href="#JinjaFilterDynamicYAML"
-          #oEnv  =   JinjaImacrosFilter.attach_filters(oEnv)         ## href="../libpy/JinjaImacrosFilter.py"
-          ## href="../../../../../../mytrybits/p/trypython2/lab2014/libpy/jinjaimacrosfilter.py"
-          #oEnv      =   JinjaHTMLBasicFilter.attach_filters(oEnv)  ## href="../libpy/JinjaHTMLBasicFilter.py"
+            oEnv  = addonclass.attach_filters( oEnv ) ## href="./JinjaFilterDynamicYAML.py"
           ##;;
 
           ## placeholder syntax
@@ -416,7 +411,7 @@ if('python_region'):
 
           ## exception ;; process01
           except Exception as msg:
-            print 'UNEXPECTED TERMINATION voyeur_foulest_weirdly msg@%s'%(msg.__repr__())
+            print 'EXCEPTION voyeur_foulest_weirdly msg@%s'%(msg.__repr__())
             exc_type, exc_obj, exc_tb = sys.exc_info()
             fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
             print(exc_type, fname, exc_tb.tb_lineno)
@@ -431,7 +426,7 @@ if('python_region'):
               spath = directives['current_outputfile']
               open(spath,'w').write(tmpout)
           except Exception as msg:
-              print 'UNEXPECTED TERMINATION ariser_twister_teams msg@%s'%(msg.__repr__())
+              print 'EXCEPTION ariser_twister_teams msg@%s'%(msg.__repr__())
               exc_type, exc_obj, exc_tb = sys.exc_info()
               fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
             #print(exc_type, fname, exc_tb.tb_lineno)

@@ -2,29 +2,30 @@
 ### init py
 if('python_region'):
       ## init py
-      import base64
-      import codecs
-      import csv
-      import datetime
-      import glob
-      import jinja2
-      import json
-      import platform
-      import markdown
-      import os
-      import random
-      import requests
-      import re
-      import shutil
-      import string
-      import StringIO
-      import sys
-      import textwrap
-      import time
-      import uuid
-      import xlrd
-      import yaml
-      import zipfile
+      # import base64
+      # import codecs
+      # import csv
+      # import datetime
+      # import glob
+      # import jinja2
+      # import json
+      # import platform
+      # import markdown
+      # import os
+      # import random
+      # import requests
+      # import re
+      # import shutil
+      # import string
+      # import StringIO
+      # import sys
+      # import textwrap
+      # import time
+      # import uuid
+      # import xlrd
+      # import yaml
+      # import zipfile
+      pass
 
 ### @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 ### JinjaFilterBase
@@ -43,7 +44,7 @@ if('python_region'):
 ###!          __desc__
 ###!
 ###!
-###!  dreftymacid: __dreftymacid__
+###!  dreftymacid: cover_sunburnt_marvin
 ###!  wwbody: |
       class JinjaFilterBase(object):
         """
@@ -73,11 +74,11 @@ if('python_region'):
             grp_med:  jinja
             grp_min:  internal_use_only
             desc:     |
-                attach custom filters to the main jinja environment
-                current naming convention requires the filter
-                function name to start with 'double letter j'
+                Attach custom filters to the main jinja environment.
+                The current naming convention requires the filter
+                function name to start with 'double_letter_j'
             dependencies:
-              - import jinja2
+              - __blank__
             params:
              - param: env ;; required ;; core jinja environment
             dreftymacid: __blank__
