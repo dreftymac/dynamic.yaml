@@ -52,8 +52,22 @@ if('python_region'):
         ##
         def __init__(self,ddparams={}):          
           ## init
-          self.Environment      =   jinja2.Environment(extensions=['jinja2.ext.do','jinja2.ext.loopcontrols'])
+          self.Environment      =   jinja2.Environment(
+            extensions=[
+              'jinja2.ext.do'
+              ,'jinja2.ext.loopcontrols'
+              ]
+            #,finalize=self.oenv_finalize
+            )
           self.oenv             =   self.Environment
+          ##;;
+          
+          ## init globals
+          ## supports variables that are accessible to every jinja template
+          self.oenv.globals = {"noop" : ""
+            }
+          ##;;
+          
           ##
           self.primaryYamlPath  =   ddparams.get('path', '')          ## primaryYamlPath
           self.addonFilters     =   ddparams.get('addonFilters', [])  ## addonFilterClasses
@@ -71,7 +85,15 @@ if('python_region'):
           #oDumper.pprint( ddparams )
         ##enddef
         
-        ##
+        #@ figure out how jinja finalize works
+        #@ def oenv_finalize(self,vinput):
+        #@   vout = ''
+        #@   if not (vinput is not None):
+        #@     vout = '__blank__'
+        #@   ##
+        #@   return vout
+        #@ ##enddef
+        
         def py_mergedict(self, dict1, dict2):
           '''
           python addon function for merging nested dictionaries
@@ -444,6 +466,9 @@ if('python_region'):
           vout = [vjj +  vxx for vxx in vout]
           vout = "".join(vout)
           ##;;
+          
+          #print self.oenv.filters
+          #print self.oenv.finalize
           
           ##
           return vout

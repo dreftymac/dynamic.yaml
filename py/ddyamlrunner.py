@@ -1,3 +1,4 @@
+#! /usr/bin/python
 # -*- coding: utf-8 -*-
 ### <beg-file_info>
 ### main:
@@ -7,7 +8,10 @@
 ###     author: created="dreftymac"
 ###     dreftymacid: "drawing_verlaine_neck"
 ###     seealso: |
+###         ## mytrybits devlog
 ###         * href="smartpath://mytrybits/y/tryyaml/dynamicyaml/devlog.txt"
+###
+###         ## local paths
 ###         * href="smartpath://mymedia/2014/git/github/dynamic.yaml/app/demo/readme.md"
 ###         * href="smartpath://mymedia/2014/git/github/dynamic.yaml/py/ddyamlrunner.py"
 ###         * href="smartpath://mymedia/2014/git/github/dynamic.yaml/py/ddyaml/dynamicyaml.py"
@@ -31,6 +35,7 @@ if('python_region'):
       ## init
       import os
       import sys
+      from optparse import OptionParser
 
       ## local import
       from DDYAML  import  DynamicYAML                 ## href="./DDYAML/DynamicYAML.py"
@@ -58,9 +63,49 @@ if('python_region'):
 ###!  dreftymacid: uhuru_vagrant_means
 ###!
 ###!  body: |
-      if (__name__ == "__main__"):
+if (__name__ == "__main__"):
 
-        ##
+        ### ------------------------------------------------------------------------
+        ##  process_commandline_input
+        desc   = (
+        '''dynamic yaml runner -- see https://github.com/dreftymac/dynamic.yaml
+        ''')        
+        strversion  = 'dynamic yaml runner -- version 20160122.001'
+        parser      = OptionParser(description=desc,version=strversion)
+        
+        ### ********************                
+        parser.add_option("-f", "--fileinput"
+                          ,type="string"
+                          ,default=''
+                          ,action='store'
+                          ,dest="fileinput"
+                          ,metavar="<INPUT_FILEPATH>"
+                          ,nargs=1
+                          ,help="Specify a primary input file containing dynamic yaml."
+                          )                        
+    
+        parser.add_option("-g", "--globalvar"
+                      ,type="string"
+                      ,default=[]
+                      ,action='append'
+                      ,dest="globalvar"
+                      ,metavar="<VARNAME> <VARVALUE>"
+                      ,nargs=2
+                      ,help="Specify a global variable to make available to all templates."
+                      )
+    
+        ### ********************        
+        (options, args) = parser.parse_args()
+    
+        ### ********************        
+        options_dict = vars(options)
+        print( options_dict )
+        # oDumper.pprint( args )
+        pass;      
+        exit()
+
+        ### ------------------------------------------------------------------------
+        ##  invoke_ddyaml_runner
         vout    =   ''
         ffpath  =   ''
         oparams =   {}        
@@ -91,6 +136,5 @@ if('python_region'):
         vout    =   odyna.ddtransform()
         print vout.encode('utf-8','replace')
         ##;;
-
 ### <end-region_testiff_20151230125723>
 
