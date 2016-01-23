@@ -168,7 +168,8 @@ if('python_region'):
 
           ## init custom filters for oEnv
           for addonclass in self.addonFilters:
-            oEnv  = addonclass.attach_filters( oEnv ) ## href="./JinjaFilterDynamicYAML.py"
+            oEnv  = addonclass.attach_filters( oEnv )
+                ## href="./JinjaFilterDynamicYAML.py"
           ##;;
 
           ## placeholder syntax

@@ -43,7 +43,6 @@ if('python_region'):
 ###!  desc: |
 ###!          __desc__
 ###!
-###!
 ###!  dreftymacid: cover_sunburnt_marvin
 ###!  wwbody: |
       class JinjaFilterBase(object):
