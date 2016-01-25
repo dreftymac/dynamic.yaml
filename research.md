@@ -33,15 +33,16 @@ This project is very similar to:
 
 ## Similar or alternative approaches 
 * YAML-python
-* https://pypi.python.org/pypi/metayaml/0.15.1
-* https://pypi.python.org/pypi/yamltypes/1.0
-* https://pypi.python.org/pypi/jenkinsyamlconfigs/0.2.3
-* https://pypi.python.org/pypi?%3Aaction=search&term=yaml&submit=search
+   * https://pypi.python.org/pypi/metayaml/0.15.1
+   * https://pypi.python.org/pypi/yamltypes/1.0
+   * https://pypi.python.org/pypi/jenkinsyamlconfigs/0.2.3
+   * https://pypi.python.org/pypi?%3Aaction=search&term=yaml&submit=search
 * Others
-* http://google.github.io/jsonnet/doc/
-* https://github.com/joeriks/MVCPages
-* https://github.com/audreyr/cookiecutter
-* https://github.com/bazaarvoice/jolt
+   * json-hybrid ;; http://hjson.org/
+   * jssonet ;; http://google.github.io/jsonnet/doc/
+   * MVCPages ;; https://github.com/joeriks/MVCPages
+   * Coookiecutter ;; https://github.com/audreyr/cookiecutter
+   * Jolt ;; https://github.com/bazaarvoice/jolt
 
 ## Jinja and Jinja2
 
