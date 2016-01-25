@@ -1,3 +1,17 @@
+# -*- coding: utf-8 -*-
+### <beg-file_info>
+### main:
+###   - date: created="Mon Jan 25 08:09:56 2016"
+###     last: lastmod="Mon Jan 25 08:09:56 2016"
+###     tags: python, jinja, filter
+###     dreftymacid: "dads_policy_divorce"
+###     filetype: "py"
+###     seealso: |
+###         *
+###     desc: |
+###         desc
+### <end-file_info>
+ 
 ### @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 ### init py
 if('python_region'):

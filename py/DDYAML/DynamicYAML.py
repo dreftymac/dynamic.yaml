@@ -1,3 +1,17 @@
+# -*- coding: utf-8 -*-
+### <beg-file_info>
+### main:
+###   - date: created="Mon Jan 25 08:07:51 2016"
+###     last: lastmod="Mon Jan 25 08:07:51 2016"
+###     tags: python, ddyaml, runner
+###     dreftymacid: "sue_wireworm_venusian"
+###     filetype: "py"
+###     seealso: |
+###         * href="smartpath://mymedia/2014/git/github/dynamic.yaml/py/ddyaml/jinjafilterdynamicyaml.py"
+###     desc: |
+###         desc
+### <end-file_info>
+ 
 ### @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 ### init py
 if('python_region'):
@@ -72,15 +86,15 @@ if('python_region'):
             pass
           ##;;
 
-          ## init ;; syntaxconfig -- standard initializtion parameters for 
+          ## init ;; syntaxconfig -- standard initializtion parameters for
           '''
           syntaxconfig          ;; syncondesc    ;; synconvalue
-          block_start_string    ;; blockstart    ;; '{%'       
-          block_end_string      ;; blockend      ;; '%}'       
-          variable_start_string ;; variablestart ;; '{{'       
-          variable_end_string   ;; variableend   ;; '}}'       
-          comment_start_string  ;; commentstart  ;; '{#'       
-          comment_end_string    ;; commentend    ;; '#}'       
+          block_start_string    ;; blockstart    ;; '{%'
+          block_end_string      ;; blockend      ;; '%}'
+          variable_start_string ;; variablestart ;; '{{'
+          variable_end_string   ;; variableend   ;; '}}'
+          comment_start_string  ;; commentstart  ;; '{#'
+          comment_end_string    ;; commentend    ;; '#}'
           '''
           self.oenv.block_start_string    = ddparams.get('block_start_string'    , '{%')
           self.oenv.block_end_string      = ddparams.get('block_end_string'      , '%}')
@@ -192,6 +206,37 @@ if('python_region'):
               pass
           return sscurr
         ##enddef
+        
+        ##
+        def ff_resolvepath_path(self,spath=''):
+          '''
+          ### main:
+          ###   - date: created="Thu Jul 16 15:30:22 2015"
+          ###     desc:    resolve and return a file path where path is potentially relative to primaryYamlWwbody
+          ###     params:
+          ###       - name: spath
+          ###         opt:  required
+          ###         desc: the potentially_relative path
+          ###     return_value: |
+          ###         fully_qualified_path
+          ###     details: |
+          ###         _details_
+          ###     example: |
+          ###         _example_
+          ###     seealso: |
+          ###         regain://python_is_readable
+          '''
+          ##
+          sscurr      =   ''
+          getpath     =   ''
+          spath_mod01 =   '/'.join( [self.ffpath_pdir,'/',spath]  )
+          ## check if spath is readable without modification
+          if(os.access(spath,os.R_OK)):       getpath = spath
+          ## check if spath is readable as relative to path of primaryYamlWwbody
+          if(os.access(spath_mod01,os.R_OK)): getpath = spath_mod01
+          ## 
+          return getpath
+        ##enddef        
 
         ##
         def ddtransform(self):
@@ -228,51 +273,80 @@ if('python_region'):
           ssgpath   =   ''
           originalconfig = {}
           ##;;
-
-          ## get primaryYamlWwbody from primaryYamlPath
-          try:
-            ssgpath = self.ffpath_main
-          except Exception:            
-            #return ''
-            pass
-          ##;;
-
-          ### ------------------------------------------------------------------------          
-          if('load_attempt_stora_areal'):
+          
+          ### TODO ;; get primaryYamlWwbody and svirtualtemplate sorted out
+          ###   the use between these variables is not clear
+          ### ------------------------------------------------------------------------
+          if('load_attempt_stora'):
             ##
+            bload_stora_success =   False
+            primaryYamlWwbody   =   ''
+
+            ## get primaryYamlWwbody from primaryYamlPath
             try:
-              primaryYamlWwbody     =    codecs.open(ssgpath, 'r', 'utf-8').read()
-              originalconfig        =    yaml.safe_load(primaryYamlWwbody)
-            except:
+              ssgpath = self.ffpath_main
+            except Exception:
+              #return ''
               pass
             ##;;
-  
+
             ##
-            try:
-              primaryYamlWwbody     =    codecs.open(ssgpath, 'r', 'utf-8').read()
-              iiSpPref = 32
-              svirtualtemplate      = '''
-              __yaml__:
-              - template: |\n%s
-              '''%("\n".join((iiSpPref * " ") + ix for ix in primaryYamlWwbody.splitlines()))
+            if(not bload_stora_success):
+              ###
+              try:
+                primaryYamlWwbody     =     codecs.open(ssgpath, 'r', 'utf-8').read()
+                originalconfig        =     yaml.safe_load(primaryYamlWwbody)
+                bload_stora_success   =     True
+              except:
+                pass
+              ###;;;
+            ##;;
+
+            ##
+            if(not bload_stora_success):
+              ###
+              try:
+                ##
+                primaryYamlWwbody     =    codecs.open(ssgpath, 'r', 'utf-8').read()
+                iiSpPref = 32
+                svirtualtemplate      = '''
+                __yaml__:
+                - template: |\n%s
+                '''%("\n".join((iiSpPref * " ") + ix for ix in primaryYamlWwbody.splitlines()))
+                ##
+                originalconfig = yaml.safe_load(svirtualtemplate)
+              except:
+                pass
+              ###;;
               
-              originalconfig = yaml.safe_load(svirtualtemplate)
-            except:
-              pass
+            ##
+            if(not bload_stora_success):
+              ###
+              try:
+                ##
+                primaryYamlWwbody     = '''
+                __yaml__: []
+                '''
+                ##
+                originalconfig = yaml.safe_load(primaryYamlWwbody)
+              except:
+                pass
+              ###;;              
             ##;;
           
-            # print originalconfig
-            # print primaryYamlWwbody
-            # print svirtualtemplate
-          
-          ### ------------------------------------------------------------------------          
+          if( not 'debugging'):
+            print originalconfig
+            print primaryYamlWwbody
+            #print svirtualtemplate
+
+          ### ------------------------------------------------------------------------
           ## init directives_dictionary
           directives = {}
           directives['default_data']        = ''
           directives['default_template']    = ''
           directives['current_data']        = ''
           directives['current_template']    = ''
-          directives['default_data'] = originalconfig.copy()          
+          directives['default_data'] = originalconfig.copy()
           ##;;
 
           ##
@@ -346,7 +420,9 @@ if('python_region'):
               tmpname = ['template','file']
               tmpkey  = sgg_directiveprefix_str + "".join(tmpname)
               if( (tmpkey) in row ):
-                tmpval = row[tmpkey]
+                #print tmpval
+                tmpval = self.ff_resolvepath_path( row[tmpkey] )
+                # exit()
                 directives['current_'+tmpname[0]]   =   textwrap.dedent(open(tmpval,'rb').read())
                 ## print tmpval
               ##;;
@@ -485,13 +561,14 @@ if('python_region'):
                 tmpout = string.replace(tmpout, '\r\n', '')
                 tmpout = string.replace(tmpout, '\r', '')
               vout.append( tmpout )
-
+          ##;;
           ## exception ;; process01
           except Exception as msg:
             print 'EXCEPTION voyeur_foulest_weirdly msg@%s'%(msg.__repr__())
             exc_type, exc_obj, exc_tb = sys.exc_info()
             fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
             print(exc_type, fname, exc_tb.tb_lineno)
+          ##;;
 
           ## print tmpout
           #oDumper.pprint( otemplate_data )

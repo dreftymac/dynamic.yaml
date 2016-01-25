@@ -18,8 +18,8 @@
 ###         * href="smartpath://mymedia/2014/git/github/dynamic.yaml/py/ddyaml/dynamicyaml.py"
 ###         * href="smartpath://mymedia/2014/git/github/dynamic.yaml/py/ddyaml/jinjafilterdynamicyaml.py"
 ###     desc: |
-###
 ###         TODO_LINK ;; ddyaml todo href="../.private/txt/devlog.txt" find="chain_stifling_is"
+###
 ### <end-file_info>
 
 ### @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
@@ -84,6 +84,7 @@ if (__name__ == "__main__"):
                         ,nargs=1
                         ,help="Specify a primary input file containing dynamic yaml."
                         )
+      
       parser.add_option("-g", "--globalvar"
                     ,type="string"
                     ,default=[]
