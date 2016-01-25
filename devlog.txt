@@ -21,17 +21,21 @@ changelog:
   - caption: datafile directive changed to datainclude directive
   
 TODO:
-  - namespacing     ;; rename all jjfile_ functions properly so they are all correctly namespaced
-  - relative paths  ;; ff_resolvepath_path function needs to be applied to all paths (ISSUE: cruiser_chariot_ama)
+  - namespacing            ;; rename all jjfile_ functions properly so they are all correctly namespaced                
+  - relative paths         ;; ff_resolvepath_path function needs to be applied to all paths (ISSUE: local://cruiser_chariot_ama)
+  - clearer error messages ;; voyeur_foulest_weirdly parsing errors need to be clearer                                  
+
+###
+###
+### SEE ALSO 
+### * href="smartpath://mytrybits/y/tryyaml/dynamicyaml/devlog.txt"
+### 
+###
 
 main:
-  - caption:  caption
+  - caption:  relative paths issue
     rectype:  rrmini03
     datebeg:  Mon Jan 25 08:43:49 2016 
-    dateend:  Mon Jan 25 08:43:49 2016 
-    tags:     tags
-    desc:     desc
-    seealso:  seealso
     dreftymacid: cruiser_chariot_ama
     wwbody: |
         ## PROBLEM
@@ -39,11 +43,6 @@ main:
         * ff_resolvepath_path may be able to help this
         * you got bitten by this when running mytrybits.new, which created a directory relative to the github directory, instead of the mytrybits directory
   
-###
-###
-### SEE ALSO 
-### * href="smartpath://mytrybits/y/tryyaml/dynamicyaml/devlog.txt"
-### 
-###
+
   
   

@@ -1645,6 +1645,9 @@ if('python_region'):
           ##
           return ''
         ##enddef
+        ## alias_definition
+        def jjfile_delete(self,jjinput): return self.jjfiledelete(jjinput,sgpath='')
+        ##enddef        
 
         ##
         def jjfilecopy(self,jjinput,sgsrc='',sgdest=''):
