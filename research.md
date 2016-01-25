@@ -38,6 +38,7 @@ This project is very similar to:
    * https://pypi.python.org/pypi/jenkinsyamlconfigs/0.2.3
    * https://pypi.python.org/pypi?%3Aaction=search&term=yaml&submit=search
 * Others
+   * HOCON ;; https://github.com/typesafehub/config/blob/master/HOCON.md#hocon-human-optimized-config-object-notation
    * json-hybrid ;; http://hjson.org/
    * jssonet ;; http://google.github.io/jsonnet/doc/
    * MVCPages ;; https://github.com/joeriks/MVCPages
