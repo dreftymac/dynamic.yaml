@@ -40,6 +40,7 @@ This project is very similar to:
 * Others
    * HOCON ;; https://github.com/typesafehub/config/blob/master/HOCON.md#hocon-human-optimized-config-object-notation
    * json-hybrid ;; http://hjson.org/
+   * json-hybrid ;; https://metacpan.org/pod/distribution/JSONY/lib/JSONY.pod
    * jssonet ;; http://google.github.io/jsonnet/doc/
    * MVCPages ;; https://github.com/joeriks/MVCPages
    * Coookiecutter ;; https://github.com/audreyr/cookiecutter
