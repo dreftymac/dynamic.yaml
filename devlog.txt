@@ -20,6 +20,25 @@ changelog:
   - caption: includefile directive changed to templateinclude directive
   - caption: datafile directive changed to datainclude directive
   
+TODO:
+  - namespacing     ;; rename all jjfile_ functions properly so they are all correctly namespaced
+  - relative paths  ;; ff_resolvepath_path function needs to be applied to all paths (ISSUE: cruiser_chariot_ama)
+
+main:
+  - caption:  caption
+    rectype:  rrmini03
+    datebeg:  Mon Jan 25 08:43:49 2016 
+    dateend:  Mon Jan 25 08:43:49 2016 
+    tags:     tags
+    desc:     desc
+    seealso:  seealso
+    dreftymacid: cruiser_chariot_ama
+    wwbody: |
+        ## PROBLEM
+        * relative paths can get resolved relative tot he executable for ddyaml, instead of relative to the primary template file
+        * ff_resolvepath_path may be able to help this
+        * you got bitten by this when running mytrybits.new, which created a directory relative to the github directory, instead of the mytrybits directory
+  
 ###
 ###
 ### SEE ALSO 
