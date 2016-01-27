@@ -24,6 +24,7 @@ This project is very similar to:
 * https://pypi.python.org/pypi/ruamel.yaml/0.6.1
 * ansible-playbook files
     * https://github.com/ansible/ansible/tree/devel/lib/ansible
+    * http://stackoverflow.com/questions/35043403/is-there-a-standalone-specification-for-the-ansible-playbook-format
 
 ## Background, tutorials and complimentary resources
 * python package distribution
