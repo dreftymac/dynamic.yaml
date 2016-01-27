@@ -22,6 +22,8 @@ This project is very similar to:
 * https://pypi.python.org/pypi/metayaml
     * https://bitbucket.org/atagunov/metayaml
 * https://pypi.python.org/pypi/ruamel.yaml/0.6.1
+* ansible-playbook files
+    * https://github.com/ansible/ansible/tree/devel/lib/ansible
 
 ## Background, tutorials and complimentary resources
 * python package distribution
