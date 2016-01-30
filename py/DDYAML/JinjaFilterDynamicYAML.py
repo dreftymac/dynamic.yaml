@@ -3274,6 +3274,7 @@ if('python_region'):
               #oFile.write(vout)
               #oFile.close();
               vout = outpath;
+              vout = "/".join(re.split('[/]+', vout))
               vout = "## create directory %s"%(vout)
           except Exception as msg:
             pass
