@@ -1,0 +1,17 @@
+### <beg-test_table>
+#testtable:
+#    - fname: homer
+#      lname: simpson
+#    - fname: maggie
+#      lname: simpson
+#    - fname: marge
+#      lname: simpson
+#__yaml__:
+#  - caption: process yamlincomment
+#    desc: IDEA ;; would it be cool if you could run ddyaml inside any arbitrary code file? suppose this were a bash script.
+#    template:         |
+#       {% for row in testtable -%}
+#       Hello {{ row.fname }} {{ row.lname }}!
+#       {% endfor %}
+### <end-test_table>
+
