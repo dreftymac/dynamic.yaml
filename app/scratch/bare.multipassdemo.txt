@@ -1,0 +1,27 @@
+maininfo:
+  projname: alpha
+  projdesc: bravo
+  projdept:
+  projgeekname: {{ "%s"%(maininfo.projname) }}
+  projdetail: |
+    This project is a lorem.
+    
+    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Qui dicta
+    minus molestiae vel beatae natus eveniet ratione temporibus aperiam
+    harum alias officiis assumenda officia quibusdam deleniti eos
+    cupiditate dolore doloribus.
+
+maintable:
+    - caption:  caption
+      rectype:  rrmini03
+      datebeg:  Fri Feb 12 13:51:44 2016 
+      dateend:  Fri Feb 12 13:51:44 2016 
+      tags:     tags
+      desc:     desc
+      seealso:  seealso
+      dreftymacid: tramp_arisen_animate
+      wwbody: |
+          wwbody
+
+ 
+ 

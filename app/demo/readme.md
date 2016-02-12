@@ -8,13 +8,22 @@ This directory contains sample dynamic YAML files for demonstration.
 
 ## Examples and demos
 
+### bare minimal
+
 * bare helloworld                   ;; href="smartpath://mymedia/2014/git/github/dynamic.yaml/app/demo/bare.hello.txt"
+* bare helloworld with loop         ;; href="smartpath://mymedia/2014/git/github/dynamic.yaml/app/demo/bare.hello_loop.txt"
+* bare jinja macro syntax           ;; href="smartpath://mymedia/2014/git/github/dynamic.yaml/app/demo/bare.macro.txt"
+
+### feature
+
 * ddyaml from the commandline       ;; __blank__
+* ddyaml 2-pass template processing ;; href="smartpath://mymedia/2014/git/github/dynamic.yaml/app/demo/demo.2passprocessing.txt.twig"
 * block assignment                  ;; href="smartpath://mymedia/2014/git/github/dynamic.yaml/app/demo/demo01blockassign01.txt.twig"
 * file/io                           ;; href="smartpath://mymedia/2014/git/github/dynamic.yaml/app/demo/demo.topic.fileio.txt"
 * run command shell popen interop   ;; href="smartpath://mymedia/2014/git/github/dynamic.yaml/app/demo/demo.topic.interop.txt"
 * map filter and listcomprehension  ;; href="smartpath://mymedia/2014/git/github/dynamic.yaml/app/demo/demo01jjapplyfunction01.txt"
 * msft excel                        ;; href="smartpath://mymedia/2014/git/github/dynamic.yaml/app/demo/demo.topic.excel.txt"
+
 
 ## Blockspring
 

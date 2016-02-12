@@ -44,6 +44,7 @@ if('python_region'):
       from JinjaFilterBase import JinjaFilterBase
       from DataHelperUtils import DataHelperUtils
       from DataHelperDiceware import DataHelperDiceware
+      from YamlDerivedBaseRepresenter import YamlDerivedBaseRepresenter        
 
 ### @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 ### new_function_snippet
@@ -338,6 +339,49 @@ if('python_region'):
           return vout
         ##enddef
 
+        def jjscalarize(self,jjinput,myvar=None):
+          '''
+          ##beg_func_docs
+          - caption:      jjscalarize
+            date:         lastmod="20160205"
+            grp_maj:      grp_maj
+            grp_med:      grp_med
+            grp_min:      grp_min
+            desc: | 
+              * return a normalized version of a var
+              * normalize to scalar
+            dreftymacid:  uptown_undoer_vagrancy
+            detail:  |
+              * __blank__
+            dependencies:
+              - __blank__
+            params:
+             - param: jjinput ;; optarity ;; jinja raw input string
+          ##end_func_docs
+          '''
+        
+          ##
+          vout = jjinput
+          if vout is None:            vout = ''
+          elif type(vout) is list:    vout = "".join([vxx.__str__() for vxx in vout])
+        
+          ##
+          try:
+            vout = vout
+          ##
+          except Exception as msg:
+            print 'UNEXPECTED TERMINATION __dreftymacid__ msg@%s'%(msg.__repr__())
+            exc_type, exc_obj, exc_tb = sys.exc_info()
+            fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
+            print(exc_type, fname, exc_tb.tb_lineno)
+        
+          ##
+          return vout
+        ##enddef
+        ## alias_definition
+        def jjscala(self,jjinput): return self.jjscalarize(jjinput,myvar=None)
+        ##enddef           
+
         def jjget_var(self,jjinput,varname=''):
           '''
           ##beg_func_docs
@@ -567,7 +611,7 @@ if('python_region'):
             desc:         __desc__
             dreftymacid:  flyer_afield_zealand
             detail:  |
-              * __blank__
+              * ANNOYANCE ;; this function does not appear to return a new value per-loop-iteration
             dependencies:
               - __blank__
             params:
@@ -577,11 +621,12 @@ if('python_region'):
         
           ##
           vout = ''
-        
+          vout = jjinput.__str__()
+          
           ##
           try:
             odatt = DataHelperDiceware()
-            vout  = odatt.get_ngram(ilen,ssepa)
+            vout  = odatt.get_ngram(ilen,ssepa) + str(vout)
           ##
           except Exception as msg:
             print 'UNEXPECTED TERMINATION flyer_afield_zealand msg@%s'%(msg.__repr__())
@@ -1474,6 +1519,7 @@ if('python_region'):
           '''
           ##
           vout = textwrap.dedent(jjinput.__str__())
+          vout = vout.strip()
           ##
           return vout
         ##enddef

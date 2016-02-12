@@ -3,8 +3,7 @@
 ###   - date: created="Sat Sep 05 09:13:53 2015"
 ###     last: lastmod="Sat Sep 05 09:13:53 2015"
 ###     tags:   tags 
-###     author: created="__author__"
-###     dreftymacid:    "__dreftymacid__"
+###     dreftymacid: "punish_jading_hovels"
 ###     seealso: |
 ###         * href="C:/sm/docs/mytrybits/m/trymyclip/txt"
 ###     desc: |

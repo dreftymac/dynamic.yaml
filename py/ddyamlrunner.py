@@ -44,6 +44,7 @@ if('python_region'):
       from DDYAML  import  JinjaFilterDynamicYAML      ## href="./DDYAML/JinjaFilterDynamicYAML.py"
       from DDYAML  import  JinjaFilterJJrun            ## href="./DDYAML/JinjaFilterJJrun.py"
       from DDYAML  import  YamlDerivedBaseRepresenter  ## href="./DDYAML/YamlDerivedBaseRepresenter.py"
+      from DDYAML  import  YamlEmbedJinja              ## href="./DDYAML/YamlEmbedJinja.py"
       from DDYAML  import  DataHelperUtils             ## href="./DDYAML/DataHelperUtils.py"
       from DDYAML  import  XmlssBase                   ## href="./DDYAML/XmlssBase.py"
 ###!}}}

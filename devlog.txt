@@ -10,39 +10,55 @@
 ###
 ###         ## dynamicyaml
 ###         * href="smartpath://mytrybits/y/tryyaml/dynamicyaml/devlog.txt"
-###         
+###
 ### <end-file_info>
 
 changelog:
-  
+
   - caption: jjfile_array_fromdir changed function name
     details: DONE ;; rename to jjfile_arrayfromdir and put into jjfile_ namespace
   - caption: includefile directive changed to templateinclude directive
   - caption: datafile directive changed to datainclude directive
-  
+
 TODO:
-  - namespacing            ;; rename all jjfile_ functions properly so they are all correctly namespaced                
+  - bugfix yamlpretty      ;; yamlpretty output does not seem to work with href="local:///demo.2passprocessing" peak_hankow_necks
+  - two-pass templating    ;; firstpass modifies everything above the __yaml__ branch // secondpass modifies everything below
+  - namespacing            ;; rename all jjfile_ functions properly so they are all correctly namespaced
   - relative paths         ;; ff_resolvepath_path function needs to be applied to all paths (ISSUE: local://cruiser_chariot_ama)
-  - clearer error messages ;; voyeur_foulest_weirdly parsing errors need to be clearer                                  
+  - clearer error messages ;; voyeur_foulest_weirdly parsing errors need to be clearer
 
 ###
 ###
-### SEE ALSO 
+### SEE ALSO
 ### * href="smartpath://mytrybits/y/tryyaml/dynamicyaml/devlog.txt"
-### 
+###
 ###
 
 main:
+
+  - caption:  twopass templating ;; ddyaml feature upgrade
+    rectype:  rrmini03
+    datebeg:  Thu Feb 11 23:31:51 2016 
+    dateend:  Thu Feb 11 23:31:51 2016 
+    dreftymacid: misfit_ailment_lash
+    wwbody: |
+        ## two-pass processing
+        * href="smartpath://mymedia/2014/git/github/dynamic.yaml/py/ddyaml/zzscratchtest.py"
+        * href="smartpath://mymedia/2014/git/github/dynamic.yaml/py/ddyaml/yamlembedjinja.py"
+        * href="smartpath://mymedia/2014/git/github/dynamic.yaml/app/demo/demo.2passprocessing.txt.twig"
+        
+        ## BUGNAG ;; TO-FIX
+        href="local://peak_hankow_necks" 
+  
   - caption:  relative paths issue
     rectype:  rrmini03
-    datebeg:  Mon Jan 25 08:43:49 2016 
+    datebeg:  Mon Jan 25 08:43:49 2016
     dreftymacid: cruiser_chariot_ama
     wwbody: |
         ## PROBLEM
         * relative paths can get resolved relative tot he executable for ddyaml, instead of relative to the primary template file
         * ff_resolvepath_path may be able to help this
         * you got bitten by this when running mytrybits.new, which created a directory relative to the github directory, instead of the mytrybits directory
-  
 
-  
-  
+
+

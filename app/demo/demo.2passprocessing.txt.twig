@@ -1,0 +1,64 @@
+### <beg-file_info>
+### main:
+###   - date: created="Thu Feb 11 12:00:27 2016"
+###     last: lastmod="Thu Feb 11 12:00:27 2016"
+###     tags: ddyaml, multipass
+###     dreftymacid:  "unify_leg_unary"
+###     filetype: "yaml"
+###     seealso: |
+###         *
+###     desc: |
+###         testing two-pass yaml template processing
+### <end-file_info>
+  
+maininfo:
+  fname:    homer
+  lname:    simpson
+  age:      33
+alphainfo:
+  alpha:    "one"
+  bravo:    "one.one"
+  charlie:  "{{ bravoinfo.alpha }}"
+bravoinfo:
+  alpha:    "two"
+  bravo:    "{{ alphainfo.bravo }}"
+  charlie:  "{{ bravoinfo.bravo }}"
+charlieinfo:
+  alpha:    "three"
+  bravo:    "{{ alphainfo.charlie }}"
+  charlie:  "{{ charlieinfo.charlie }}"
+documents_table:
+  - caption: alpha
+    wwbody: >
+      {% set tttest = [maininfo.fname,maininfo.lname] %} {{ [maininfo.fname,maininfo.lname] |title() }} is {{maininfo.age * 1}} !
+  - caption: bravo
+    wwbody: >
+      {{maininfo.fname |title() }} {{maininfo.lname |title() }} is {{maininfo.age * 2}} !
+  - caption: charlie
+    wwbody: >
+      {{maininfo.fname |title() }} {{maininfo.lname |title() }} is {{maininfo.age * 3}} !
+__yaml__:
+  - &uuid001
+    processthis: 1
+    usedataroot: dataroot
+    template: |
+      ## COOLBIT :: yaml output can support cirular references
+      {{ dataroot |jjdata_formatas('yaml') }}
+      {{ dataroot |jjdata_formatas('yamlpretty') }}
+    
+      {#-
+      ## ERROR :: json output does not support circular reference
+      {{ dataroot |jjdata_formatas('jsonpretty') }}
+      -#}    
+
+      ## loop
+      {% for row in documents_table -%}
+      {{- row.wwbody -}}
+      {% endfor %}
+
+
+
+  
+  
+
+

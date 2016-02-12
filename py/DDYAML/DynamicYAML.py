@@ -43,6 +43,7 @@ if('python_region'):
       ## pprint
       import pprint
       oDumper = pprint.PrettyPrinter(indent=4);
+      ## oDumper.pprint( directives )
 
 ### @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 ### DynamicYAML
@@ -64,8 +65,19 @@ if('python_region'):
       class DynamicYAML(object):
 
         ##
-        def __init__(self,ddparams={}):
-          ## init
+        def __init__(self,options={},**kwargs):
+          
+          ## init defaults (TODO ;; code refactor use this instead of options)
+          self.options = {}
+          self.options['ddyaml_string_enddata']   = '__yaml__'
+          self.options['ddyaml_string_configs']   = '__config__'
+          self.options['ddyaml_process_twopass']  = True
+          ## allow for overriding defaults
+          for tmpname, tmpvarr in kwargs.items():
+              self.options[tmpname] = tmpvarr
+          ##;;          
+          
+          ## init jinja_environment
           self.Environment      =   jinja2.Environment(
             extensions=[
               'jinja2.ext.do'
@@ -73,22 +85,23 @@ if('python_region'):
               ]
             #,finalize=self.oenv_finalize
             )
-          self.oenv             =   self.Environment
+          self.oenv = self.Environment
           ##;;
 
-          ## init globals
+          ## init jinja_globals
           ## supports variables that are accessible to every jinja template
           self.oenv.globals = {"noop" : ""
             }
           try:
-            for item in ddparams['globals']: self.oenv.globals[item[0]] = item[1]
+            for item in options['globals']: self.oenv.globals[item[0]] = item[1]
           except:
             pass
           ##;;
 
-          ## init ;; syntaxconfig -- standard initializtion parameters for
+          ## init ;; jinja_syntaxconfig
+          ## standard initializtion parameters for jinja2
           '''
-          syntaxconfig          ;; syncondesc    ;; synconvalue
+          syntaxconfig          ;; syncondesc    ;; syncondefault
           block_start_string    ;; blockstart    ;; '{%'
           block_end_string      ;; blockend      ;; '%}'
           variable_start_string ;; variablestart ;; '{{'
@@ -96,17 +109,17 @@ if('python_region'):
           comment_start_string  ;; commentstart  ;; '{#'
           comment_end_string    ;; commentend    ;; '#}'
           '''
-          self.oenv.block_start_string    = ddparams.get('block_start_string'    , '{%')
-          self.oenv.block_end_string      = ddparams.get('block_end_string'      , '%}')
-          self.oenv.variable_start_string = ddparams.get('variable_start_string' , '{{')
-          self.oenv.variable_end_string   = ddparams.get('variable_end_string'   , '}}')
-          self.oenv.comment_start_string  = ddparams.get('comment_start_string'  , '{#')
-          self.oenv.comment_end_string    = ddparams.get('comment_end_string'    , '#}')
+          self.oenv.block_start_string    = options.get('block_start_string'    , '{%')
+          self.oenv.block_end_string      = options.get('block_end_string'      , '%}')
+          self.oenv.variable_start_string = options.get('variable_start_string' , '{{')
+          self.oenv.variable_end_string   = options.get('variable_end_string'   , '}}')
+          self.oenv.comment_start_string  = options.get('comment_start_string'  , '{#')
+          self.oenv.comment_end_string    = options.get('comment_end_string'    , '#}')
           ##;;
 
           ##
-          self.primaryYamlPath    =   ddparams.get('path', '')          ## primaryYamlPath
-          self.addonFilters       =   ddparams.get('addonFilters', [])  ## addonFilterClasses
+          self.primaryYamlPath    =   options.get('path', '')          ## primaryYamlPath
+          self.addonFilters       =   options.get('addonFilters', [])  ## addonFilterClasses
           ##
           if(self.primaryYamlPath.__str__() != ''):
             self.ffpath_main  =   self.primaryYamlPath
@@ -258,24 +271,26 @@ if('python_region'):
           ## init custom filters for oEnv
           for addonclass in self.addonFilters:
             oEnv  = addonclass.attach_filters( oEnv )
-                ## href="./JinjaFilterDynamicYAML.py"
+              ## see href="./JinjaFilterDynamicYAML.py"
             pass
           ##;;
 
           ## placeholder syntax
-          sgg_dynamicyaml_key     =   '__yaml__'
+          sgg_dynamicyaml_key     =   self.options['ddyaml_string_enddata'] 
           sgg_dynamicyaml_key     =   sgg_dynamicyaml_key.lower()
           sgg_directiveprefix_str =   ''
           ##;;
 
           ## init vars
-          vout      =   []
-          ssgpath   =   ''
-          originalconfig = {}
+          vout            =   []
+          ssgpath         =   ''
+          originalconfig  =   {}
           ##;;
           
+          ### TODO ;; adopt the conventions from yamlembedjinja ;; yamlregions
+          ###     href="./YamlEmbedJinja.py" find="blast_tinworks_reply"
           ### TODO ;; get primaryYamlWwbody and svirtualtemplate sorted out
-          ###   the use between these variables is not clear
+          ###     the use between these variables is not clear
           ### ------------------------------------------------------------------------
           if('load_attempt_stora'):
             ##
@@ -295,7 +310,18 @@ if('python_region'):
               ###
               try:
                 primaryYamlWwbody     =     codecs.open(ssgpath, 'r', 'utf-8').read()
-                originalconfig        =     yaml.safe_load(primaryYamlWwbody)
+                
+                ### ------------------------------------------------------------------------
+                ### TODO ;; refactor this
+                ### YamlEmbedJinja ;; handle firstpass processing for two-stage-parsing if required
+                if( self.options['ddyaml_process_twopass'] ):
+                  from YamlEmbedJinja import YamlEmbedJinja ### "./YamlEmbedJinja.py"
+                  obranchproc   =   YamlEmbedJinja()
+                  primaryYamlWwbody =   obranchproc.template_render_1stpass(yaml=primaryYamlWwbody)
+                  # print primaryYamlWwbody
+                  # exit()
+                  # pass                
+                originalconfig        =     yaml.safe_load(primaryYamlWwbody) or originalconfig
                 bload_stora_success   =     True
               except:
                 pass
@@ -314,7 +340,7 @@ if('python_region'):
                 - template: |\n%s
                 '''%("\n".join((iiSpPref * " ") + ix for ix in primaryYamlWwbody.splitlines()))
                 ##
-                originalconfig = yaml.safe_load(svirtualtemplate)
+                originalconfig = yaml.safe_load(svirtualtemplate) or originalconfig
               except:
                 pass
               ###;;
@@ -328,7 +354,7 @@ if('python_region'):
                 __yaml__: []
                 '''
                 ##
-                originalconfig = yaml.safe_load(primaryYamlWwbody)
+                originalconfig = yaml.safe_load(primaryYamlWwbody) or originalconfig
               except:
                 pass
               ###;;              
@@ -346,7 +372,7 @@ if('python_region'):
           directives['default_template']    = ''
           directives['current_data']        = ''
           directives['current_template']    = ''
-          directives['default_data'] = originalconfig.copy()
+          directives['default_data']        = originalconfig.copy()
           ##;;
 
           ##
@@ -366,7 +392,7 @@ if('python_region'):
             ##;;
 
             ## iterate_yaml
-            for row in originalconfig[sgg_dynamicyaml_key]:
+            for row in originalconfig.pop(sgg_dynamicyaml_key,[]):
               directives['current_template']    = directives['default_template']
               directives['current_data']        = directives['default_data']
 
@@ -374,6 +400,8 @@ if('python_region'):
               ## process row
 
               ## @@@ usedataroot directive ;; wrap all the template data in a common 'dataroot' element
+              ## (eg) usedataroot: "myworkbook"
+              ## (eg) usedataroot: "datarootf"
               tmpname = ['use','dataroot']
               tmpkey  = sgg_directiveprefix_str + "".join(tmpname)
               if( (tmpkey) in row ):

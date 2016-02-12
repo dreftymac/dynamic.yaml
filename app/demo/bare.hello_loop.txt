@@ -24,9 +24,17 @@ main:
 
 __yaml__:
 
-  - caption:      dynamicyaml helloworld example
+  - caption:      loop example
+    processthis:  0
     template:     | 
       {% for row in main -%}
       Hello {{ row.firstname }} {{ row.lastname }}!
+      {% endfor %}
+
+  - caption:      range example
+    processthis:  1
+    template:     | 
+      {% for item in range(12,12) -%}
+      {{ item }}
       {% endfor %}
 

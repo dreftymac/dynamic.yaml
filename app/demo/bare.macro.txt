@@ -1,0 +1,117 @@
+### <beg-file_info>
+### main:
+###   - date: created="Thu Dec 31 07:08:46 2015"
+###     last: lastmod="Thu Dec 31 07:08:46 2015"
+###     tags: ddyaml, macro, syntax, style, fave, jinja2
+###     dreftymacid: "shoe_sorts_uniaxial"
+###     seealso: |
+###         *
+###     desc: |
+###         barebones demo
+### <end-file_info>
+
+main:
+
+  - firstname:  Homer
+    lastname:   Himpson
+  - firstname:  Gomer
+    lastname:   Gimpson
+  - firstname:  Tomer
+    lastname:   Timpson
+
+## href="smartpath://mytrybits/y/tryyaml/dynamicyaml/devlog.txt"
+## href="smartpath://mymedia/2014/git/github/dynamic.yaml/app/demo/readme.md"
+## href="smartpath://mymedia/2014/git/github/dynamic.yaml/py/ddyamlrunner.py"
+## href="smartpath://mymedia/2014/git/github/dynamic.yaml/py/ddyaml/jinjafilterdynamicyaml.py"
+__yaml__:
+
+  - &uufourzzTet
+    caption:      what happens with missing argument
+    processthis: 1
+    uuid:         uufourzzTet
+    template:         |
+      {#- ------------------------------------------------------------------------ -#}
+      {%- macro alpha(opts) -%}
+        {#- --------------------------------------------- -#}
+        {%- set opts 	= kwargs  -%}
+        {%- set one   = bravo(opts.one) or '__blank__'  -%}
+        {#- --------------------------------------------- -#}
+        {{ one }}
+        {% if caller %}{{ caller() -}}{% endif %}
+      {%- endmacro -%}
+      {#- ------------------------------------------------------------------------ -#}
+      {%- macro bravo(value) -%}
+        {#- --------------------------------------------- -#}
+        {% if value %}{%- set output = value |lower() |reverse()  -%}{%endif%}
+        {#- --------------------------------------------- -#}{{- output -}}
+      {%- endmacro -%}
+      {#- ------------------------------------------------------------------------ -#}
+      {{ alpha() }}
+      {{ alpha(one='') }}
+      {{ alpha(one=None) }}
+      {{ alpha(one=False) }}
+      {{ alpha(one='000') }}
+      {{ alpha(one='Hello') }}
+
+  - &uufirmxx
+    caption:     macrodemo001 ;; jinja macro syntax
+    processthis: 0
+    uuid:         uufirmxx
+
+    ### @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+    ### @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+    ### @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+
+    template: |
+      {#- ------------------------------------------------------------------------ -#}
+      {%- macro macrodemo001(opts) -%}
+        {#- --------------------------------------------- -#}
+        {%- set opts 	      = kwargs    -%}
+        {%- set row         = opts.row  or { "firstname": "John", "lastname":"Doe" }   -%}
+        {%- set firstname   = opts.firstname  or "Fred"   -%}
+        {%- set lastname    = opts.lastname  or "Flintsonet"    -%}
+        {#- --------------------------------------------- -#}
+        <b>
+        {{- firstname }}
+        {%- if caller %}{{ caller() -}}{% endif -%}
+        {{ lastname -}}
+        </b>
+      {% endmacro -%}
+
+      ### ------------------------------------------------------------------------
+      ### without using "call-style syntax"
+      {% for row in main -%}
+      {{- macrodemo001( firstname=row.firstname, lastname=row.lastname ) -}}
+      {% endfor %}
+      {{-"\n"-}}
+
+      ### ------------------------------------------------------------------------
+      ### with using "call-style syntax"
+      {% for row in main -%}
+      {% call macrodemo001( firstname=row.firstname, lastname=row.lastname ) %}
+          {{-""-}} << @@ {{- loop.index -}} @@ >> {{-""-}}
+      {% endcall %}
+      {% endfor %}
+      {{-"\n"-}}
+
+    ### @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+    ### @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+    ### @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+
+    output: |
+
+      ### ------------------------------------------------------------------------
+      ### without using "call-style syntax"
+      <b>HomerHimpson</b>
+      <b>GomerGimpson</b>
+      <b>TomerTimpson</b>
+
+      ### ------------------------------------------------------------------------
+      ### with using "call-style syntax"
+      <b>Homer@@1@@Himpson</b>
+
+      <b>Gomer@@2@@Gimpson</b>
+
+      <b>Tomer@@3@@Timpson</b>
+
+

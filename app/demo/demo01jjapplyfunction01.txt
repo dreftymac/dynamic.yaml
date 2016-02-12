@@ -2,16 +2,19 @@
 ### main:
 ###   - date: created="Wed Dec 23 06:55:54 2015"
 ###     last: lastmod="Wed Dec 23 06:55:54 2015"
-###     tags:   tags 
-###     author: created="__author__"
+###     tags:   lambda, function, python, annoyance, jinja
 ###     dreftymacid:    "volscian_welding_vitals"
 ###     seealso: |
 ###         *
 ###     desc: |
 ###         * NICE DESIGN : uses filter syntax where data can be piped or passed in as argument
+###         * FEATURE UPGRADE ;; allows the use of python functions inside jinja code
+###             * to some, this may violate the "separation of logic from templates" meme, but to me that is a false economy.
+###             * so long as you do not overdo it, or your templates are not going to be used or maintained by anyone but you, things should be fine.
+###         * ANNOYANCE ;; the things you can do inside a lambda are very limited or difficult and kludgy (eg assigment, conditionals, etc)
 ### <end-file_info>
 
-## href="../../../../../../../mymedia/2014/git/github/dynamic.yaml/app/demo/demo01jjapplyfunction01.txt"
+## href="smartpath://mymedia/2014/git/github/dynamic.yaml/app/demo/demo01jjapplyfunction01.txt"
 
 demotable_20151223:
   
@@ -45,9 +48,24 @@ demotable_20151223:
 __yaml__:
 
 
+  - &uuid001a
+    caption:      jjapplyfunction demo compact syntax (syntax style000)
+    processthis:  1 
+    uuid:         uuid001a
+    seealso: |
+      * http://stackoverflow.com/questions/24310543/lambda-as-argument-to-jinja2-filter
+    dreftymacid:  pets_marvel_dave_000
+    template:         |
+      alpha
+      {%- set mylist = [11,22,33,44,55,66,77,88] -%}      
+      {%- set myfunc = '''lambda aalist:([vxx for vxx in aalist if(vxx % 2 == 0)])'''  -%}
+      {%- set NO_WORKY_myfunc = '''lambda aalist: sys.stdout.write("-".join(aalist)) '''  -%} 
+      {%- set myfunc = '''lambda aalist: list(aalist)[0] '''  -%}
+      {{- "" |jjapplyfunction(myfunc,mylist) -}}bravo
+
   - &uuid003
     caption:      jjapplyfunction demo table data
-    rowkeep: 1
+    processthis: 0 
     uuid:         uuid003
     tags: map, filter, listcomprehension, select, data
     desc:         |
@@ -72,7 +90,7 @@ __yaml__:
       
   - &uuid001
     caption:      jjapplyfunction demo (syntax style001)
-    rowkeep: 0
+    processthis: 0 
     uuid:         uuid001
     desc:         __desc__
     seealso: |
@@ -87,7 +105,7 @@ __yaml__:
 
   - &uuid002
     caption:      jjapplyfunction demo (syntax style002)
-    rowkeep: 0
+    processthis: 0 
     uuid:         uuid002
     desc:         __desc__
     seealso: |

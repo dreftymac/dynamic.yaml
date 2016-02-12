@@ -1,0 +1,93 @@
+### <beg-file_info>
+### main:
+###   - date: created="Thu Dec 31 07:08:46 2015"
+###     last: lastmod="Thu Dec 31 07:08:46 2015"
+###     tags:   ddyaml, barebones, demo, macro, syntax, style, fave, jinja2
+###     dreftymacid:    "tending_buds_harbor"
+###     seealso: |
+###         *
+###     desc: |
+###         barebones demo 
+### <end-file_info>
+
+main:
+  
+  - firstname:  Homer
+    lastname:   Simpson
+  - firstname:  Marge
+    lastname:   Simpson
+  - firstname:  Lisa
+    lastname:   Simpson
+
+__yaml__:
+
+  - caption:  using a macro with dictionary arg
+    status:   "YES_WORKY"
+    tags:     jinja2, syntax, comparison, style
+    processthis:  0
+    template: |
+      {#- ------------------------------------------------------------------------ -#}
+      {%- macro ttmymacro(opt={}) -%}
+      <{{ opt.tagname}} {{ opt.attributes }}></{{ opt.tagname }}>
+      {%- endmacro -%}
+      {#- ------------------------------------------------------------------------ -#}
+      {{ ttmymacro( {"tagname":"foo", "attributes":''' bravo="one" charlie="two" delta="three" '''} ) }}
+      {#- ------------------------------------------------------------------------ -#}
+
+  - caption:  using a macro with a dictionary arg and nesting
+    status:   "YES_WORKY"  
+    tags:     jinja2, syntax, comparison, style
+    processthis: 0
+    template: |
+      {#- ------------------------------------------------------------------------ -#}
+      {%- macro ttmymacro(**opt) -%}
+      <{{ opt.tagname}} {{ opt.attributes }}>{% if caller %}{{  caller() }}{%endif%}</{{ opt.tagname }}>    
+      {%- endmacro -%}
+      {#- ------------------------------------------------------------------------ -#}
+      {% call ttmymacro(one=1, two=2) %}
+      This is the body.
+      {% endcall %}
+      {#- ------------------------------------------------------------------------ -#}
+      
+  - caption: NO_WORKY ;; using a macro with kwargs
+    tags:     jinja2, syntax, comparison, style
+    seealso: |
+      * href="regain:://reloads_naive_wanting"
+    processthis: 0
+    template:     |
+      {# NO_WORKY #}
+      {% macro example_2(one, two) %}
+          * {{one}} - {{two}}
+      {% endmacro %}
+      {{example_2(1, 2, test="Hello")}}    
+
+  - caption: YES_WORKY ;; using a macro with kwargs
+    tags:     jinja2, syntax, comparison, style
+    dreftymacid:  "reloads_naive_wanting"
+    seealso: |
+      * http://stackoverflow.com/questions/13944751/args-kwargs-in-jinja2-macros
+      * href="regain:://reloads_naive_wanting"
+    processthis: 0
+    template:     |    
+      {# YES_WORKY #}
+      {% macro example_2(one, two) %}
+        * {{one}} - {{two}}
+        * {{kwargs}}
+      {% endmacro %}
+      {{example_2(111, 222, alpha="one", bravo="two", charlie="three",)}}
+      
+  - caption: YES_WORKY ;; using a macro with kwargs
+    tags:     jinja2, syntax, comparison, style
+    processthis: 0
+    template:     |    
+      {# YES_WORKY #}
+      {% macro example_2(one, two) %}
+        {%- set opt = kwargs  %}
+        {{ opt.alpha }}
+        {{ opt.bravo }}
+        {{ opt.charlie }}
+      {% endmacro %}
+      {{example_2(alpha="one", bravo="two", charlie="three",)}}         
+
+
+
