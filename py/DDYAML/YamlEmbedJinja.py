@@ -196,9 +196,6 @@ if('python_region'):
             ## firstpass yaml data load
             data_firstpass = yaml.safe_load( rawyaml )
             data_firstpass.pop(self.my_ddyaml_string_enddata, None) ## remove region_dynamic portion of ddyaml workbook
-            ## data_firstpass.pop(self.my_ddyaml_string_configs, None) ## remove ddyaml_string_configs portion of ddyaml workbook ;; DEPRECATED
-            #print data_firstpass
-            #exit()
 
             ## pprint
             # import pprint

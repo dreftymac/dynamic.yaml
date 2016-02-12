@@ -251,6 +251,15 @@ if('python_region'):
           return getpath
         ##enddef        
 
+        #@@ ## TODO ;; parasitic method that just returns the result of
+        #@@ ##    YamlEmbedJinja.template_render_1stpass
+        def ddexport(self,rawstr):
+          from YamlEmbedJinja import YamlEmbedJinja ### "./YamlEmbedJinja.py"
+          parser01          =   YamlEmbedJinja()
+          vout              =   parser01.template_render_1stpass(yaml=rawstr)
+          return vout
+        ##enddef
+
         ##
         def ddtransform(self):
           """
@@ -309,18 +318,9 @@ if('python_region'):
             if(not bload_stora_success):
               ###
               try:
-                primaryYamlWwbody     =     codecs.open(ssgpath, 'r', 'utf-8').read()
-                
-                ### ------------------------------------------------------------------------
-                ### TODO ;; refactor this
-                ### YamlEmbedJinja ;; handle firstpass processing for two-stage-parsing if required
+                primaryYamlWwbody     =     codecs.open(ssgpath, 'r', 'utf-8').read()                
                 if( self.options['ddyaml_process_twopass'] ):
-                  from YamlEmbedJinja import YamlEmbedJinja ### "./YamlEmbedJinja.py"
-                  obranchproc   =   YamlEmbedJinja()
-                  primaryYamlWwbody =   obranchproc.template_render_1stpass(yaml=primaryYamlWwbody)
-                  # print primaryYamlWwbody
-                  # exit()
-                  # pass                
+                  primaryYamlWwbody   =     self.ddexport(primaryYamlWwbody)
                 originalconfig        =     yaml.safe_load(primaryYamlWwbody) or originalconfig
                 bload_stora_success   =     True
               except:
@@ -328,39 +328,40 @@ if('python_region'):
               ###;;;
             ##;;
 
-            ##
-            if(not bload_stora_success):
-              ###
-              try:
-                ##
-                primaryYamlWwbody     =    codecs.open(ssgpath, 'r', 'utf-8').read()
-                iiSpPref = 32
-                svirtualtemplate      = '''
-                __yaml__:
-                - template: |\n%s
-                '''%("\n".join((iiSpPref * " ") + ix for ix in primaryYamlWwbody.splitlines()))
-                ##
-                originalconfig = yaml.safe_load(svirtualtemplate) or originalconfig
-              except:
-                pass
-              ###;;
+            # ##
+            # if(not bload_stora_success):
+            #   ###
+            #   try:
+            #     ##
+            #     primaryYamlWwbody     =    codecs.open(ssgpath, 'r', 'utf-8').read()
+            #     iiSpPref = 32
+            #     svirtualtemplate      = '''
+            #     __yaml__:
+            #     - template: |\n%s
+            #     '''%("\n".join((iiSpPref * " ") + ix for ix in primaryYamlWwbody.splitlines()))
+            #     ##
+            #     originalconfig = yaml.safe_load(svirtualtemplate) or originalconfig
+            #   except:
+            #     pass
+            #   ###;;
+            # ##endif
               
-            ##
-            if(not bload_stora_success):
-              ###
-              try:
-                ##
-                primaryYamlWwbody     = '''
-                __yaml__: []
-                '''
-                ##
-                originalconfig = yaml.safe_load(primaryYamlWwbody) or originalconfig
-              except:
-                pass
-              ###;;              
-            ##;;
+            # ##
+            # if(not bload_stora_success):
+            #   ###
+            #   try:
+            #     ##
+            #     primaryYamlWwbody     = '''
+            #     __yaml__: []
+            #     '''
+            #     ##
+            #     originalconfig = yaml.safe_load(primaryYamlWwbody) or originalconfig
+            #   except:
+            #     pass
+            #   ###;;              
+            # ##;;
           
-          if( not 'debugging'):
+          if( not not 'debugging'):
             print originalconfig
             print primaryYamlWwbody
             #print svirtualtemplate
@@ -391,8 +392,12 @@ if('python_region'):
               directives['default_template'] = primaryYamlWwbody
             ##;;
 
-            ## iterate_yaml
-            for row in originalconfig.pop(sgg_dynamicyaml_key,[]):
+            ## iterate_directives ;; tmp_processing_directives
+            tmp_processing_directives = originalconfig.pop(sgg_dynamicyaml_key,[])
+            if (tmp_processing_directives.__len__() == 0):
+              tmp_render  =   self.ddexport(primaryYamlWwbody)
+              vout.append( tmp_render )
+            for row in tmp_processing_directives:
               directives['current_template']    = directives['default_template']
               directives['current_data']        = directives['default_data']
 
@@ -619,9 +624,9 @@ if('python_region'):
 
           #print yaml.safe_dump( vout , default_flow_style=False  )
           ##vjj = "\n"
-          vjj = ""
-          vout = [vjj +  vxx for vxx in vout]
-          vout = "".join(vout)
+          vjj   = ""
+          vout  = [vjj +  vxx for vxx in vout]
+          vout  = "".join(vout)
           ##;;
 
           #print self.oenv.filters

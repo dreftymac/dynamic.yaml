@@ -46,6 +46,7 @@ main:
         * href="smartpath://mymedia/2014/git/github/dynamic.yaml/py/ddyaml/zzscratchtest.py"
         * href="smartpath://mymedia/2014/git/github/dynamic.yaml/py/ddyaml/yamlembedjinja.py"
         * href="smartpath://mymedia/2014/git/github/dynamic.yaml/app/demo/demo.2passprocessing.txt.twig"
+        * href="smartpath://mymedia/2014/git/github/dynamic.yaml/app/scratch/bare.multipassdemo.txt"        
         
         ## BUGNAG ;; TO-FIX
         href="local://peak_hankow_necks" 

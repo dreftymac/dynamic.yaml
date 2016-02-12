@@ -1,27 +1,42 @@
-maininfo:
+maininfo: &foo
   projname: alpha
   projdesc: bravo
-  projdept:
-  projgeekname: {{ "%s"%(maininfo.projname) }}
-  projdetail: |
+  projdept: charlie
+  projgeekname: '{{ "%s_%s"%(maininfo.projname,maininfo.projdept) }}'
+  projdetail: >
     This project is a lorem.
+    
+    This is intended for use by {{ maininfo.projdept |title() }} department.
     
     Lorem ipsum dolor sit amet, consectetur adipisicing elit. Qui dicta
     minus molestiae vel beatae natus eveniet ratione temporibus aperiam
     harum alias officiis assumenda officia quibusdam deleniti eos
     cupiditate dolore doloribus.
-
+app: *foo
 maintable:
-    - caption:  caption
-      rectype:  rrmini03
-      datebeg:  Fri Feb 12 13:51:44 2016 
-      dateend:  Fri Feb 12 13:51:44 2016 
-      tags:     tags
-      desc:     desc
-      seealso:  seealso
-      dreftymacid: tramp_arisen_animate
-      wwbody: |
-          wwbody
+  - caption:  caption
+    rectype:  rrmini03
+    datebeg:  Fri Feb 12 13:51:44 2016 
+    dateend:  Fri Feb 12 13:51:44 2016 
+    tags:     tags
+    desc:     desc
+    seealso:  seealso
+    dreftymacid: tramp_arisen_animate
+    wwbody: |
+        wwbody
 
+## href="smartpath://mytrybits/y/tryyaml/dynamicyaml/devlog.txt"
+## href="smartpath://mymedia/2014/git/github/dynamic.yaml/app/demo/readme.md"
+## href="smartpath://mymedia/2014/git/github/dynamic.yaml/py/ddyamlrunner.py"
+## href="smartpath://mymedia/2014/git/github/dynamic.yaml/py/ddyaml/jinjafilterdynamicyaml.py"
+__yaml__:
+
+  - &uuid001
+    caption:      caption
+    processthis: 1
+    uuid:         uuid001
+    usedataroot:  myworkbook
+    template: |
+      {{ myworkbook |jjdata_formatas('yamlpretty') }}
  
  
