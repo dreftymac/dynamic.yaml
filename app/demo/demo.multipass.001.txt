@@ -1,0 +1,42 @@
+### <beg-file_info>
+### main:
+###   - date: created="Tue Feb 16 16:17:22 2016"
+###     last: lastmod="Tue Feb 16 16:17:22 2016"
+###     tags: multipass, ddyaml, 
+###     dreftymacid: "viremic_marksmen_kyle"
+###     filetype: "yaml"
+###     seealso: |
+###         * href="smartpath://mymedia/2014/git/github/dynamic.yaml/app/demo/demo.multipass.001.txt"
+###         * href="smartpath://mymedia/2014/git/github/dynamic.yaml/app/demo/demo.2passprocessing.txt.twig"
+###     desc: |
+###         desc
+### <end-file_info>
+
+## href="smartpath://mytrybits/y/tryyaml/dynamicyaml/devlog.txt"
+## href="smartpath://mymedia/2014/git/github/dynamic.yaml/app/demo/readme.md"
+## href="smartpath://mymedia/2014/git/github/dynamic.yaml/py/ddyamlrunner.py"
+## href="smartpath://mymedia/2014/git/github/dynamic.yaml/py/ddyaml/jinjafilterdynamicyaml.py"
+__yaml__:
+
+  - &uudXVsZWFuX2JvdG
+    caption:          demo multipass data transform with templateinclude
+    processthis:      1
+    uuid:             uudXVsZWFuX2JvdG
+    datainclude:
+      - "./demodata.001.asc"
+    template: |
+      ### ------------------------------------------------------------------------
+      ### maininfo
+      {{ maininfo }}
+      
+      ### ------------------------------------------------------------------------
+      ### projectinfo
+      {{ projectinfo }}
+      
+      ### ------------------------------------------------------------------------
+      ### dataloop
+      {% for row in projecttable -%}
+      {{ row.wwbody }}
+      {% endfor %}
+      
+

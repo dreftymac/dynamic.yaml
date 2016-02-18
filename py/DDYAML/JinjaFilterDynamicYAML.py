@@ -2347,7 +2347,7 @@ if('python_region'):
             output: python string
           """
           ##
-          vout = jjinput.__str__()
+          vout = jjinput
 
           ##
           try:

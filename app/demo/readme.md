@@ -18,12 +18,13 @@ This directory contains sample dynamic YAML files for demonstration.
 
 * ddyaml from the commandline       ;; __blank__
 * ddyaml 2-pass template processing ;; href="smartpath://mymedia/2014/git/github/dynamic.yaml/app/demo/demo.2passprocessing.txt.twig"
+    * ddyaml 2-pass multipass       ;; href="smartpath://mymedia/2014/git/github/dynamic.yaml/app/demo/demo.multipass.001.txt"
 * block assignment                  ;; href="smartpath://mymedia/2014/git/github/dynamic.yaml/app/demo/demo01blockassign01.txt.twig"
 * file/io                           ;; href="smartpath://mymedia/2014/git/github/dynamic.yaml/app/demo/demo.topic.fileio.txt"
+* imacros generate and autorun      ;; href="smartpath://mymedia/2014/git/github/dynamic.yaml/app/demo/demo.topic.interop.txt" find="undoer_clean_unafraid"
 * run command shell popen interop   ;; href="smartpath://mymedia/2014/git/github/dynamic.yaml/app/demo/demo.topic.interop.txt"
 * map filter and listcomprehension  ;; href="smartpath://mymedia/2014/git/github/dynamic.yaml/app/demo/demo01jjapplyfunction01.txt"
 * msft excel                        ;; href="smartpath://mymedia/2014/git/github/dynamic.yaml/app/demo/demo.topic.excel.txt"
-
 
 ## Blockspring
 

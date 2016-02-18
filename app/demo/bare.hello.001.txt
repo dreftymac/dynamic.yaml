@@ -1,6 +1,0 @@
-main:
-  person:   world
-  greeting: Hello {{main.person |title }}!
-      
-      
-      

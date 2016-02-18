@@ -22,7 +22,7 @@ changelog:
 
 TODO:
   - bugfix yamlpretty      ;; yamlpretty output does not seem to work with href="local:///demo.2passprocessing" peak_hankow_necks
-  - two-pass templating    ;; firstpass modifies everything above the __yaml__ branch // secondpass modifies everything below
+  - two-pass templating    ;; multipass/firstpass modification needs to work with the following contexts (jjloop, datainclude)
   - namespacing            ;; rename all jjfile_ functions properly so they are all correctly namespaced
   - relative paths         ;; ff_resolvepath_path function needs to be applied to all paths (ISSUE: local://cruiser_chariot_ama)
   - clearer error messages ;; voyeur_foulest_weirdly parsing errors need to be clearer
@@ -36,17 +36,21 @@ TODO:
 
 main:
 
-  - caption:  twopass templating ;; ddyaml feature upgrade
-    rectype:  rrmini03
-    datebeg:  Thu Feb 11 23:31:51 2016 
-    dateend:  Thu Feb 11 23:31:51 2016 
+  - caption: twopass templating ;; ddyaml feature upgrade
+    rectype: rrmini03
+    datebeg: Thu Feb 11 23:31:51 2016 
+    dateend: Thu Feb 11 23:31:51 2016 
     dreftymacid: misfit_ailment_lash
     wwbody: |
-        ## two-pass processing
+        ## multipass/two-pass processing (scratch demo)
         * href="smartpath://mymedia/2014/git/github/dynamic.yaml/py/ddyaml/zzscratchtest.py"
         * href="smartpath://mymedia/2014/git/github/dynamic.yaml/py/ddyaml/yamlembedjinja.py"
         * href="smartpath://mymedia/2014/git/github/dynamic.yaml/app/demo/demo.2passprocessing.txt.twig"
         * href="smartpath://mymedia/2014/git/github/dynamic.yaml/app/scratch/bare.multipassdemo.txt"        
+        
+        ## multipass processing (app demo)
+        * href="smartpath://mymedia/2014/git/github/dynamic.yaml/app/demo/demo.multipass.001.txt"
+        * href="smartpath://mymedia/2014/git/github/dynamic.yaml/app/demo/demo.2passprocessing.txt.twig"        
         
         ## BUGNAG ;; TO-FIX
         href="local://peak_hankow_necks" 

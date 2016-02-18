@@ -1,0 +1,8 @@
+main:
+  remark:   hello
+  audience: world
+  greeting: "Hello {{ main.audience |title }}"
+
+      
+      
+      

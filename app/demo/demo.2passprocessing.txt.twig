@@ -6,7 +6,10 @@
 ###     dreftymacid:  "unify_leg_unary"
 ###     filetype: "yaml"
 ###     seealso: |
-###         *
+###         * href="./demo.multipass.001.txt"
+###         * href="./demo.multipass.002.txt"
+###         * href="smartpath://mymedia/2014/git/github/dynamic.yaml/image/multipass.processing.001.png"
+###         * href="smartpath://mymedia/2014/git/github/dynamic.yaml/image/multipass.processing.002.png"
 ###     desc: |
 ###         testing two-pass yaml template processing
 ### <end-file_info>
@@ -15,18 +18,22 @@ maininfo:
   fname:    homer
   lname:    simpson
   age:      33
+  
 alphainfo:
   alpha:    "one"
   bravo:    "one.one"
   charlie:  "{{ bravoinfo.alpha }}"
+  
 bravoinfo:
   alpha:    "two"
   bravo:    "{{ alphainfo.bravo }}"
   charlie:  "{{ bravoinfo.bravo }}"
+  
 charlieinfo:
   alpha:    "three"
   bravo:    "{{ alphainfo.charlie }}"
   charlie:  "{{ charlieinfo.charlie }}"
+  
 documents_table:
   - caption: alpha
     wwbody: >
@@ -37,6 +44,7 @@ documents_table:
   - caption: charlie
     wwbody: >
       {{maininfo.fname |title() }} {{maininfo.lname |title() }} is {{maininfo.age * 3}} !
+      
 __yaml__:
   - &uuid001
     processthis: 1
@@ -57,8 +65,6 @@ __yaml__:
       {% endfor %}
 
 
-
-  
   
 
 

@@ -70,7 +70,7 @@ if('python_region'):
           ## init defaults (TODO ;; code refactor use this instead of options)
           self.options = {}
           self.options['ddyaml_string_enddata']   = '__yaml__'
-          self.options['ddyaml_string_configs']   = '__config__'
+          #self.options['ddyaml_string_configs']   = '__config__'
           self.options['ddyaml_process_twopass']  = True
           ## allow for overriding defaults
           for tmpname, tmpvarr in kwargs.items():
@@ -129,12 +129,10 @@ if('python_region'):
             sgtemp = ("""
             \n## primaryYamlPath file not specified or unreachable
             """)
-            print sgtemp
-          #oDumper.pprint( self.ffpath_pdir )
-          #oDumper.pprint( ddparams )
+            ## print sgtemp
         ##enddef
 
-        #@ figure out how jinja finalize works
+        #@ figure out optimal use of jinja finalize
         #@ def oenv_finalize(self,vinput):
         #@   vout = ''
         #@   if not (vinput is not None):
@@ -251,7 +249,8 @@ if('python_region'):
           return getpath
         ##enddef        
 
-        #@@ ## TODO ;; parasitic method that just returns the result of
+        #@@ ## TODO ;; refactor this ;; parasitic inheritance method that just returns the result of
+        #@@ ##    firstpass multipass processing
         #@@ ##    YamlEmbedJinja.template_render_1stpass
         def ddexport(self,rawstr):
           from YamlEmbedJinja import YamlEmbedJinja ### "./YamlEmbedJinja.py"
@@ -298,8 +297,9 @@ if('python_region'):
           
           ### TODO ;; adopt the conventions from yamlembedjinja ;; yamlregions
           ###     href="./YamlEmbedJinja.py" find="blast_tinworks_reply"
+          ###     href="./YamlEmbedJinja.py" find="yamlregions_primary"
           ### TODO ;; get primaryYamlWwbody and svirtualtemplate sorted out
-          ###     the use between these variables is not clear
+          ###     the use between these variables is sub-optimal
           ### ------------------------------------------------------------------------
           if('load_attempt_stora'):
             ##
@@ -361,7 +361,7 @@ if('python_region'):
             #   ###;;              
             # ##;;
           
-          if( not not 'debugging'):
+          if( not 'debugging'):
             print originalconfig
             print primaryYamlWwbody
             #print svirtualtemplate
@@ -483,11 +483,11 @@ if('python_region'):
                 if(tmpval is None):
                   tmpval = ['']
                 if(  type(tmpval) == str ):
-                  tmpval = [tmpval]     ## force scalar to list
+                  tmpval = [tmpval] ## force scalar to list
 
                 ## iterate items
                 for spath in tmpval:
-                  sscurr        =   ''
+                  #sscurr        =   ''
                   sscurr        =   self.ff_resolvepath_read(spath)
                   ## err_quiet
                   if(sscurr == ''):
@@ -528,10 +528,11 @@ if('python_region'):
                   if(sscurr ==  ''):
                     raise ValueError('undid_sail_unleash: failed to access file content at %s '%(spath))
                   elif(True):
-                    sstemp += sscurr
+                    sscurr    = self.ddexport(sscurr) ##;; apply firstpass transform to embedded datainclude                    
+                    sstemp    += sscurr
                 ##
                 if(sstemp != ''):
-                  ##print sstemp
+                  ## print sstemp
                   directives['current_'+tmpname[0]]   =   yaml.safe_load(sstemp)
                 ## print tmpval
               ##;;

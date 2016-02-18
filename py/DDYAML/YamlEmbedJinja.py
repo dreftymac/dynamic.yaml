@@ -102,35 +102,34 @@ if('python_region'):
           return  rawyaml.split(splitby)
         ##enddef
 
-        ## TODO ;; improve this with custom raise exceptions instead of returning True/False
-        def validate_iswellformed_ddyaml(self,**kwargs):
-
-          ## init
-          args          =   {}
-          args['yaml']  =   ''    ## rawyaml ;; raw input yaml string
-          ##
-          for tmpname, tmpvarr in kwargs.items():
-            args[tmpname] = tmpvarr
-          ##
-          data_hasnt_failed   =   True
-          rawyaml             =   args['yaml']
-          ##;;
-
-          ## can have no more than one of these tokens in the sourceinput
-          ## count the number of sections that result from splitting on these tokens
-          ## if more than 2 sections result, we have more than one token
-          sctn_enddata      =   self.split_into_sections_ddyaml(yaml=rawyaml,splitby=self.my_ddyaml_string_enddata)
-          if(sctn_enddata.__len__() > 2):
-            data_hasnt_failed = False
-          ##
-          sctn_yamlconfigs  =   self.split_into_sections_ddyaml(yaml=rawyaml,splitby=self.my_ddyaml_string_configs)
-          if(sctn_yamlconfigs.__len__() > 2):
-            data_hasnt_failed = False
-          ##;;
-
-          ## return
-          return data_hasnt_failed
-        ##enddef
+        # ## TODO ;; improve this with custom raise exceptions instead of returning True/False
+        # def validate_iswellformed_ddyaml(self,**kwargs):
+        #   ## init
+        #   args          =   {}
+        #   args['yaml']  =   ''    ## rawyaml ;; raw input yaml string
+        #   ##
+        #   for tmpname, tmpvarr in kwargs.items():
+        #     args[tmpname] = tmpvarr
+        #   ##
+        #   data_hasnt_failed   =   True
+        #   rawyaml             =   args['yaml']
+        #   ##;;
+        # 
+        #   ## can have no more than one of these tokens in the sourceinput
+        #   ## count the number of sections that result from splitting on these tokens
+        #   ## if more than 2 sections result, we have more than one token
+        #   sctn_enddata      =   self.split_into_sections_ddyaml(yaml=rawyaml,splitby=self.my_ddyaml_string_enddata)
+        #   if(sctn_enddata.__len__() > 2):
+        #     data_hasnt_failed = False
+        #   ##
+        #   sctn_yamlconfigs  =   self.split_into_sections_ddyaml(yaml=rawyaml,splitby=self.my_ddyaml_string_configs)
+        #   if(sctn_yamlconfigs.__len__() > 2):
+        #     data_hasnt_failed = False
+        #   ##;;
+        # 
+        #   ## return
+        #   return data_hasnt_failed
+        # ##enddef
 
         ##
         def template_render_1stpass(self,**kwargs):
@@ -139,7 +138,7 @@ if('python_region'):
           ###     last: lastmod="Thu Feb 11 13:25:28 2016"
           ###     funcname: "template_render_1stpass"
           ###     funcdesc: |
-          ###           process the yamlregions region_primary section
+          ###           process the yamlregions yamlregions_primary section
           ###           allows for embedded jinja inside source YAML data
           ###
           ###           processing region_primary section is brittle because interpolating
@@ -179,7 +178,8 @@ if('python_region'):
               self.yamlregions['dynamic'] = ("%s%s")%(splitby,textwrap.dedent(regions[1]).lstrip())
             if (regions.__len__() == 1):
               self.yamlregions['primary'] = textwrap.dedent(regions[0]).lstrip()
-              self.yamlregions['dynamic'] = ("%s%s%s")%("\n\n",splitby,"\n")
+              #self.yamlregions['dynamic'] = ("%s%s%s")%("\n\n",splitby,"\n")
+              self.yamlregions['dynamic'] = ''
             ## debug print
             # print self.yamlregions['primary']
             # print self.yamlregions['dynamic']

@@ -1,0 +1,11 @@
+__yaml__:
+  - caption: hello world example
+    template: |
+      {%- set audience = 'world'  -%}
+      Hello {{ audience |title }}!
+      
+      
+
+      
+      
+      
