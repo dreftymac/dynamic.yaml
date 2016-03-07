@@ -21,6 +21,7 @@ changelog:
   - caption: datafile directive changed to datainclude directive
 
 TODO:
+  
   - bugfix yamlpretty      ;; yamlpretty output does not seem to work with href="local:///demo.2passprocessing" peak_hankow_necks
   - two-pass templating    ;; multipass/firstpass modification needs to work with the following contexts (jjloop, datainclude)
   - namespacing            ;; rename all jjfile_ functions properly so they are all correctly namespaced

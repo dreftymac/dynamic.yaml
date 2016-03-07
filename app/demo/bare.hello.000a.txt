@@ -3,6 +3,3 @@ main:
   audience: world
   greeting: "Hello {{ main.audience |title }}"
 
-      
-      
-      

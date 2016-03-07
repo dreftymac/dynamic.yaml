@@ -1,0 +1,30 @@
+### <beg-file_info>
+### main:
+###   - date: created="Sun Mar 06 12:32:18 2016"
+###     last: lastmod="Sun Mar 06 12:32:18 2016"
+###     tags: tags
+###     dreftymacid: "__dreftymacid__"
+###     filetype: "yaml"
+###     seealso: |
+###         *
+###     desc: |
+###         foobar doobar goobar moobar
+### <end-file_info>
+
+### <beg-region_alpha_helloworld>
+order_none047_given615
+are586_either256_compres357
+rieht882_1857_intermediate
+### <end-region_alpha_helloworld>
+
+### <beg-region_bravo_helloworld>
+for780_2550_if615
+yam332_return204_what482
+hgih_can387_present378
+### <end-region_bravo_helloworld>
+
+### <beg-region_charl_helloworld>
+charl charl charl charl charl charl charl charl
+charl charl charl charl charl charl charl charl
+charl charl charl charl charl charl charl charl
+### <end-region_charl_helloworld>

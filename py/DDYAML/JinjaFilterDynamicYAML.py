@@ -11,7 +11,7 @@
 ###     desc: |
 ###         desc
 ### <end-file_info>
- 
+
 ### @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 ### init py
 if('python_region'):
@@ -39,12 +39,12 @@ if('python_region'):
       import xlrd
       import yaml
       import zipfile
-      
+
       ##
       from JinjaFilterBase import JinjaFilterBase
       from DataHelperUtils import DataHelperUtils
       from DataHelperDiceware import DataHelperDiceware
-      from YamlDerivedBaseRepresenter import YamlDerivedBaseRepresenter        
+      from YamlDerivedBaseRepresenter import YamlDerivedBaseRepresenter
 
 ### @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 ### new_function_snippet
@@ -67,10 +67,10 @@ if('python_region'):
              - param: jjinput ;; optarity ;; jinja raw input string
           ##end_func_docs
           '''
-        
+
           ##
           vout = jjinput.__str__()
-        
+
           ##
           try:
             vout = vout
@@ -80,7 +80,7 @@ if('python_region'):
             exc_type, exc_obj, exc_tb = sys.exc_info()
             fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
             print(exc_type, fname, exc_tb.tb_lineno)
-        
+
           ##
           return vout
         ##enddef
@@ -105,16 +105,16 @@ if('python_region'):
 ###!          TODO ;; extract out the 'subtopic' filters (like imacros) into different JinjaFilter files
 ###!
 ###!
-###!          
+###!
 ###!  wwbody: |
       class JinjaFilterDynamicYAML(JinjaFilterBase):
 
         ##
         ## __init__ class initialize
         ##
-        
+
         ##
-        def __init__(self,ddparams={}):          
+        def __init__(self,ddparams={}):
           ## init
           self.externalVars    =   {}
           if 'externalVars' in ddparams.keys():
@@ -347,7 +347,7 @@ if('python_region'):
             grp_maj:      grp_maj
             grp_med:      grp_med
             grp_min:      grp_min
-            desc: | 
+            desc: |
               * return a normalized version of a var
               * normalize to scalar
             dreftymacid:  uptown_undoer_vagrancy
@@ -359,12 +359,12 @@ if('python_region'):
              - param: jjinput ;; optarity ;; jinja raw input string
           ##end_func_docs
           '''
-        
+
           ##
           vout = jjinput
           if vout is None:            vout = ''
           elif type(vout) is list:    vout = "".join([vxx.__str__() for vxx in vout])
-        
+
           ##
           try:
             vout = vout
@@ -374,13 +374,13 @@ if('python_region'):
             exc_type, exc_obj, exc_tb = sys.exc_info()
             fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
             print(exc_type, fname, exc_tb.tb_lineno)
-        
+
           ##
           return vout
         ##enddef
         ## alias_definition
         def jjscala(self,jjinput): return self.jjscalarize(jjinput,myvar=None)
-        ##enddef           
+        ##enddef
 
         def jjget_var(self,jjinput,varname=''):
           '''
@@ -400,14 +400,14 @@ if('python_region'):
              - param: jjinput ;; optarity ;; jinja raw input string
           ##end_func_docs
           '''
-        
+
           ##
           if (jjinput.__str__() != ''):
             mykey = jjinput.__str__()
           if (varname.__str__() != ''):
             mykey = varname.__str__()
           ##;;
-          
+
           ##
           try:
             vout = self.externalVars[mykey]
@@ -419,7 +419,7 @@ if('python_region'):
             # fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
             # print(exc_type, fname, exc_tb.tb_lineno)
             pass
-        
+
           ##
           return vout
         ##enddef
@@ -437,7 +437,7 @@ if('python_region'):
             dreftymacid:  pets_marvel_dave
             seealso:
               - href="smartpath://mymedia/2014/git/github/dynamic.yaml/app/demo/demo01jjapplyfunction01.txt"
-              - href="smartpath://mytrybits/m/trymyclip/github_symlink/myclip/publiclab/pythonallgeneral.txt" find="uureload_holocopy_001" 
+              - href="smartpath://mytrybits/m/trymyclip/github_symlink/myclip/publiclab/pythonallgeneral.txt" find="uureload_holocopy_001"
             detail:  |
               * NOTE: need to make this a security-sensitive function that can be turned off
             dependencies:
@@ -448,12 +448,12 @@ if('python_region'):
              - param: jjfunc ;; optarity ;; function to apply
           ##end_func_docs
           '''
-        
+
           ##
           vout  = ''
           if(jjinput):
             jjdatt  =  jjinput
-        
+
           ##
           try:
             ## BUGNAG ;; ANNOYANCE ;; SECURITY ;; string-eval
@@ -465,7 +465,7 @@ if('python_region'):
             exc_type, exc_obj, exc_tb = sys.exc_info()
             fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
             print(exc_type, fname, exc_tb.tb_lineno)
-        
+
           ##
           return vout
         ##enddef
@@ -618,11 +618,11 @@ if('python_region'):
              - param: jjinput ;; optarity ;; jinja raw input string
           ##end_func_docs
           '''
-        
+
           ##
           vout = ''
           vout = jjinput.__str__()
-          
+
           ##
           try:
             odatt = DataHelperDiceware()
@@ -633,7 +633,7 @@ if('python_region'):
             exc_type, exc_obj, exc_tb = sys.exc_info()
             fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
             print(exc_type, fname, exc_tb.tb_lineno)
-        
+
           ##
           return vout
         ##enddef
@@ -765,7 +765,7 @@ if('python_region'):
              - param: python_aod  ;; optarity ;; python aod simpletable
           ##end_func_docs
           '''
-          
+
           ## jjdata_table_dump_toexcelsheet
           try:
             ## init
@@ -774,22 +774,22 @@ if('python_region'):
             vout    =   ''
             params  =   {}
             ##;;
-            
+
             ## init input
             if(jjinput.__str__() != ''):
               params['data'] = jjinput
             elif(True):
-              params['data'] = python_aod              
+              params['data'] = python_aod
             ##;;
-            
+
             ## init input
             if(ddmetadata.keys().__len__() > 0):
               params.update(ddmetadata)
-            ##;;            
-            
+            ##;;
+
             ## process
             vout  =   oXMLSS.tostring(params)
-            ##;;            
+            ##;;
           ##
           except Exception as msg:
             print 'EXCEPTION gyro_xanthous_helmsmen msg@%s'%(msg.__repr__())
@@ -797,7 +797,7 @@ if('python_region'):
             fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
             print(exc_type, fname, exc_tb.tb_lineno)
           ##;;
-          
+
           ##
           return vout
         ##enddef
@@ -814,26 +814,26 @@ if('python_region'):
             dreftymacid:  vial_snaring_jocks
             detail:  |
               * TODO ;; refactor the metadata handling to be more like XmlssBase
-                  * href="c:/sm/docs/mytrybits/p/trypython2/lab2014/xml/xmlssbase.py" find="firm_run_rentals" 
+                  * href="c:/sm/docs/mytrybits/p/trypython2/lab2014/xml/xmlssbase.py" find="firm_run_rentals"
             dependencies:
               - __blank__
             params:
              - param: jjinput ;; optional ;; input source filename
           ##end_func_docs
           '''
-        
+
           ## init args
           if( jjinput.__str__() == ''):
             pass
           elif(True):
             sgginfile   = jjinput.__str__()
           ##;;
-          
+
           ## init vars
           oDHH  =   DataHelperUtils()
           vout  =   ''
           ##;;
-        
+
           ## processing
           try:
             oparams = {}
@@ -841,11 +841,11 @@ if('python_region'):
             oparams['xlsheet']    =   iggsheetindex                   ## wkbk sheet index (zero-based)
             oparams['xlfirstrow'] =   iggfirsdatarow                  ## first datarow (one-based)
             oparams['datadef']    =   tableschema                     ## sheet dataschema
-            
+
             # oDumper.pprint( oparams )
-            
+
             ## Example datadef dataschema
-            # oparams['datadef']    =   yaml.safe_load('''                
+            # oparams['datadef']    =   yaml.safe_load('''
             #   - {fldname: lname     ,    fldtype: TEXT , fldlabel: "Last Name" }
             #   - {fldname: fname     ,    fldtype: TEXT , fldlabel: "First Name" }
             #   - {fldname: amount    ,    fldtype: INT  , fldlabel: "Amount" }
@@ -854,9 +854,9 @@ if('python_region'):
             #   - {fldname: platform  ,    fldtype: TEXT , fldlabel: "Platform" }
             #   - {fldname: date      ,    fldtype: DATE , fldlabel: "Current Date" }
             # ''')
-            
+
             vout = oDHH.excel_sheet_to_python_aod(oparams)
-            
+
           ##
           except Exception as msg:
             print 'EXCEPTION skcoj_gnirans_laiv msg@%s'%(msg.__repr__())
@@ -864,7 +864,7 @@ if('python_region'):
             fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
             print(exc_type, fname, exc_tb.tb_lineno)
           ##;;
-          
+
           ##
           return vout
         ##enddef
@@ -888,10 +888,10 @@ if('python_region'):
             dependencies: __blank__
             params:
              - param: jjinput ;; optional ;; input source filename (as passed by jinja filter)
-             - param: rowfilter ;; optional ;; 
+             - param: rowfilter ;; optional ;;
           ##end_func_docs
           '''
-        
+
           ## init args
           vout = jjinput
           optsdefault   = {"rowfilter":"","tableformat":"python_aod"}
@@ -904,7 +904,7 @@ if('python_region'):
              ):
             dictops['tableformat'] = 'aod'
           ##;;
-          
+
           ## processing
           try:
             if(dictops['tableformat'] == 'aod'):
@@ -914,7 +914,7 @@ if('python_region'):
                   vout          =   filterfunc(vout)
             elif(True):
                 pass
-            
+
           ##
           except Exception as msg:
             print 'EXCEPTION aware_flourish_influx msg@%s'%(msg.__repr__())
@@ -922,7 +922,7 @@ if('python_region'):
             fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
             print(exc_type, fname, exc_tb.tb_lineno)
           ##;;
-          
+
           ##
           return vout
         ##enddef
@@ -1099,7 +1099,7 @@ if('python_region'):
              - param: jjinput ;; optarity ;; jinja raw input string
           ##end_func_docs
           '''
-          
+
           ## trycatch
           try:
             ## init vars
@@ -1108,21 +1108,21 @@ if('python_region'):
             ssroot    =   'c:/sm/docs/mydaydirs/%s/*'%(stryear)
             aalist    =   self.jjfile_array_fromdir("",ssroot)
             ##;;
-  
+
             ## filter list
             aalist    = [ item for item in aalist if(True
                                        and self.jjfiletest(item) == 'dir'
-                                       and 'week' in item.__str__().lower()                                     
+                                       and 'week' in item.__str__().lower()
                                        )]
             ## transform list
             for item in aalist:
-              item     = item.replace("\\","/")                
-              ttfrag01 = item.split('/')[-1]                   
+              item     = item.replace("\\","/")
+              ttfrag01 = item.split('/')[-1]
               ttpath   = "%s/%s%s"%(item,ttfrag01,'devlog.txt')
               if not (self.jjfiletest(ttpath) == 'file'): continue
-              vout.append( ttpath )            
+              vout.append( ttpath )
             ##;;
-            
+
           ##
           except Exception as msg:
             print 'UNEXPECTED TERMINATION __dreftymacid__ msg@%s'%(msg.__repr__())
@@ -1130,7 +1130,7 @@ if('python_region'):
             fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
             print(exc_type, fname, exc_tb.tb_lineno)
           ##;;
-          
+
           ## return
           return vout
         ##enddef
@@ -1609,7 +1609,7 @@ if('python_region'):
           ##
           return vout
         ##enddef
-        
+
         ##
         def jjfile_toarray(self,jjinput,sgpath=''):
           '''
@@ -1630,30 +1630,30 @@ if('python_region'):
              - param: sgpath ;; optional ;; path to file
           ##end_func_docs
           '''
-          
+
           ##
           if(str(jjinput)!=''):
             # (self,jjinput,surl=''):
             # sgpath = jjinput.__str__()
             pass
           ##;;
-          
+
           ##
           try:
             vraw  =   self.jjfromfile(jjinput,sgpath)
-            vout  =   vraw.splitlines()            
+            vout  =   vraw.splitlines()
           except Exception as msg:
             print 'FILE HANDLING EXCEPTION ;; cleric_clam_thaws msg@%s %s'%(msg.__repr__(),surl)
             exc_type, exc_obj, exc_tb = sys.exc_info()
             fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
-            print(exc_type, fname, exc_tb.tb_lineno)            
+            print(exc_type, fname, exc_tb.tb_lineno)
             pass
           ##;;
-          
+
           ##
           return vout
-        ##enddef        
-        
+        ##enddef
+
         ##
         def jjfiledelete(self,jjinput,sgpath=''):
           '''
@@ -1674,12 +1674,12 @@ if('python_region'):
              - param: sgpath ;; optional ;; path to file
           ##end_func_docs
           '''
-          
+
           ##
           if(str(jjinput)!=''):
             sgpath = jjinput.__str__()
           ##;;
-          
+
           ##
           try:
             os.remove(sgpath)
@@ -1687,13 +1687,13 @@ if('python_region'):
             ## '## File not found cleric_clam_thaws msg@%s %s'%(msg.__repr__(),sgpath)
             pass
           ##;;
-          
+
           ##
           return ''
         ##enddef
         ## alias_definition
         def jjfile_delete(self,jjinput): return self.jjfiledelete(jjinput,sgpath='')
-        ##enddef        
+        ##enddef
 
         ##
         def jjfilecopy(self,jjinput,sgsrc='',sgdest=''):
@@ -1740,7 +1740,7 @@ if('python_region'):
             grp_maj:      fileio
             grp_med:      grp_med
             grp_min:      grp_min
-            tags:         filetest, isdir, isfile, 
+            tags:         filetest, isdir, isfile,
             desc:         |
               determine if the input string represents a path to a file or directory
               return 'dir'  if dir
@@ -1812,7 +1812,7 @@ if('python_region'):
         #  '''
         #
         #  ##
-        #  vout = jjinput.__str__()
+        #    vout = jjinput.__str__()
         #
         #  ##
         #  try:
@@ -1827,7 +1827,7 @@ if('python_region'):
         #  ##
         #  return vout
         ###enddef
-        
+
         ## TODO ;; rename this to jjfile_tostring more consistent naming convention with
         ## jjfile_toarray
         def jjfromfile(self,jjinput,surl=''):
@@ -1836,7 +1836,7 @@ if('python_region'):
           - caption:  jjfromfile
             date:     lastmod="Mon 2014-10-20 16:45:46"
             grp_maj:  FileIO
-            grp_med:  loadfile 
+            grp_med:  loadfile
             grp_min:  fromfile
             desc:     string.fromfile
             tags:     jjfromfile, jjfile_load, jjfile
@@ -1853,32 +1853,37 @@ if('python_region'):
              - param: surl      ;;  required  ;;  file path
           '''
           ##
-          vout  = ''
-          #vout  = open(surl,'r').read()
+          vout    =     ''
+          if(not 'debug_mode'):
+            print "%s -- %s"%(jjinput,surl)
+          # if(jjinput.__str__().strip() != ''):
+          #   surl = jjinput.__str__()
+          #surl    =     surl or jjinput.__str__()
+          ##print surl
+          ##vout  = open(surl,'r').read()
 
           ##
           try:
             ## BUGNAG ;; added encode ascii ignore
-            #vout  = codecs.open(surl, 'r', 'utf-8').read().replace(u'\xa0', u' ')
-            vout  =   codecs.open(surl, 'r', 'utf-8').read()
-            vout  =   filter(lambda vxx: vxx in string.printable, vout)
-            vout  =   vout.encode('ascii','replace')
+            vout  =  codecs.open(surl, 'r', 'utf-8').read().replace(u'\xa0', u' ')
+            #vout  =   codecs.open(surl, 'r', 'utf-8').read()
+            #vout  =   filter(lambda vxx: vxx in string.printable, vout)
+            #vout  =   vout.encode('ascii','replace')
             ##print vout
             #vout  = open(surl,'r').read().replace(u'\xa0', ' ')
             #vout  = vout.decode('utf-8').encode('ascii', 'ignore')
+            pass
           except Exception as msg:
             print """
-
             ### ------------------------------------------------------------------------
             ### ------------------------------------------------------------------------
             ### ------------------------------------------------------------------------
 
             FILE IO HASSLE ;; href="%s"
-            
-            ### ------------------------------------------------------------------------
-            ### ------------------------------------------------------------------------
-            ### ------------------------------------------------------------------------
 
+            ### ------------------------------------------------------------------------
+            ### ------------------------------------------------------------------------
+            ### ------------------------------------------------------------------------
             """ %(surl)
             print 'UNEXPECTED TERMINATION sharing_client_smearing msg@%s %s'%(msg.__repr__(),surl)
             exc_type, exc_obj, exc_tb = sys.exc_info()
@@ -1887,6 +1892,10 @@ if('python_region'):
           ##
           #return vout.decode('ascii','replace')
           return vout
+        ##enddef
+        ## alias_definition
+        def jjfile_tostring(self,jjinput,surl=''):
+          return self.jjfromfile(jjinput,surl)
         ##enddef
 
         def jjget_basename(self,jjinput):
@@ -2264,7 +2273,7 @@ if('python_region'):
           ##;;
 
           ##
-          try:            
+          try:
             vout = "".join([ aahug[0], vout , aahug[1] ])
           except Exception as msg:
             pass
@@ -2274,7 +2283,7 @@ if('python_region'):
           except:
             pass
           ##;;
-          
+
           ##
           return vout
         ##enddef
@@ -2406,7 +2415,7 @@ if('python_region'):
             dreftymacid:  vineyard_manly_grouping
             desc: perform join on a list and return a string
             detail: |
-                __blank__
+                NOTE: this is superfluous, jinja already has "join" filter
             dependencies:
               - none
             params:
@@ -2596,7 +2605,7 @@ if('python_region'):
               {%- set ttpathmode  = 'glob'                      -%}
               {%- set mypaths     = ''|jjfile_array_fromdir(ttrootpath,ttpathmode)   -%}
               {#- ------------------------------------------------------------------------ -#}
-              {{ mypaths }}                
+              {{ mypaths }}
             alias:
               - __blank__
             detail: |
@@ -2617,7 +2626,7 @@ if('python_region'):
           """
           ##
           ## vout = jjinput.__str__()
-          
+
           ##
           try:
             if(ssmode.lower()==''):
@@ -2626,7 +2635,7 @@ if('python_region'):
               aResults    =   glob.glob(ssfilespec)
               aResults    =   [ vxx.replace('\\','/') for vxx in aResults ]
               vout        =   aResults
-            elif(ssmode.lower()=='walk' or True):                       
+            elif(ssmode.lower()=='walk' or True):
               vout    =   []
               aatemp  =   []
               for root, dirs, files in os.walk(ssfilespec):
@@ -2639,7 +2648,7 @@ if('python_region'):
             fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
             print(exc_type, fname, exc_tb.tb_lineno)
           ##;;
-          
+
           ##
           return vout
         ##enddef
@@ -2688,7 +2697,7 @@ if('python_region'):
             grp_maj:      file
             grp_med:      string
             grp_min:      extract
-            desc:         extract a region of a text file using 'radiotable' style regions
+            desc:         radiotable ;; extract a region of a text file using 'radiotable' style regions
             dreftymacid:  atrocity_bluntest_coping
             seealso:
               - href="../../../../../../mymedia/2014/git/github/dynamic.yaml/app/demo/demo01jjradiotable01.txt"
@@ -2758,7 +2767,7 @@ if('python_region'):
             grp_maj:      file
             grp_med:      string
             grp_min:      modify
-            desc:         replace a region of a text file using 'radiotable' style regions
+            desc:         radiotable ;; replace a region of a text file using 'radiotable' style regions
             dreftymacid:  extra_clamp_positive
             seealso:
               - href="../../../../../../mytrybits/y/tryyaml/dynamicyaml/app/demo/demo01command06.txt"
@@ -2791,7 +2800,8 @@ if('python_region'):
                                 'beg'   : 'beg-',
                                 'end'   : 'end-',
                                 'wrap'  : '<',
-                      }
+                          }
+          ##
           for vkey in zdefaults:
             if( (vkey in options) and (options[vkey].__str__() != '') ):
               zopts[vkey] = options[vkey]
@@ -2808,12 +2818,12 @@ if('python_region'):
             rtregexbeg  =   '\s*'+zopts['cmmt']+'\s*'+tagbeg+''
             rtregexend  =   '\s*'+zopts['cmmt']+'\s*'+tagend+''
           ##;;
-          
+
           ##
           # print tagbeg
           # print tagend
           ##;;
-          
+
           ##
           try:
             rawpref   = re.split(rtregexbeg, sgrawtext,)[0]
@@ -2843,7 +2853,7 @@ if('python_region'):
             elif(zopts['verbose']==False):
               vout = ''
           ##;;
-          
+
           ##
           return vout
         ##enddef
@@ -2871,6 +2881,7 @@ if('python_region'):
 
           ##
           vout      =   jjinput.__str__()
+          ##;;
 
           ##
           try:
@@ -2884,6 +2895,7 @@ if('python_region'):
             ##
             regex     =   re.compile(pattern,flags)
             vout      =   regex.sub(replacement, vout)
+          ##;;
 
           ##
           except Exception as msg:
@@ -2891,6 +2903,7 @@ if('python_region'):
             exc_type, exc_obj, exc_tb = sys.exc_info()
             fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
             print(exc_type, fname, exc_tb.tb_lineno)
+          ##;;
 
           ##
           return vout
@@ -3385,17 +3398,17 @@ if('python_region'):
               if( (os.path.isfile(outpath)) and (writemode=='create') ):
                 pymode  = ''
                 vout    = outpath;
-                vout    = "\nfailed to write output file %s (permissions issue? or does file already exist?)"%(vout)
+                vout    = "\n jjtofile failed to write output file %s (permissions issue? or does file already exist?)"%(vout)
               ##
               elif( (os.path.isfile(outpath)) and (writemode=='replace') ):
                 pymode  = 'wb'
                 vout    = outpath;
-                vout    = "\noutput file %s"%(vout)
+                vout    = "\n jjtofile output file %s"%(vout)
               ##
               elif( (os.path.isfile(outpath)) and (writemode=='append') ):
                 pymode  = 'ab'
                 vout    = outpath;
-                vout    = "\nappend file %s"%(vout)
+                vout    = "\n jjtofile append file %s"%(vout)
               ##---
 
               #print writemode
@@ -3535,7 +3548,7 @@ if('python_region'):
             dependencies:
               - none
             params:
-             - param: jjinput ;; required ;; placeholder argument for jinja
+             - param: jjinput ;; ignored ;; placeholder argument for jinja
              - param: enum ;; optional ;; add on additional enumeration component
             dreftymacid: vehement_chewer_til
           '''

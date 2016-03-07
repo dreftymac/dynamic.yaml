@@ -1,0 +1,16 @@
+      
+__yaml__:
+
+  - &uuwindswo99
+    caption:      jjfile_tostring ;; two ways to call the filter
+    processthis:  1
+    uuid:         uuwindswo99
+    dreftymacid:  fowls_stamper_armpits
+    off-template: | 
+    template: |
+      {%- set ttpath = "c:/sm/docs/mymedia/2014/git/github/dynamic.yaml/app/demo/zzdummy.js"  -%}
+      {{ '' |jjfile_tostring(ttpath) }}
+
+      {%- set ttpath = "c:/sm/docs/mymedia/2014/git/github/dynamic.yaml/app/demo/zzdummy.html"  -%}
+      {{ '' |jjfile_tostring(ttpath) }}
+      

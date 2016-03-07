@@ -1,0 +1,57 @@
+### <beg-file_info>
+### main:
+###   - date: created="Wed Mar 02 15:09:47 2016"
+###     last: lastmod="Wed Mar 02 15:09:47 2016"
+###     tags: ddyaml, array, list, basicops
+###     dreftymacid: "winglet_yeast_bruise"
+###     filetype: "yaml"
+###     seealso: |
+###         *
+###     desc: |
+###         jinja already has a "join" filter
+###         simple list operations
+### <end-file_info>
+
+maininfo:
+  ary_tinydemo:       [aa, bb, cc, dd, ee]
+  ary_tinylist:       [alpha, bravo, charlie, delta, echo]  
+  ary_tinydupe:       ["{{ maininfo.ary_tinylist }}","{{ maininfo.ary_tinydemo}}"]
+  ary_tinypipejoin:   "{{ maininfo.ary_tinydemo |join('|') }}"    
+  ary_tinyundrjoin:   "{{ maininfo.ary_tinydemo |join('_') }}"    
+  ary_tinydashjoin:   "{{ maininfo.ary_tinydemo |join('-') }}"
+  try_simpleslice01:  "{{ maininfo.ary_tinydemo[:-2:-1] }}"
+  try_simpleslice02:  "{{ maininfo.ary_tinydemo[0:2] }}"
+
+### ISSUE: NO_WORKY inclusion of custom filters in the firstpass YAML region
+### the following did not work in the firstpass YAML region (braces changed to angle to avoid interpo)
+### ## NO_WORKY ary_tinydupe: ["<< maininfo.ary_tinylist |jjlistjoin('-')>>","<< maininfo.ary_tinydemo |jjlistjoin('-') >>"]
+
+## href="c:/sm/docs/mytrybits/y/tryyaml/dynamicyaml/devlog.txt"
+## href="c:/sm/docs/mymedia/2014/git/github/dynamic.yaml/py/ddyaml.py"
+__yaml__:
+
+  - &uucrawlsZ
+    caption:      jjlistjoin demo 001
+    processthis:  1 
+    uuid:         uucrawlsZ
+    seealso: | 
+      * 
+    dreftymacid:  stinky_hoeing_elects
+    template: |
+      ## simple list operations
+      1) {{ maininfo.ary_tinydemo[0] }}
+      2) {{ maininfo.try_simpleslice01 }}
+      3) {{ maininfo.try_simpleslice02 }}
+      
+      
+      
+      ## using regular join      
+      {{ maininfo.ary_tinypipejoin }}     
+      {{ maininfo.ary_tinyundrjoin }}     
+      {{ maininfo.ary_tinydashjoin }}
+      
+      ## using jjlistjoin (superfluous)
+      {{ maininfo.ary_tinydemo |jjlistjoin('-') }}  
+      {{ maininfo.ary_tinylist |jjlistjoin('-') }}  
+      {{ maininfo.ary_tinydupe |jjlistjoin('-') }}  
+

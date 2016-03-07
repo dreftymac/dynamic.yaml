@@ -1,0 +1,10 @@
+{%- macro mmjjsayhello(opts) -%}
+  {#- --------------------------------------------- -#}
+  {%- set opts    = kwargs  -%}
+  {%- set name    = opts.name or 'world'    -%}
+  {#- --------------------------------------------- -#}
+  Hello {{ name }}!
+  {% if caller %}{{ caller() -}}{% endif %}
+{%- endmacro -%}
+
+href= 

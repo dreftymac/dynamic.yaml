@@ -70,7 +70,6 @@ if('python_region'):
           ## init defaults (TODO ;; code refactor use this instead of options)
           self.options = {}
           self.options['ddyaml_string_enddata']   = '__yaml__'
-          #self.options['ddyaml_string_configs']   = '__config__'
           self.options['ddyaml_process_twopass']  = True
           ## allow for overriding defaults
           for tmpname, tmpvarr in kwargs.items():
@@ -98,7 +97,7 @@ if('python_region'):
             pass
           ##;;
 
-          ## init ;; jinja_syntaxconfig
+          ## init ;; jinja_config
           ## standard initializtion parameters for jinja2
           '''
           syntaxconfig          ;; syncondesc    ;; syncondefault
@@ -115,6 +114,8 @@ if('python_region'):
           self.oenv.variable_end_string   = options.get('variable_end_string'   , '}}')
           self.oenv.comment_start_string  = options.get('comment_start_string'  , '{#')
           self.oenv.comment_end_string    = options.get('comment_end_string'    , '#}')
+          self.oenv.cache_size            = '0' 
+                    
           ##;;
 
           ##
