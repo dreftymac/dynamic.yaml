@@ -11,7 +11,8 @@ __yaml__:
     desc:         __desc__
     dreftymacid:  __dreftymacid__
     datainclude:      datainclude
-    templateinclude:  templateinclude
-    template:         |
-      {% include 'c:/sm/docs/mymedia/2014/git/github/dynamic.yaml/app/demo/demo00.importinclude00.txt' with context %}
-      {{ mmjjsayhello(name='world') }}
+    pathinclude:
+      - "c:/sm/docs/mymedia/2014/git/github/dynamic.yaml/app/demo"
+    template: |
+      {% import 'demo00.importinclude00.txt' as foobar %}
+      {{ foobar.mmjjsayhello(name='world') }}

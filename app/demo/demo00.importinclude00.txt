@@ -6,5 +6,3 @@
   Hello {{ name }}!
   {% if caller %}{{ caller() -}}{% endif %}
 {%- endmacro -%}
-
-href= 

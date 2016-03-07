@@ -11,7 +11,7 @@
 ###     desc: |
 ###         desc
 ### <end-file_info>
- 
+
 ### @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 ### init py
 if('python_region'):
@@ -66,58 +66,34 @@ if('python_region'):
 
         ##
         def __init__(self,options={},**kwargs):
-          
-          ## init defaults (TODO ;; code refactor use this instead of options)
+
+          ## init defaults (TODO ;; code refactor use self.options instead of options)
           self.options = {}
           self.options['ddyaml_string_enddata']   = '__yaml__'
           self.options['ddyaml_process_twopass']  = True
-          ## bkmk001 ;; support for jinja2.FileSystemLoader ;; 
-          self.options['filesystem_paths']        = []
-          ## allow for overriding defaults
-          for tmpname, tmpvarr in kwargs.items():
-              self.options[tmpname] = tmpvarr
-          ##;;          
-          
-          ## init jinja_environment
-          self.Environment      =   jinja2.Environment(
-            extensions=[
-              'jinja2.ext.do'
-              ,'jinja2.ext.loopcontrols'
-              ]
-            #,finalize=self.oenv_finalize
-            )
-          self.oenv = self.Environment
-          ##;;
-
-          ## init jinja_globals
-          ## supports variables that are accessible to every jinja template
-          self.oenv.globals = {"noop" : ""
-            }
+          ## bkmk001 ;; support for jinja2.FileSystemLoader ;;
+          self.options['filesystemloader_paths']        = []
+          self.options['jinja2_globals']          = {}
+          ## TODO ;; check globals functionality for regressions
+          ## environment provisioning was changed, moved out of __init__ and into its own method
+          ## self.provision_jinja2_environment
           try:
-            for item in options['globals']: self.oenv.globals[item[0]] = item[1]
+            for item in options['globals']: self.options['jinja2_globals'][item[0]] = item[1]
           except:
             pass
           ##;;
 
-          ## init ;; jinja_config
-          ## standard initializtion parameters for jinja2
-          '''
-          syntaxconfig          ;; syncondesc    ;; syncondefault
-          block_start_string    ;; blockstart    ;; '{%'
-          block_end_string      ;; blockend      ;; '%}'
-          variable_start_string ;; variablestart ;; '{{'
-          variable_end_string   ;; variableend   ;; '}}'
-          comment_start_string  ;; commentstart  ;; '{#'
-          comment_end_string    ;; commentend    ;; '#}'
-          '''
-          self.oenv.block_start_string    = options.get('block_start_string'    , '{%')
-          self.oenv.block_end_string      = options.get('block_end_string'      , '%}')
-          self.oenv.variable_start_string = options.get('variable_start_string' , '{{')
-          self.oenv.variable_end_string   = options.get('variable_end_string'   , '}}')
-          self.oenv.comment_start_string  = options.get('comment_start_string'  , '{#')
-          self.oenv.comment_end_string    = options.get('comment_end_string'    , '#}')
-          self.oenv.cache_size            = '0'                    
+          ## allow for overriding defaults
+          for tmpname, tmpvarr in kwargs.items():
+              self.options[tmpname] = tmpvarr
           ##;;
+
+          self.options['block_start_string'   ] = options.get('block_start_string'    , '{%')
+          self.options['block_end_string'     ] = options.get('block_end_string'      , '%}')
+          self.options['variable_start_string'] = options.get('variable_start_string' , '{{')
+          self.options['variable_end_string'  ] = options.get('variable_end_string'   , '}}')
+          self.options['comment_start_string' ] = options.get('comment_start_string'  , '{#')
+          self.options['comment_end_string'   ] = options.get('comment_end_string'    , '#}')
 
           ##
           self.primaryYamlPath    =   options.get('path', '')          ## primaryYamlPath
@@ -132,6 +108,69 @@ if('python_region'):
             \n## primaryYamlPath file not specified or unreachable
             """)
             ## print sgtemp
+        ##enddef
+
+        def provision_jinja2_environment(self):
+          '''
+          provision a jinja2 environment
+          this is a prerequisite for rendering jinja2 output
+          '''
+          ## init jinja_environment
+          self.Environment      =   jinja2.Environment(
+            extensions=[
+              'jinja2.ext.do'
+              ,'jinja2.ext.loopcontrols'
+              ]
+            ## bkmk001
+            ,loader=jinja2.FileSystemLoader( self.options['filesystemloader_paths'] )
+            #,finalize=self.oenv_finalize
+            )
+          self.oenv = self.Environment
+          ##;;
+
+          # print "### ------------------------------------------------------------------------"
+          # print "bkmk001 :: symbiote_security_dna"
+          # print self.oenv.loader.list_templates()
+
+          ## init jinja_globals
+          ## supports variables that are accessible to every jinja template
+          # self.oenv.globals = {"noop" : ""
+          #   }
+          # try:
+          #   for item in self.options['jinja2_globals']: self.oenv.globals[item[0]] = item[1]
+          # except:
+          #   pass
+          ##;;
+
+          ## init ;; jinja_config
+          ## standard initializtion parameters for jinja2
+          '''
+          syntaxconfig          ;; syncondesc    ;; syncondefault
+          block_start_string    ;; blockstart    ;; '{%'
+          block_end_string      ;; blockend      ;; '%}'
+          variable_start_string ;; variablestart ;; '{{'
+          variable_end_string   ;; variableend   ;; '}}'
+          comment_start_string  ;; commentstart  ;; '{#'
+          comment_end_string    ;; commentend    ;; '#}'
+          '''
+          self.oenv.block_start_string    = self.options['block_start_string'   ]
+          self.oenv.block_end_string      = self.options['block_end_string'     ]
+          self.oenv.variable_start_string = self.options['variable_start_string']
+          self.oenv.variable_end_string   = self.options['variable_end_string'  ]
+          self.oenv.comment_start_string  = self.options['comment_start_string' ]
+          self.oenv.comment_end_string    = self.options['comment_end_string'   ]
+          #self.oenv.cache_size            = '0'
+          ##;;
+
+          ## init custom filters for self.oenv
+          for addonclass in self.addonFilters:
+            self.oenv = addonclass.attach_filters( self.oenv )
+              ## see href="./JinjaFilterDynamicYAML.py"
+            pass
+          ##;;
+          
+          ##
+          #return self.oenv
         ##enddef
 
         #@ figure out optimal use of jinja finalize
@@ -219,7 +258,7 @@ if('python_region'):
               pass
           return sscurr
         ##enddef
-        
+
         ##
         def ff_resolvepath_path(self,spath=''):
           '''
@@ -247,9 +286,9 @@ if('python_region'):
           if(os.access(spath,os.R_OK)):       getpath = spath
           ## check if spath is readable as relative to path of primaryYamlWwbody
           if(os.access(spath_mod01,os.R_OK)): getpath = spath_mod01
-          ## 
+          ##
           return getpath
-        ##enddef        
+        ##enddef
 
         #@@ ## TODO ;; refactor this ;; parasitic inheritance method that just returns the result of
         #@@ ##    firstpass multipass processing
@@ -274,19 +313,8 @@ if('python_region'):
           ###     desc: |
           ###         desc
           """
-          ## init jinja environment (oEnv) and extensions
-          oEnv   =  self.oenv
-          ##;;
-
-          ## init custom filters for oEnv
-          for addonclass in self.addonFilters:
-            oEnv  = addonclass.attach_filters( oEnv )
-              ## see href="./JinjaFilterDynamicYAML.py"
-            pass
-          ##;;
-
           ## placeholder syntax
-          sgg_dynamicyaml_key     =   self.options['ddyaml_string_enddata'] 
+          sgg_dynamicyaml_key     =   self.options['ddyaml_string_enddata']
           sgg_dynamicyaml_key     =   sgg_dynamicyaml_key.lower()
           sgg_directiveprefix_str =   ''
           ##;;
@@ -296,7 +324,7 @@ if('python_region'):
           ssgpath         =   ''
           originalconfig  =   {}
           ##;;
-          
+
           ### TODO ;; adopt the conventions from yamlembedjinja ;; yamlregions
           ###     href="./YamlEmbedJinja.py" find="blast_tinworks_reply"
           ###     href="./YamlEmbedJinja.py" find="yamlregions_primary"
@@ -320,7 +348,7 @@ if('python_region'):
             if(not bload_stora_success):
               ###
               try:
-                primaryYamlWwbody     =     codecs.open(ssgpath, 'r', 'utf-8').read()                
+                primaryYamlWwbody     =     codecs.open(ssgpath, 'r', 'utf-8').read()
                 if( self.options['ddyaml_process_twopass'] ):
                   primaryYamlWwbody   =     self.ddexport(primaryYamlWwbody)
                 originalconfig        =     yaml.safe_load(primaryYamlWwbody) or originalconfig
@@ -347,7 +375,7 @@ if('python_region'):
             #     pass
             #   ###;;
             # ##endif
-              
+
             # ##
             # if(not bload_stora_success):
             #   ###
@@ -360,9 +388,9 @@ if('python_region'):
             #     originalconfig = yaml.safe_load(primaryYamlWwbody) or originalconfig
             #   except:
             #     pass
-            #   ###;;              
+            #   ###;;
             # ##;;
-          
+
           if( not 'debugging'):
             print originalconfig
             print primaryYamlWwbody
@@ -462,7 +490,6 @@ if('python_region'):
                 ## print tmpval
               ##;;
 
-              ## bkmk001
               ## @@@ template directive ;; we get template from primaryYamlWwbody
               tmpname = ['template','']
               tmpkey  = sgg_directiveprefix_str + "".join(tmpname)
@@ -472,7 +499,6 @@ if('python_region'):
                 ## print tmpval
               ##;;
 
-              ## bkmk001
               ## @@@ templateincluede directive ;; we get one_or_more template from one_or_more external file
               ## and merge it with the data in the primaryYamlWwbody
               tmpname =   ['templateinclude']
@@ -490,7 +516,9 @@ if('python_region'):
                 ## iterate items
                 for spath in tmpval:
                   #sscurr        =   ''
+                  ## return readable path or else empty string
                   sscurr        =   self.ff_resolvepath_read(spath)
+
                   ## err_quiet
                   if(sscurr == ''):
                     continue
@@ -502,6 +530,45 @@ if('python_region'):
                 ##
                 if(sstemp != ''):
                   directives['current_'+tmpname[0]]   =   sstemp
+                ## print tmpval
+              ##;;
+
+              ## bkmk001
+              ## @@@ pathinclude directive ;; we get one_or_more path for use with jinja.FileSystemLoader
+              tmpname =   ['pathinclude']
+              tmpkey  =   sgg_directiveprefix_str + "".join(tmpname)
+              if( (tmpkey) in row ):
+                tmpval = row[tmpkey]
+
+                ## iterate includes ;; force scalar to list
+                sstemp = ''
+                if(tmpval is None):
+                  tmpval = ['']
+                if(  type(tmpval) == str ):
+                  tmpval = [tmpval] ## force scalar to list
+
+                ## iterate items
+                for spath in tmpval:
+                  ## return readable path or else empty string
+                  sscurr = self.ff_resolvepath_path(spath)
+                  # print " bkmk001 ### ------------------------------------------------------------------------ "
+                  #print sscurr
+                  #print os.path.dirname(sscurr)
+
+                  ## err_quiet
+                  if(sscurr == ''):
+                    continue
+                  ## err_verbose
+                  if(sscurr ==  ''):
+                    raise ValueError('wenga_hsiw_repel: failed to access file content at %s '%(spath))
+                  elif(True):
+                    self.options['filesystemloader_paths'].append( sscurr )
+                    print " bkmk001 :: valorous_beatings_stereos ### ------------------------------------------------------------------------ "
+                    print sscurr
+
+                ##
+                # if(sstemp != ''):
+                #   directives['current_'+tmpname[0]]   =   sstemp
                 ## print tmpval
               ##;;
 
@@ -530,7 +597,7 @@ if('python_region'):
                   if(sscurr ==  ''):
                     raise ValueError('undid_sail_unleash: failed to access file content at %s '%(spath))
                   elif(True):
-                    sscurr    = self.ddexport(sscurr) ##;; apply firstpass transform to embedded datainclude                    
+                    sscurr    = self.ddexport(sscurr) ##;; apply firstpass transform to embedded datainclude
                     sstemp    += sscurr
                 ##
                 if(sstemp != ''):
@@ -557,7 +624,6 @@ if('python_region'):
                 directives['current_'+tmpname[0]]   =   yaml.safe_load(tmpval)
               ##;;
 
-              ## bkmk001
               ## preproc directives
               if('current_templateinclude' in directives):
                 directives['current_template'] = directives['current_templateinclude'] + directives['current_template']
@@ -588,8 +654,11 @@ if('python_region'):
               ## render output
               ## TODO ;; allow customizable data merge semantics
               directives['default_data'].update(directives['current_data'])
+              ## bkmk001
+              self.provision_jinja2_environment()
+              #oEnv            =   self.oenv
               otemplate_data  =   directives['default_data']
-              template        =   oEnv.from_string(textwrap.dedent(directives['current_template']))
+              template        =   self.oenv.from_string(textwrap.dedent(directives['current_template']))
               tmpout          =   template.render(otemplate_data)
 
               ## force unix line endings
