@@ -71,6 +71,8 @@ if('python_region'):
           self.options = {}
           self.options['ddyaml_string_enddata']   = '__yaml__'
           self.options['ddyaml_process_twopass']  = True
+          ## bkmk001 ;; support for jinja2.FileSystemLoader ;; 
+          self.options['filesystem_paths']        = []
           ## allow for overriding defaults
           for tmpname, tmpvarr in kwargs.items():
               self.options[tmpname] = tmpvarr
@@ -114,8 +116,7 @@ if('python_region'):
           self.oenv.variable_end_string   = options.get('variable_end_string'   , '}}')
           self.oenv.comment_start_string  = options.get('comment_start_string'  , '{#')
           self.oenv.comment_end_string    = options.get('comment_end_string'    , '#}')
-          self.oenv.cache_size            = '0' 
-                    
+          self.oenv.cache_size            = '0'                    
           ##;;
 
           ##
