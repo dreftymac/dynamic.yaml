@@ -19,48 +19,30 @@
 __yaml__:
 
   - &uustockUU
-    caption:      jjradioreplace ;; macro caller cleanest syntax ;; uses default region identifier <beg-alpha_bravo><end-alpha_bravo>
+    caption:      jjradioextract 
     processthis:  1
     uuid:         uustockUU
     desc: |
-      ## PROBLEM
-      * unwanted behavior ;; running the macro multiple times only produces one result
-      * href="c:/sm/docs/mymedia/2014/git/github/dynamic.yaml/app/.ignore__jinja/yymacro01.jjradio01.txt"
+      jjradio extract demo
     dreftymacid:  judith_replays_inland
-    #templateinclude:
-    #  - "c:/sm/docs/mymedia/2014/git/github/dynamic.yaml/app/.ignore__jinja/yymacro01mm01.txt"
     pathinclude:
-      - "c:/sm/docs/mymedia/2014/git/github/dynamic.yaml/app/.ignore__jinja"
-    offtemplate: |
-      {#- ------------------------------------------------------------------------ -#}
-      {%- set ttfilein  =   "c:/sm/docs/mymedia/2014/git/github/dynamic.yaml/app/demo/samplefile01jjradiotable00.txt" -%}
-      {%- set ttuuid    =   "file_info" -%}
-      {#- ------------------------------------------------------------------------ -#}
-      {% import 'yymacro01.jjradio01.txt' as mmjjradio with context %}      
-      {%call mmjjradio.mmjjradioreplace(filein=ttfilein,uuid=ttuid)-%}
-      {%-endcall%}
-      {#- ------------------------------------------------------------------------ -#}       
-      {%- set ttfilein  =   "c:/sm/docs/mymedia/2014/git/github/dynamic.yaml/app/demo/samplefile01jjradiotable01.txt" -%}
-      {%- set ttuuid    =   "region_simpledata_test" -%}
-      {#- ------------------------------------------------------------------------ -#}
-      {% import 'yymacro01.jjradio01.txt' as mmjjradio without context %}      
-      {%call mmjjradio.mmjjradioreplace(filein=ttfilein,uuid=ttuid)-%}
-      ###  {{ ''| jjdata_diceword() }}
-      ###  {{ ''| jjdata_diceword() }}
-      ###  {{ ''| jjdata_diceword() }}
-      {%-endcall%}         
+      - "c:/sm/docs/mymedia/2014/git/github/dynamic.yaml/app/.ignore__jinja"         
     template: |
+      {#- ------------------------------------------------------------------------ -#} 
       {% import 'yymacro01.jjradio01.txt' as mmjjradio without context %}         
+      {#- ------------------------------------------------------------------------ -#} 
       {% set ttbodyone %}
         {{ mmjjradio.mmjjradioextract(noop=""
             ,filein="c:/sm/docs/mymedia/2014/git/github/dynamic.yaml/app/demo/samplefile01jjradiotable00.txt"
             ,uuid='region_alpha_helloworld') }}
       {% endset %} 
+      {#- ------------------------------------------------------------------------ -#} 
       {% set ttbodytwo %}
         {{ mmjjradio.mmjjradioextract(noop=""
             ,filein="c:/sm/docs/mymedia/2014/git/github/dynamic.yaml/app/demo/samplefile01jjradiotable00.txt"
             ,uuid='region_bravo_helloworld') }}
       {% endset %}
+      {#- ------------------------------------------------------------------------ -#} 
       {% set ttbodytre %}
         {{ mmjjradio.mmjjradioextract(noop=""
             ,filein="c:/sm/docs/mymedia/2014/git/github/dynamic.yaml/app/demo/samplefile01jjradiotable00.txt"
@@ -70,9 +52,7 @@ __yaml__:
       {{ ttbodyone }}
       {{ ttbodytwo }}
       {{ ttbodytre }}      
-
    
-  
   - &uustockVV
     caption:      jjradioreplace ;; macro caller cleanest syntax ;; uses default region identifier <beg-alpha_bravo><end-alpha_bravo>
     processthis:  0
