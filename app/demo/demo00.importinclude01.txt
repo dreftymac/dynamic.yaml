@@ -1,18 +1,35 @@
-## href="smartpath://mytrybits/y/tryyaml/dynamicyaml/devlog.txt"
-## href="smartpath://mymedia/2014/git/github/dynamic.yaml/app/demo/readme.md"
-## href="smartpath://mymedia/2014/git/github/dynamic.yaml/py/ddyamlrunner.py"
-## href="smartpath://mymedia/2014/git/github/dynamic.yaml/py/ddyaml/jinjafilterdynamicyaml.py"
+### <beg-file_info>
+### main:
+###   - date: created="Mon Mar 07 11:07:58 2016"
+###     last: lastmod="Mon Mar 07 11:07:58 2016"
+###     tags: tags 
+###     dreftymacid: "ma_rivalry_slanting"
+###     filetype: "yaml"
+###     seealso: |
+###         *
+###     desc: |
+###         demonstrate the jinja way of importing templates
+###
+###         DEPENDENCIES: 
+###         * uses the ddyaml pathinclude directive
+###         * uses the jinja2 import directive
+### <end-file_info>
+
 __yaml__:
 
   - &uuid001
     caption:      caption
-    processthis: 1
+    processthis:  1
     uuid:         uuid001
     desc:         __desc__
-    dreftymacid:  __dreftymacid__
-    datainclude:      datainclude
+    dreftymacid:  reload_unfaith_eventful
     pathinclude:
       - "c:/sm/docs/mymedia/2014/git/github/dynamic.yaml/app/demo"
     template: |
       {% import 'demo00.importinclude00.txt' as foobar %}
-      {{ foobar.mmjjsayhello(name='world') }}
+      {{-""-}} {{ foobar.mmjjsayhello(name='world') }}
+      {{-""-}} {{ foobar.mmjjsayhello(name='alpha') }}
+      {{-""-}} {{ foobar.mmjjsayhello(name='bravo') }}
+      {{-""-}} {{ foobar.mmjjsayhello(name='charl') }}
+
+

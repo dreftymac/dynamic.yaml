@@ -656,7 +656,7 @@ if('python_region'):
               directives['default_data'].update(directives['current_data'])
               ## bkmk001
               self.provision_jinja2_environment()
-              #oEnv            =   self.oenv
+              #oEnv  =  self.oenv
               otemplate_data  =   directives['default_data']
               template        =   self.oenv.from_string(textwrap.dedent(directives['current_template']))
               tmpout          =   template.render(otemplate_data)
