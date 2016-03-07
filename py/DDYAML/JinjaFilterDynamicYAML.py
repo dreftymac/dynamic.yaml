@@ -2711,11 +2711,11 @@ if('python_region'):
               - import re
               - self.jjfromfile
             params:
-             - param: jjinput     ;;  required  ;;  jinja raw input string
-             - param: targfile    ;;  required  ;;  target destination file for pasting in radiotable
-             - param: rtregexbeg  ;;  required  ;;  begin regex token for delimiting radiotable
-             - param: rtregexend  ;;  required  ;;  end regex token for delimiting radiotable
-             - param: options     ;;  optional  ;;  local options dictionary
+             - param: jjinput    ;; required  ;; jinja raw input string
+             - param: targfile   ;; required  ;; target destination file for pasting in radiotable
+             - param: rtregexbeg ;; required  ;; begin regex token for delimiting radiotable
+             - param: rtregexend ;; required  ;; end regex token for delimiting radiotable
+             - param: options    ;; optional  ;; local options dictionary
           ##end_func_docs
           '''
 

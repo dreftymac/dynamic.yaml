@@ -159,7 +159,7 @@ if('python_region'):
           self.oenv.variable_end_string   = self.options['variable_end_string'  ]
           self.oenv.comment_start_string  = self.options['comment_start_string' ]
           self.oenv.comment_end_string    = self.options['comment_end_string'   ]
-          #self.oenv.cache_size            = '0'
+          self.oenv.cache_size            = '0'
           ##;;
 
           ## init custom filters for self.oenv
@@ -563,8 +563,8 @@ if('python_region'):
                     raise ValueError('wenga_hsiw_repel: failed to access file content at %s '%(spath))
                   elif(True):
                     self.options['filesystemloader_paths'].append( sscurr )
-                    print " bkmk001 :: valorous_beatings_stereos ### ------------------------------------------------------------------------ "
-                    print sscurr
+                    # print " bkmk001 :: directs_dozer_forums ### ------------------------------------------------------------------------ "
+                    # print sscurr
 
                 ##
                 # if(sstemp != ''):
@@ -658,8 +658,17 @@ if('python_region'):
               self.provision_jinja2_environment()
               #oEnv  =  self.oenv
               otemplate_data  =   directives['default_data']
-              template        =   self.oenv.from_string(textwrap.dedent(directives['current_template']))
+              mystring        =   textwrap.dedent(directives['current_template'])
+              template        =   self.oenv.from_string(mystring)
               tmpout          =   template.render(otemplate_data)
+
+              if(not 'debugging'):
+                  print "### ------------------------------------------------------------------------"
+                  print "\n\n\n"
+                  print "%s" %( mystring )
+                  print "\n\n\n"
+                  print "### ------------------------------------------------------------------------"
+                  exit()
 
               ## force unix line endings
               if(True):
