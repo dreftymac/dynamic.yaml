@@ -8,4 +8,4 @@ __yaml__:
     caption:      barebones replace demo
     processthis: 1
     template:         |
-      {{ "this is  so  cool" |jjregexreplace('\s+','_') |replace('_','-') }}
+      {{ "this is  ->   so    <-  cool" |jjregexreplace('\s+','_') |replace('_','-') }}

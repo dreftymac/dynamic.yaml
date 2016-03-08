@@ -101,9 +101,12 @@ if (__name__ == "__main__"):
     
       ### ********************
       options_dict = vars(options)
-      # print( options_dict )
-      # oDumper.pprint( args )
-      pass;
+      ##
+      if(not 'debugging'):
+        print( options_dict )
+        # oDumper.pprint( args )
+        pass;
+      ##;;
     
       ### ------------------------------------------------------------------------
       ##  invoke_ddyaml_runner

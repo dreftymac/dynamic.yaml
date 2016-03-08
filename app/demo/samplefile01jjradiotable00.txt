@@ -1,23 +1,13 @@
-### <beg-file_info>
-### main:
-###   - date: created="Sun Mar 06 12:32:18 2016"
-###     last: lastmod="Sun Mar 06 12:32:18 2016"
-###     tags: tags
-###     dreftymacid: "stats_nervous_uplands"
-###     filetype: "yaml"
-###     seealso: |
-###         *
-###     desc: |
-###         foobar doobar goobar moobar
-### <end-file_info>
-
 ### <beg-region_alpha_helloworld>
-order_none047_given615
-are586_either256_compres357
-rieht882_1857_intermediate
+### @alpha alpha alpha
+### @order_none047_given615
+### @are586_either256_compres357
+### @rieht882_1857_intermediate
+### @zippydippy r283_next130_reading610
 ### <end-region_alpha_helloworld>
 
 ### <beg-region_bravo_helloworld>
+bravo bravo bravo
 for780_2550_if615
 yam332_return204_what482
 hgih_can387_present378

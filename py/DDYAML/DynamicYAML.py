@@ -73,14 +73,21 @@ if('python_region'):
           self.options['ddyaml_process_twopass']  = True
           ## bkmk001 ;; support for jinja2.FileSystemLoader ;;
           self.options['filesystemloader_paths']        = []
-          self.options['jinja2_globals']          = {}
+          self.options['jinja2_globals']                = {}
           ## TODO ;; check globals functionality for regressions
           ## environment provisioning was changed, moved out of __init__ and into its own method
           ## self.provision_jinja2_environment
           try:
-            for item in options['globals']: self.options['jinja2_globals'][item[0]] = item[1]
+            for item in options['globals']:
+                  self.options['jinja2_globals'][item[0]] = item[1]
           except:
             pass
+          ##;;
+          
+          ## jinja2_globals
+          if(not not 'debugging'):
+            print "### ------------------------------------------------------------------------"
+            print self.options['jinja2_globals']
           ##;;
 
           ## allow for overriding defaults
@@ -134,13 +141,19 @@ if('python_region'):
 
           ## init jinja_globals
           ## supports variables that are accessible to every jinja template
-          # self.oenv.globals = {"noop" : ""
-          #   }
-          # try:
-          #   for item in self.options['jinja2_globals']: self.oenv.globals[item[0]] = item[1]
-          # except:
-          #   pass
+          #self.oenv.globals = {"noop" : ""}
+          try:
+             for ddkey in self.options['jinja2_globals']:
+                 self.oenv.globals[ddkey] = self.options['jinja2_globals'][ddkey]
+          except:
+             pass
           ##;;
+
+          ## jinja2_globals
+          if(not not 'debugging'):
+            print "### ------------------------------------------------------------------------"
+            print self.oenv.globals
+          ##;;          
 
           ## init ;; jinja_config
           ## standard initializtion parameters for jinja2

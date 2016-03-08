@@ -1,3 +1,10 @@
-{%- set name = 'homer' -%}
-{%- set ttname = name or ttalpha -%}
-Hello {{ ttname }}! 
+__yaml__:
+
+  - &uuid001
+    caption:      caption
+    processthis: 1
+    uuid:         uuid001
+    template:         |
+      {%- set name = 'homer' -%}
+      {%- set ttname = ggbasename or name -%}
+      Hello {{ ttname }}! 
