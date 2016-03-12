@@ -3018,6 +3018,8 @@ if('python_region'):
             grp_min:      grp_min
             desc:         simulate a curl call. seealso jjrequesturl
             dreftymacid:  armpits_magnet_freshens
+            seealso:
+              - jjrequesturl
             detail:  |
               * __blank__
             dependencies:

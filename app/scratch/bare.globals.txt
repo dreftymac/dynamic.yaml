@@ -2,7 +2,7 @@ __yaml__:
 
   - &uuid001
     caption:      caption
-    processthis: 1
+    processthis:  1
     uuid:         uuid001
     template:         |
       {%- set name = 'homer' -%}

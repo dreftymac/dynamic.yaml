@@ -85,8 +85,8 @@ if('python_region'):
           ##;;
           
           ## jinja2_globals
-          if(not not 'debugging'):
-            print "### ------------------------------------------------------------------------"
+          if(not 'debugging'):
+            print "### nicer_simply_haze ------------------------------------------------------------------------"
             print self.options['jinja2_globals']
           ##;;
 
@@ -150,8 +150,8 @@ if('python_region'):
           ##;;
 
           ## jinja2_globals
-          if(not not 'debugging'):
-            print "### ------------------------------------------------------------------------"
+          if(not 'debugging'):
+            print "### wizardly_vaselike_virility ------------------------------------------------------------------------"
             print self.oenv.globals
           ##;;          
 
