@@ -41,6 +41,7 @@ This project is very similar to:
    * https://pypi.python.org/pypi/jenkinsyamlconfigs/0.2.3
    * https://pypi.python.org/pypi?%3Aaction=search&term=yaml&submit=search
 * Others
+   * jsonf-format-extensions ;; https://github.com/burningtree/awesome-json#format-extensions
    * HOCON ;; https://github.com/typesafehub/config/blob/master/HOCON.md#hocon-human-optimized-config-object-notation
    * json-hybrid ;; http://hjson.org/
    * json-hybrid ;; https://metacpan.org/pod/distribution/JSONY/lib/JSONY.pod
