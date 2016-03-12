@@ -48,6 +48,8 @@ This project is very similar to:
    * MVCPages ;; https://github.com/joeriks/MVCPages
    * Coookiecutter ;; https://github.com/audreyr/cookiecutter
    * Jolt ;; https://github.com/bazaarvoice/jolt
+* Templating as a service
+   * die-cutter ;; https://github.com/diecutter/piecutter
 
 ## Jinja and Jinja2
 
