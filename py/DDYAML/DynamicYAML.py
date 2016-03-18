@@ -371,39 +371,6 @@ if('python_region'):
               ###;;;
             ##;;
 
-            # ##
-            # if(not bload_stora_success):
-            #   ###
-            #   try:
-            #     ##
-            #     primaryYamlWwbody     =    codecs.open(ssgpath, 'r', 'utf-8').read()
-            #     iiSpPref = 32
-            #     svirtualtemplate      = '''
-            #     __yaml__:
-            #     - template: |\n%s
-            #     '''%("\n".join((iiSpPref * " ") + ix for ix in primaryYamlWwbody.splitlines()))
-            #     ##
-            #     originalconfig = yaml.safe_load(svirtualtemplate) or originalconfig
-            #   except:
-            #     pass
-            #   ###;;
-            # ##endif
-
-            # ##
-            # if(not bload_stora_success):
-            #   ###
-            #   try:
-            #     ##
-            #     primaryYamlWwbody     = '''
-            #     __yaml__: []
-            #     '''
-            #     ##
-            #     originalconfig = yaml.safe_load(primaryYamlWwbody) or originalconfig
-            #   except:
-            #     pass
-            #   ###;;
-            # ##;;
-
           if( not 'debugging'):
             print originalconfig
             print primaryYamlWwbody

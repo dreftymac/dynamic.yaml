@@ -1,0 +1,39 @@
+### <beg-file_info>
+### main:
+###   - date: created="Thu Mar 17 17:32:46 2016"
+###     last: lastmod="Thu Mar 17 17:32:46 2016"
+###     tags:   url, requests, http, web,  
+###     author: created="__author__"
+###     dreftymacid: "hornet_krause_blinds"
+###     filetype: "yaml"
+###     seealso: |
+###         *
+###     desc: |
+###         desc
+### <end-file_info>
+ 
+links_list:
+  - "http://www.example.com"
+  - "http://pages.uoregon.edu/baoforms/bao_drupal_6/sites/ba.uoregon.edu/files/forms/thirdpartyvendorapp.pdf"
+  - "http://www.example.com/no_existo_contento.pdf"
+
+__yaml__:
+
+  - &uuid002
+    caption:     jjurl_exists ;; test for existence
+    processthis: 1
+    uuid:         uuid002
+    template: |
+      {% for item in links_list -%}
+      {{ ''|jjurl_exists(item) }}
+      {% endfor %}
+
+  - &uuid001
+    caption:      jjurl_request ;; get the requested url
+    processthis:  0  
+    uuid:         uuid001
+    template: |
+      {% for item in links_list -%}
+      {{ ''|jjurl_request(item) }}
+      {% endfor %}
+      

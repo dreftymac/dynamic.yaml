@@ -11,40 +11,41 @@
 ###     desc: |
 ###         desc
 ### <end-file_info>
-
+      
 ### @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 ### init py
 if('python_region'):
-      ## init py
-      import base64
-      import codecs
-      import csv
-      import datetime
-      import glob
-      import jinja2
-      import json
-      import platform
-      import markdown
-      import os
-      import random
-      import requests
-      import re
-      import shutil
-      import string
-      import StringIO
-      import sys
-      import textwrap
-      import time
-      import uuid
-      import xlrd
-      import yaml
-      import zipfile
+  ## init py
+  import base64
+  import codecs
+  import csv
+  import datetime
+  import glob
+  import jinja2
+  import json
+  import platform
+  import markdown
+  import os
+  import random
+  import requests
+  import re
+  import shutil
+  import string
+  import StringIO
+  import sys
+  import textwrap
+  import time
+  import urllib2
+  import uuid
+  import xlrd
+  import yaml
+  import zipfile
 
-      ##
-      from JinjaFilterBase import JinjaFilterBase
-      from DataHelperUtils import DataHelperUtils
-      from DataHelperDiceware import DataHelperDiceware
-      from YamlDerivedBaseRepresenter import YamlDerivedBaseRepresenter
+  ##
+  from JinjaFilterBase import JinjaFilterBase
+  from DataHelperUtils import DataHelperUtils
+  from DataHelperDiceware import DataHelperDiceware
+  from YamlDerivedBaseRepresenter import YamlDerivedBaseRepresenter
 
 ### @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 ### new_function_snippet
@@ -2394,8 +2395,10 @@ if('python_region'):
 
           ##
           try:
-            vout = jjinput[index]
-          except Exception as msg:
+            vout  = jjinput[index]
+          except  IndexError as msg:
+            vout  = ''
+          except  Exception as msg:
             print 'UNEXPECTED TERMINATION msg@%s'%(msg.__repr__())
             exc_type, exc_obj, exc_tb = sys.exc_info()
             fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
@@ -3052,7 +3055,7 @@ if('python_region'):
         def jjrequesturl(self,jjinput,sgurl='http://www.example.com',):
           '''
           ## function docs
-          - caption:      jjrequesturl
+          - caption:      jjurl_request
             date:         lastmod="Tue 2015-08-11 16:12:12"
             grp_maj:      webscrape
             grp_med:      request
@@ -3091,6 +3094,45 @@ if('python_region'):
         ##enddef
         ## alias_definition
         def jjfromurl(self,jjinput,sgurl): return self.jjrequesturl(jjinput,sgurl)
+        def jjurl_request(self,jjinput,sgurl): return self.jjrequesturl(jjinput,sgurl)
+        ##enddef
+
+        def jjurl_exists(self,jjinput,sgurl='http://www.example.com',):
+          '''
+          ## function docs
+          - caption:      jjurl_exists
+            date:         lastmod="Tue 2015-08-11 16:12:12"
+            grp_maj:      webscrape
+            grp_med:      request
+            grp_min:      url
+            dreftymacid:  croat_jails_unglue
+            desc:         return true/false whether a given url is found
+            detail: |
+              ## overview
+              request the content of a URL using python requests module
+            dependencies:
+              - import urllib2
+            params:
+             - param: jjinput   ;; ignored  ;; placeholder for raw input string
+             - param: url       ;; optional ;; url defaults to example.com
+            output: python array
+          '''
+          ##
+          vout = ''
+          
+          ##
+          try:
+            ret         =   urllib2.urlopen(sgurl)
+            if ret.code == 200:
+              ffresult = True
+          except Exception as msg:
+            ffresult = False
+            
+          ##
+          vout = ffresult
+          
+          ##
+          return vout
         ##enddef
 
         def jjsplit(self,jjinput,sdelim=';;'):
