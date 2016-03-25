@@ -1,0 +1,48 @@
+### <beg-file_info>
+### main:
+###   - date: created="Fri Mar 25 10:31:08 2016"
+###     last: lastmod="2016-03-25T15:15:48"
+###     tags: string, basicops,
+###     dreftymacid:    "shortage_sob_leaflets"
+###     filetype:       "yaml"
+###     seealso: |
+###         * jjstr_
+###     desc: |
+###         string operations
+### <end-file_info>
+
+demostrings: 
+
+- |
+  Lorem quibusdam deleniti eos cupiditate dolore doloribussss
+  
+- >
+  Lorem quibusdam deleniti eos
+  cupiditate dolore
+  doloribussss
+  
+- 'missss'
+
+
+__yaml__:
+
+  - &uuid001
+    caption: demo jjstr_rstrip
+    desc: |
+      jjstr_rstrip strip trailing characters
+    processthis:  1
+    uuid:         uuid001
+    template: |
+      ### ********************
+      ### |jjstr_rstrip()
+      {% for item in demostrings -%}
+        {{ item |jjstr_rstrip() |jjdata_formatas('jsonpretty')}}
+      {% endfor %}
+      
+      ### ********************
+      ### |jjstr_rstrip('s')
+      {% for item in demostrings -%}
+        {{ item |jjstr_rstrip('s') |jjdata_formatas('jsonpretty')}}
+      {% endfor %}      
+
+      

@@ -90,7 +90,7 @@ __yaml__:
       
   - &uuid001
     caption:      jjapplyfunction demo (syntax style001)
-    processthis: 0 
+    processthis:  0 
     uuid:         uuid001
     desc:         __desc__
     seealso: |

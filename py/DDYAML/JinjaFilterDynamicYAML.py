@@ -335,6 +335,51 @@ if('python_region'):
         ### ------------------------------------------------------------------------
         ### begin_: general_purpose
 
+        def jjstr_rstrip(self,jjinput,chars=''):
+          '''
+          ##beg_func_docs
+          - caption:      jjstr_rstrip
+            date:         lastmod="2016-03-25T15:12:09"
+            grp_maj:      grp_maj
+            grp_med:      grp_med
+            grp_min:      grp_min
+            desc: >
+              python str.rstrip([chars]) method
+            dreftymacid:  mining_petrify_soloing
+            seealso:
+              - href="https://docs.python.org/2/library/stdtypes.html#str.rstrip"
+            example: | 
+            detail:  >
+              Return a copy of the string with trailing characters removed.
+              The chars argument is a string specifying the set of characters
+              to be removed. 
+            dependencies:
+              - __blank__
+            params:
+             - param: jjinput ;; required ;; jinja raw input string
+          ##end_func_docs
+          '''
+
+          ##
+          vout = jjinput.__str__()
+
+          ##
+          try:
+            if(not chars == ''):
+              vout = vout.rstrip(chars)
+            if(chars == ''):
+              vout = vout.rstrip()
+          ##
+          except Exception as msg:
+            print 'UNEXPECTED TERMINATION __dreftymacid__ msg@%s'%(msg.__repr__())
+            exc_type, exc_obj, exc_tb = sys.exc_info()
+            fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
+            print(exc_type, fname, exc_tb.tb_lineno)
+
+          ##
+          return vout
+        ##enddef
+
         ## TODO ;; formalize this function and docs
         def jjos_platform(self,jjinput):
           vout = platform.system()
@@ -437,6 +482,8 @@ if('python_region'):
             grp_min:      addon
             desc:         __desc__
             dreftymacid:  pets_marvel_dave
+            example: |
+              * demo01.jjapplyfunction01.txt::pets_marvel_dave
             seealso:
               - href="http://stackoverflow.com/questions/12655155/jinja2-for-loop-with-conditions"
               - href="smartpath://mymedia/2014/git/github/dynamic.yaml/app/demo/demo01.jjapplyfunction01.txt"
