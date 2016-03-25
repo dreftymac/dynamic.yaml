@@ -43,8 +43,6 @@ __yaml__:
       2) {{ maininfo.try_simpleslice01 }}
       3) {{ maininfo.try_simpleslice02 }}
       
-      
-      
       ## using regular join      
       {{ maininfo.ary_tinypipejoin }}     
       {{ maininfo.ary_tinyundrjoin }}     

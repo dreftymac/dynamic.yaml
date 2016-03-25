@@ -71,7 +71,7 @@ if('python_region'):
 ###!  date:     created="Thu Jul 16 13:21:33 2015"
 ###!  dreftymacid: glint_unjam_cheapen
 ###!  goal:     |
-###!       set of default jinja filters that come with ddyaml out of the box
+###!      set of default jinja filters that come with ddyaml out of the box
 ###!  result:   |
 ###!       __blank__
 ###!  tags:     ddyaml, filter, addon, jinja

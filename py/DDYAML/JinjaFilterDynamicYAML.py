@@ -21,6 +21,7 @@ if('python_region'):
   import csv
   import datetime
   import glob
+  import itertools
   import jinja2
   import json
   import platform
@@ -437,7 +438,8 @@ if('python_region'):
             desc:         __desc__
             dreftymacid:  pets_marvel_dave
             seealso:
-              - href="smartpath://mymedia/2014/git/github/dynamic.yaml/app/demo/demo01jjapplyfunction01.txt"
+              - href="http://stackoverflow.com/questions/12655155/jinja2-for-loop-with-conditions"
+              - href="smartpath://mymedia/2014/git/github/dynamic.yaml/app/demo/demo01.jjapplyfunction01.txt"
               - href="smartpath://mytrybits/m/trymyclip/github_symlink/myclip/publiclab/pythonallgeneral.txt" find="uureload_holocopy_001"
             detail:  |
               * NOTE: need to make this a security-sensitive function that can be turned off
@@ -538,7 +540,7 @@ if('python_region'):
             detail:  |
                 * aod select record where `fieldname` == `fieldvalue`
                 * the return result may consist of more than one record
-                * iirec is used to specify which record is obtained from the return result
+                * iirec is used to specify which matching record is obtained from the return result
                 * iirec is zero-based
             dependencies:
               - none
@@ -875,21 +877,25 @@ if('python_region'):
           ##beg_func_docs
           - caption:      jjdata_table_rowfilter
             date:         lastmod="2015-12-29T12:40:51"
+            tags:         aod, simpletable, filter, insecure
             grp_maj:      data
             grp_med:      filter
             grp_min:      python array_of_dictionary (simpletable aod)
             desc: |
+              * WARNING ;; uses string-eval
               * filter rows based on a row_filter_clause (eg  if( row['fname']!='homer' )   )
               * the row_filter_clause works by using a python lambda function
               * the row_filter_clause is interpolated into the python lambda function
+            example: |
+              
             dreftymacid: aware_flourish_influx
             detail:  |
               * TODO ;; complete the function docs for this function
               * TODO ;; add support for specifying input table format
             dependencies: __blank__
             params:
-             - param: jjinput ;; optional ;; input source filename (as passed by jinja filter)
-             - param: rowfilter ;; optional ;;
+             - param: jjinput   ;; optional ;; input source data (as passed by jinja filter)
+             - param: rowfilter ;; optional ;; 
           ##end_func_docs
           '''
 
@@ -1332,7 +1338,7 @@ if('python_region'):
             dreftymacid: wish_patent_gargle
             seealso:
               - href="smartpath://mymedia/2014/git/github/myclip/publiclab/pythondatetime.txt" find="slim_poser_hate"
-              - href="smartpath://mymedia/2014/git/github/dynamic.yaml/app/demo/demo01datetime01.txt"
+              - href="smartpath://mymedia/2014/git/github/dynamic.yaml/app/demo/demo01.datetime01.txt"
             detail:  |
             ary_supported_getwhat:
               - ''
@@ -2318,6 +2324,7 @@ if('python_region'):
 
           ##
           vout = jjinput.__str__()
+          imult = int(imult)
 
           ##
           try:
@@ -2406,6 +2413,55 @@ if('python_region'):
           ##
           return vout
         ##enddef
+        
+        def jjlistrange(self,jjinput,rbeg=0,rend=-1):
+          """
+          ## function docs
+          - caption:    jjlistrange
+            date:       lastmod="Mon 2014-10-20 16:45:46"
+            grp_maj:      getinfo
+            grp_med:      list
+            grp_min:      item
+            dreftymacid:  councils_dock_swam
+            desc: try to return list item at index
+            example: |
+              {{ [1,2,3,4,5] |jjlistrange(0,1)      }} --> [1]
+              {{ [1,2,3,4,5] |jjlistrange(0,3)      }} --> [1, 2, 3]
+              {{ [1,2,3,4,5] |jjlistrange(0,-1)     }} --> [1, 2, 3, 4]
+              {{ [1,2,3,4,5] |jjlistrange(0,None)   }} --> [1, 2, 3, 4, 5]
+              {{ [1,2,3,4,5] |jjlistrange(3,None)   }} --> [4, 5]
+              {{ [1,2,3,4,5] |jjlistrange(-3,None)  }} --> [3, 4, 5]
+              {{ [1,2,3,4,5] |jjlistrange(-2,None)  }} --> [4,5]
+              {{ [1,2,3,4,5] |jjlistrange(-2,-1)    }} --> [4]
+              {{ [1,2,3,4,5] |jjlistrange(-3,-2)    }} --> [3]
+            detail: |
+                __blank__
+            dependencies:
+              - none
+            params:
+             - param: jjinput ;; required ;; python list
+             - param: rbeg    ;; optional ;; rangebegin
+             - param: rend    ;; optional ;; rangeend
+            output: python string
+          """
+          
+          ##
+          vout = jjinput
+
+          ##
+          try:
+            vout  = vout[rbeg:rend]
+          except  IndexError as msg:
+            vout  = vout
+          except  Exception as msg:
+            print 'UNEXPECTED TERMINATION msg@%s'%(msg.__repr__())
+            exc_type, exc_obj, exc_tb = sys.exc_info()
+            fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
+            print(exc_type, fname, exc_tb.tb_lineno)
+            
+          ##
+          return vout
+        ##enddef        
 
         def jjlistjoin(self,jjinput,joinwith=" "):
           """
@@ -2433,6 +2489,99 @@ if('python_region'):
           try:
             vout = joinwith.join(jjinput)
           except Exception as msg:
+            print 'UNEXPECTED TERMINATION msg@%s'%(msg.__repr__())
+            exc_type, exc_obj, exc_tb = sys.exc_info()
+            fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
+            print(exc_type, fname, exc_tb.tb_lineno)
+          ##
+          return vout
+        ##enddef
+        
+        def jjlistsort(self,jjinput,mode='normal'):
+          """
+          ## function docs
+          - caption:  jjlistsort
+            date:     lastmod="Mon 2014-10-20 16:45:46"
+            grp_maj:    getinfo
+            grp_med:    list
+            grp_min:    sort
+            dreftymacid:  drinks_gem_shoving
+            desc: return a sorted list
+            example: |
+              {{ ['zulu','alpha','bravo','charl','bravo','delta','echo'] |jjlistsort()            }}
+              {{ ['zulu','alpha','bravo','charl','bravo','delta','echo'] |jjlistsort('normal')    }}
+              {{ ['zulu','alpha','bravo','charl','bravo','delta','echo'] |jjlistsort('uniq')      }}
+              {{ ['zulu','alpha','bravo','charl','bravo','delta','echo'] |jjlistsort('reverse')   }}
+              {{ ['zulu','alpha','bravo','charl','bravo','delta','echo'] |jjlistsort('uniq') |jjlistsort('reverse') }}            
+            detail: |
+                __blank__
+            dependencies:
+              - none
+            params:
+             - param: jjinput ;; required ;; python list
+             - param: mode    ;; optional ;; sort mode
+            output: python string
+          """
+          ##
+          vout = jjinput
+
+          ##
+          try:
+            if (mode.lower() == 'normal'):
+              vout = sorted(vout)
+            if (mode.lower() == 'reverse'):
+              vout = sorted(vout, reverse=True)
+            if (mode.lower() == 'unique' or mode.lower() == 'uniq'):
+              vout =  [ vxx[0] for vxx in itertools.groupby(sorted(vout)) ]
+          except  IndexError as msg:
+              vout  = ''
+          except  Exception as msg:
+            print 'UNEXPECTED TERMINATION msg@%s'%(msg.__repr__())
+            exc_type, exc_obj, exc_tb = sys.exc_info()
+            fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
+            print(exc_type, fname, exc_tb.tb_lineno)
+          ##
+          return vout
+        ##enddef
+
+        def jjlistuniq(self,jjinput):
+          """
+          ## function docs
+          - caption:  jjlistuniq
+            date:     lastmod="Mon 2014-10-20 16:45:46"
+            grp_maj:    getinfo
+            grp_med:    list
+            grp_min:    unique
+            dreftymacid:  eras_oafish_halving
+            desc: |
+              * return a uniq_list of unique elements from original_list
+            example: |
+              {{ ['zulu','zulu','zulu','alpha','alpha','alpha','bravo','bravo','bravo',] |jjlistuniq() }}
+            detail: |
+                __blank__
+            dependencies:
+              - none
+            params:
+             - param: jjinput ;; required ;; python list
+             - param: mode    ;; optional ;; sort mode
+            output: python string
+          """
+          ##
+          ddseen  =   {}
+          vout    =   []
+
+          ##
+          try:
+            for item in jjinput:
+              if(item in ddseen.keys()):
+                ddseen[item] = ddseen[item] + 1
+              elif(True):
+                ddseen[item] = 0
+              if(ddseen[item] == 0):
+                vout.append(item)
+          except  IndexError as msg:
+              vout  = ''
+          except  Exception as msg:
             print 'UNEXPECTED TERMINATION msg@%s'%(msg.__repr__())
             exc_type, exc_obj, exc_tb = sys.exc_info()
             fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
@@ -2703,8 +2852,8 @@ if('python_region'):
             desc:         radiotable ;; extract a region of a text file using 'radiotable' style regions
             dreftymacid:  atrocity_bluntest_coping
             seealso:
-              - href="../../../../../../mymedia/2014/git/github/dynamic.yaml/app/demo/demo01jjradiotable01.txt"
-              - href="../../../../../../mytrybits/y/tryyaml/dynamicyaml/app/demo/demo01command06.txt"
+              - href="../../../../../../mymedia/2014/git/github/dynamic.yaml/app/demo/demo01.jjradiotable01.txt"
+              - href="../../../../../../mytrybits/y/tryyaml/dynamicyaml/app/demo/demo01.command06.txt"
               - href="../../../../../../mymedia/2014/git/github/myclip/myclip.ddyaml/transform01.yaml.txt"
               - href="https://www.gnu.org/software/emacs/manual/html_node/org/Radio-tables.html"
             detail:  |
@@ -2773,7 +2922,7 @@ if('python_region'):
             desc:         radiotable ;; replace a region of a text file using 'radiotable' style regions
             dreftymacid:  extra_clamp_positive
             seealso:
-              - href="../../../../../../mytrybits/y/tryyaml/dynamicyaml/app/demo/demo01command06.txt"
+              - href="../../../../../../mytrybits/y/tryyaml/dynamicyaml/app/demo/demo01.command06.txt"
               - href="../../../../../../mymedia/2014/git/github/myclip/myclip.ddyaml/transform01.yaml.txt"
               - href="https://www.gnu.org/software/emacs/manual/html_node/org/Radio-tables.html"
             detail:  |
@@ -2914,7 +3063,7 @@ if('python_region'):
 
         def jjregexfindall(self,jjinput,ssregex='[\w]+'):
           '''
-          ##beg_func_docs
+          ##beg_func_docs bkmk001
           - caption:      jjregexfindall
             date:         lastmod="Wed 2015-08-26 12:28:27"
             grp_maj:      regex
@@ -2932,7 +3081,7 @@ if('python_region'):
               - import re
             params:
              - param: jjinput ;; required ;; jinja raw input string
-             - param: ssregex ;; required ;; string regex
+             - param: ssregex ;; required ;; regex to run against jjinput
           ##end_func_docs
           '''
 
@@ -2954,6 +3103,9 @@ if('python_region'):
           ##
           return vout
         ##enddef
+        ## alias_definition
+        def jjregex_findall(self,jjinput,ssregex): return self.jjregexfindall(jjinput,ssregex)
+        ##enddef        
 
         #def jjregionreplace(self,jjinput,vreplace='',regbeg='',regend='',):
         #  """

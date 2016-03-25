@@ -1,0 +1,80 @@
+### <beg-file_info>
+### main:
+###   - date: created="Mon Mar 21 13:03:11 2016"
+###     last: lastmod="Mon Mar 21 13:03:11 2016"
+###     tags: python, string, ddyaml, 00temp, runnable, pleac, anylang
+###     dreftymacid: "shelter_subtlest_robe"
+###     filetype: "yaml"
+###     seealso: |
+###         *
+###     desc: |
+###         This is a ddyaml file that outputs a runnable 00temp.py script.
+###         Currently, this does not auto-run the file, that has to be 
+###           done separately
+###         This is a first-draft generator for use with PLEAC PLUS
+###           href="https://github.com/dreftymac/pleac.plus"
+###           robbin COA
+### <end-file_info>
+
+###
+### NOTE: change this to set the current output code section(s)
+###
+settings_info:
+  curr_output_tag:      example01
+  curr_output_dir:      "c:/sm/docs/mytrybits/p/trypython2/lab2014/pyyaml"
+  curr_source_table:    'stringmultiline_table'
+
+basetable:  
+  - caption:  init_py
+    tags:     baseinit
+    seealso:  seealso
+    dreftymacid: yarding_lucks_waikiki
+    wwbody: |
+        import os
+        import sys
+        import textwrap
+        from string import Template    
+
+__yaml__:
+
+  - &uubikieJJ
+    caption:      generate 00temp.py
+    processthis:  1
+    uuid:         uubikieJJ
+    datainclude:
+      - "c:/sm/docs/mytrybits/a/tryanylang/datadef/python/stringmultiline_table.txt"
+    usedataroot:      dataroot
+    template:         |
+      {#- ------------------------------------------------------------------------
+      STEPxx: Populate settings (also needed, populate datainclude)
+      -#}
+      {%- set ttquerytag    =   dataroot.settings_info.curr_output_tag    -%}
+      {%- set ttquerytable  =   dataroot.settings_info.curr_source_table  -%}
+      {#- ------------------------------------------------------------------------
+      
+      -#}       
+      {%- set ttscriptout =   []  -%}
+      {% for row in dataroot.basetable if('baseinit' in row.tags) -%}
+        {%- set noop = ttscriptout.append(row.wwbody) -%}
+      {% endfor %}
+      {% for row in dataroot[ttquerytable] if(ttquerytag in row.tags) -%}
+        {%- set noop = ttscriptout.append(("print '''### ******************** '''")) -%}
+        {%- set noop = ttscriptout.append(("print '''##  demo: %s'''") % (row.caption)    ) -%}
+        {%- set noop = ttscriptout.append(row.wwbody) -%}
+      {% endfor %}      
+      {#- ------------------------------------------------------------------------ -#}  
+      {%- set ttouthome   = settings_info.curr_output_dir  -%}
+      {%- set ttoutbase   = "00temp.py" -%}
+      {%- set ttoutfile   = "%s/%s"%(ttouthome,ttoutbase)  -%}
+      {%- set ttoutmode   = 'replace'  -%}
+      {%- set ttusebom    = False      -%}
+      {#- ------------------------------------------------------------------------ -#} 
+      {%filter string() |jjtofile(ttoutfile,ttoutmode,ttusebom) |jjdedent() -%}
+      if('python_region'):      
+      {{ ttscriptout |join("\n") |jjindent(4)}}       
+      {%- endfilter%}
+      {#- ------------------------------------------------------------------------ -#}
+      {%- set ttrunline = "python %s" %(ttoutfile)  -%}
+      {{ '' |jjrun_popen(ttrunline) }}
+
+

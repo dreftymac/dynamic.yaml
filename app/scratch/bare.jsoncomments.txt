@@ -1,0 +1,28 @@
+test_json_comments: |
+  [
+    {
+      # Batman
+      "first-name": "Bruce",
+      "last-name": "Wayne"
+    },
+    {
+      # Superman
+      "first-name": "Clark",
+      "last-name": "Kent"
+    }
+  ]
+  
+## href="smartpath://mytrybits/y/tryyaml/dynamicyaml/devlog.txt"
+## href="smartpath://mymedia/2014/git/github/dynamic.yaml/app/demo/readme.md"
+## href="smartpath://mymedia/2014/git/github/dynamic.yaml/py/ddyamlrunner.py"
+## href="smartpath://mymedia/2014/git/github/dynamic.yaml/py/ddyaml/jinjafilterdynamicyaml.py"
+__yaml__:
+
+  - &uutestjsongayly
+    caption:      using YAML to emulate JSON-with-comments
+    processthis: 1
+    uuid:         uutestjsongayly
+    desc:         __desc__
+    dreftymacid:  bumpily_main_winterer
+    template: |
+      {{ test_json_comments |jjdata_load('yaml') }}

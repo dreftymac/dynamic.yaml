@@ -12,6 +12,7 @@
 ###             * to some, this may violate the "separation of logic from templates" meme, but to me that is a false economy.
 ###             * so long as you do not overdo it, or your templates are not going to be used or maintained by anyone but you, things should be fine.
 ###         * ANNOYANCE ;; the things you can do inside a lambda are very limited or difficult and kludgy (eg assigment, conditionals, etc)
+###         * NOTE ;; the limitations on lambda syntax make the old-style loop with conditional continue to be a viable alternative
 ### <end-file_info>
 
 ## href="smartpath://mymedia/2014/git/github/dynamic.yaml/app/demo/demo01jjapplyfunction01.txt"
@@ -49,14 +50,13 @@ __yaml__:
 
 
   - &uuid001a
-    caption:      jjapplyfunction demo compact syntax (syntax style000)
+    caption:      jjapplyfunction demo -- compact syntax (syntax style000)
     processthis:  1 
     uuid:         uuid001a
     seealso: |
       * http://stackoverflow.com/questions/24310543/lambda-as-argument-to-jinja2-filter
     dreftymacid:  pets_marvel_dave_000
     template:         |
-      alpha
       {%- set mylist = [11,22,33,44,55,66,77,88] -%}      
       {%- set myfunc = '''lambda aalist:([vxx for vxx in aalist if(vxx % 2 == 0)])'''  -%}
       {%- set NO_WORKY_myfunc = '''lambda aalist: sys.stdout.write("-".join(aalist)) '''  -%} 

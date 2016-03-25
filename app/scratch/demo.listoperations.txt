@@ -1,0 +1,51 @@
+### <beg-file_info>
+### main:
+###   - date: created="Fri Mar 25 10:31:08 2016"
+###     last: lastmod="Fri Mar 25 10:31:08 2016"
+###     tags: list, sort, unique, uniq, 
+###     dreftymacid:    "warning_veristic_aka"
+###     filetype:       "yaml"
+###     seealso: |
+###         * jjlistsort
+###     desc: |
+###         desc
+### <end-file_info>
+
+alphalist:
+  - alpha
+  - bravo
+  - charlie
+  - charlie
+  - bravo
+  - alpha
+  - delta
+
+__yaml__:
+
+  - &uuid001
+    caption: demo jjlistsort
+    desc: |
+      * this way is native jinja, but sorting the groups not easy
+    processthis:  1
+    uuid:         uuid001
+    template: |
+      {{-"\n\n"-}} 
+      ### ------------------------------------------------------------------------ 
+      {{ ['zulu','alpha','bravo','charl','bravo','delta','echo'] |jjlistsort()            }}
+      {{ ['zulu','alpha','bravo','charl','bravo','delta','echo'] |jjlistsort('normal')    }}
+      {{ ['zulu','alpha','bravo','charl','bravo','delta','echo'] |jjlistsort('uniq')      }}
+      {{ ['zulu','alpha','bravo','charl','bravo','delta','echo'] |jjlistsort('reverse')   }}
+      {{ ['zulu','alpha','bravo','charl','bravo','delta','echo'] |jjlistsort('uniq') |jjlistsort('reverse') }}
+
+  - &uuid002
+    caption: demo jjlistuniq
+    desc: |
+      * this way is native jinja, but sorting the groups not easy
+    processthis:  1
+    uuid:         uuid002
+    template: |
+      {{-"\n\n"-}} 
+      ### ------------------------------------------------------------------------ 
+      {{ ['zulu','zulu','zulu','alpha','alpha','alpha','bravo','bravo','bravo',] |jjlistuniq() }}
+
+

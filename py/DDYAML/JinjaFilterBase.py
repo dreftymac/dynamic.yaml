@@ -77,7 +77,7 @@ if('python_region'):
                 The current naming convention requires the filter
                 function name to start with 'double_letter_j'
             dependencies:
-              - __blank__
+              - leading 'double_letter_j' on function name (ungraceful, fix this, using decorators perhaps)
             params:
              - param: env ;; required ;; core jinja environment
             dreftymacid: __blank__

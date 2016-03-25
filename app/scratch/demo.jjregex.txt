@@ -1,0 +1,24 @@
+dataroot:
+  main_info:
+    speech: |
+      Lorem ipsum dolor sit amet, consectetur adipisicing elit. Qui dicta
+      minus molestiae vel beatae natus eveniet ratione temporibus aperiam
+      harum alias officiis assumenda officia quibusdam deleniti eos
+      cupiditate dolore doloribus.
+
+## href="smartpath://mytrybits/y/tryyaml/dynamicyaml/devlog.txt"
+## href="smartpath://mymedia/2014/git/github/dynamic.yaml/app/demo/readme.md"
+## href="smartpath://mymedia/2014/git/github/dynamic.yaml/py/ddyamlrunner.py"
+## href="smartpath://mymedia/2014/git/github/dynamic.yaml/py/ddyaml/jinjafilterdynamicyaml.py"
+__yaml__:
+
+  - &uuleverKL
+    caption:      jjregex_findall ;; barebones example
+    processthis:  1
+    uuid:         uuleverKL
+    template: |
+      {#- ------------------------------------------------------------------------ -#}
+      {%- set ttregex    = '[\w]*um[\w]*'  -%}
+      {%- set ttfinditem = dataroot.main_info.speech |jjregex_findall(ttregex)  -%}
+      {{ ttfinditem }}  
+

@@ -2,13 +2,15 @@
 ### main:
 ###   - date: created="Mon Mar 07 19:28:24 2016"
 ###     last: lastmod="Mon Mar 07 19:28:24 2016"
-###     tags:   tags 
+###     tags: group, groupby, loop, jinja
 ###     dreftymacid: "vitalist_wistful_larger"
 ###     filetype: "yaml"
 ###     seealso: |
-###         *
+###         * sort order of grouping ;; https://github.com/mitsuhiko/jinja2/issues/250
+###         * 
 ###     desc: |
-###         jinja grouping example
+###         jinja grouping examples
+###         different ways to do grouping in ddyaml
 ### <end-file_info>
 
 maintable:
@@ -26,20 +28,55 @@ maintable:
     mmgroup:  bravo
   - caption:  testing789
     mmgroup:  alpha
+    
+  - caption:  attempting789
+    mmgroup:  charlie
+  - caption:  attempting456
+    mmgroup:  charlie
+  - caption:  testing789
+    mmgroup:  alpha 
+
+group_list:
+  - charlie
+  - bravo
+  - alpha
 
 
 __yaml__:
 
   - &uuid001
-    caption:      caption
-    processthis: 1
+    caption:      using jinja builtin grouping
+    desc: |
+      * this way is native jinja, but sorting the groups not easy
+    processthis:  0
     uuid:         uuid001
     template:         |
-      {% for group in maintable|groupby('mmgroup') %}
-        {{ group[0] }}
-         
+      {% for group in maintable |groupby('mmgroup') %}
+        {{ group[0] }}        
         {% for row in group.list %}
             {{ row |jjdata_formatas('jsonpretty') }}
-        {% endfor %}
-         
+        {% endfor %}         
       {% endfor %}
+      
+  - &uuid002
+    caption:      using jinja builtin grouping
+    processthis:  1
+    desc: |
+      * this way is native jinja, and allows arbitrary ordering of groups
+      * this uses an if-statement in the for loop clause
+    uuid:         uuid002
+    template:         |
+      {%- set ttlist = group_list -%}
+      {% for item in ttlist %}
+        {{ item }}
+        {% for row in maintable if(row.mmgroup == item) -%}
+        {{ row.caption }} 
+        {% endfor %}        
+      {% endfor %}
+
+
+
+
+
+
+

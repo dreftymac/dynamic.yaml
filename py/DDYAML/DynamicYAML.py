@@ -15,35 +15,35 @@
 ### @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 ### init py
 if('python_region'):
-      ## init py
-      import base64
-      import codecs
-      import csv
-      import datetime
-      import glob
-      import jinja2
-      import json
-      import platform
-      import markdown
-      import os
-      import random
-      import requests
-      import re
-      import shutil
-      import string
-      import StringIO
-      import sys
-      import textwrap
-      import time
-      import uuid
-      import xlrd
-      import yaml
-      import zipfile
-
-      ## pprint
-      import pprint
-      oDumper = pprint.PrettyPrinter(indent=4);
-      ## oDumper.pprint( directives )
+  ## init py
+  import base64
+  import codecs
+  import csv
+  import datetime
+  import glob
+  import jinja2
+  import json
+  import platform
+  import markdown
+  import os
+  import random
+  import requests
+  import re
+  import shutil
+  import string
+  import StringIO
+  import sys
+  import textwrap
+  import time
+  import uuid
+  import xlrd
+  import yaml
+  import zipfile
+  
+  ## pprint
+  import pprint
+  oDumper = pprint.PrettyPrinter(indent=4);
+  ## oDumper.pprint( directives )
 
 ### @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 ### DynamicYAML
@@ -74,9 +74,8 @@ if('python_region'):
           ## bkmk001 ;; support for jinja2.FileSystemLoader ;;
           self.options['filesystemloader_paths']        = []
           self.options['jinja2_globals']                = {}
-          ## TODO ;; check globals functionality for regressions
-          ## environment provisioning was changed, moved out of __init__ and into its own method
-          ## self.provision_jinja2_environment
+          
+          ## bring in any globals
           try:
             for item in options['globals']:
                   self.options['jinja2_globals'][item[0]] = item[1]
@@ -178,6 +177,7 @@ if('python_region'):
           ## init custom filters for self.oenv
           for addonclass in self.addonFilters:
             self.oenv = addonclass.attach_filters( self.oenv )
+              ## see href="./JinjaFilterBase.py"
               ## see href="./JinjaFilterDynamicYAML.py"
             pass
           ##;;
@@ -370,7 +370,8 @@ if('python_region'):
                 pass
               ###;;;
             ##;;
-
+                        
+          ##
           if( not 'debugging'):
             print originalconfig
             print primaryYamlWwbody

@@ -1,0 +1,44 @@
+### <beg-file_info>
+### main:
+###   - date: created="Wed Mar 02 15:09:47 2016"
+###     last: lastmod="2016-03-23T14:59:11"
+###     tags: ddyaml, array, list, basicops
+###     dreftymacid: "dario_venetic_task"
+###     filetype: "yaml"
+###     seealso: |
+###         *
+###     desc: |
+###         jinja already has a "join" filter
+###         simple list operations
+### <end-file_info>
+
+maininfo:
+  ary_tinydemo:       [aa, bb, cc, dd, ee]
+  ary_tinylist:       [alpha, bravo, charlie, delta, echo]  
+
+## href="smartpath://mytrybits/y/tryyaml/dynamicyaml/devlog.txt"
+## href="smartpath://mymedia/2014/git/github/dynamic.yaml/app/demo/readme.md"
+## href="smartpath://mymedia/2014/git/github/dynamic.yaml/py/ddyamlrunner.py"
+## href="smartpath://mymedia/2014/git/github/dynamic.yaml/py/ddyaml/jinjafilterdynamicyaml.py"
+__yaml__:
+
+  - &uualplus
+    caption:      demo jjlistrange
+    processthis:  1
+    uuid:         uualplus
+    desc:         access a list range
+    dreftymacid:  wailful_heh_closings
+    template:         |
+      {{ [1,2,3,4,5] |jjlistrange(0,1)      }} --> [1]
+      {{ [1,2,3,4,5] |jjlistrange(0,3)      }} --> [1, 2, 3]
+      {{ [1,2,3,4,5] |jjlistrange(0,-1)     }} --> [1, 2, 3, 4]
+      {{ [1,2,3,4,5] |jjlistrange(0,None)   }} --> [1, 2, 3, 4, 5]
+      {{ [1,2,3,4,5] |jjlistrange(3,None)   }} --> [4, 5]
+      {{ [1,2,3,4,5] |jjlistrange(-3,None)  }} --> [3, 4, 5]
+      {{ [1,2,3,4,5] |jjlistrange(-2,None)  }} --> [4,5]
+      {{ [1,2,3,4,5] |jjlistrange(-2,-1)    }} --> [4]
+      {{ [1,2,3,4,5] |jjlistrange(-3,-2)    }} --> [3]
+
+
+
+
