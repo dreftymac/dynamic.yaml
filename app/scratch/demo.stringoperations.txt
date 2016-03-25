@@ -12,16 +12,15 @@
 ### <end-file_info>
 
 demostrings: 
-
-- |
-  Lorem quibusdam deleniti eos cupiditate dolore doloribussss
-  
-- >
-  Lorem quibusdam deleniti eos
-  cupiditate dolore
-  doloribussss
-  
-- 'missss'
+  - |
+    Lorem quibusdam deleniti eos cupiditate dolore doloribussss
+    
+  - >
+    Lorem quibusdam deleniti eos
+    cupiditate dolore
+    doloribussss
+    
+  - 'missss'
 
 
 __yaml__:
