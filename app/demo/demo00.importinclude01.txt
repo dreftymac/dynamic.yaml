@@ -2,7 +2,7 @@
 ### main:
 ###   - date: created="Mon Mar 07 11:07:58 2016"
 ###     last: lastmod="Mon Mar 07 11:07:58 2016"
-###     tags: tags 
+###     tags: pathinclude, import, jjimport
 ###     dreftymacid: "ma_rivalry_slanting"
 ###     filetype: "yaml"
 ###     seealso: |
@@ -12,7 +12,7 @@
 ###
 ###         DEPENDENCIES: 
 ###         * uses the ddyaml pathinclude directive
-###         * uses the jinja2 import directive
+###         * uses the jinja2 import directive ;; myclip://jjimport
 ### <end-file_info>
 
 __yaml__:
@@ -21,16 +21,22 @@ __yaml__:
     caption:      caption
     processthis:  1
     uuid:         uuid001
-    desc:         __desc__
+    desc: |
+      * pathinclude with support for full filepath in the directive
+      * see href="smartpath://mymedia/2014/git/github/dynamic.yaml/devlog.txt" find="miner_starts_guava" 
     dreftymacid:  reload_unfaith_eventful
     pathinclude:
-      - "c:/sm/docs/mymedia/2014/git/github/dynamic.yaml/app/demo"
-      ## "c:/sm/docs/mymedia/2014/git/github/dynamic.yaml/app/demo/demo00.importinclude00.txt"
+      -  "c:/sm/docs/mymedia/2014/git/github/dynamic.yaml/app/demo/demo00.importinclude00.txt"
     template: |
-      {% import 'demo00.importinclude00.txt' as foobar %}
+      {#- ------------------------------------------------------------------------ -#}       
+      {% import 'demo00.importinclude00.txt'  as foobar %}
+      {#- ------------------------------------------------------------------------ -#}  
       {{ foobar.mmjjsayhello(name='world') }}
       {{ foobar.mmjjsayhello(name='alpha') }}
       {{ foobar.mmjjsayhello(name='bravo') }}
       {{ foobar.mmjjsayhello(name='charl') }}
 
+
+      
+      
 

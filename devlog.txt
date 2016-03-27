@@ -37,6 +37,25 @@ TODO:
 
 main:
 
+  - &uutints_tore
+    caption:  support full file paths with pathinclude directive 
+    rectype:  rrmini03
+    datebeg:  Fri Mar 25 16:45:27 2016 
+    dateend:  Fri Mar 25 16:45:27 2016 
+    tags:     tags
+    desc:     desc
+    seealso:
+      href="regain://miner_starts_guava" ;; in DynamicYAML.py
+    dreftymacid: tints_tore
+    wwbody: |
+      - problem: >
+          jinja uses only directories with include directive, but
+          it would be nice to support full paths so they could be clickable
+          in the ddyaml markup
+        solution: >
+          add support for full file paths and let ddyaml ddtransform method
+          determine parent directory from full paths
+
   - caption: twopass templating ;; ddyaml feature upgrade
     rectype: rrmini03
     datebeg: Thu Feb 11 23:31:51 2016 

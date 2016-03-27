@@ -331,7 +331,7 @@ if('python_region'):
           ## check if spath is readable without modification
           if(True
               and os.access(spath,os.R_OK)
-              and os.path.isdir()
+              and os.path.isdir(spath)
               ):
             getpath = spath
           ##;;
@@ -339,7 +339,7 @@ if('python_region'):
           ## check if spath points to a file
           if(True
               and os.access(spath,os.R_OK)
-              and os.path.isfile()
+              and os.path.isfile(spath)
               ):
             getpath = os.path.dirname(spath)
           ##;;          
@@ -573,13 +573,13 @@ if('python_region'):
                 if(  type(tmpval) == str ):
                   tmpval = [tmpval] ## force_scalar_to_list
 
-                ## iterate items ;; 
+                ## iterate items ;; miner_starts_guava
                 for spath in tmpval:
                   ## return readable path or else empty string
                   sscurr = self.ff_resolvepath_path(spath)
                   sscurr = self.ff_filepath_to_dirpath(sscurr)
                   # print " bkmk001 ### ------------------------------------------------------------------------ "
-                  #print sscurr
+                  print sscurr
                   #print os.path.dirname(sscurr)
 
                   ## err_quiet

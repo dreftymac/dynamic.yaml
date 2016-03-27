@@ -1,3 +1,6 @@
+{#- ------------------------------------------------------------------------
+simple helloworld macro with caller-style syntax
+-#}
 {%- macro mmjjsayhello(opts) -%}
   {#- --------------------------------------------- -#}
   {%- set opts    = kwargs  -%}
@@ -6,3 +9,4 @@
   Hello {{ name }}!
   {% if caller %}{{ caller() -}}{% endif %}
 {%- endmacro -%}
+
