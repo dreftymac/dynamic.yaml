@@ -579,7 +579,7 @@ if('python_region'):
                   sscurr = self.ff_resolvepath_path(spath)
                   sscurr = self.ff_filepath_to_dirpath(sscurr)
                   # print " bkmk001 ### ------------------------------------------------------------------------ "
-                  print sscurr
+                  # print sscurr
                   #print os.path.dirname(sscurr)
 
                   ## err_quiet
