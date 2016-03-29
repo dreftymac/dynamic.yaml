@@ -76,8 +76,10 @@ __yaml__:
       if('python_region'):      
       {{ ttscriptout |join("\n") |jjindent(4)}}       
       {%- endfilter%}
-      {#- ------------------------------------------------------------------------ -#}
+      {#- ------------------------------------------------------------------------
+      TODO: auto-run instead of just generating the file without run
       {%- set ttrunline = "python %s" %(ttoutfile)  -%}
-      {{ '' |jjrun_popen(ttrunline) }}
+      {{ '' |jjrun_popen(ttrunline) }}      
+      -#}
 
 

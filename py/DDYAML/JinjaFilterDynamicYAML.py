@@ -11,7 +11,7 @@
 ###     desc: |
 ###         desc
 ### <end-file_info>
-      
+
 ### @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 ### init py
 if('python_region'):
@@ -348,11 +348,11 @@ if('python_region'):
             dreftymacid:  mining_petrify_soloing
             seealso:
               - href="https://docs.python.org/2/library/stdtypes.html#str.rstrip"
-            example: | 
+            example: |
             detail:  >
               Return a copy of the string with trailing characters removed.
               The chars argument is a string specifying the set of characters
-              to be removed. 
+              to be removed.
             dependencies:
               - __blank__
             params:
@@ -934,7 +934,7 @@ if('python_region'):
               * the row_filter_clause works by using a python lambda function
               * the row_filter_clause is interpolated into the python lambda function
             example: |
-              
+
             dreftymacid: aware_flourish_influx
             detail:  |
               * TODO ;; complete the function docs for this function
@@ -942,7 +942,7 @@ if('python_region'):
             dependencies: __blank__
             params:
              - param: jjinput   ;; optional ;; input source data (as passed by jinja filter)
-             - param: rowfilter ;; optional ;; 
+             - param: rowfilter ;; optional ;;
           ##end_func_docs
           '''
 
@@ -2460,7 +2460,7 @@ if('python_region'):
           ##
           return vout
         ##enddef
-        
+
         def jjlistrange(self,jjinput,rbeg=0,rend=-1):
           """
           ## function docs
@@ -2491,7 +2491,7 @@ if('python_region'):
              - param: rend    ;; optional ;; rangeend
             output: python string
           """
-          
+
           ##
           vout = jjinput
 
@@ -2505,10 +2505,10 @@ if('python_region'):
             exc_type, exc_obj, exc_tb = sys.exc_info()
             fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
             print(exc_type, fname, exc_tb.tb_lineno)
-            
+
           ##
           return vout
-        ##enddef        
+        ##enddef
 
         def jjlistjoin(self,jjinput,joinwith=" "):
           """
@@ -2543,7 +2543,7 @@ if('python_region'):
           ##
           return vout
         ##enddef
-        
+
         def jjlistsort(self,jjinput,mode='normal'):
           """
           ## function docs
@@ -2559,7 +2559,7 @@ if('python_region'):
               {{ ['zulu','alpha','bravo','charl','bravo','delta','echo'] |jjlistsort('normal')    }}
               {{ ['zulu','alpha','bravo','charl','bravo','delta','echo'] |jjlistsort('uniq')      }}
               {{ ['zulu','alpha','bravo','charl','bravo','delta','echo'] |jjlistsort('reverse')   }}
-              {{ ['zulu','alpha','bravo','charl','bravo','delta','echo'] |jjlistsort('uniq') |jjlistsort('reverse') }}            
+              {{ ['zulu','alpha','bravo','charl','bravo','delta','echo'] |jjlistsort('uniq') |jjlistsort('reverse') }}
             detail: |
                 __blank__
             dependencies:
@@ -2973,8 +2973,8 @@ if('python_region'):
                 
             dreftymacid:  extra_clamp_positive
             seealso:
-              - href="../../../../../../mytrybits/y/tryyaml/dynamicyaml/app/demo/demo01.command06.txt"
-              - href="../../../../../../mymedia/2014/git/github/myclip/myclip.ddyaml/transform01.yaml.txt"
+              - href="smartpath://mymedia/2014/git/github/dynamic.yaml/app/demo/demo01.jjregex.txt" find="erase_showing_measle"
+              - href="smartpath://mymedia/2014/git/github/myclip/myclip.ddyaml/transform01.yaml.txt"
               - href="https://www.gnu.org/software/emacs/manual/html_node/org/Radio-tables.html"
             detail:  |
               * uses the emacs org mode 'radiotable' metaphor
@@ -3161,7 +3161,52 @@ if('python_region'):
         ##enddef
         ## alias_definition
         def jjregex_findall(self,jjinput,ssregex): return self.jjregexfindall(jjinput,ssregex)
-        ##enddef        
+        ##enddef
+
+        def jjregexsub(self,jjinput,ssregex='[\w]+',ssreplace='__ssreplace__'):
+          '''
+          ##beg_func_docs bkmk001
+          - caption:      jjregexsub
+            date:         lastmod="Wed 2015-08-26 12:28:27"
+            grp_maj:      regex
+            grp_med:      string
+            grp_min:      substitute
+            desc:         python regex sub
+            dreftymacid:  tasty_dario_awaken
+            detail:  |
+              * __blank__
+            seealso:  |
+              * href="smartpath://mytrybits/a/tryanylang/datadef/python/stringops_table.txt" find="uralitic_top_surf"
+              *
+            dependencies:
+              - import re
+            params:
+             - param: jjinput   ;; required ;; jinja raw input string
+             - param: ssregex   ;; required ;; regex to run against jjinput
+             - param: ssreplace ;; required ;; string replacement
+          ##end_func_docs
+          '''
+
+          ##
+          vout = jjinput.__str__()
+
+          ##
+          try:
+            repattern   = ssregex
+            vout        = re.sub(re.compile(repattern, re.MULTILINE), ssreplace.lstrip().rstrip(), vout)
+          ##
+          except Exception as msg:
+            print 'UNEXPECTED TERMINATION formal_awing_wolf msg@%s'%(msg.__repr__())
+            exc_type, exc_obj, exc_tb = sys.exc_info()
+            fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
+            print(exc_type, fname, exc_tb.tb_lineno)
+
+          ##
+          return vout
+        ##enddef
+        ## alias_definition
+        def jjregex_sub(self,jjinput,ssregex,ssreplace): return self.jjregexsub(jjinput,ssregex,ssreplace)
+        ##enddef
 
         #def jjregionreplace(self,jjinput,vreplace='',regbeg='',regend='',):
         #  """
@@ -3327,7 +3372,7 @@ if('python_region'):
           '''
           ##
           vout = ''
-          
+
           ##
           try:
             ret         =   urllib2.urlopen(sgurl)
@@ -3335,10 +3380,10 @@ if('python_region'):
               ffresult = True
           except Exception as msg:
             ffresult = False
-            
+
           ##
           vout = ffresult
-          
+
           ##
           return vout
         ##enddef
