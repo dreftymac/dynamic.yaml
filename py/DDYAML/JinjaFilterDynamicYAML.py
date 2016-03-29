@@ -2966,7 +2966,11 @@ if('python_region'):
             grp_maj:      file
             grp_med:      string
             grp_min:      modify
-            desc:         radiotable ;; replace a region of a text file using 'radiotable' style regions
+            desc:         |
+                radiotable ;; replace a region of a text file using 'radiotable' style regions
+                * NOTE: this function has met with disappointing results.
+                * There are alternative ways to handle this.
+                
             dreftymacid:  extra_clamp_positive
             seealso:
               - href="../../../../../../mytrybits/y/tryyaml/dynamicyaml/app/demo/demo01.command06.txt"
@@ -2978,11 +2982,11 @@ if('python_region'):
             dependencies:
               - __blank__
             params:
-             - param: jjinput ;; required ;; jinja raw input string
-             - param: targfile ;; required ;; target destination file for pasting in radiotable
-             - param: rtregexbeg ;; required ;; begin regex token for delimiting radiotable
-             - param: rtregexend ;; required ;; end regex token for delimiting radiotable
-             - param: options ;; optional ;; local options dictionary
+              - param: jjinput    ;; required ;; jinja raw input string
+              - param: targfile   ;; required ;; target destination file for pasting in radiotable
+              - param: rtregexbeg ;; required ;; begin regex token for delimiting radiotable
+              - param: rtregexend ;; required ;; end regex token for delimiting radiotable
+              - param: options    ;; optional ;; local options dictionary
           ##end_func_docs
           '''
 
@@ -3006,6 +3010,11 @@ if('python_region'):
               zopts[vkey] = options[vkey]
             elif( True ):
               zopts[vkey] = zdefaults[vkey]
+          ##;;
+
+          ##
+          if('debugging'):
+            oDumper.pprint( zopts )
           ##;;
 
           ## init vars

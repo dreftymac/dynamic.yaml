@@ -11,13 +11,14 @@
 ###         This is a ddyaml file that outputs a runnable 00temp.py script.
 ###         Currently, this does not auto-run the file, that has to be 
 ###           done separately
+###
 ###         This is a first-draft generator for use with PLEAC PLUS
 ###           href="https://github.com/dreftymac/pleac.plus"
-###           robbin COA
+###
 ### <end-file_info>
 
 ###
-### NOTE: change this to set the current output code section(s)
+### STEPxx: configure this to set the current output code section(s)
 ###
 settings_info:
   curr_output_tag:      example01
@@ -51,7 +52,7 @@ __yaml__:
       {%- set ttquerytag    =   dataroot.settings_info.curr_output_tag    -%}
       {%- set ttquerytable  =   dataroot.settings_info.curr_source_table  -%}
       {#- ------------------------------------------------------------------------
-      
+      STEPxx: populate ttscriptout variable for body of the file      
       -#}       
       {%- set ttscriptout =   []  -%}
       {% for row in dataroot.basetable if('baseinit' in row.tags) -%}
@@ -62,7 +63,9 @@ __yaml__:
         {%- set noop = ttscriptout.append(("print '''##  demo: %s'''") % (row.caption)    ) -%}
         {%- set noop = ttscriptout.append(row.wwbody) -%}
       {% endfor %}      
-      {#- ------------------------------------------------------------------------ -#}  
+      {#- ------------------------------------------------------------------------ 
+      STEPxx: send output to file   
+      -#}       
       {%- set ttouthome   = settings_info.curr_output_dir  -%}
       {%- set ttoutbase   = "00temp.py" -%}
       {%- set ttoutfile   = "%s/%s"%(ttouthome,ttoutbase)  -%}
