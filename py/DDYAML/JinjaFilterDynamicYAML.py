@@ -2970,9 +2970,10 @@ if('python_region'):
                 radiotable ;; replace a region of a text file using 'radiotable' style regions
                 * NOTE: this function has met with disappointing results.
                 * There are alternative ways to handle this.
-                
+                * href="smartpath://mydaydirs/2016/week13/week13devlog.txt" find="uusunrise_firing_paths"
             dreftymacid:  extra_clamp_positive
             seealso:
+              - href="c:/sm/docs/mydaydirs/2016/week13/week13devlog.txt" find="uusunrise_firing_paths"            
               - href="smartpath://mymedia/2014/git/github/dynamic.yaml/app/demo/demo01.jjregex.txt" find="erase_showing_measle"
               - href="smartpath://mymedia/2014/git/github/myclip/myclip.ddyaml/transform01.yaml.txt"
               - href="https://www.gnu.org/software/emacs/manual/html_node/org/Radio-tables.html"
@@ -3163,7 +3164,7 @@ if('python_region'):
         def jjregex_findall(self,jjinput,ssregex): return self.jjregexfindall(jjinput,ssregex)
         ##enddef
 
-        def jjregexsub(self,jjinput,ssregex='[\w]+',ssreplace='__ssreplace__'):
+        def jjregexsub(self,jjinput,ssregex='[\w]+',ssreplace='__ssreplace__',bstrip=False):
           '''
           ##beg_func_docs bkmk001
           - caption:      jjregexsub
@@ -3184,6 +3185,7 @@ if('python_region'):
              - param: jjinput   ;; required ;; jinja raw input string
              - param: ssregex   ;; required ;; regex to run against jjinput
              - param: ssreplace ;; required ;; string replacement
+             - param: bstrip    ;; optional ;; boolean whether to strip whitespace
           ##end_func_docs
           '''
 
@@ -3193,7 +3195,12 @@ if('python_region'):
           ##
           try:
             repattern   = ssregex
-            vout        = re.sub(re.compile(repattern, re.MULTILINE), ssreplace.lstrip().rstrip(), vout)
+            if(not bstrip):
+              vout = re.sub(re.compile(repattern, re.MULTILINE), ssreplace, vout)
+            elif(bstrip):
+              vout = re.sub(re.compile(repattern, re.MULTILINE), ssreplace.lstrip().rstrip(), vout)
+            elif(True):
+              vout = re.sub(re.compile(repattern, re.MULTILINE), ssreplace, vout)
           ##
           except Exception as msg:
             print 'UNEXPECTED TERMINATION formal_awing_wolf msg@%s'%(msg.__repr__())
@@ -3205,7 +3212,7 @@ if('python_region'):
           return vout
         ##enddef
         ## alias_definition
-        def jjregex_sub(self,jjinput,ssregex,ssreplace): return self.jjregexsub(jjinput,ssregex,ssreplace)
+        def jjregex_sub(self,jjinput,ssregex,ssreplace,bstrip=False): return self.jjregexsub(jjinput,ssregex,ssreplace,bstrip)
         ##enddef
 
         #def jjregionreplace(self,jjinput,vreplace='',regbeg='',regend='',):

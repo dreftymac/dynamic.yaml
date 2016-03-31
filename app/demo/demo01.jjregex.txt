@@ -26,16 +26,26 @@ demostrings:
       Lorem ipsum dolor sit amet, consectetur adipisicing elit. 
       Lorem ipsum dolor sit amet, consectetur adipisicing elit. 
  
-        
 ## href="smartpath://mytrybits/y/tryyaml/dynamicyaml/devlog.txt"
 ## href="smartpath://mymedia/2014/git/github/dynamic.yaml/app/demo/readme.md"
 ## href="smartpath://mymedia/2014/git/github/dynamic.yaml/py/ddyamlrunner.py"
 ## href="smartpath://mymedia/2014/git/github/dynamic.yaml/py/ddyaml/jinjafilterdynamicyaml.py"
 __yaml__:
- 
+  - &uuid002
+    caption:      jjregex_sub -- prefix lines demo
+    processthis:  1
+    uuid:         uuid002
+    desc:             
+    dreftymacid: elsaem_gniwohs_esare
+    template: |
+      {#- ------------------------------------------------------------------------ -#}
+      {%- set ttdemostring = demostrings[0].wwbody  -%}
+      {#- ------------------------------------------------------------------------ -#}  
+      {{ ttdemostring |jjregex_sub('^','    * ')}}  
+
   - &uuid001
     caption:      jjregex_sub demo
-    processthis:  1
+    processthis:  0
     uuid:         uuid001
     desc:             use this approach instead of jjradioreplace
     dreftymacid:      erase_showing_measle
