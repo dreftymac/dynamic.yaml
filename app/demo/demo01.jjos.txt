@@ -1,0 +1,13 @@
+      
+__yaml__:
+
+  - &uuwindswo99
+    caption:      jjos_hostname ;; 
+    processthis:  1
+    uuid:         uuwindswo99
+    dreftymacid:  fowls_sta88mper_arits
+    off-template: | 
+    template: |
+      {%- set tthost = '' |jjos_hostname() -%}
+      {{ tthost }}
+      

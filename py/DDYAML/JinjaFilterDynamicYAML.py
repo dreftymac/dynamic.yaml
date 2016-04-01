@@ -381,10 +381,21 @@ if('python_region'):
         ##enddef
 
         ## TODO ;; formalize this function and docs
+        def jjos_hostname(self,jjinput):
+          vout = platform.system()
+          return vout
+        ##enddef
+        ## TODO ;; formalize this function and docs
         def jjos_platform(self,jjinput):
           vout = platform.system()
           return vout
         ##enddef
+        
+        ## import socket
+        ## print(socket.gethostname())
+        ## alias_definition
+        def jjos_hostname(self,jjinput): return self.jjos_platform(jjinput)
+        ##enddef        
 
         def jjscalarize(self,jjinput,myvar=None):
           '''
