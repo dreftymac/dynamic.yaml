@@ -3724,6 +3724,7 @@ if('python_region'):
                 oFile = open(outpath,pymode)
                 if(usebom==True):
                   oFile.write(codecs.BOM_UTF8)
+                os.chmod(outpath, 0o700)
                 oFile.write(vbody.encode(encoding='UTF-8',errors='strict'))
                 oFile.close();
                 vout = outpath;

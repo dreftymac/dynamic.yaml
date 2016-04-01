@@ -35,13 +35,16 @@ __yaml__:
     caption:      jjregex_sub -- prefix lines demo
     processthis:  1
     uuid:         uuid002
-    desc:             
+    desc:   |
+      * Prefix all lines in the string with an asterix.
+      * This demo is useful for creating comment blocks, for example.
+      * This demo uses python negative lookahead to avoid lines with only whitespace.
     dreftymacid: elsaem_gniwohs_esare
     template: |
       {#- ------------------------------------------------------------------------ -#}
       {%- set ttdemostring = demostrings[0].wwbody  -%}
       {#- ------------------------------------------------------------------------ -#}  
-      {{ ttdemostring |jjregex_sub('^','    * ')}}  
+      {{ ttdemostring |jjregex_sub('^(?=[^\s]+)','* ') |jjindent(4) }}  
 
   - &uuid001
     caption:      jjregex_sub demo
