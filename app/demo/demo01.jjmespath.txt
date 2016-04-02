@@ -6,41 +6,116 @@
 ###     dreftymacid: "strings_wok_curious"
 ###     filetype: "yaml"
 ###     seealso: |
-###         *
+###         * http://jmespath.org/examples.html
 ###     desc: |
 ###         jjmespath
 ### <end-file_info>
+
+myinfo:
+  sources:
+    alpha: {"type":"one"}
+    bravo: {"type":"two"}
+    charl: {"type":"tre"}
+    delta: {"type":"fou"}
+  dest:   bravo
+  desc:   charlie
+  options:  [1,2,3,4]
+  detail:   |
+    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Qui dicta
+    minus molestiae vel beatae natus eveniet ratione temporibus aperiam
+    harum alias officiis assumenda officia quibusdam deleniti eos
+    cupiditate dolore doloribus.
 
 mytable:
 - age: 33
   fname: homer
   jobtitle: nuke safety tech
   lname: simpson
-- age: 33
+- age: 34
   fname: marge
-  jobtitle: hosewife
+  jobtitle: housewife
   lname: simpson
-- age: 33
+- age: 35
   fname: ned
   jobtitle: preacher
   lname: flanders
-
+- age: 36
+  fname: maude
+  jobtitle: housewife
+  lname: flanders
+- age: 44
+  fname: Mary 
+  jobtitle: Governor
+  lname: Bailey
+- age: 44
+  fname: Lionel 
+  jobtitle: Attorney
+  lname: Hutz
+  
 ## href="smartpath://mytrybits/y/tryyaml/dynamicyaml/devlog.txt"
 ## href="smartpath://mymedia/2014/git/github/dynamic.yaml/app/demo/readme.md"
 ## href="smartpath://mymedia/2014/git/github/dynamic.yaml/py/ddyamlrunner.py"
 ## href="smartpath://mymedia/2014/git/github/dynamic.yaml/py/ddyaml/jinjafilterdynamicyaml.py"
+## href="smartpath://mymedia/2014/git/github/dynamic.yaml/py/ddyaml/jinjafilterjmespath.py"
 __yaml__:
 
   - caption:      jjmespath_query demo
     processthis:  1
-    template:     |
-      {#- ------------------------------------------------------------------------ -#}
+    template: |
+      ### ------------------------------------------------------------------------
+      ### begin_ datapath
+      {{ myinfo
+        |jjmespath_query('sources.bravo.type')
+        |jjdata_formatas('jsonpretty')      
+        }}
+              
+      ### ------------------------------------------------------------------------
+      ### begin_ dictionary projection
+      {{ myinfo
+        |jjmespath_query('sources.*.type')
+        |jjdata_formatas('yamlpretty')      
+        }}      
       
+      ### ------------------------------------------------------------------------
+      ### begin_ list all
+      {{ mytable
+        |jjmespath_query('[*]')
+        |jjdata_formatas('yamlpretty')      
+        }}
+        
+      ### ------------------------------------------------------------------------
+      ### begin_ list index
+      {{ mytable
+        |jjmespath_query('[1]')
+        |jjdata_formatas('yamlpretty')      
+        }}
+        
+      ### ------------------------------------------------------------------------
+      ### begin_ list slice (jmespath slices are just like python)
+      {{ mytable
+        |jjmespath_query('[::-1]')
+        |jjdata_formatas('yamlpretty')      
+        }}          
+        
       ### ------------------------------------------------------------------------
       ### begin_ list projection (AKA SELECT FIELD)
       {{ mytable
         |jjmespath_query('[*].jobtitle')
         |jjdata_formatas('yamlpretty')      
         }}
-
-
+        
+      ### ------------------------------------------------------------------------
+      ### begin_ list projection (AKA SELECT MULTIPLE FIELDS)
+      {{ mytable
+        |jjmespath_query("[?jobtitle=='housewife'].{firstname: fname, lastname: lname}")
+        |jjdata_formatas('yamlpretty')      
+        }}
+        
+      ### ------------------------------------------------------------------------
+      ### begin_ functions
+      myinfo.options has {{ myinfo
+        |jjmespath_query('length(options)')
+        |jjdata_formatas('jsonpretty')      
+        }} items
+        
+        
