@@ -12,6 +12,9 @@ This project was inspired by:
 * https://duckduckgo.com/?q=emacs+radio+tables
 * https://duckduckgo.com/?q=python+%22pep+292%22
 
+This project goes nicely with:
+* http://jmespath.org
+
 This project depends on:
 
 * http://yaml.org
