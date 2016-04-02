@@ -38,11 +38,12 @@ if('python_region'):
       import sys
       from optparse import OptionParser
 
-      ## local import
+      ## local import ;; forget_burial_was::001
       from DDYAML  import  DynamicYAML                 ## href="./DDYAML/DynamicYAML.py"
       from DDYAML  import  JinjaFilterBase             ## href="./DDYAML/JinjaFilterBase.py"
       from DDYAML  import  JinjaFilterDynamicYAML      ## href="./DDYAML/JinjaFilterDynamicYAML.py"
       from DDYAML  import  JinjaFilterJJrun            ## href="./DDYAML/JinjaFilterJJrun.py"
+      from DDYAML  import  JinjaFilterJmespath         ## href="./DDYAML/JinjaFilterJmespath.py"
       from DDYAML  import  YamlDerivedBaseRepresenter  ## href="./DDYAML/YamlDerivedBaseRepresenter.py"
       from DDYAML  import  YamlEmbedJinja              ## href="./DDYAML/YamlEmbedJinja.py"
       from DDYAML  import  DataHelperUtils             ## href="./DDYAML/DataHelperUtils.py"
@@ -122,10 +123,11 @@ if (__name__ == "__main__"):
         ffpath  =   ""
       ##;;
       
-      ##
+      ## default addon filters ;; forget_burial_was::002
       aaJinjaAddonFilters = [
         JinjaFilterDynamicYAML(),
         JinjaFilterJJrun(),
+        JinjaFilterJmespath(),
       ]
       ##;;
     

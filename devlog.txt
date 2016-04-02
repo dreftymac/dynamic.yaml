@@ -37,6 +37,25 @@ TODO:
 
 main:
 
+  - caption:  jmespath support for ddyaml
+    rectype:  rrmini03
+    datebeg:  Fri Apr 01 16:39:08 2016 
+    dateend:  Fri Apr 01 16:39:08 2016 
+    tags:     tags
+    desc:     desc
+    seealso:  seealso
+    dreftymacid: yarning_gemini_undying
+    wwbody: |
+      * pip install jmespath
+      * create simple test script
+          * href="smartpath://mytrybits/p/trypython2/lab2014/pyjson/00temp.py"
+      * create JinjaFilterJmespath.py
+      * add to __init__.py
+      * add reference to href="c:/sm/docs/mymedia/2014/git/github/dynamic.yaml/py/ddyamlrunner.py" find="forget_burial_was::001" 
+      * add reference to href="c:/sm/docs/mymedia/2014/git/github/dynamic.yaml/py/ddyamlrunner.py" find="forget_burial_was::002"
+      * create and run demoscript
+          * href="smartpath://mymedia/2014/git/github/dynamic.yaml/app/demo/demo01.jjmespath.txt" find="strings_wok_curious"
+
   - &uutints_tore
     caption:  support full file paths with pathinclude directive 
     rectype:  rrmini03

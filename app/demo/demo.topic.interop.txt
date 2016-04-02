@@ -73,7 +73,8 @@ __yaml__:
       {%- set ttmylink = 'https://bing.com'  -%}
       {%- set ttmylink = 'imacros://run/?m=Macros/current_demo.iim'  -%}      
       {{ ''|jjrun_firefox(ttmylink) }}
-      {#- ------------------------------------------------------------------------ -#} 
+      {#- ------------------------------------------------------------------------ -#}
+      
   - &uuiundoer
     caption:      jjrun_firefox demo
     processthis:  true

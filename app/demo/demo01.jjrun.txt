@@ -1,0 +1,42 @@
+### <beg-file_info>
+### main:
+###   - date: created="Fri Apr 01 15:28:41 2016"
+###     last: lastmod="Fri Apr 01 15:28:41 2016"
+###     tags: yaml, dynamicyaml, jjrun, interop
+###     dreftymacid: "risk_wizards_increase"
+###     filetype: "yaml"
+###     seealso: |
+###         *
+###     desc: |
+###         jjrun
+###         ddyaml interop tests
+###         running an external program or bash script through ddyaml
+### <end-file_info>
+
+main:
+  
+  - &drrXcygwinbash
+    caption:  run cygwin bash script
+    reckeyy:  drrXcygwinbash
+    dreftymacid: alvarez_cheng_justly
+    seealso:
+      - href="smartpath://mydaydirs/2016/week01/shell/demogga.sh"
+    wwbody:  >
+          c:/programs/cygwin/bin/mintty.exe
+          --exec c:/programs/cygwin/bin/bash --login -i
+          -c "c:/sm/docs/mydaydirs/2016/week01/shell/demogga.sh"  
+  
+## href="smartpath://mytrybits/y/tryyaml/dynamicyaml/devlog.txt"
+## href="smartpath://mymedia/2014/git/github/dynamic.yaml/app/demo/readme.md"
+## href="smartpath://mymedia/2014/git/github/dynamic.yaml/py/ddyamlrunner.py"
+## href="smartpath://mymedia/2014/git/github/dynamic.yaml/py/ddyaml/jinjafilterdynamicyaml.py"
+__yaml__:
+
+  - caption:      jjrun_popen demo
+    processthis:  1
+    template:     |
+      {#- ------------------------------------------------------------------------ -#} 
+      {%- set myrec = main |jjaod_getrecord('reckeyy','drrXcygwinbash',0) -%}
+      {%- set mycmd = myrec.wwbody -%}
+      {{ '' |jjrun_popen(mycmd) }}
+

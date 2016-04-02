@@ -2,12 +2,13 @@
 __yaml__:
 
   - &uuwindswo99
-    caption:      jjos_hostname ;; 
+    caption:      jjos_hostname jjos_platform
     processthis:  1
     uuid:         uuwindswo99
     dreftymacid:  fowls_sta88mper_arits
     off-template: | 
     template: |
+      {%- set ttplat = '' |jjos_platform   -%}
       {%- set tthost = '' |jjos_hostname() -%}
-      {{ tthost }}
+      {{ ttplat |lower() }} {{ tthost |lower() }} 
       
