@@ -3,8 +3,8 @@
 ###   - date: created="Tue Jan 19 22:05:55 2016"
 ###     last: lastmod="Tue Jan 19 22:05:55 2016"
 ###     tags:   tags
-###     dreftymacid:    "funds_cola_handhold"
-###     filetype:       "yaml"
+###     dreftymacid: "funds_cola_handhold"
+###     filetype: "yaml"
 ###     seealso: |
 ###         *
 ###     desc: |

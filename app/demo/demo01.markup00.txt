@@ -1,0 +1,34 @@
+### <beg-file_info>
+### main:
+###   - date: created="Wed Apr 13 09:42:43 2016"
+###     last: lastmod="Wed Apr 13 09:42:43 2016"
+###     tags:   tags 
+###     dreftymacid:    "manpower_olympics_yanks"
+###     filetype:       "yaml"
+###     seealso: |
+###         *
+###     desc: |
+###         demonstrate jinja/ddyaml as a general purpose markup language
+### <end-file_info>
+
+## href="smartpath://mytrybits/y/tryyaml/dynamicyaml/devlog.txt"
+## href="smartpath://mymedia/2014/git/github/dynamic.yaml/app/demo/readme.md"
+## href="smartpath://mymedia/2014/git/github/dynamic.yaml/py/ddyamlrunner.py"
+## href="smartpath://mymedia/2014/git/github/dynamic.yaml/py/ddyaml/jinjafilterdynamicyaml.py"
+__yaml__:
+
+  - &uuid001
+    caption:      caption
+    processthis: 1
+    uuid:         uuid001
+    desc:         __desc__
+    dreftymacid: haunt_retard_same
+    pathinclude:      
+      - "c:/sm/docs/mymedia/2014/git/github/dynamic.yaml/app/sys_markup/markup_system_html.twig"
+      - "c:/sm/docs/mymedia/2014/git/github/dynamic.yaml/app/sys_markup/markup_system_markdown.twig"
+      - "c:/sm/docs/mymedia/2014/git/github/dynamic.yaml/app/sys_markup/markup_system_wikimedia.twig"
+    template: |
+      {#- ------------------------------------------------------------------------ -#}
+      {% import 'markup_system_markdown.twig' as ww %}
+      {#- ------------------------------------------------------------------------ -#}
+      {%call ww.h2()-%}foobar{%-endcall%}

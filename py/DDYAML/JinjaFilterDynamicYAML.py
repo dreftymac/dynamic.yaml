@@ -1891,7 +1891,7 @@ if('python_region'):
 
         ## TODO ;; rename this to jjfile_tostring more consistent naming convention with
         ## jjfile_toarray
-        def jjfromfile(self,jjinput,surl=''):
+        def jjfromfile(self,jjinput,surl='',bascii=True):
           '''
           ## function docs
           - caption:  jjfromfile
@@ -1906,7 +1906,7 @@ if('python_region'):
               pull in content from a file to a string
             todo: |
               * figure out why jjfromfile not working
-                  * href="csm://mydaydirs/2015/week42/json/proj01test01transform01.txt"
+                  * href="smartpath://mydaydirs/2015/week42/json/proj01test01transform01.txt"                  
             dependencies:
               - none
             params:
@@ -1927,6 +1927,10 @@ if('python_region'):
           try:
             ## BUGNAG ;; added encode ascii ignore
             vout  =  codecs.open(surl, 'r', 'utf-8').read().replace(u'\xa0', u' ')
+            ## annoyancebust kludge force ascii output -- remove non-ascii chars
+            if(bascii):
+              vout  =  re.sub('[^\x00-\x7f]+','x?x',vout)
+            ##vout  =   ''.join([vxx for vxx in vout if ord(vxx) < 128 else '?'])
             #vout  =   codecs.open(surl, 'r', 'utf-8').read()
             #vout  =   filter(lambda vxx: vxx in string.printable, vout)
             #vout  =   vout.encode('ascii','replace')
@@ -3084,6 +3088,8 @@ if('python_region'):
             grp_min:      replace
             dreftymacid:  damp_slicing_leafy
             desc:         __desc__
+            example: |
+              {{ row.demodetail |jjregexreplace('^','## ','I,M')}}
             detail:  |
               basename
             dependencies:

@@ -7,51 +7,254 @@
 ###     filetype: "yaml"
 ###     seealso: |
 ###         * http://jmespath.org/examples.html
+###         * http://jmespath.org/specification.html#functions
 ###     desc: |
 ###         jjmespath
 ### <end-file_info>
 
-myinfo:
+### ------------------------------------------------------------------------ 
+## begin_  
+myinfo: &uumyinfo
+  first:    alpha
+  yankov:   {"a": 1, "b": {"c" : 100}}
   sources:
-    alpha: {"type":"one"}
-    bravo: {"type":"two"}
-    charl: {"type":"tre"}
-    delta: {"type":"fou"}
-  dest:   bravo
-  desc:   charlie
-  options:  [1,2,3,4]
+    alpha:  {"type":"one","index":"001"}
+    bravo:  {"type":"two","index":"002"}
+    charl:  {"type":"tre","index":"003"}
+    delta:  {"type":"fou","index":"004"}
+  second:   bravo
+  third:    charl
+  fourth:   delta_echo foxtrot_golf hotel_
+  intts:    [-2,-1,0,1,2,3,4,6,7,8,9]
+  foxtrot:
+    golf:
+      hotel:
+        one:  'uno'
+        two:  ['uno','dos','tres']
+        india:
+          kilo:
+            lima: [1,2,3,4,5]
   detail:   |
     Lorem ipsum dolor sit amet, consectetur adipisicing elit. Qui dicta
     minus molestiae vel beatae natus eveniet ratione temporibus aperiam
     harum alias officiis assumenda officia quibusdam deleniti eos
     cupiditate dolore doloribus.
 
-mytable:
-- age: 33
-  fname: homer
-  jobtitle: nuke safety tech
-  lname: simpson
-- age: 34
-  fname: marge
-  jobtitle: housewife
-  lname: simpson
-- age: 35
-  fname: ned
-  jobtitle: preacher
-  lname: flanders
-- age: 36
-  fname: maude
-  jobtitle: housewife
-  lname: flanders
-- age: 44
-  fname: Mary 
-  jobtitle: Governor
-  lname: Bailey
-- age: 44
-  fname: Lionel 
-  jobtitle: Attorney
-  lname: Hutz
+### ------------------------------------------------------------------------ 
+## begin_  
+mytable: &uumytable
+  - &rrXx0
+    age: 33
+    fname: homer
+    jobtitle: nuke safety tech
+    lname: simpson
+    sex: male
+  - &rrXx1
+    age: 34
+    fname: marge
+    jobtitle: domestic_goddess
+    lname: simpson
+    sex: female
+  - &rrXx2
+    age: 35
+    fname: ned
+    jobtitle: preacher
+    lname: flanders
+    sex: male
+  - &rrXx3
+    age: 36
+    fname: maude
+    jobtitle: domestic_goddess
+    lname: flanders
+    sex: female
+  - &rrXx4
+    age: 44
+    fname: mary 
+    jobtitle: governor
+    lname: bailey
+    sex: female
+  - &rrXx5
+    age: 44
+    fname: lionel 
+    jobtitle: lawyer
+    lname: Hutz
+    sex: male
+##;;
+
+### ------------------------------------------------------------------------ 
+## begin_  
+## parameterized demo generation here
+##
+mydemos_table: &uumydemos_table
+
+  - &demoxx001row
+    democaption:    query at-sign symbol
+    demodataroot:   *uumyinfo
+    demoquery:      "@"
+    demotextpref:   Using the at-sign '@' symbol with a complex tree data structure.
+    demotextsuff:   
+    demotags:       ddmgeneral, ddmintro_at_symbol
+    demorunn:       true
+    demodetail:     |
+      Using the at-sign '@' returns whatever value is at the root of the current
+      jmespath context.
+      
+      This is favorable over other tools that require you to wrap every datapoint
+      in a dictionary or name-value-pair object, and access values by their dictionary
+      keys. (e.g, mustache template, handlebars)
+    
+  - &demoxx002row
+    demodataroot:   *uumytable
+    demoquery:      "@"
+    demotextpref:   Using the at-sign '@' symbol with a simpletable AoD structure.
+    demorunn:       true
+    <<: *demoxx001row
+    
+  - &demoxx003row
+    demodataroot:   *uumyinfo
+    demoquery:      "@.foxtrot.golf.hotel.two[::-1]"
+    demotextpref:   Using the at-sign '@' symbol with path traversal.
+    demorunn:       true
+    <<: *demoxx001row    
+    
+  - democaption:    query [] only
+    demodataroot:   *uumytable
+    demoquery:      "[]"
+    demotextpref:   just brackets
+    demotextsuff:   ""
+    demotags:       ddmgeneral
+    demorunn:       true
+    demodetail:     ""
+      
+  - democaption:    query [@] only
+    demodataroot:   *uumytable
+    demoquery:      "[@]"
+    demotextpref:   
+    demotextsuff:   ""
+    demotags:       ddmgeneral
+    demorunn:       true
+    demodetail:
+      
+  - democaption:    query [*] only
+    demodataroot:   *uumytable
+    demoquery:      "[*]"
+    demotextpref:   
+    demotextsuff:   ""
+    demotags:       ddmgeneral
+    demorunn:       true
+    demodetail:
+      
+  - democaption:    simple query
+    demodataroot:   *uumytable
+    demoquery:      "[*].age"
+    demotextpref:   
+    demotextsuff:   ""
+    demotags:       ddmgeneral
+    demorunn:       true
+    demodetail:
+      
+  - democaption:    simple query
+    demodataroot:   *uumytable
+    demoquery:      "[?@.age<`36`].age"
+    demotextpref:   "LEARNBIT: you have to escape integer with backtic character"
+    demotextsuff:   ""
+    demotags:       ddmgeneral
+    demorunn:       true
+    demodetail:      
+      
+  - democaption:    simple query
+    demodataroot:   *uumytable
+    demoquery:      "[?@.age<`36`].[age, fname]"
+    demotextpref:   "DEMO: how to select fields without fieldnames (sequence of values)"
+    demotextsuff:   ""
+    demotags:       ddmgeneral
+    demorunn:       true
+    demodetail:        
+        
+  - democaption:    string function demo
+    demodataroot:   *uumyinfo
+    demoquery:      "contains(@.fourth,'foxtrot_')"
+    demotextpref:   myinfo.fourth contains 'foxtrot_'
+    demotextsuff:   ""
+    demotags:       ddmstring
+    demorunn:       true
+    demodetail:     string contains function
+
+  - democaption:    functions demo
+    demodataroot:   *uumyinfo
+    demoquery:      'length(@.intts)'
+    demotextpref:   myinfo.intts has
+    demotextsuff:   elements
+    demotags:       ddmfunctions
+    demorunn:       true
+    demodetail:     string length function
   
+  - democaption:    functions demo max
+    demodataroot:   *uumyinfo
+    demoquery:      'max(@.intts)'
+    demotextpref:   myinfo.intts max == 
+    demotextsuff:   
+    demotags:       ddmfunctions
+    demorunn:       true
+    demodetail:     arithmetic max
+    
+  - democaption:    functions demo min
+    demodataroot:   *uumyinfo
+    demoquery:      'min(@.intts)'
+    demotextpref:   myinfo.intts min == 
+    demotextsuff:   
+    demotags:       ddmfunctions
+    demorunn:       true
+    demodetail:     arithmetic min
+    
+  - democaption:    datapath demo
+    demodataroot:   *uumyinfo
+    demoquery:      '@.sources.bravo.type'
+    demotextpref:   myinfo.sources.bravo.type == 
+    demotextsuff:   
+    demotags:       ddmdatapath
+    demorunn:       true
+    demodetail:     specify a simple datapath
+    
+  - democaption:    datapath demo
+    demodataroot:   *uumyinfo
+    demoquery:      '@.yankov'
+    demotextpref:   myinfo.yankov == 
+    demotextsuff:   
+    demotags:       ddmdatapath
+    demorunn:       true        
+    demodetail:     specify a simple datapath
+    
+  - democaption:    complex query
+    demodataroot:   *uumytable
+    demoquery: >
+      [?jobtitle=='domestic_goddess']
+        .{"First Name": fname, "Last Name": lname, "Job Title": jobtitle}
+    demotextpref:   "perform a SQL-like query on input data \n"
+    demotextsuff:   
+    demotags:       ddmcomplexquery
+    demorunn:       true        
+    demodetail:     |
+      * ANNOYANCE ;; jmespath seems to be picky about quotes. use single-quote.
+          * the jobtitle query requires single quotes apparently
+      -- SQL query comparison
+      SELECT
+        fname as `firstname`
+        ,lname as `lastname`
+        ,jobtitle as `Job Title`
+      FROM
+        mytable
+      WHERE
+        jobtitle = 'domestic_goddess'
+ 
+### ------------------------------------------------------------------------ 
+## begin_  specify current_demotag (or leave blank)
+mydemos_info: &uumydemos_info
+  current_demotag:    ddmgeneral
+    ##ddmcomplexquery
+    ##ddmgeneral
+  current_showbefore: 0
+
 ## href="smartpath://mytrybits/y/tryyaml/dynamicyaml/devlog.txt"
 ## href="smartpath://mymedia/2014/git/github/dynamic.yaml/app/demo/readme.md"
 ## href="smartpath://mymedia/2014/git/github/dynamic.yaml/py/ddyamlrunner.py"
@@ -59,21 +262,97 @@ mytable:
 ## href="smartpath://mymedia/2014/git/github/dynamic.yaml/py/ddyaml/jinjafilterjmespath.py"
 __yaml__:
 
-  - caption:      jjmespath_query demo
+  - caption:      jjmespath demos output style 002
     processthis:  1
+    offtemplate:  | 
+        wwdatabefore: |{{"\n"}}{{ row.demodataroot |jjdata_formatas('jsonpretty') |jjindent(4) }}
+    template:     |
+      {#- ------------------------------------------------------------------------
+      optional filter demo by demotags
+      -#}
+      {%- set taginclude =  mydemos_info.current_demotag or '' -%}
+      {#- ------------------------------------------------------------------------
+      iterate demos in mydemos_table
+      -#} 
+      {% for row in mydemos_table if(row.demorunn and taginclude in row.demotags) -%}
+      {{-"\n"-}}
+      ### ********************
+      ### begin_  
+      - democaption:  {{ row.democaption }}
+        demoprologue: |{{"\n"}}{{ (row.demotextpref   or "")  |jjindent(4) }}
+        demoepilogue: |{{"\n"}}{{ (row.demotextsuff   or "")  |jjindent(4) }}
+        demoquery:    |{{"\n"}}{{ (row.demoquery      or "")  |jjindent(4) }}
+        demodetail:   |{{"\n"}}{{ (row.demodetail     or "")  |jjindent(4) }}
+        wwdataafter:  |{{"\n"}}{{ row.demodataroot |jjmespath_query(row.demoquery) |jjdata_formatas('jsonpretty') |jjindent(4) }}        
+      {% endfor %}
+
+  - caption:      jjmespath demos output style 001
+    processthis:  0
+    template:     |
+      {#- ------------------------------------------------------------------------
+      optional filter demo by demotags
+      -#}
+      {%- set taginclude =  mydemos_info.current_demotag or '' -%}
+      {#- ------------------------------------------------------------------------
+      iterate demos in mydemos_table
+      -#} 
+      {% for row in mydemos_table if(row.demorunn and taginclude in row.demotags) -%}
+      ### ********************
+      ### begin_ {{ row.democaption -}}
+      {{-"\n"-}} {{ (row.demotextpref or "\n") |jjregexreplace('^(?=[\S]+)','### ','M') }}
+      {%- if mydemos_info.current_showbefore
+          -%}
+          {{-"\n"-}} ### ********************
+          {{-"\n"-}} ## data BEFORE query
+          {{-"\n"-}} {{ row.demodataroot |jjdata_formatas('jsonpretty')
+          }}{%endif-%}
+      {{-"\n"-}} ### ********************
+      {{-"\n"-}} ## data AFTER query          
+      {{-"\n"-}} {{ row.demodataroot |jjmespath_query(row.demoquery) |jjdata_formatas('jsonpretty') }}
+      {{-" "-}}  {{ (row.demotextsuff or '')   |jjregexreplace('^(?=[\S]+)','### ','M') }}
+      
+      ## jmespath query ...
+      ##
+      {{ row.demoquery   |jjregexreplace('(?# prefix nonblank lines)^(?=\s*[\w\S]+)','## ','M') }}
+      
+      {{ row.demodetail  |jjregexreplace('(?# prefix nonblank lines)^(?=\s*[\w\S]+)','## ','M') }}    
+      {{-"\n"}}
+      {% endfor %}
+      
+  - caption:      jjmespath_query examples
+    processthis:  0
     template: |
       ### ------------------------------------------------------------------------
-      ### begin_ datapath
-      {{ myinfo
-        |jjmespath_query('sources.bravo.type')
+      ### begin_ functions      
+      myinfo.intts has {{ myinfo
+        |jjmespath_query('length(intts)')
+        |jjdata_formatas('jsonpretty')      
+        }} items
+      myinfo.intts maximum == {{ myinfo.intts
+        |jjmespath_query('max(@)')
         |jjdata_formatas('jsonpretty')      
         }}
+      myinfo.intts minimum == {{ myinfo.intts
+        |jjmespath_query('min(@)')
+        |jjdata_formatas('jsonpretty')      
+        }}         
+        
+      ### ------------------------------------------------------------------------
+      ### begin_ datapath
+      myinfo.sources.bravo.type == {{ myinfo
+        |jjmespath_query('sources.bravo.type')
+        |jjdata_formatas('jsonpretty')      
+        }}        
+      myinfo.yankov == {{ myinfo
+        |jjmespath_query('@.yankov')
+        |jjdata_formatas('jsonpretty')      
+        }}        
               
       ### ------------------------------------------------------------------------
       ### begin_ dictionary projection
-      {{ myinfo
-        |jjmespath_query('sources.*.type')
-        |jjdata_formatas('yamlpretty')      
+      myinfo.sources.index in reverse == {{ myinfo
+        |jjmespath_query('sources.*.index | sort(@) |reverse(@)')
+        |jjdata_formatas('json')      
         }}      
       
       ### ------------------------------------------------------------------------
@@ -107,15 +386,14 @@ __yaml__:
       ### ------------------------------------------------------------------------
       ### begin_ list projection (AKA SELECT MULTIPLE FIELDS)
       {{ mytable
-        |jjmespath_query("[?jobtitle=='housewife'].{firstname: fname, lastname: lname}")
+        |jjmespath_query("[?jobtitle=='domestic_goddess'].{firstname: fname, lastname: lname}")
         |jjdata_formatas('yamlpretty')      
         }}
         
       ### ------------------------------------------------------------------------
-      ### begin_ functions
-      myinfo.options has {{ myinfo
-        |jjmespath_query('length(options)')
-        |jjdata_formatas('jsonpretty')      
-        }} items
-        
-        
+      ### begin_ complex query
+      {{ mytable
+        |jjmespath_query("""[?sex=='female'].fname | sort(@) | {Females: join(', ', @)}""")
+        |jjdata_formatas('json')      
+        }}
+
