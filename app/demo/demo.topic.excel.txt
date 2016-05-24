@@ -114,10 +114,10 @@ __yaml__:
       {%- set ttdata      =   myfileggc |jjdata_table_load_fromexcelsheet()  -%}
       {{ ttdata |jjdata_formatas('jsonpretty')  }}
       
-  - &heritageearlier
+  - &uuheritageearlier
     rowkeep: 10 
     caption:      jjdata_table_load_fromexcelsheet
-    uuid:         heritageearlierf
+    uuid:         uuheritageearlier
     desc:         |
       * without dataschema
           * PRO   easy to load with minimal code
@@ -127,7 +127,7 @@ __yaml__:
           * PRO   typed comparison operators and math
           * PRO   predictable fieldnames
           * CON   more code to write
-    dreftymacid:  heritageearlier
+    dreftymacid:  uuheritageearlier
     template:         |
       {#- ------------------------------------------------------------------------ -#}     
       {%- set myfilegga   =   "c:/sm/docs/mytrybits/d/trydata/data_msft_excel/people_simple_30.xls"   -%}
