@@ -171,7 +171,7 @@ if('python_region'):
             rawyaml   =   args['yaml']
             rawyaml   =   textwrap.dedent( rawyaml )
             rawyaml   =   rawyaml.lstrip()
-            rawyaml   =   rawyaml.replace("\t", "\s\s\s\s")            
+            rawyaml   =   rawyaml.replace("\t", "  ")            
             regions   =   rawyaml.split(splitby)
             ## 
             if (regions.__len__() == 2):
@@ -195,7 +195,7 @@ if('python_region'):
           ##trycatch ;; firstpass
           try:
             ## firstpass yaml data load
-            
+            print rawyaml
             # print rawyaml
             # exit()
             data_firstpass = yaml.safe_load( rawyaml )
