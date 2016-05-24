@@ -6,6 +6,7 @@
 ###     dreftymacid: "strings_wok_curious"
 ###     filetype: "yaml"
 ###     seealso: |
+###         * href="smartpath://mytrybits/j/tryjmespath/devlog.txt"
 ###         * http://jmespath.org/examples.html
 ###         * http://jmespath.org/specification.html#functions
 ###     desc: |

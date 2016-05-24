@@ -1,10 +1,14 @@
-## Overview
-LOCPATH                ;;  DESC
-* "./.ignore__jinja"   ;;  general purpose ddyaml jinja 
-* "./.ignore_aws_iim"  ;;  AWS amazon web services stuff
-* "./.ignore_d7iim"    ;;  D7 imacros
-* "./.ignore_macros01" ;;  general purpose ddyaml jinja macros
-* "./.ignore_testiim"  ;;  test iim imacros stuff
-* "./demo"             ;;  fullblown non-git-ignored demo stuff
-* "./scratch"          ;;  fullblown non-git-ignored scratch directory
+### <beg-file_info>
+### main:
+###   - date: created="Fri May 13 11:07:15 2016"
+###     last: lastmod="Fri May 13 11:07:15 2016"
+###     tags:   tags 
+###     dreftymacid:    "or_whap_zeolite"
+###     filetype:       "yaml"
+###     seealso: |
+###         * 
+###     desc: |
+###         ddyaml templates moved to myclip.raw
+### <end-file_info>
+
 

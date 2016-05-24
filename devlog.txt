@@ -10,7 +10,9 @@
 ###
 ###         ## dynamicyaml
 ###         * href="smartpath://mytrybits/y/tryyaml/dynamicyaml/devlog.txt"
-###
+###         
+###         ## repl tutorial
+###         * http://jmespath.org/tutorial.html
 ### <end-file_info>
 
 changelog:

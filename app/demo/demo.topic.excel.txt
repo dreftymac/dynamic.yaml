@@ -2,7 +2,7 @@
 ### main:
 ###   - date: created="Tue Dec 29 13:25:09 2015"
 ###     last: lastmod="Tue Dec 29 13:25:09 2015"
-###     tags: tags 
+###     tags: excel, msft, xmlss
 ###     dreftymacid: "brags_fragrant_lengthen"
 ###     seealso: |
 ###         * href="./demo.topic.excel.txt"

@@ -171,6 +171,7 @@ if('python_region'):
             rawyaml   =   args['yaml']
             rawyaml   =   textwrap.dedent( rawyaml )
             rawyaml   =   rawyaml.lstrip()
+            rawyaml   =   rawyaml.replace("\t", "\s\s\s\s")            
             regions   =   rawyaml.split(splitby)
             ## 
             if (regions.__len__() == 2):
@@ -194,6 +195,9 @@ if('python_region'):
           ##trycatch ;; firstpass
           try:
             ## firstpass yaml data load
+            
+            # print rawyaml
+            # exit()
             data_firstpass = yaml.safe_load( rawyaml )
             data_firstpass.pop(self.my_ddyaml_string_enddata, None) ## remove region_dynamic portion of ddyaml workbook
 
@@ -209,7 +213,7 @@ if('python_region'):
             ##print vout
             ##;;
           except Exception as msg:
-            print '## EXCEPTION waveland_wavelike__001 ( yaml possibly_broken_syntax? ) msg@%s'%(msg.__repr__())
+            print '## EXCEPTION waveland_wavelike__001a ( yaml possibly_broken_syntax? ) msg@%s'%(msg.__repr__())
             print "\n".join(["## %s"%(vxx) for vxx in rawyaml.splitlines() ])
             exc_type, exc_obj, exc_tb = sys.exc_info()
             fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
@@ -286,7 +290,7 @@ if('python_region'):
             ##print vout
             ##;;
           except Exception as msg:
-            print '## EXCEPTION waveland_wavelike__001 ( yaml possibly_broken_syntax? ) msg@%s'%(msg.__repr__())
+            print '## EXCEPTION waveland_wavelike__001b ( yaml possibly_broken_syntax? ) msg@%s'%(msg.__repr__())
             print "\n".join(["## %s"%(vxx) for vxx in rawyaml.splitlines() ])
             exc_type, exc_obj, exc_tb = sys.exc_info()
             fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]

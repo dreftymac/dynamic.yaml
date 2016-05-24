@@ -582,7 +582,7 @@ if('python_region'):
           return vout
         ##enddef
 
-        def jjaod_getrecord(self,jjinput,fieldname='fname',fieldvalue='value',iirec=0):
+        def jjaod_getrecord(self,jjinput,fieldname='fname',fieldvalue='value',iirec=0,sdefault='__blank__'):
           '''
           ## function docs
           - caption:  jjaod_getrecord
@@ -599,8 +599,12 @@ if('python_region'):
             dependencies:
               - none
             example:  |
-                {%- set iirec         =  0  -%}
-                {%- set mydatarec     =  usertable |jjaod_getrecord('sex','female',iirec) -%}
+                ## get WANTED_RECORD
+                ## where sex == 'female'
+                
+                {%- set iirec         =  0          -%}
+                {%- set sdefault      =  '_null_'   -%}
+                {%- set mydatarec     =  usertable |jjaod_getrecord('sex','female',iirec,sdefault) -%}
             params:
               - param: jjinput    ;; required ;; python table_aod
               - param: fieldname  ;; required ;; aod select field
@@ -616,7 +620,7 @@ if('python_region'):
             vout = [row for row in table_aod if(row[fieldname])==fieldvalue]
             vout = vout[iirec]
           except Exception as msg:
-            vout = '__blank__'
+            vout = sdefault
             #print 'UNEXPECTED TERMINATION msg@%s'%(msg.__repr__())
             #exc_type, exc_obj, exc_tb = sys.exc_info()
             #fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
@@ -683,7 +687,7 @@ if('python_region'):
           ##
           try:
             odatt = DataHelperDiceware()
-            vout  = odatt.get_ngram(ilen,ssepa) + str(vout)
+            vout  = str(vout) + odatt.get_ngram(ilen,ssepa) 
           ##
           except Exception as msg:
             print 'UNEXPECTED TERMINATION flyer_afield_zealand msg@%s'%(msg.__repr__())
@@ -2472,7 +2476,7 @@ if('python_region'):
           return vout
         ##enddef
 
-        def jjlistrange(self,jjinput,rbeg=0,rend=-1):
+        def jjlistrange(self,jjinput,rbeg=0,rend=None):
           """
           ## function docs
           - caption:    jjlistrange
@@ -2504,15 +2508,18 @@ if('python_region'):
           """
 
           ##
-          vout = jjinput
+          vout  = jjinput
 
           ##
           try:
-            vout  = vout[rbeg:rend]
+            if(True or rend is None):
+              vout  = vout[int(rbeg):None]
+            if(rend):
+              vout  = vout[int(rbeg):int(rend)]
           except  IndexError as msg:
             vout  = vout
           except  Exception as msg:
-            print 'UNEXPECTED TERMINATION msg@%s'%(msg.__repr__())
+            print 'EXCEPTION councils_dock_swam %s msg@%s'%(rend,msg.__repr__())
             exc_type, exc_obj, exc_tb = sys.exc_info()
             fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
             print(exc_type, fname, exc_tb.tb_lineno)
@@ -3624,6 +3631,8 @@ if('python_region'):
             dreftymacid:  glucose_visual_unweave
             tags: directory, fileio
             desc: output a directory
+            example: |
+              {{ "" |jjtodir('/home/myuser/testdir') }}
             detail: |
               output to a directory
             dependencies:
@@ -3646,12 +3655,15 @@ if('python_region'):
               outpath = outpath + '/' ## ensure a trailing slash so python knows we want a directory
               if( not os.path.exists(os.path.dirname(outpath)) ):
                 os.makedirs( os.path.dirname(outpath) )
+              elif(True):
+                #print "dir exists"
+                pass
               #oFile = open(outpath,'wb')
               #oFile.write(vout)
               #oFile.close();
               vout = outpath;
               vout = "/".join(re.split('[/]+', vout))
-              vout = "## create directory %s"%(vout)
+              vout = "\n## create directory %s\n"%(vout)
           except Exception as msg:
             pass
             #print 'UNEXPECTED TERMINATION gadgets_busby_damply msg@%s'%(msg.__repr__())
@@ -3740,11 +3752,14 @@ if('python_region'):
                 os.chmod(outpath, 0o700)
                 oFile.write(vbody.encode(encoding='UTF-8',errors='strict'))
                 oFile.close();
+                vout = ''
+                vout += "\n### -----------------------"
+                vout += "\n## output file %s\n"%(outpath)
+                vout += "\n"
+                vout += "\n### -----------------------\n"
+              elif(True):                
                 vout = outpath;
-                vout = "\n## output file %s"%(vout)
-              elif(True):
-                vout = outpath;
-                vout = "\n## failed to write output file %s (already exists?)"%(vout)
+                vout = "\n\n## failed to write output file %s (already exists?)\n"%(vout)
               ##---
 
           except Exception as msg:
