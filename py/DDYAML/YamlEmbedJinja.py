@@ -195,7 +195,7 @@ if('python_region'):
           ##trycatch ;; firstpass
           try:
             ## firstpass yaml data load
-            print rawyaml
+            # print rawyaml
             # print rawyaml
             # exit()
             data_firstpass = yaml.safe_load( rawyaml )
