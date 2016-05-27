@@ -1,0 +1,39 @@
+{#- ------------------------------------------------------------------------
+simple helloworld macro with caller-style syntax
+-#}
+{%- macro mmjjsayhello(opts) -%}
+  {#- --------------------------------------------- -#}
+  {%- set opts    = kwargs  -%}
+  {%- set name    = opts.name or 'world'    -%}
+  {#- --------------------------------------------- -#}
+  Hello {{ name }}!
+  {% if caller %}{{ caller() -}}{% endif %}
+{%- endmacro -%}
+
+{#- ------------------------------------------------------------------------
+simple helloworld-style macro with caller-style syntax
+-#}  
+{%- macro mmsayhello(opts) -%}
+  {#- --------------------------------------------- -#}
+  {%- set opts = kwargs  -%}
+  {#- ------------------------------------------------------------------------
+      ANNOYANCE -- jinja2 does not allow arbitrary assignment to dictionary values
+        {%- set mydict["mykey"] = "foobar"  -%} <---- this will not work as you expect NO_WORKY
+        
+      ANNOYANCE_WORKAROUND_001
+        {%- set noop = mydict.update({"mykey":"foobar"}) -%} <---- YES_WORKY
+        
+      ANNOYANCE_WORKAROUND_002 (requires the jinja extension "do" [[jinja2.ext.do extension]] )
+        {% do mydict.update({"mykey":"foobar"}) %}  <---- YES_WORKY    
+        {% do mydict.update({"mykey":"foobar"}) if(not opts.foobar) %}  <---- YES_WORKY    
+  -#}  
+  {% do opts.update({'fname':'__bLank__'})  if( not (opts.fname) )  %}
+  {% do opts.update({'lname':'__Blank__'})  if( not (opts.lname) )  %}
+  {% do opts.update({'age':'__blAnk__'})    if( not (opts.age) )    %}
+  {#- --------------------------------------------- -#}
+  Hello {{ opts.fname }} {{ opts.lname }}!
+  {% if caller %}{{ caller() -}}{% endif %}
+  Are you {{ opts.age }} years old yet?       
+{%- endmacro -%}
+
+

@@ -39,6 +39,8 @@ TODO:
 
 main:
 
+
+
   - caption:  jmespath support for ddyaml
     rectype:  rrmini03
     datebeg:  Fri Apr 01 16:39:08 2016 
@@ -67,6 +69,8 @@ main:
     desc:     desc
     seealso:
       href="regain://miner_starts_guava" ;; in DynamicYAML.py
+      href="smartpath://mymedia/2014/git/github/dynamic.yaml/app/demo_byfeature/lib.templateinclude/templatefile001.ddyaml.twig"
+      href="smartpath://mymedia/2014/git/github/dynamic.yaml/app/demo_byfeature/directive.pathinclude/demo00.pathinclude.ddyaml.txt"      
     dreftymacid: tints_tore
     wwbody: |
       - problem: >

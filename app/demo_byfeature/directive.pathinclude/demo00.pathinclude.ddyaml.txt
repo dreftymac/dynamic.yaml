@@ -1,0 +1,69 @@
+### <beg-file_info>
+### main:
+###   - date: created="Mon Mar 07 11:07:58 2016"
+###     last: lastmod="Mon Mar 07 11:07:58 2016"
+###     tags: pathinclude, import, jjimport, transclusion, include, require
+###     dreftymacid: "ma_rivalry_slanting"
+###     filetype: "yaml"
+###     seealso: |
+###         *
+###     desc: |
+###         demonstrate the jinja way of importing templates
+###
+###         DEPENDENCIES: 
+###         * uses the ddyaml pathinclude directive
+###         * uses the jinja2 import directive ;; myclip://jjimport
+### <end-file_info>
+
+datarec01:
+  fname: Homer
+  lname: Simpson
+  age:   33
+  
+datarec02:
+  fname: ''
+  lname: ''  
+  age:   ''
+
+__yaml__:
+
+  - &uuid002
+    caption:      simple demo -- call macro using dictionary args
+    processthis:  1
+    uuid:         uuid002
+    desc: |
+      * macro pulled in with pathinclude
+      * see href="smartpath://mymedia/2014/git/github/dynamic.yaml/devlog.txt" find="miner_starts_guava" 
+    dreftymacid:  reload_unfaith_eventful
+    pathinclude:
+      -  "c:/sm/docs/mymedia/2014/git/github/dynamic.yaml/app/demo/demo00.importinclude00.txt"
+    template: |
+      {#- ------------------------------------------------------------------------ -#}       
+      {% import 'demo00.importinclude00.txt'  as inc01 %}
+      {#- ------------------------------------------------------------------------ -#}  
+      {{ inc01.mmsayhello(**datarec01) }}
+      {{ inc01.mmsayhello(**datarec02) }}
+
+  - &uuid001
+    caption:      simple demo -- pathinclude directive
+    processthis:  0
+    uuid:         uuid001
+    desc: |
+      * pathinclude with support for full filepath in the directive
+      * see href="smartpath://mymedia/2014/git/github/dynamic.yaml/devlog.txt" find="miner_starts_guava" 
+    dreftymacid:  reload_unfaith_eventful
+    pathinclude:
+      -  "c:/sm/docs/mymedia/2014/git/github/dynamic.yaml/app/demo/demo00.importinclude00.txt"
+    template: |
+      {#- ------------------------------------------------------------------------ -#}       
+      {% import 'demo00.importinclude00.txt'  as foobar %}
+      {#- ------------------------------------------------------------------------ -#}  
+      {{ foobar.mmjjsayhello(name='world') }}
+      {{ foobar.mmjjsayhello(name='alpha') }}
+      {{ foobar.mmjjsayhello(name='bravo') }}
+      {{ foobar.mmjjsayhello(name='charl') }}
+
+
+      
+      
+
