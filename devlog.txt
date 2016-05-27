@@ -63,7 +63,7 @@ main:
     rectype:  rrmini03
     datebeg:  Fri Mar 25 16:45:27 2016 
     dateend:  Fri Mar 25 16:45:27 2016 
-    tags:     tags
+    tags:     pathinclude, import, jjimport, transclusion, include, require
     desc:     desc
     seealso:
       href="regain://miner_starts_guava" ;; in DynamicYAML.py

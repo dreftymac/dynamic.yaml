@@ -2,7 +2,7 @@
 ### main:
 ###   - date: created="Mon Mar 07 11:07:58 2016"
 ###     last: lastmod="Mon Mar 07 11:07:58 2016"
-###     tags: pathinclude, import, jjimport
+###     tags: pathinclude, import, jjimport, transclusion, include, require
 ###     dreftymacid: "ma_rivalry_slanting"
 ###     filetype: "yaml"
 ###     seealso: |

@@ -2,7 +2,7 @@
 ### main:
 ###   - date: created="Fri Jul 17 04:44:10 2015"
 ###     last: lastmod="Fri Jul 17 04:44:10 2015"
-###     tags:       barebones, demo, zip, blockspring
+###     tags:       barebones, demo, zip, blockspring, include, transclusion
 ###     author:     created="dreftymac"
 ###     dreftymacid:    "heists_bely_numeric"
 ###     caption:        datainclude directive

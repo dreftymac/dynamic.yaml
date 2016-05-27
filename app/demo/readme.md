@@ -22,6 +22,7 @@ This directory contains sample dynamic YAML files for demonstration.
 * block assignment                  ;; href="smartpath://mymedia/2014/git/github/dynamic.yaml/app/demo/demo01blockassign01.txt.twig"
 * file/io                           ;; href="smartpath://mymedia/2014/git/github/dynamic.yaml/app/demo/demo.topic.fileio.txt"
 * imacros generate and autorun      ;; href="smartpath://mymedia/2014/git/github/dynamic.yaml/app/demo/demo.topic.interop.txt" find="undoer_clean_unafraid"
+* pathinclude import transclusion   ;; href="smartpath://mymedia/2014/git/github/dynamic.yaml/app/demo/demo00.importinclude01.txt"
 * run command shell popen interop   ;; href="smartpath://mymedia/2014/git/github/dynamic.yaml/app/demo/demo.topic.interop.txt"
 * map filter and listcomprehension  ;; href="smartpath://mymedia/2014/git/github/dynamic.yaml/app/demo/demo01jjapplyfunction01.txt"
 * msft excel                        ;; href="smartpath://mymedia/2014/git/github/dynamic.yaml/app/demo/demo.topic.excel.txt"
