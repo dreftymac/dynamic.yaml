@@ -24,12 +24,51 @@ datarec02:
   fname: ''
   lname: ''  
   age:   ''
+  
+paramdef_001_table:
+  - &uuid001x
+    varname:     string
+    type:        text
+    label:       Arbitrary input string
+    description: Enter a value for a string that will be modified
+    
+  - &uuid002x
+    varname:     length
+    type:        integer
+    label:       Arbitrary input length
+    description: Enter a value for a string that will be modified
+    
+  - &uuid003x
+    varname:     algorithm
+    type:        text
+    label:       Arbitrary output algorithm
+    description: Enter a value for a string that will be modified
 
 __yaml__:
 
+  - &uuid003
+    caption:      simple demo -- paramdef demo
+    processthis:  1
+    uuid:         uuid003
+    desc: |
+      * macro pulled in with pathinclude
+      * see href="smartpath://mymedia/2014/git/github/dynamic.yaml/devlog.txt" find="miner_starts_guava" 
+    dreftymacid:  reload_unfaith_eventful
+    pathinclude:
+      -  "c:/sm/docs/mymedia/2014/git/github/myclip/myclip.raw/ddyaml_php/templatefile001.twig"
+    template: |
+      {#- ------------------------------------------------------------------------ -#}       
+      {% import 'templatefile001.twig' as inc01 %}
+      {#- ------------------------------------------------------------------------ -#}  
+      "parameter" => array({{-"\n"-}}
+        {%- for row in paramdef_001_table -%}
+        {{ inc01.paramdef_001(**row) |jjindent(2) }}{{-"\n"-}}
+        {%- endfor -%}
+      ),
+      
   - &uuid002
     caption:      simple demo -- call macro using dictionary args
-    processthis:  1
+    processthis:  0
     uuid:         uuid002
     desc: |
       * macro pulled in with pathinclude
@@ -39,7 +78,7 @@ __yaml__:
       -  "c:/sm/docs/mymedia/2014/git/github/dynamic.yaml/app/demo/demo00.importinclude00.txt"
     template: |
       {#- ------------------------------------------------------------------------ -#}       
-      {% import 'demo00.importinclude00.txt'  as inc01 %}
+      {% import 'demo00.importinclude00.txt' as inc01 %}
       {#- ------------------------------------------------------------------------ -#}  
       {{ inc01.mmsayhello(**datarec01) }}
       {{ inc01.mmsayhello(**datarec02) }}
@@ -64,6 +103,5 @@ __yaml__:
       {{ foobar.mmjjsayhello(name='charl') }}
 
 
-      
       
 
