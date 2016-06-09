@@ -23,12 +23,14 @@ changelog:
   - caption: datafile directive changed to datainclude directive
 
 TODO:
-  - flagoption yamlembedjinja ;; make it an option flag whether or not to do YamlEmbedJinja firstpass, since this is still alpha is brittle when used with myclip
-  - bugfix yamlpretty         ;; yamlpretty output does not seem to work with href="local:///demo.2passprocessing" peak_hankow_necks
-  - two-pass templating       ;; multipass/firstpass modification needs to work with the following contexts (jjloop, datainclude)   
-  - namespacing               ;; rename all jjfile_ functions properly so they are all correctly namespaced                         
-  - relative paths            ;; ff_resolvepath_path function needs to be applied to all paths (ISSUE: local://cruiser_chariot_ama) 
-  - clearer error messages    ;; voyeur_foulest_weirdly parsing errors need to be clearer                                           
+  
+  * flagoption yamlembedjinja ;; make it an option flag whether or not to do YamlEmbedJinja firstpass, since this is still alpha is brittle when used with myclip
+      * regain://misfit_ailment_lash
+  * bugfix yamlpretty         ;; yamlpretty output does not seem to work with href="local:///demo.2passprocessing" peak_hankow_necks
+  * two-pass templating       ;; multipass/firstpass modification needs to work with the following contexts (jjloop, datainclude)   
+  * namespacing               ;; rename all jjfile_ functions properly so they are all correctly namespaced                         
+  * relative paths            ;; ff_resolvepath_path function needs to be applied to all paths (ISSUE: local://cruiser_chariot_ama) 
+  * clearer error messages    ;; voyeur_foulest_weirdly parsing errors need to be clearer                                           
 
 ###
 ###
