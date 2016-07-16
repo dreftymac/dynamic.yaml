@@ -2487,7 +2487,9 @@ if('python_region'):
             grp_med:      list
             grp_min:      item
             dreftymacid:  councils_dock_swam
-            desc: try to return list item at index
+            desc: |
+              * NO_WORKY -- jjlistrange does not work as expected
+              * try to return list item at index
             example: |
               {{ [1,2,3,4,5] |jjlistrange(0,1)      }} --> [1]
               {{ [1,2,3,4,5] |jjlistrange(0,3)      }} --> [1, 2, 3]
