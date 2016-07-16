@@ -384,12 +384,14 @@ if('python_region'):
         def jjos_hostname(self,jjinput):
           import socket
           vout = socket.gethostname()
+          print vout
           return vout
         ##enddef
-        
+
         ## TODO ;; formalize this function and docs
         def jjos_platform(self,jjinput):
           vout = platform.system()
+          if ('ygwi' in vout): vout = 'cygwin'
           return vout
         ##enddef
 
@@ -601,7 +603,7 @@ if('python_region'):
             example:  |
                 ## get WANTED_RECORD
                 ## where sex == 'female'
-                
+
                 {%- set iirec         =  0          -%}
                 {%- set sdefault      =  '_null_'   -%}
                 {%- set mydatarec     =  usertable |jjaod_getrecord('sex','female',iirec,sdefault) -%}
@@ -687,7 +689,7 @@ if('python_region'):
           ##
           try:
             odatt = DataHelperDiceware()
-            vout  = str(vout) + odatt.get_ngram(ilen,ssepa) 
+            vout  = str(vout) + odatt.get_ngram(ilen,ssepa)
           ##
           except Exception as msg:
             print 'UNEXPECTED TERMINATION flyer_afield_zealand msg@%s'%(msg.__repr__())
@@ -1910,7 +1912,7 @@ if('python_region'):
               pull in content from a file to a string
             todo: |
               * figure out why jjfromfile not working
-                  * href="smartpath://mydaydirs/2015/week42/json/proj01test01transform01.txt"                  
+                  * href="smartpath://mydaydirs/2015/week42/json/proj01test01transform01.txt"
             dependencies:
               - none
             params:
@@ -2991,7 +2993,7 @@ if('python_region'):
                 * href="smartpath://mydaydirs/2016/week13/week13devlog.txt" find="uusunrise_firing_paths"
             dreftymacid:  extra_clamp_positive
             seealso:
-              - href="c:/sm/docs/mydaydirs/2016/week13/week13devlog.txt" find="uusunrise_firing_paths"            
+              - href="c:/sm/docs/mydaydirs/2016/week13/week13devlog.txt" find="uusunrise_firing_paths"
               - href="smartpath://mymedia/2014/git/github/dynamic.yaml/app/demo/demo01.jjregex.txt" find="erase_showing_measle"
               - href="smartpath://mymedia/2014/git/github/myclip/myclip.ddyaml/transform01.yaml.txt"
               - href="https://www.gnu.org/software/emacs/manual/html_node/org/Radio-tables.html"
@@ -3757,7 +3759,7 @@ if('python_region'):
                 vout += "\n## output file %s\n"%(outpath)
                 vout += "\n"
                 vout += "\n### -----------------------\n"
-              elif(True):                
+              elif(True):
                 vout = outpath;
                 vout = "\n\n## failed to write output file %s (already exists?)\n"%(vout)
               ##---
