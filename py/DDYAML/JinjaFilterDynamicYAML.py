@@ -3441,6 +3441,14 @@ if('python_region'):
 
           ##
           try:
+            if(sdelim.strip() == ''):
+              vout = list(vout)
+          except Exception as msg:
+            pass
+          ##;;
+
+          ##
+          try:
             vout = vout.split(sdelim)
           except Exception as msg:
             print 'UNEXPECTED TERMINATION msg@%s'%(msg.__repr__())
@@ -3473,7 +3481,6 @@ if('python_region'):
           ##
           vout = jjinput.__str__()
 
-          ##
           try:
             vout = re.split(regex,vout)
             pass
