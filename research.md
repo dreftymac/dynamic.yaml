@@ -89,6 +89,7 @@ There is no reason against languages besides python, and there is no reason agai
 * http://stackoverflow.com/questions/2837809/writing-json-with-xslt
 
 ### others
+* [https://keepingitclassless.net/2014/03/network-config-templates-jinja2/](blog post about yaml configs)
 * http://diecutter.io/
 * http://docs.saltstack.com/en/latest/topics/troubleshooting/yaml_idiosyncrasies.html
 * http://symfony.com/legacy/doc/reference/1_3/en/02-YAML#chapter_02_dynamic_yaml_files
