@@ -26,7 +26,6 @@ datarec02:
   age:   ''
 
 __yaml__:
-
   - &uuid002
     caption:      simple demo -- call macro using dictionary args
     processthis:  1
@@ -39,7 +38,7 @@ __yaml__:
       -  "c:/sm/docs/mymedia/2014/git/github/dynamic.yaml/app/demo/demo00.importinclude00.txt"
     template: |
       {#- ------------------------------------------------------------------------ -#}       
-      {% import 'demo00.importinclude00.txt'  as inc01 %}
+      {% import 'demo00.importinclude00.txt' as inc01 %}
       {#- ------------------------------------------------------------------------ -#}  
       {{ inc01.mmsayhello(**datarec01) }}
       {{ inc01.mmsayhello(**datarec02) }}

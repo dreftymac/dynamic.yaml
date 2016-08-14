@@ -2,7 +2,7 @@
 ### main:
 ###   - date: created="Tue Jan 19 22:05:55 2016"
 ###     last: lastmod="Tue Jan 19 22:05:55 2016"
-###     tags:   tags 
+###     tags:   tags
 ###     dreftymacid:    "funds_cola_handhold"
 ###     filetype:       "yaml"
 ###     seealso: |
@@ -17,7 +17,7 @@ if('python_region'):
       ## init py
       import os
       import subprocess
-      
+
       ##
       from JinjaFilterBase import JinjaFilterBase
       from DataHelperUtils import DataHelperUtils
@@ -44,10 +44,10 @@ if('python_region'):
              - param: jjinput ;; optarity ;; jinja raw input string
           ##end_func_docs
           '''
-        
+
           ##
           vout = jjinput.__str__()
-        
+
           ##
           try:
             vout = vout
@@ -57,7 +57,7 @@ if('python_region'):
             exc_type, exc_obj, exc_tb = sys.exc_info()
             fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
             print(exc_type, fname, exc_tb.tb_lineno)
-        
+
           ##
           return vout
         ##enddef
@@ -81,12 +81,12 @@ if('python_region'):
 ###!          Currently assumes jinja2 as the templating engine for ddyaml
 ###!
 ###!
-###!          
+###!
 ###!  wwbody: |
       class JinjaFilterJJrun(JinjaFilterBase):
 
         ### ------------------------------------------------------------------------
-        ### begin_: 
+        ### begin_:
 
         def jjrun_popen(self,jjinput,scmd=''):
           '''
@@ -99,7 +99,7 @@ if('python_region'):
             desc:         run a command using python's os.popen command
             dreftymacid:  charcoal_endanger_finger
             example:
-              - 
+              -
             seealso:
               - href="smartpath://mytrybits/p/trypython2/lab2014/py/barebones_interop.py" find="sank_ceram_trim"
             detail: |
@@ -135,7 +135,7 @@ if('python_region'):
             fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
             print(exc_type, fname, exc_tb.tb_lineno)
           ##;;
-          
+
           ##
           return vout
         ##enddef
@@ -149,12 +149,12 @@ if('python_region'):
           ##beg_func_docs
           - caption:      jjrun_firefox
             date:         lastmod="2016-01-19T21:08:04"
-            grp_maj:      python  
+            grp_maj:      python
             grp_med:      interop
             grp_min:      firefox
             desc:         run firefox with optional args
             dreftymacid:  venatic_impure_forego
-            seealso: 
+            seealso:
               - href="https://developer.mozilla.org/en-US/docs/Mozilla/Command_Line_Options?redirectlocale=en-US&redirectslug=Command_Line_Options"
               - href="../../../app/demo/demo.topic.interop.txt"
             detail:  |
@@ -168,10 +168,10 @@ if('python_region'):
              - param: srunpath ;; optional ;; path to firefox executable
           ##end_func_docs
           '''
-        
+
           ##
           vout = jjinput.__str__()
-        
+
           ##
           try:
             subprocess.call([srunpath,srunargs,srunwebl])
@@ -181,7 +181,7 @@ if('python_region'):
             exc_type, exc_obj, exc_tb = sys.exc_info()
             fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
             print(exc_type, fname, exc_tb.tb_lineno)
-        
+
           ##
           return vout
         ##enddef

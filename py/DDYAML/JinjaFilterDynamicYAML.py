@@ -26,6 +26,7 @@ if('python_region'):
   import json
   import platform
   import markdown
+  import md5
   import os
   import random
   import requests
@@ -66,7 +67,7 @@ if('python_region'):
             dependencies:
               - __blank__
             params:
-             - param: jjinput ;; optarity ;; jinja raw input string
+             - param: jjinput ;; optarity ;; jinja input raw string
           ##end_func_docs
           '''
 
@@ -78,7 +79,7 @@ if('python_region'):
             vout = vout
           ##
           except Exception as msg:
-            print 'UNEXPECTED TERMINATION __dreftymacid__ msg@%s'%(msg.__repr__())
+            print '82exception_err msg@%s'%(msg.__repr__())
             exc_type, exc_obj, exc_tb = sys.exc_info()
             fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
             print(exc_type, fname, exc_tb.tb_lineno)
@@ -371,7 +372,7 @@ if('python_region'):
               vout = vout.rstrip()
           ##
           except Exception as msg:
-            print 'UNEXPECTED TERMINATION __dreftymacid__ msg@%s'%(msg.__repr__())
+            print '375exception_err msg@%s'%(msg.__repr__())
             exc_type, exc_obj, exc_tb = sys.exc_info()
             fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
             print(exc_type, fname, exc_tb.tb_lineno)
@@ -426,7 +427,7 @@ if('python_region'):
             vout = vout
           ##
           except Exception as msg:
-            print 'UNEXPECTED TERMINATION __dreftymacid__ msg@%s'%(msg.__repr__())
+            print '430exception_err msg@%s'%(msg.__repr__())
             exc_type, exc_obj, exc_tb = sys.exc_info()
             fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
             print(exc_type, fname, exc_tb.tb_lineno)
@@ -575,7 +576,7 @@ if('python_region'):
             return vout
           ##
           except Exception as msg:
-            print 'UNEXPECTED TERMINATION __dreftymacid__ msg@%s'%(msg.__repr__())
+            print '579exception_err msg@%s'%(msg.__repr__())
             exc_type, exc_obj, exc_tb = sys.exc_info()
             fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
             print(exc_type, fname, exc_tb.tb_lineno)
@@ -1192,7 +1193,7 @@ if('python_region'):
 
           ##
           except Exception as msg:
-            print 'UNEXPECTED TERMINATION __dreftymacid__ msg@%s'%(msg.__repr__())
+            print '1196exception_err msg@%s'%(msg.__repr__())
             exc_type, exc_obj, exc_tb = sys.exc_info()
             fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
             print(exc_type, fname, exc_tb.tb_lineno)
@@ -1521,6 +1522,51 @@ if('python_region'):
           return vout
         ##enddef
 
+        def jjhashmd5(self,jjinput):
+          '''
+          ##beg_func_docs
+          - caption:      jjhashmd5
+            date:         lastmod="Sat Jul 23 06:48:33 2016"
+            grp_maj:      grp_maj
+            grp_med:      grp_med
+            grp_min:      grp_min
+            desc:         apply md5 hash to input string
+            dreftymacid:  ultraist_cheapest_extends
+            python_repl: |
+              >>> import md5
+              >>> m = md5.new()
+              >>> m.update("Nobody inspects")
+              >>> m.update(" the spammish repetition")
+              >>> m.hexdigest()
+            detail:  |
+              * __blank__
+            dependencies:
+              - __blank__
+            params:
+             - param: jjinput ;; optarity ;; jinja input raw string
+          ##end_func_docs
+          '''
+
+          ##
+          vout = jjinput.__str__()
+
+          ##
+          try:
+            mhh   =   md5.new()
+            mhh.update(vout)
+            vout = mhh.hexdigest()
+          ##
+          except Exception as msg:
+            print '1560exception_err msg@%s'%(msg.__repr__())
+            exc_type, exc_obj, exc_tb = sys.exc_info()
+            fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
+            print(exc_type, fname, exc_tb.tb_lineno)
+
+          ##
+          return vout
+        ##enddef
+
+
         def jjdec64(self,jjinput):
           '''
           ## function docs
@@ -1835,7 +1881,7 @@ if('python_region'):
             elif (True): vout = ''
           ##
           except Exception as msg:
-            print 'UNEXPECTED TERMINATION __dreftymacid__ msg@%s'%(msg.__repr__())
+            print '1884exception_err msg@%s'%(msg.__repr__())
             exc_type, exc_obj, exc_tb = sys.exc_info()
             fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
             print(exc_type, fname, exc_tb.tb_lineno)
@@ -1886,7 +1932,7 @@ if('python_region'):
         #    vout = __file__
         #  ##
         #  except Exception as msg:
-        #    print 'UNEXPECTED TERMINATION __dreftymacid__ msg@%s'%(msg.__repr__())
+        #    print '1935exception_err msg@%s'%(msg.__repr__())
         #    exc_type, exc_obj, exc_tb = sys.exc_info()
         #    fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
         #    print(exc_type, fname, exc_tb.tb_lineno)
@@ -2161,7 +2207,7 @@ if('python_region'):
 
           ##
           except Exception as msg:
-            print 'UNEXPECTED TERMINATION __dreftymacid__ msg@%s'%(msg.__repr__())
+            print '2210exception_err msg@%s'%(msg.__repr__())
             exc_type, exc_obj, exc_tb = sys.exc_info()
             fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
             print(exc_type, fname, exc_tb.tb_lineno)
@@ -2292,7 +2338,7 @@ if('python_region'):
         #    vout          =   (etree.tostring(document_root, encoding='unicode', pretty_print=True))
         #  ##
         #  except Exception as msg:
-        #    print 'UNEXPECTED TERMINATION __dreftymacid__ msg@%s'%(msg.__repr__())
+        #    print '2341exception_err msg@%s'%(msg.__repr__())
         #    exc_type, exc_obj, exc_tb = sys.exc_info()
         #    fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
         #    print(exc_type, fname, exc_tb.tb_lineno)
@@ -2442,6 +2488,57 @@ if('python_region'):
           return vout
         ##enddef
 
+        def jjlinestolist(self,jjinput,iwrap=70,splitter="<br/>"):
+          '''
+          ##beg_func_docs
+          - caption:      jjlinestolist
+            date:         lastmod="2016-07-18T08:18:20"
+            grp_maj:      grp_maj
+            grp_med:      grp_med
+            grp_min:      grp_min
+            desc:         |
+              textwrap lines and convert to list,
+              one line per array element
+            dreftymacid:  starch_largest_cent
+            detail:  |
+              * splitter element explained
+                  * http://stackoverflow.com/questions/17195998/python-turn-one-item-in-list-into-two-items
+            dependencies:
+              - import textwrap
+            params:
+              - param: jjinput  ;; required ;; jinja input raw string
+              - param: iwrap    ;; optional ;; wrap size
+              - param: splitter ;; optional ;; split single elements into multiple
+          ##end_func_docs
+          '''
+
+          ##
+          vout = jjinput.__str__()
+          ##;;
+
+          ##
+          try:
+            wrapper       =   textwrap.TextWrapper()
+            wrapper.width =   iwrap
+            vout          =   vout.strip()
+            vout          =   wrapper.wrap(vout)
+
+            vtemp     = [vyy for vxx in vout for vyy in vxx.split(splitter) ]
+            vout      = vtemp
+          ##
+          except Exception as msg:
+            pass
+          except Exception as msg:
+            print '2530exception_err msg@%s'%(msg.__repr__())
+            exc_type, exc_obj, exc_tb = sys.exc_info()
+            fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
+            print(exc_type, fname, exc_tb.tb_lineno)
+          ##;;
+
+          ##
+          return vout
+        ##enddef
+
         def jjlistget(self,jjinput,index=0):
           """
           ## function docs
@@ -2516,9 +2613,9 @@ if('python_region'):
 
           ##
           try:
-            if(True or rend is None):
+            if(rend is None):
               vout  = vout[int(rbeg):None]
-            if(rend):
+            if(not (rend is None)):
               vout  = vout[int(rbeg):int(rend)]
           except  IndexError as msg:
             vout  = vout

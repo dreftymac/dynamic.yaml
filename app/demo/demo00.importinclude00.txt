@@ -21,10 +21,10 @@ simple helloworld-style macro with caller-style syntax
         {%- set mydict["mykey"] = "foobar"  -%} <---- this will not work as you expect NO_WORKY
         
       ANNOYANCE_WORKAROUND_001
-        {%- set noop = mydict.update({"mykey":"foobar"}) -%} <---- YES_WORKY
+        {%- set noop = mydict.update({"mykey":"foobar"}) -%}            <---- YES_WORKY
         
       ANNOYANCE_WORKAROUND_002 (requires the jinja extension "do" [[jinja2.ext.do extension]] )
-        {% do mydict.update({"mykey":"foobar"}) %}  <---- YES_WORKY    
+        {% do mydict.update({"mykey":"foobar"}) %}                      <---- YES_WORKY    
         {% do mydict.update({"mykey":"foobar"}) if(not opts.foobar) %}  <---- YES_WORKY    
   -#}  
   {% do opts.update({'fname':'__bLank__'})  if( not (opts.fname) )  %}
