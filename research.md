@@ -89,6 +89,7 @@ There is no reason against languages besides python, and there is no reason agai
 * http://stackoverflow.com/questions/2837809/writing-json-with-xslt
 
 ### others
+* [jinja config system based on csv](http://www.ifconfig.it/wordpress/2014/04/qpc_jinja2/)
 * [blog post about yaml configs](https://keepingitclassless.net/2014/03/network-config-templates-jinja2/)
 * http://diecutter.io/
 * http://docs.saltstack.com/en/latest/topics/troubleshooting/yaml_idiosyncrasies.html
