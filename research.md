@@ -1,6 +1,6 @@
 # Overview
 
-Here are some research links and resources for this project.
+Here are some research items related to this project.
 
 ## Inspiration, credit and comparison:
 
