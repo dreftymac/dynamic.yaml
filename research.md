@@ -50,7 +50,7 @@ This project is very similar to:
 * Others
   * [ python-mustache]  (https://github.com/defunkt/pystache)
   * [ jsonf-format-extensions]  (https://github.com/burningtree/awesome-json#format-extensions)
-  * [ HOCON]  (https://github.com/typesafehub/config/blob/master/HOCON.md#hocon-human-optimized-config-object-notation)
+  * [ HOCON (re-invented YAML to make JSON nicer)]  (https://github.com/typesafehub/config/blob/master/HOCON.md#hocon-human-optimized-config-object-notation)
   * [ json-hybrid]  (http://hjson.org/)
   * [ json-hybrid]  (https://metacpan.org/pod/distribution/JSONY/lib/JSONY.pod)
   * [ jssonet]  (http://google.github.io/jsonnet/doc/)
