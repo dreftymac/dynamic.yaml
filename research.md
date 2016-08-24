@@ -42,20 +42,21 @@ This project is very similar to:
 
 ## Similar or alternative approaches
 * YAML-python
-   * https://pypi.python.org/pypi/metayaml/0.15.1
-   * https://pypi.python.org/pypi/yamltypes/1.0
-   * https://pypi.python.org/pypi/jenkinsyamlconfigs/0.2.3
-   * https://pypi.python.org/pypi?%3Aaction=search&term=yaml&submit=search
-   * https://pypi.python.org/pypi/whizkers/1.1.0
+  * https://pypi.python.org/pypi/metayaml/0.15.1
+  * https://pypi.python.org/pypi/yamltypes/1.0
+  * https://pypi.python.org/pypi/jenkinsyamlconfigs/0.2.3
+  * https://pypi.python.org/pypi?%3Aaction=search&term=yaml&submit=search
+  * https://pypi.python.org/pypi/whizkers/1.1.0
 * Others
-   * jsonf-format-extensions ;; https://github.com/burningtree/awesome-json#format-extensions
-   * HOCON ;; https://github.com/typesafehub/config/blob/master/HOCON.md#hocon-human-optimized-config-object-notation
-   * json-hybrid ;; http://hjson.org/
-   * json-hybrid ;; https://metacpan.org/pod/distribution/JSONY/lib/JSONY.pod
-   * jssonet ;; http://google.github.io/jsonnet/doc/
-   * MVCPages ;; https://github.com/joeriks/MVCPages
-   * Coookiecutter ;; https://github.com/audreyr/cookiecutter
-   * Jolt ;; https://github.com/bazaarvoice/jolt
+  * [ python-mustache]  (https://github.com/defunkt/pystache)
+  * [ jsonf-format-extensions]  (https://github.com/burningtree/awesome-json#format-extensions)
+  * [ HOCON]  (https://github.com/typesafehub/config/blob/master/HOCON.md#hocon-human-optimized-config-object-notation)
+  * [ json-hybrid]  (http://hjson.org/)
+  * [ json-hybrid]  (https://metacpan.org/pod/distribution/JSONY/lib/JSONY.pod)
+  * [ jssonet]  (http://google.github.io/jsonnet/doc/)
+  * [ MVCPages]  (https://github.com/joeriks/MVCPages)
+  * [ Coookiecutter]  (https://github.com/audreyr/cookiecutter)
+  * [ Jolt]  (https://github.com/bazaarvoice/jolt)
 * Templating as a service
    * die-cutter ;; https://github.com/diecutter/piecutter
 
