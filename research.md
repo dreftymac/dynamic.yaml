@@ -4,7 +4,7 @@ Here are some research items related to this project.
 
 ## Inspiration, credit and comparison:
 
-This project was inspired by: 
+This project was inspired by:
 
 * http://yaml.org
 * http://template-toolkit.org
@@ -17,14 +17,15 @@ This project goes nicely with:
 
 This project depends on:
 
-* http://yaml.org
-* http://jinja.pocoo.org
+* [YAML](http://yaml.org)
+* [Jinja Templating](http://jinja.pocoo.org)
 
 This project is very similar to:
 
-* https://pypi.python.org/pypi/metayaml
+* python metayaml
     * https://bitbucket.org/atagunov/metayaml
-* https://pypi.python.org/pypi/ruamel.yaml/0.6.1
+* python ruamel
+    * https://pypi.python.org/pypi/ruamel.yaml/0.6.1
 * ansible-playbook files
     * https://github.com/ansible/ansible/tree/devel/lib/ansible
     * http://stackoverflow.com/questions/35043403/is-there-a-standalone-specification-for-the-ansible-playbook-format
@@ -37,12 +38,13 @@ This project is very similar to:
 * https://github.com/ansible/ansible/blob/devel/lib/ansible/plugins/filter/core.py
   * custom jinja filters for use with ansible
 
-## Similar or alternative approaches 
+## Similar or alternative approaches
 * YAML-python
    * https://pypi.python.org/pypi/metayaml/0.15.1
    * https://pypi.python.org/pypi/yamltypes/1.0
    * https://pypi.python.org/pypi/jenkinsyamlconfigs/0.2.3
    * https://pypi.python.org/pypi?%3Aaction=search&term=yaml&submit=search
+   * https://pypi.python.org/pypi/whizkers/1.1.0
 * Others
    * jsonf-format-extensions ;; https://github.com/burningtree/awesome-json#format-extensions
    * HOCON ;; https://github.com/typesafehub/config/blob/master/HOCON.md#hocon-human-optimized-config-object-notation
@@ -57,7 +59,7 @@ This project is very similar to:
 
 ## Jinja and Jinja2
 
-This project currently depends on python with `import jinja2`. 
+This project currently depends on python with `import jinja2`.
 There is no reason against languages besides python, and there is no reason against other templating/expression engines besides jinja2.
 
 * http://stackoverflow.com/questions/18175466/templating-library-in-node-js-similar-to-jinja2-in-python
@@ -98,5 +100,3 @@ There is no reason against languages besides python, and there is no reason agai
 * http://urgetopunt.com/rails/2009/09/12/yaml-config-with-erb.html
 * https://github.com/audreyr/cookiecutter
 * https://github.com/springbok/smerf
-
-
