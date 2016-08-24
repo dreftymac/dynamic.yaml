@@ -18,7 +18,9 @@ This project goes nicely with:
 This project depends on:
 
 * [YAML](http://yaml.org)
+    * http://pyyaml.org/
 * [Jinja Templating](http://jinja.pocoo.org)
+    * https://github.com/pallets/jinja
 
 This project is very similar to:
 
