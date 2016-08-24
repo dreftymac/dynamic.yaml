@@ -590,6 +590,7 @@ if('python_region'):
           ## function docs
           - caption:  jjaod_getrecord
             date:     lastmod="Mon 2014-10-20 16:45:46"
+            tags:     getrow,getrecord
             grp_maj:  data
             grp_med:  array_of_dictionary
             grp_min:  select
@@ -613,6 +614,7 @@ if('python_region'):
               - param: fieldname  ;; required ;; aod select field
               - param: fieldvalue ;; required ;; aod select value
               - param: iirec      ;; optional ;; optional record index if more than one record is obtained
+              - param: sdefault   ;; optional ;; optional default value 
             dreftymacid:  byte_urethral_behold
             output: python list (or `__blank__` if no result was found)
           '''
@@ -942,12 +944,21 @@ if('python_region'):
             grp_maj:      data
             grp_med:      filter
             grp_min:      python array_of_dictionary (simpletable aod)
+            seealso: |
+              * href="smartpath://mymedia/2014/git/github/dynamic.yaml/py/ddyaml/jinjafilterjmespath.py"
             desc: |
               * WARNING ;; uses string-eval
               * filter rows based on a row_filter_clause (eg  if( row['fname']!='homer' )   )
               * the row_filter_clause works by using a python lambda function
               * the row_filter_clause is interpolated into the python lambda function
             example: |
+              {#- ------------------------------------------------------------------------ -#}
+              {%- set opts  = dict()  -%}
+              {%- set noop  = opts.update({'tableformat':'aod'}) -%}
+              {%- set noop  = opts.update({'rowfilter':""" if(  row['nation'] == 'uk' and int(row['age']) > 13  ) """}) -%}
+              {#- ------------------------------------------------------------------------ -#}
+              {%- set ttmytable = demotable |jjdata_table_rowfilter(opts) -%}
+              {#- ------------------------------------------------------------------------ -#}
 
             dreftymacid: aware_flourish_influx
             detail:  |

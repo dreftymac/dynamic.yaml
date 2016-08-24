@@ -3,7 +3,7 @@
 ###   - date: created="Tue Jan 19 22:05:55 2016"
 ###     last: lastmod="Tue Jan 19 22:05:55 2016"
 ###     tags:   tags
-###     dreftymacid:    "funds_cola_handhold"
+###     dreftymacid:    "linear_cm_branchy"
 ###     filetype:       "yaml"
 ###     seealso: |
 ###         *
@@ -139,7 +139,7 @@ if('python_region'):
           ##
           return vout
         ##enddef
-        
+
         def jjrun_firefox(self,jjinput
                           ,srunwebl='https://www.google.com'
                           ,srunargs='-new-tab'

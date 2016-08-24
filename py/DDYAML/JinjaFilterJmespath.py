@@ -21,7 +21,7 @@ if('python_region'):
 
       ##
       from JinjaFilterBase import JinjaFilterBase
-      from YamlDerivedBaseRepresenter import YamlDerivedBaseRepresenter      
+      from YamlDerivedBaseRepresenter import YamlDerivedBaseRepresenter
       # from DataHelperUtils import DataHelperUtils
       # from DataHelperDiceware import DataHelperDiceware
 

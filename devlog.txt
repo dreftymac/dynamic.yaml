@@ -41,8 +41,6 @@ TODO:
 
 main:
 
-
-
   - caption:  jmespath support for ddyaml
     rectype:  rrmini03
     datebeg:  Fri Apr 01 16:39:08 2016 
