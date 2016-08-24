@@ -40,7 +40,7 @@ This project is very similar to:
 * https://github.com/ansible/ansible/blob/devel/lib/ansible/plugins/filter/core.py
   * custom jinja filters for use with ansible
 
-## Similar or alternative approaches
+## YAML enhancement libraries and modules (similar or alternative approaches)
 * YAML-python
   * https://pypi.python.org/pypi/metayaml/0.15.1
   * https://pypi.python.org/pypi/yamltypes/1.0
