@@ -32,6 +32,10 @@ This project is very similar to:
     * https://github.com/ansible/ansible/tree/devel/lib/ansible
     * http://stackoverflow.com/questions/35043403/is-there-a-standalone-specification-for-the-ansible-playbook-format
 
+People who like this project might also like:
+
+* [Xiki: a Shell with GUI-like features](https://github.com/trogdoro/xiki)
+
 ## Background, tutorials and complimentary resources
 * python package distribution
       * https://github.com/pypa/sampleproject
