@@ -82,6 +82,7 @@ There is no reason against languages besides python, and there is no reason agai
 ## Template-related
 
 * [Python throw_out_your_templates](https://github.com/tavisrudd/throw_out_your_templates)
+      * [Github tavisrudd](https://github.com/tavisrudd)
 
 ## XML and XSLT comparisons
 
