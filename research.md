@@ -79,6 +79,10 @@ There is no reason against languages besides python, and there is no reason agai
 * http://twigkit.github.io/tempo/
 * https://open.blockspring.com/pkpp1233/xml-json-explorer
 
+## Template-related
+
+* [Python throw_out_your_templates](https://github.com/tavisrudd/throw_out_your_templates)
+
 ## XML and XSLT comparisons
 
 * http://fdik.org/yml/yslt
