@@ -614,7 +614,7 @@ if('python_region'):
               - param: fieldname  ;; required ;; aod select field
               - param: fieldvalue ;; required ;; aod select value
               - param: iirec      ;; optional ;; optional record index if more than one record is obtained
-              - param: sdefault   ;; optional ;; optional default value 
+              - param: sdefault   ;; optional ;; optional default value
             dreftymacid:  byte_urethral_behold
             output: python list (or `__blank__` if no result was found)
           '''
@@ -1954,7 +1954,7 @@ if('python_region'):
 
         ## TODO ;; rename this to jjfile_tostring more consistent naming convention with
         ## jjfile_toarray
-        def jjfromfile(self,jjinput,surl='',bascii=True):
+        def jjfromfile(self,jjinput,surl='',bascii=True,bverbose=False):
           '''
           ## function docs
           - caption:  jjfromfile
@@ -2002,21 +2002,22 @@ if('python_region'):
             #vout  = vout.decode('utf-8').encode('ascii', 'ignore')
             pass
           except Exception as msg:
-            print """
-            ### ------------------------------------------------------------------------
-            ### ------------------------------------------------------------------------
-            ### ------------------------------------------------------------------------
+            if(bverbose):
+              print """
+              ### ------------------------------------------------------------------------
+              ### ------------------------------------------------------------------------
+              ### ------------------------------------------------------------------------
 
-            FILE IO HASSLE ;; href="%s"
+              FILE IO HASSLE ;; href="%s"
 
-            ### ------------------------------------------------------------------------
-            ### ------------------------------------------------------------------------
-            ### ------------------------------------------------------------------------
-            """ %(surl)
-            print 'UNEXPECTED TERMINATION sharing_client_smearing msg@%s %s'%(msg.__repr__(),surl)
-            exc_type, exc_obj, exc_tb = sys.exc_info()
-            fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
-            print(exc_type, fname, exc_tb.tb_lineno)
+              ### ------------------------------------------------------------------------
+              ### ------------------------------------------------------------------------
+              ### ------------------------------------------------------------------------
+              """ %(surl)
+              print 'UNEXPECTED TERMINATION sharing_client_smearing msg@%s %s'%(msg.__repr__(),surl)
+              exc_type, exc_obj, exc_tb = sys.exc_info()
+              fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
+              print(exc_type, fname, exc_tb.tb_lineno)
           ##
           #return vout.decode('ascii','replace')
           return vout
