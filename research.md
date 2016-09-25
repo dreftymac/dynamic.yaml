@@ -42,7 +42,9 @@ People who like this project might also like:
 * http://rhnh.net/2011/01/31/yaml-tutorial
 * http://docs.ansible.com/ansible/playbooks_filters.html
 * https://github.com/ansible/ansible/blob/devel/lib/ansible/plugins/filter/core.py
-  * custom jinja filters for use with ansible
+   * custom jinja filters for use with ansible
+* JSONJinja from the creator of Jinja
+   * https://github.com/mitsuhiko/jsonjinja
 
 ## YAML enhancement libraries and modules (similar or alternative approaches)
 * YAML-python
