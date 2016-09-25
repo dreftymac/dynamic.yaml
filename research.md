@@ -98,6 +98,9 @@ There is no reason against languages besides python, and there is no reason agai
 
 ## See also
 
+### advanced
+* [Code generation in Python -- dismantling Jinja](https://www.youtube.com/watch?v=jXlR0Icvvh8)
+
 ### stackoverflow related-links
 
 * http://stackoverflow.com/questions/1308536/yaml-compared-to-xml
