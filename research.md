@@ -28,6 +28,7 @@ This project is very similar to:
     * https://bitbucket.org/atagunov/metayaml
 * python ruamel
     * https://pypi.python.org/pypi/ruamel.yaml/0.6.1
+    * https://pypi.python.org/pypi/ruamel.yaml/0.12.14
 * ansible-playbook files
     * https://github.com/ansible/ansible/tree/devel/lib/ansible
     * http://stackoverflow.com/questions/35043403/is-there-a-standalone-specification-for-the-ansible-playbook-format
