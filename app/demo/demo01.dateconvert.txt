@@ -1,0 +1,1 @@
+## href="smartpath://mymedia/2014/git/github/dynamic.yaml/app/demo/demo01.datetime01.txt"

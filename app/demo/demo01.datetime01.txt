@@ -13,7 +13,7 @@
 
 main:
   
-  - outfmt:  unix
+  - outfmt:   unix
     rawstrr:  "201511240251"
     innfmt:   '%Y%m%d%H%M'
 
