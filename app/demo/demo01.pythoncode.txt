@@ -1,0 +1,50 @@
+### <beg-file_info>
+### main:
+###   - date: created="Mon Oct 03 09:00:22 2016"
+###     last: lastmod="Mon Oct 03 09:00:22 2016"
+###     tags: tags
+###     dmid: "darer_cloth_beaver"
+###     filetype: "yaml"
+###     desc: |
+###         * see what kinds of python code can be run from within jinja2
+###     seealso: |
+###         * __seealso__
+### <end-file_info>
+### insmm find="__dmid__"
+
+main:
+  - caption: LEARNBIT PSRAP ;; caption
+    rectype: 			rrlearnbit
+    date:       	Mon Oct 03 09:00:53 2016
+    context:    	jinja2 and python
+    problem:    	Sometimes Trevor wants to run python from within jinja for some minor processing
+    solution:   	__solution__
+    rationale:  	__rationale__
+    example:    	__example__
+    pitfalls:   	Trevor will get complaints if he goes to far, pursuant to the "do not mix template and business logic" maxim.
+    seealso:   	  __seealso__
+    tags:   	    __tags__
+    dreftymacid: 	mucks_obtainer_inducing
+    wwbody: |
+        wwbody
+        
+
+
+__yaml__:
+
+## href="smartpath://mytrybits/y/tryyaml/dynamicyaml/devlog.txt"
+## href="smartpath://mymedia/2014/git/github/dynamic.yaml/app/demo/readme.md"
+## href="smartpath://mymedia/2014/git/github/dynamic.yaml/py/ddyamlrunner.py"
+## href="smartpath://mymedia/2014/git/github/dynamic.yaml/py/ddyaml/jinjafilterdynamicyaml.py"
+
+  - &uuid01rrmy01
+    caption:      caption
+    processthis:  1
+    uuid: uuid01rrmy01
+    desc: __desc__
+    dreftymacid: __dreftymacid__
+    datainclude: datainclude
+    templateinclude: templateinclude
+    pathinclude: pathinclude
+    template:         |
+       

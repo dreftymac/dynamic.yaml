@@ -13,23 +13,50 @@
 
 main:
   
-  - outfmt:   unix
-    rawstrr:  "201511240251"
-    innfmt:   '%Y%m%d%H%M'
+  - outfmt: unix
+    rawstrr: "201511240251"
+    innfmt: '%Y%m%d%H%M'
 
-  - outfmt:  unix
-    rawstrr:  "2015-11-24T0251"
-    innfmt:   '%Y-%m-%dT%H%M'
+  - outfmt: unix
+    rawstrr: "2015-11-24T0251"
+    innfmt: '%Y-%m-%dT%H%M'
 
-  - outfmt:  unix
-    rawstrr:  "11/24/2015T0251"
-    innfmt:   '%m/%d/%YT%H%M'
+  - outfmt: unix
+    rawstrr: "11/24/2015T0251"
+    innfmt: '%m/%d/%YT%H%M'
+
+  - outfmt: unix
+    rawstrr: 'Sat Oct 01 14:21:20 2016'
+    innfmt: '%a %b %d %H:%M:%S %Y'    
+
+demotable:
+
+  - caption:  one
+    datebeg:  Sat Oct 01 14:22:01 2016 
+
+  - caption:  two
+    datebeg:  Sat Oct 01 14:22:02 2016 
+
+  - caption:  three
+    datebeg:  Sat Oct 01 14:22:03 2016 
+
+  - caption:  zero
+    datebeg:  Sat Oct 01 14:22:00 2016 
+
+  - caption: date
+    datebeg: Thu Oct 08 14:39:16 2015
+
+  - caption: date
+    datebeg: Thu Sep 29 03:21:37 2016
+    
+  - caption: date
+    datebeg: Wed Dec 30 10:35:19 2015
 
 __yaml__:
 
   - &uuiwishpatga
     caption:      jjdate_reformat
-    rowkeep: 1    
+    processthis: 0
     uuid:         uuiwishpatga
     template: |
       {#- ------------------------------------------------------------------------  -#}
@@ -40,4 +67,18 @@ __yaml__:
         {% endfor %}        
       {#- ------------------------------------------------------------------------  -#}
 
+  - &uuid01rrmy01
+    caption:      sort by date with non iso8601 dates
+    processthis:  1
+    uuid: uuid01rrmy01
+    desc: __desc__
+    dreftymacid: maria_tends_roaring
+    template:         |
+      {#- ------------------------------------------------------------------------ -#}
+      {%- set ttnewrow      = {}  -%}
+      {%- set noop      = ttnewrow.update({'alpha':'__one__'}) -%}
+      {%- set noop      = ttnewrow.update({'bravo':'__two__'}) -%}
+      {%- set noop      = ttnewrow.update({'chrly':'__tre__'}) -%}
+      {%- set noop      = ttnewrow.update({'delta':'__fou__'}) -%}  
+      
 
