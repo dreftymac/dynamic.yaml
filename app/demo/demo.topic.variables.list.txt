@@ -25,7 +25,6 @@ __yaml__:
     dreftymacid:  leaflet_olivia_masker
     seealso:
         - http://stackoverflow.com/a/4880398/42223    
-    templateinclude:  templateinclude
     template:         |
       {%- set aademoalpha = [ ]  -%}
       {%- for item in range(15+1) -%}{% do aademoalpha.append(item) %}{% endfor -%}
@@ -38,7 +37,6 @@ __yaml__:
     desc:         __desc__
     dreftymacid:  undrunk_wind_merit
     datainclude:      datainclude
-    templateinclude:  templateinclude
     template:         |
       {%- set aademoalpha = [11,22,33]  -%}
       {%- set aademobravo = [44,55,66]  -%}
@@ -52,7 +50,6 @@ __yaml__:
     desc:         __desc__
     dreftymacid:  mick_ariser_cults
     datainclude:      datainclude
-    templateinclude:  templateinclude
     template:         |
       {%- set aademoalpha = [11,22,33]  -%}
       {% for item in range(15+1) -%}

@@ -9,7 +9,7 @@
 ###     seealso: |
 ###         *
 ###     desc: |
-###         desc
+###         * lastupdate: jjdata_load xmljson support
 ### <end-file_info>
 
 ### @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
@@ -779,14 +779,23 @@ if('python_region'):
             dreftymacid:  brat_joints_twenty
             detail:  |
               * TODO ;; add support for source formats other than yaml
-            dependencies:
-              - __blank__
+            dependencies: |
+              * import yaml
+              * import json
+              * import xmljson
+              * import xml.etree.ElementTree
             params:
              - param: jjinput   ;; required ;; jinja raw input string
              - param: srcformat ;; optional ;; specify input data format
           ##end_func_docs
           '''
+          ## init
+          import yaml
+          import json
+          import xmljson
+          import xml.etree.ElementTree
 
+          ##
           vout = """ {"ERROR":"jjdata_load failed"} """
 
           ##
@@ -797,6 +806,10 @@ if('python_region'):
               vout = yaml.safe_load( jjinput.__str__() )
             elif(srcformat == 'json'):
               vout = json.loads( jjinput.__str__() )
+            elif(srcformat == 'xml'):
+              vout  =   xmljson.Yahoo().data(xml.etree.ElementTree.fromstring(vinput))
+              vout  =   json.loads( json.dumps(vout) )
+
           ##
           except Exception as msg:
             pass

@@ -2,54 +2,53 @@
 ### main:
 ###   - date: created="Tue Dec 08 07:48:44 2015"
 ###     last: lastmod="Tue Dec 08 07:48:44 2015"
-###     tags: tags 
+###     tags: tags
 ###     dreftymacid:    "wish_patent_gargle"
 ###     seealso: |
 ###         *
 ###     desc: |
-###         desc  
+###         desc
 ### <end-file_info>
 
-
 main:
-  
-  - outfmt: unix
-    rawstrr: "201511240251"
-    innfmt: '%Y%m%d%H%M'
 
   - outfmt: unix
-    rawstrr: "2015-11-24T0251"
-    innfmt: '%Y-%m-%dT%H%M'
+    rawstrr:  "201511240251"
+    innfmt:   '%Y%m%d%H%M'
 
   - outfmt: unix
-    rawstrr: "11/24/2015T0251"
-    innfmt: '%m/%d/%YT%H%M'
+    rawstrr:  "2015-11-24T0251"
+    innfmt:   '%Y-%m-%dT%H%M'
 
   - outfmt: unix
-    rawstrr: 'Sat Oct 01 14:21:20 2016'
-    innfmt: '%a %b %d %H:%M:%S %Y'    
+    rawstrr:  "11/24/2015T0251"
+    innfmt:   '%m/%d/%YT%H%M'
+
+  - outfmt: unix
+    rawstrr:  'Sat Oct 01 14:21:20 2016'
+    innfmt:   '%a %b %d %H:%M:%S %Y'
 
 demotable:
 
   - caption:  one
-    datebeg:  Sat Oct 01 14:22:01 2016 
+    datebeg:  Sat Oct 01 14:22:01 2016
 
   - caption:  two
-    datebeg:  Sat Oct 01 14:22:02 2016 
+    datebeg:  Sat Oct 01 14:22:02 2016
 
   - caption:  three
-    datebeg:  Sat Oct 01 14:22:03 2016 
+    datebeg:  Sat Oct 01 14:22:03 2016
 
   - caption:  zero
-    datebeg:  Sat Oct 01 14:22:00 2016 
+    datebeg:  Sat Oct 01 14:22:00 2016
 
-  - caption: date
+  - caption: oct 2015
     datebeg: Thu Oct 08 14:39:16 2015
 
-  - caption: date
+  - caption: sep 2016
     datebeg: Thu Sep 29 03:21:37 2016
-    
-  - caption: date
+
+  - caption: dec 2015
     datebeg: Wed Dec 30 10:35:19 2015
 
 __yaml__:
@@ -64,21 +63,33 @@ __yaml__:
         {{ item.rawstrr.__str__() |jjdate_reformat(item.innfmt.__str__(),item.outfmt) }} ;; ( {{
             item.rawstrr }} converted to {{ item.outfmt }} )
         {{-"\n"-}}
-        {% endfor %}        
+        {% endfor %}
       {#- ------------------------------------------------------------------------  -#}
 
   - &uuid01rrmy01
-    caption:      sort by date with non iso8601 dates
+    caption:      refactor simpletable in order to sort by date
     processthis:  1
     uuid: uuid01rrmy01
-    desc: __desc__
+    desc: |
+      * __desc__
+    seealso: |
+      * href="smartpath://mymedia/2014/git/github/dynamic.yaml/app/demo/demo01.pythoncode.txt"
     dreftymacid: maria_tends_roaring
     template:         |
-      {#- ------------------------------------------------------------------------ -#}
-      {%- set ttnewrow      = {}  -%}
-      {%- set noop      = ttnewrow.update({'alpha':'__one__'}) -%}
-      {%- set noop      = ttnewrow.update({'bravo':'__two__'}) -%}
-      {%- set noop      = ttnewrow.update({'chrly':'__tre__'}) -%}
-      {%- set noop      = ttnewrow.update({'delta':'__fou__'}) -%}  
-      
+    
+      {#- ------------------------------------------------------------------------
+      refactor table: fieldadd -- newdate
+      -#}
+      {%- set ttnewtable = []  -%}
+      {% for row in demotable -%}
+        {%- set noop = row.update({'newdate':row.datebeg|jjdate_reformat('%a %b %d %H:%M:%S %Y')}) -%}
+        {%- set noop = ttnewtable.append(row)  -%}
+      {% endfor %}
+
+      {#- ------------------------------------------------------------------------
+      output sort based on newly computed field -- newdate
+      -#}
+      {% for row in ttnewtable |sort(reverse=false,attribute='newdate') %}
+        {{ row }}
+      {% endfor %}
 

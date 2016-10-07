@@ -7,13 +7,15 @@
 ###     filetype: "yaml"
 ###     desc: |
 ###         * see what kinds of python code can be run from within jinja2
+###         * use the 'noop variable assignment' trick to run python code
+###             * this trick requires zero dependency on the return result of the python code
 ###     seealso: |
 ###         * __seealso__
 ### <end-file_info>
 ### insmm find="__dmid__"
 
-main:
-  - caption: LEARNBIT PSRAP ;; caption
+overview_info:
+    caption: LEARNBIT PSRAP ;; caption
     rectype: 			rrlearnbit
     date:       	Mon Oct 03 09:00:53 2016
     context:    	jinja2 and python
@@ -26,25 +28,65 @@ main:
     tags:   	    __tags__
     dreftymacid: 	mucks_obtainer_inducing
     wwbody: |
-        wwbody
-        
 
+main:
+  
+  - caption:  zerro
+    rectype:  rrmini05
+    date: Mon Oct 03 09:00:50 2016
+
+  - caption:  delta
+    rectype:  rrmini05
+    date: Mon Oct 03 09:00:54 2016
+      
+  - caption:  alpha
+    rectype:  rrmini05
+    date: Mon Oct 03 09:00:51 2016
+      
+  - caption:  bravo
+    rectype:  rrmini05
+    date: Mon Oct 03 09:00:52 2016
+      
+  - caption:  charl
+    rectype:  rrmini05
+    date: Mon Oct 03 09:00:53 2016
 
 __yaml__:
 
-## href="smartpath://mytrybits/y/tryyaml/dynamicyaml/devlog.txt"
-## href="smartpath://mymedia/2014/git/github/dynamic.yaml/app/demo/readme.md"
-## href="smartpath://mymedia/2014/git/github/dynamic.yaml/py/ddyamlrunner.py"
-## href="smartpath://mymedia/2014/git/github/dynamic.yaml/py/ddyaml/jinjafilterdynamicyaml.py"
+
+  - &uuid01rrmy02
+    caption:      
+    processthis:  1
+    desc: | 
+      * steps for converting date format and sorting on the newly converted value
+    uuid: uuid01rrmy02
+    template:         |
+      {#- ------------------------------------------------------------------------
+      refactor table: fieldadd unix date
+      -#} 
+      {%- set ttarytest = []  -%}
+      {% for row in main -%}
+        {%- set noop = row.update({'newdate':row.date|jjdate_reformat('%a %b %d %H:%M:%S %Y')}) -%}              
+        {%- set noop = ttarytest.append(row)  -%}   
+      {% endfor %}
+      
+      {#- ------------------------------------------------------------------------
+      output sort based on newly computed field
+      -#} 
+      {% for row in ttarytest |sort(reverse=false,attribute='newdate') %}
+        {{ row }}
+      {% endfor %}    
 
   - &uuid01rrmy01
-    caption:      caption
-    processthis:  1
+    caption:      try array append simple
+    processthis:  0
     uuid: uuid01rrmy01
-    desc: __desc__
-    dreftymacid: __dreftymacid__
-    datainclude: datainclude
-    templateinclude: templateinclude
-    pathinclude: pathinclude
     template:         |
-       
+      {%- set ttarytest = [1,2,3,4]  -%}
+      {% for row in main -%}
+      {%- set noop = ttarytest.append(5)  -%}      
+      {% endfor %}
+      {{ ttarytest }}
+      
+      
+      
