@@ -1,0 +1,55 @@
+### <beg-file_info>
+### main:
+###   - date: created="Fri Oct 07 00:55:39 2016"
+###     last: lastmod="Fri Oct 07 00:55:39 2016"
+###     tags: tags
+###     dmid: "twins_zaragoza_imagery"
+###     filetype: "yaml"
+###     desc: |
+###         * __desc__
+###     seealso: |
+###         * __seealso__
+### <end-file_info>
+
+__yaml__:
+
+## href="smartpath://mytrybits/y/tryyaml/dynamicyaml/devlog.txt"
+## href="smartpath://mymedia/2014/git/github/dynamic.yaml/app/demo/readme.md"
+## href="smartpath://mymedia/2014/git/github/dynamic.yaml/py/ddyamlrunner.py"
+## href="smartpath://mymedia/2014/git/github/dynamic.yaml/py/ddyaml/jinjafilterdynamicyaml.py"
+
+  - &uuid01rrym01
+    caption:      demo jjdata_load json
+    processthis:  1
+    uuid:         uuid01rrym01
+    desc: |
+      * load json from an json url on the internet    
+    template: |
+      {#- ------------------------------------------------------------------------ -#} 
+      {%- set tturl       =   'https://api.github.com/users/smosley/repos'  -%}
+      {%- set ttoutput    =   ("" | jjrequesturl(tturl))  -%}
+      {#- ------------------------------------------------------------------------ -#} 
+      {%- set ttoutfile   =   "c:/sm/docs/mymedia/2014/git/github/dynamic.yaml/app/demo/demo01.jjdata_load.outjson.txt"  -%}
+      {%filter string() |jjtofile(ttoutfile,'replace') |jjdedent() %}
+      {{ ttoutput |jjdata_load('json') |jjdata_formatas('yamlpara') |jjindent(2) }}
+      {%endfilter%}
+      
+  - &uuid01rrmy002
+    caption:      demo jjdata_load xml
+    processthis:  1
+    uuid: uuid01rrmy002
+    desc: |
+      * load xml from an xml url on the internet
+    template:         |
+      {#- ------------------------------------------------------------------------ -#} 
+      {%- set tturl       =   'https://raw.githubusercontent.com/smosley/public.scratch/master/helloworld.xml'  -%}
+      {%- set ttoutput    =   ("" | jjrequesturl(tturl))  -%}
+      {#- ------------------------------------------------------------------------ -#} 
+      {%- set ttoutfile   =   "c:/sm/docs/mymedia/2014/git/github/dynamic.yaml/app/demo/demo01.jjdata_load.outxml.txt"  -%}
+      {%filter string() |jjtofile(ttoutfile,'replace') |jjdedent() %}
+      {{ ttoutput |jjdata_load('xml') |jjdata_formatas('yamlpara') |jjindent(2) }}
+      {%endfilter%}
+      
+      
+      
+      

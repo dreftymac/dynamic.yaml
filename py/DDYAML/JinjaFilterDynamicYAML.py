@@ -9,7 +9,7 @@
 ###     seealso: |
 ###         *
 ###     desc: |
-###         * lastupdate: jjdata_load xmljson support
+###         * lastupdate: jjdata_load xmljson support -- variable fix
 ### <end-file_info>
 
 ### @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
@@ -52,41 +52,28 @@ if('python_region'):
 ### @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 ### new_function_snippet
 """
-        def __caption__(self,jjinput):
-          '''
-          ##beg_func_docs
-          - caption:      __caption__
-            date:         lastmod="__lastmod__"
-            grp_maj:      grp_maj
-            grp_med:      grp_med
-            grp_min:      grp_min
-            desc:         __desc__
-            dreftymacid:  __dreftymacid__
-            detail:  |
-              * __blank__
-            dependencies:
-              - __blank__
-            params:
-             - param: jjinput ;; optarity ;; jinja input raw string
-          ##end_func_docs
-          '''
 
-          ##
-          vout = jjinput.__str__()
+ICAgICAgICBkZWYgX19jYXB0aW9uX18oc2VsZixqamlucHV0KToKICAgICAgICAgICcnJw
+ogICAgICAgICAgIyNiZWdfZnVuY19kb2NzCiAgICAgICAgICAtIGNhcHRpb246ICAgICAg
+X19jYXB0aW9uX18KICAgICAgICAgICAgZGF0ZTogICAgICAgICBsYXN0bW9kPSJfX2xhc3
+Rtb2RfXyIKICAgICAgICAgICAgZ3JwX21hajogICAgICBncnBfbWFqCiAgICAgICAgICAg
+IGdycF9tZWQ6ICAgICAgZ3JwX21lZAogICAgICAgICAgICBncnBfbWluOiAgICAgIGdycF
+9taW4KICAgICAgICAgICAgZGVzYzogICAgICAgICBfX2Rlc2NfXwogICAgICAgICAgICBk
+cmVmdHltYWNpZDogIF9fZHJlZnR5bWFjaWRfXwogICAgICAgICAgICBkZXRhaWw6ICB8Ci
+AgICAgICAgICAgICAgKiBfX2JsYW5rX18KICAgICAgICAgICAgZGVwZW5kZW5jaWVzOgog
+ICAgICAgICAgICAgIC0gX19ibGFua19fCiAgICAgICAgICAgIHBhcmFtczoKICAgICAgIC
+AgICAgIC0gcGFyYW06IGpqaW5wdXQgOzsgb3B0YXJpdHkgOzsgamluamEgaW5wdXQgcmF3
+IHN0cmluZwogICAgICAgICAgIyNlbmRfZnVuY19kb2NzCiAgICAgICAgICAnJycKCiAgIC
+AgICAgICAjIwogICAgICAgICAgdm91dCA9IGpqaW5wdXQuX19zdHJfXygpCgogICAgICAg
+ICAgIyMKICAgICAgICAgIHRyeToKICAgICAgICAgICAgdm91dCA9IHZvdXQKICAgICAgIC
+AgICMjCiAgICAgICAgICBleGNlcHQgRXhjZXB0aW9uIGFzIG1zZzoKICAgICAgICAgICAg
+cHJpbnQgJzgyZXhjZXB0aW9uX2VyciBtc2dAJXMnJShtc2cuX19yZXByX18oKSkKICAgIC
+AgICAgICAgZXhjX3R5cGUsIGV4Y19vYmosIGV4Y190YiA9IHN5cy5leGNfaW5mbygpCiAg
+ICAgICAgICAgIGZuYW1lID0gb3MucGF0aC5zcGxpdChleGNfdGIudGJfZnJhbWUuZl9jb2
+RlLmNvX2ZpbGVuYW1lKVsxXQogICAgICAgICAgICBwcmludChleGNfdHlwZSwgZm5hbWUs
+IGV4Y190Yi50Yl9saW5lbm8pCgogICAgICAgICAgIyMKICAgICAgICAgIHJldHVybiB2b3
+V0CiAgICAgICAgIyNlbmRkZWY=
 
-          ##
-          try:
-            vout = vout
-          ##
-          except Exception as msg:
-            print '82exception_err msg@%s'%(msg.__repr__())
-            exc_type, exc_obj, exc_tb = sys.exc_info()
-            fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
-            print(exc_type, fname, exc_tb.tb_lineno)
-
-          ##
-          return vout
-        ##enddef
 """
 
 ### @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
@@ -796,19 +783,20 @@ if('python_region'):
           import xml.etree.ElementTree
 
           ##
-          vout = """ {"ERROR":"jjdata_load failed"} """
+          vout    =   """{"ERROR":"jjdata_load failed"}"""
+          vinput  =   jjinput.__str__()
 
           ##
           try:
             if(False):
               pass;
             elif(srcformat == 'yaml'):
-              vout = yaml.safe_load( jjinput.__str__() )
+              vout = yaml.safe_load( vinput )
             elif(srcformat == 'json'):
-              vout = json.loads( jjinput.__str__() )
+              vout = json.loads( vinput )
             elif(srcformat == 'xml'):
-              vout  =   xmljson.Yahoo().data(xml.etree.ElementTree.fromstring(vinput))
-              vout  =   json.loads( json.dumps(vout) )
+              vout   =   xmljson.Yahoo().data(xml.etree.ElementTree.fromstring(vinput))
+              vout   =   json.loads( json.dumps(vout) )
 
           ##
           except Exception as msg:
