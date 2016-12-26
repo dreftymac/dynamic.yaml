@@ -1,5 +1,7 @@
 main:
-  remark:   hello
-  audience: world
-  greeting: "Hello {{ main.audience |title }}"
+  entry:    hello
+  exxit:    adios
+  target:   world
+  greeting: "{{ main.entry }} {{ main.target }}!"
+  departed: "{{ main.exxit |title }} {{ main.target |title }}!"
 

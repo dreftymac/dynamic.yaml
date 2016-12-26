@@ -2,8 +2,8 @@
 ### main:
 ###   - date: created="Thu Dec 31 07:08:46 2015"
 ###     last: lastmod="Thu Dec 31 07:08:46 2015"
-###     tags:   ddyaml, barebones, demo
-###     dreftymacid:    "tending_buds_harbor"
+###     tags: ddyaml, barebones, demo
+###     dreftymacid: "tending_buds_harbor"
 ###     seealso: |
 ###         *
 ###     desc: |
@@ -34,7 +34,7 @@ __yaml__:
   - caption:      range example
     processthis:  1
     template:     | 
-      {% for item in range(12,12) -%}
+      {% for item in range(4,12) -%}
       {{ item }}
       {% endfor %}
 

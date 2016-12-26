@@ -44,12 +44,10 @@ __yaml__:
       {#- ------------------------------------------------------------------------ -#} 
       {%- set tturl       =   'https://raw.githubusercontent.com/smosley/public.scratch/master/helloworld.xml'  -%}
       {%- set ttoutput    =   ("" | jjrequesturl(tturl))  -%}
+      {%- set ttformatas  =   'jsonpretty'  -%}
       {#- ------------------------------------------------------------------------ -#} 
       {%- set ttoutfile   =   "c:/sm/docs/mymedia/2014/git/github/dynamic.yaml/app/demo/demo01.jjdata_load.outxml.txt"  -%}
       {%filter string() |jjtofile(ttoutfile,'replace') |jjdedent() %}
-      {{ ttoutput |jjdata_load('xml') |jjdata_formatas('yamlpara') |jjindent(2) }}
+      {{- ttoutput |jjdata_load('xml') |jjdata_formatas(ttformatas) |replace('\\n      ','') |jjindent(0) }}
       {%endfilter%}
-      
-      
-      
-      
+

@@ -1,0 +1,20 @@
+main:
+  remark:   hello
+  person:   world
+  talk_entry: "Hello {{ main.person |title }}"
+  talk_exxit: "Bye-bye {{ main.person |title }}"
+
+__yaml__:
+  
+  - caption: hello world example
+    template: |
+      {#- ------------------------------------------------------------------------ -#}
+      {%- set ttouthome   = "c:/sm/docs/temp/barehello000d.txt"                    -%}
+      {%- set ttoutmode   = "replace" -%}
+      {#- ------------------------------------------------------------------------ -#}
+      {%filter string() |jjtofile(ttouthome,ttoutmode) |jjdedent() -%}
+      {% for item in [1,2,3,4,5] -%}
+      {{ item }}) {{ main.talk_entry }}!
+      {% endfor %}
+      {{ main.talk_exxit }}!
+      {%endfilter%}

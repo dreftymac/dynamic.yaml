@@ -1744,8 +1744,8 @@ if('python_region'):
             grp_maj:      FileIO
             grp_med:      loadfile
             grp_min:      toarray
-            desc:         delete a file using python os.remove
-            dreftymacid:  cleric_clam_thaws
+            desc:         return file output through python splitlines
+            dreftymacid:  extents_jest_mercury
             detail:  |
               python os.remove
             dependencies:
@@ -1768,7 +1768,7 @@ if('python_region'):
             vraw  =   self.jjfromfile(jjinput,sgpath)
             vout  =   vraw.splitlines()
           except Exception as msg:
-            print 'FILE HANDLING EXCEPTION ;; cleric_clam_thaws msg@%s %s'%(msg.__repr__(),surl)
+            print 'FILE HANDLING EXCEPTION ;; extents_jest_mercury msg@%s %s'%(msg.__repr__(),surl)
             exc_type, exc_obj, exc_tb = sys.exc_info()
             fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
             print(exc_type, fname, exc_tb.tb_lineno)
@@ -2552,6 +2552,40 @@ if('python_region'):
           return vout
         ##enddef
 
+        def jjlistchoice(self,jjinput):
+          '''
+          ##beg_func_docs
+          - caption:      jjlistchoice
+            date:         lastmod="2016-11-03-08:47:57"
+            grp_maj:    getinfo
+            grp_med:    list
+            grp_min:    item
+            desc:         |
+              * take an input list and return one randomly chosen item from that list
+            dreftymacid:  anti_injury_hysteric
+            detail:  |
+              * __blank__
+            dependencies:
+              - import random
+            params:
+             - param: jjinput ;; required ;; python list
+          ##end_func_docs
+          '''
+
+          ##
+          try:
+            vout = random.choice(jjinput)
+          ##
+          except Exception as msg:
+            print 'exception::anti_injury_hysteric msg@%s'%(msg.__repr__())
+            exc_type, exc_obj, exc_tb = sys.exc_info()
+            fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
+            print(exc_type, fname, exc_tb.tb_lineno)
+
+          ##
+          return vout
+        ##enddef
+
         def jjlistget(self,jjinput,index=0):
           """
           ## function docs
@@ -2561,9 +2595,10 @@ if('python_region'):
             grp_med:    list
             grp_min:    item
             dreftymacid:  fakery_brats_diets
-            desc: try to return list item at index
+            desc: |
+              * try to return list item at index
             detail: |
-                __blank__
+              __blank__
             dependencies:
               - none
             params:

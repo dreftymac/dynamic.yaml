@@ -3,5 +3,4 @@ __yaml__:
     template: |
       {%- set audience = 'world'  -%}
       Hello {{ audience |title }}!
-      {{ '' |jjuuid() }}
 

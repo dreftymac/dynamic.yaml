@@ -1,0 +1,36 @@
+main:
+  remark:     hello
+  person:     world
+  talk_entry: "Hello {{ main.person |title }}"
+  talk_exxit: "Bye-Bye {{ main.person |title }}"
+
+myinfo:
+  outhome: "c:/sm/docs/temp"
+  outfile: "barehello000e.txt"
+
+mylist:
+  - red
+  - orange
+  - yellow
+  - green
+  - blue
+  - indigo
+  - violet
+
+__yaml__:
+
+  - caption: hello world example
+    desc: |
+      * send output to a text file
+    template: |
+      {#- ------------------------------------------------------------------------ -#}
+      {%- set ttouthome   = "{outhome}/{outfile}".format(**myinfo) -%}
+      {%- set ttoutmode   = "replace" -%}
+      {#- ------------------------------------------------------------------------ -#}
+      {%filter string() |jjtofile(ttouthome,ttoutmode) |jjdedent() -%}
+      {% for item in [1,2,3,4,5] -%}
+      {{ item }}) {{ main.talk_entry }} from {{ mylist |jjlistchoice() |title }}!
+      {% endfor %}
+      {{ main.talk_exxit }}!
+      {%endfilter%}
+

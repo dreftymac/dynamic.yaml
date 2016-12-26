@@ -19,14 +19,13 @@ __yaml__:
 
   - &uuuumarking
     caption:      jjfile_toarray test
-    processthis: 0
+    processthis: 1
     uuid:         uuuumarking
     desc:         __desc__
     dreftymacid:  agfa_crank_aztec
     template: |
       {#- ------------------------------------------------------------------------ -#}
-      {%- set ttoplevel   =   "c:/sm/docs/mymedia/2014/git/github/dynamic.yaml/app/demo"  -%}
-      {%- set ttinpfile   =   "%s/zzdummy.js"%(ttoplevel)  -%}
+      {%- set ttinpfile   =   "c:/sm/docs/mymedia/2014/git/github/dynamic.yaml/app/demo/zzdummy.js"  -%}
       {#- ------------------------------------------------------------------------ -#}  
       {%- set ttfilebody  =   '' |jjfile_toarray(ttinpfile)  -%}
       {#- ------------------------------------------------------------------------ -#} 
@@ -39,7 +38,7 @@ __yaml__:
       
   - &uuid001
     caption:      jjarray_fromdir jjapplyfunction demo
-    processthis: 1
+    processthis: 0
     uuid:         uuid001
     desc:         __desc__
     dreftymacid:  shadows_madam_aerosols

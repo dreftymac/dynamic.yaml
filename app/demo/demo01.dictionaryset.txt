@@ -1,0 +1,64 @@
+### <beg-file_info>
+### main:
+###   - date:   created="Mon 2016-11-28T14:23:21"
+###     last:   lastmod="Mon 2016-11-28T14:23:28"
+###     tags:   dictionary,variable,set
+###     dreftymacid:    "voicing_buy_viduity"
+###     caption: try jinja variable set dictionary-style
+###     seealso: |
+###         * href="smartpath://mymedia/2014/git/github/dynamic.yaml/app/demo/demo00.importinclude00.txt" find="annoyance"
+###     desc: |
+###         * jjsetv
+###         * deal with the jinja2 annoyance that prevents easy use of dictionary variables
+### <end-file_info>
+
+maininfo:
+  fname: homer
+  lname: simpson
+
+
+__yaml__:
+
+## href="smartpath://mytrybits/y/tryyaml/dynamicyaml/devlog.txt"
+## href="smartpath://mymedia/2014/git/github/dynamic.yaml/app/demo/readme.md"
+## href="smartpath://mymedia/2014/git/github/dynamic.yaml/py/ddyamlrunner.py"
+## href="smartpath://mymedia/2014/git/github/dynamic.yaml/py/ddyaml/jinjafilterdynamicyaml.py"
+
+  - &uuid01rrmy01
+    caption:      caption
+    processthis:  1
+    uuid: uuid01rrmy01
+    desc: |
+      * __desc__
+    dreftymacid: __dreftymacid__
+    datainclude: datainclude
+    templateinclude: templateinclude
+    pathinclude: pathinclude
+    template:         |
+      {#- ******************** -#}
+      {%- set mydict = {}  -%}
+      
+      {#- ******************** -#}
+      {%- set noop = mydict.update({"alpha":"""Hello World
+      """}) -%}
+      
+      {#- ******************** -#}
+      {%- set noop = mydict.update({"bravo":"""
+        Hello World
+        from {fname} {lname} !
+      """.format(**maininfo)}) -%}
+      
+      {#- ******************** -#}
+      {%- set noop = mydict.update({"charlie":"""
+        <div>{bravo}</div>
+      """.format(**mydict)}) -%}      
+      
+      {#- ------------------------------------------------------------------------ -#}
+      {% for item in ['alpha','bravo','charlie'] -%}
+      ### ------------------------------------------------------------------------ 
+      {{ mydict[item] |jjdedent }}
+      {% endfor %}
+      
+      
+
+
