@@ -3,13 +3,13 @@ maininfo:
   lname:  simpson
   age:    33
   fileroot: "c:/sm/docs/mymedia/2014/git/github/dynamic.yaml/app/demo_transclude/test00/"
-  
+
 filetable:
   - filepath: ddgen-alpha.txt
   - filepath: ddgen-bravo.txt
   - filepath: ddgen-charlie.txt
   - filepath: ddgen-delta.txt
-  
+
 __yaml__:
 
   - &uuid01rrmy01
@@ -19,17 +19,17 @@ __yaml__:
     desc: |
       * __desc__
     template:         |
-      {#- ------------------------------------------------------------------------ -#} 
+      {#- ------------------------------------------------------------------------ -#}
       {% set ttbodyout -%}
         {{ "" |jjfromfile("{fileroot}/ddgen-alpha.txt".format(**maininfo)) }}
       {% endset %}
-      
+
       {#- ------------------------------------------------------------------------ -#}
       {{ ttbodyout }}
-      
+
   - &uuid01rrmy02
     caption:        barebones transclude demo
-    processthis:    1
+    processthis:    0
     uuid: uuid01rrmy02
     desc: |
       * __desc__
@@ -37,11 +37,36 @@ __yaml__:
       {#- ------------------------------------------------------------------------ -#}
       {% set ttbodyout -%}
         {% for row in filetable -%}
-          {{ "" |jjfromfile("{fileroot}/".format(**maininfo)) }}      
-        {% endfor %}
+          {%- do maininfo.update(row) -%}
+          {{ "" |jjfromfile("{fileroot}/{filepath}".format(**maininfo)) }}
+          {{-"\n"-}}
+        {%- endfor %}
       {% endset %}
-            
+
       {#- ------------------------------------------------------------------------ -#}
-      {{ ttbodyout }}      
+      {{ ttbodyout }}
+      
+  - &uuid01rrmy03
+    caption:        barebones transclude demo
+    processthis:    1
+    uuid: uuid01rrmy03
+    desc: |
+      * __desc__
+    template:         |
+      {#- ------------------------------------------------------------------------ -#}
+      {% set ttbodyout -%}
+        {% for row in filetable -%}
+          {%- do maininfo.update(row) -%}
+          {{ "" |jjfromfile("{fileroot}/{filepath}".format(**maininfo)) }}
+          {{-"\n"-}}          
+        {%- endfor %}
+      {% endset %}
+
+      {#- ------------------------------------------------------------------------ -#}
+      {%- set ttoutfile = "{fileroot}/ddgen-11output.txt".format(**maininfo)-%}
+      {%filter string() |jjtofile(ttoutfile,'replace') |jjdedent() -%}
+        {{ ttbodyout }}
+      {%endfilter%}
+ 
 
 

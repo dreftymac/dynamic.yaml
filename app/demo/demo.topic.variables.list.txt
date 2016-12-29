@@ -5,7 +5,8 @@
 ###     tags:   python ,list, array
 ###     dreftymacid:    "chew_virilism_ultraism"
 ###     seealso: |
-###         *
+###         * regain://jinja dictionary annoyance
+###         * href="smartpath://mymedia/2014/git/github/dynamic.yaml/app/demo/demo00.importinclude00.txt" find="ANNOYANCE"
 ###     desc: |
 ###         dealing with variable assignments in jinja
 ###         python lists
