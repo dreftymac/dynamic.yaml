@@ -1,6 +1,23 @@
 __yaml__:
-  - caption: hello world example
+  
+  - caption: ddyaml hello Earth
     template: |
-      {%- set audience = 'world'  -%}
-      Hello {{ audience |title }}!
+      {% set ttname = 'Earth'  -%}
+      Hello {{ ttname }}!
+
+  - caption: ddyaml hello Mars
+    template: |
+      {% set ttname = 'Mars'  -%}
+      Hello {{ ttname }}!
+      
+  - caption: ddyaml hello Jupiter
+    template: |
+      {% set ttname = 'Jupiter'  -%}
+      Hello {{ ttname }}!
+
+  - caption: ddyaml hello Saturn
+    template: |
+      {% set ttname = 'Saturn'  -%}
+      Hello {{ ttname }}!
+      
 

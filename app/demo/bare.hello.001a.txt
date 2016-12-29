@@ -1,0 +1,7 @@
+main:
+  entry:    hello
+  exxit:    adios
+  target:   world
+  greeting: "{{ main.entry }} {{ main.target }}!"
+  departed: "{{ main.exxit |title }} {{ main.target |title }}!"
+

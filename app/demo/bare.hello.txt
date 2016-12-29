@@ -1,6 +1,0 @@
-__yaml__:
-  - caption: ddyaml hello
-    processthis: 1
-    template: |
-      {% set ttname = 'World'  -%}
-      Hello {{ ttname }}!       

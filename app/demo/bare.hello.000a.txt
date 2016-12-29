@@ -1,7 +1,8 @@
-main:
-  entry:    hello
-  exxit:    adios
-  target:   world
-  greeting: "{{ main.entry }} {{ main.target }}!"
-  departed: "{{ main.exxit |title }} {{ main.target |title }}!"
+__yaml__:
+  
+  - caption: ddyaml hello earth
+    template: |
+      {% set ttname = 'Earth'  -%}
+      Hello {{ ttname }}!       
+
 

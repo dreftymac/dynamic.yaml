@@ -1225,6 +1225,8 @@ if('python_region'):
             grp_min:      load
             desc:         load a dreftymac-format devlog file
             dreftymacid:  awash_sneaky_lawmaker
+            seealso: |
+              * 
             detail:  |
               * __blank__
             dependencies:

@@ -1,0 +1,5 @@
+mv "C:/sm/docs/mymedia/2014/git/github/dynamic.yaml/app/demo/bare.hello.000d.txt"  "C:/sm/docs/mymedia/2014/git/github/dynamic.yaml/app/demo/bare.hello.001d.txt"
+mv "C:/sm/docs/mymedia/2014/git/github/dynamic.yaml/app/demo/bare.hello.000e.txt"  "C:/sm/docs/mymedia/2014/git/github/dynamic.yaml/app/demo/bare.hello.001e.txt"
+mv "C:/sm/docs/mymedia/2014/git/github/dynamic.yaml/app/demo/bare.hello.000a.txt"  "C:/sm/docs/mymedia/2014/git/github/dynamic.yaml/app/demo/bare.hello.001a.txt"
+mv "C:/sm/docs/mymedia/2014/git/github/dynamic.yaml/app/demo/bare.hello.000b.txt"  "C:/sm/docs/mymedia/2014/git/github/dynamic.yaml/app/demo/bare.hello.001b.txt"
+mv "C:/sm/docs/mymedia/2014/git/github/dynamic.yaml/app/demo/bare.hello.000c.txt"  "C:/sm/docs/mymedia/2014/git/github/dynamic.yaml/app/demo/bare.hello.001c.txt"

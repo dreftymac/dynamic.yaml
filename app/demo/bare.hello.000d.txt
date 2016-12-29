@@ -1,20 +1,21 @@
-main:
-  remark:   hello
-  person:   world
-  talk_entry: "Hello {{ main.person |title }}"
-  talk_exxit: "Bye-bye {{ main.person |title }}"
+mylist:
+  - Mercury
+  - Venus
+  - Earth
+  - Mars
+  - Jupiter
+  - Saturn
+  - Uranus
+  - Neptune
 
 __yaml__:
   
-  - caption: hello world example
+  - caption: ddyaml hello planets
     template: |
-      {#- ------------------------------------------------------------------------ -#}
-      {%- set ttouthome   = "c:/sm/docs/temp/barehello000d.txt"                    -%}
-      {%- set ttoutmode   = "replace" -%}
-      {#- ------------------------------------------------------------------------ -#}
-      {%filter string() |jjtofile(ttouthome,ttoutmode) |jjdedent() -%}
-      {% for item in [1,2,3,4,5] -%}
-      {{ item }}) {{ main.talk_entry }}!
+      {% for item in mylist -%}
+        {%- set ttouthome   = "c:/sm/docs/temp/demoplanet/{0}.txt".format(item) -%}      
+        {%filter string() |jjtofile(ttouthome,'replace') %}
+        Hello {{ item }}!
+        {%endfilter%}        
       {% endfor %}
-      {{ main.talk_exxit }}!
-      {%endfilter%}
+

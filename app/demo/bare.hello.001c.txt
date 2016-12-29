@@ -1,0 +1,12 @@
+main:
+  remark:   hello
+  person:   world
+  greeting: "Hello {{ main.person |title }}"
+
+__yaml__:
+  
+  - caption: hello world example
+    template: |
+      {% for item in [1,2,3,4,5] -%}
+      {{ item }}) {{ main.greeting }}
+      {% endfor %}
