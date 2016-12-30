@@ -9,11 +9,11 @@ filetable:
   - filepath: ddgen-bravo.txt
   - filepath: ddgen-charlie.txt
   - filepath: ddgen-delta.txt
-  
+
 __yaml__:
 
   - &uuid01rrmy01
-    caption:      caption
+    caption:      demonstrate the templateinclude directive of ddyaml
     processthis:  1
     uuid: uuid01rrmy01
     templateinclude:
@@ -22,20 +22,21 @@ __yaml__:
       - "c:/sm/docs/mymedia/2014/git/github/dynamic.yaml/app/demo_transclude/test01/ddgen-charlie.txt"
       - "c:/sm/docs/mymedia/2014/git/github/dynamic.yaml/app/demo_transclude/test01/ddgen-delta.txt"
     template:         |
-    
+
       Hello from 00main -- this shows up last, after all the templateinclude items have been processed.
-      
+
       One drawback of the templateinclude method, it does not allow you to easily wrap the items inside other jinja.
-      
+
       For example, with the approach of:
-      
+
       {%raw%}
-      
-        {{ '' |jjfromfile(__filespec__) }}
-        
+        {% set ttbodyout %}
+          {{ '' |jjfromfile('filespec_01.txt') }}
+          {{ '' |jjfromfile('filespec_02.txt') }}
+          {{ '' |jjfromfile('filespec_03.txt') }}
+          {{ '' |jjfromfile('filespec_04.txt') }}
+        {% endset %}
       {%endraw%}
-      
-      we could wrap that in a jinja variable and pass that around.
-      
-      
-      
+
+      we can put the output of multiple files into a single variable `ttbodyout` and then operate on that variable.
+

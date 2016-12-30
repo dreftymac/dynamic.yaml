@@ -1,0 +1,61 @@
+maininfo:
+  fname:  homer
+  lname:  simpson
+  age:    33
+
+maintable:
+- name:     Mercury
+  rings:    FALSE
+  order:    1
+  type:     Terrestrial planet
+
+- name:     Venus
+  rings:    FALSE
+  order:    2
+  type:     Terrestrial planet
+
+- name:     Earth
+  rings:    FALSE
+  order:    3
+  type:     Terrestrial planet
+
+- name:     Mars
+  rings:    FALSE
+  order:    4
+  type:     Terrestrial planet
+
+- name:     Jupiter
+  rings:    TRUE
+  order:    6
+  type:     Gas giant
+
+- name:     Saturn
+  rings:    TRUE
+  order:    7
+  type:     Gas giant
+
+
+__yaml__:
+
+  - &uuid01rrmy01
+    caption:      demonstrate the templateinclude directive of ddyaml
+    desc: |
+      * demonstrates trick to support jinja surrounding the included templates
+      * the included templates are wrapped with a variable-set block ttbodyout
+      * this permits reuse of the ttbodyout variable wherever needed
+      * this also permits the included templates to have embedded jinja
+    processthis:  1
+    uuid: uuid01rrmy01
+    templateinclude:
+      - "c:/sm/docs/mymedia/2014/git/github/dynamic.yaml/app/demo_transclude/test02/ddgeb-01-ttbodyout.txt"
+      - "c:/sm/docs/mymedia/2014/git/github/dynamic.yaml/app/demo_transclude/test02/ddgen-alpha.txt"
+      - "c:/sm/docs/mymedia/2014/git/github/dynamic.yaml/app/demo_transclude/test02/ddgen-bravo.txt"
+      - "c:/sm/docs/mymedia/2014/git/github/dynamic.yaml/app/demo_transclude/test02/ddgen-charlie.txt"
+      - "c:/sm/docs/mymedia/2014/git/github/dynamic.yaml/app/demo_transclude/test02/ddgen-delta.txt"
+      - "c:/sm/docs/mymedia/2014/git/github/dynamic.yaml/app/demo_transclude/test02/ddgeb-02-ttbodyout.txt"
+    template: |
+      {{-""-}}
+      hello world!
+      {{ ttbodyout }}
+      bye bye world!
+
