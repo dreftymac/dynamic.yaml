@@ -284,7 +284,7 @@ if('python_region'):
             grp_maj:      grp_maj
             grp_med:      grp_med
             grp_min:      grp_min
-            desc:         __desc__
+            desc:         handle collision of jinja and iim placeholder syntax
             dreftymacid:  lobster_crime_areal
             seealso:
               - regain://jji_ngsp
@@ -1226,7 +1226,7 @@ if('python_region'):
             desc:         load a dreftymac-format devlog file
             dreftymacid:  awash_sneaky_lawmaker
             seealso: |
-              * 
+              *
             detail:  |
               * __blank__
             dependencies:
