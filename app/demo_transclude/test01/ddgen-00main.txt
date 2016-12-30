@@ -1,0 +1,41 @@
+maininfo:
+  fname:  homer
+  lname:  simpson
+  age:    33
+  fileroot: "c:/sm/docs/mymedia/2014/git/github/dynamic.yaml/app/demo_transclude/test00/"
+
+filetable:
+  - filepath: ddgen-alpha.txt
+  - filepath: ddgen-bravo.txt
+  - filepath: ddgen-charlie.txt
+  - filepath: ddgen-delta.txt
+  
+__yaml__:
+
+  - &uuid01rrmy01
+    caption:      caption
+    processthis:  1
+    uuid: uuid01rrmy01
+    templateinclude:
+      - "c:/sm/docs/mymedia/2014/git/github/dynamic.yaml/app/demo_transclude/test01/ddgen-alpha.txt"
+      - "c:/sm/docs/mymedia/2014/git/github/dynamic.yaml/app/demo_transclude/test01/ddgen-bravo.txt"
+      - "c:/sm/docs/mymedia/2014/git/github/dynamic.yaml/app/demo_transclude/test01/ddgen-charlie.txt"
+      - "c:/sm/docs/mymedia/2014/git/github/dynamic.yaml/app/demo_transclude/test01/ddgen-delta.txt"
+    template:         |
+    
+      Hello from 00main -- this shows up last, after all the templateinclude items have been processed.
+      
+      One drawback of the templateinclude method, it does not allow you to easily wrap the items inside other jinja.
+      
+      For example, with the approach of:
+      
+      {%raw%}
+      
+        {{ '' |jjfromfile(__filespec__) }}
+        
+      {%endraw%}
+      
+      we could wrap that in a jinja variable and pass that around.
+      
+      
+      

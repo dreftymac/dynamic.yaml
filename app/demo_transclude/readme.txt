@@ -31,9 +31,9 @@ Scenario where we have one set of data and one template and we want multiple oth
 
 ### Issues
 
-* want to make it easy as possible to include templates
-* want to make it easy as possible to go from plain file to template-compatible file that supports looping and variables
-* want a syntax that is clean and unobtrusive when going from plain file to template
+* make it easy as possible to include templates
+* make it easy as possible to go from plain file to template-compatible file that supports looping and variables
+* syntax that is clean and unobtrusive when going from plain file to template
 
 
 
