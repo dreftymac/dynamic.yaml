@@ -1,0 +1,11 @@
+
+__yaml__:
+  
+  - caption:      ddyaml hello earth
+    outputfile:   "c:/sm/docs/temp/11junk.txt"
+    templateinclude:
+      - {"path": "c:/sm/docs/mymedia/2014/git/github/dynamic.yaml/app/demo/fileinfo_head.asc" }
+      - "c:/sm/docs/mymedia/2014/git/github/dynamic.yaml/app/demo/fileinfo_foot.asc" 
+    template: |
+      {% set ttname = 'Earth'  -%}
+      Hello {{ ttname }}!       

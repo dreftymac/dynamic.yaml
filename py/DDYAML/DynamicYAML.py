@@ -39,7 +39,7 @@ if('python_region'):
   import xlrd
   import yaml
   import zipfile
-  
+
   ## pprint
   import pprint
   oDumper = pprint.PrettyPrinter(indent=4);
@@ -74,17 +74,17 @@ if('python_region'):
           ## bkmk001 ;; support for jinja2.FileSystemLoader ;;
           self.options['filesystemloader_paths']        = []
           self.options['jinja2_globals']                = {}
-          
+
           ## bring in any globals
           try:
             for item in options['globals']:
-                  self.options['jinja2_globals'][item[0]] = item[1]
+              self.options['jinja2_globals'][item[0]] = item[1]
           except:
             pass
           ##;;
-          
+
           ## jinja2_globals
-          if(not 'debugging'):
+          if(not 'debugging_alerts_01'):
             print "### nicer_simply_haze ------------------------------------------------------------------------"
             print self.options['jinja2_globals']
           ##;;
@@ -94,26 +94,46 @@ if('python_region'):
               self.options[tmpname] = tmpvarr
           ##;;
 
+          ##
           self.options['block_start_string'   ] = options.get('block_start_string'    , '{%')
           self.options['block_end_string'     ] = options.get('block_end_string'      , '%}')
           self.options['variable_start_string'] = options.get('variable_start_string' , '{{')
           self.options['variable_end_string'  ] = options.get('variable_end_string'   , '}}')
           self.options['comment_start_string' ] = options.get('comment_start_string'  , '{#')
           self.options['comment_end_string'   ] = options.get('comment_end_string'    , '#}')
+          ##;;
 
           ##
           self.primaryYamlPath    =   options.get('path', '')          ## primaryYamlPath
           self.addonFilters       =   options.get('addonFilters', [])  ## addonFilterClasses
           ##
           if(self.primaryYamlPath.__str__() != ''):
-            self.ffpath_main  =   self.primaryYamlPath
-            self.ffpath_abso  =   "/".join( os.path.abspath(self.ffpath_main).split("\\") )
-            self.ffpath_pdir  =   "/".join( os.path.dirname(self.ffpath_abso).split("\\") )
+            self.ffpath_main  =   self.primaryYamlPath.__str__()
+            self.ffpath_norm  =   "/".join( self.ffpath_main.split("\\") )
+            self.ffpath_pdir  =   "/".join( self.ffpath_norm.split("/")[0:-1] )
+            self.ddffpath = {
+              'main': self.ffpath_main,
+              'norm': self.ffpath_norm,
+              'pdir': self.ffpath_pdir,
+            }
           elif(True):
             sgtemp = ("""
             \n## primaryYamlPath file not specified or unreachable
             """)
             ## print sgtemp
+
+          ## self settings
+          if(not not 'debugging_alerts_01'):
+            print "### intently_grins_lament ------------------------------------------------------------------------"
+            oDumper.pprint( self.options )
+            print '''
+            ## self.ddffpath
+            main:   {main}
+            norm:   {norm}
+            pdir:   {pdir}
+            '''.format(** self.ddffpath )
+          ##;;
+
         ##enddef
 
         def provision_jinja2_environment(self):
@@ -122,10 +142,10 @@ if('python_region'):
           this is a prerequisite for rendering jinja2 output
           '''
           ## init jinja_environment
-          self.Environment      =   jinja2.Environment(
+          self.Environment = jinja2.Environment(
             extensions=[
-              'jinja2.ext.do'
-              ,'jinja2.ext.loopcontrols'
+              'jinja2.ext.do',
+              'jinja2.ext.loopcontrols',
               ]
             ## bkmk001
             ,loader=jinja2.FileSystemLoader( self.options['filesystemloader_paths'] )
@@ -149,10 +169,10 @@ if('python_region'):
           ##;;
 
           ## jinja2_globals
-          if(not 'debugging'):
+          if(not 'debugging_alerts_01'):
             print "### wizardly_vaselike_virility ------------------------------------------------------------------------"
             print self.oenv.globals
-          ##;;          
+          ##;;
 
           ## init ;; jinja_config
           ## standard initializtion parameters for jinja2
@@ -181,7 +201,7 @@ if('python_region'):
               ## see href="./JinjaFilterDynamicYAML.py"
             pass
           ##;;
-          
+
           ##
           #return self.oenv
         ##enddef
@@ -241,7 +261,7 @@ if('python_region'):
           '''
           ### main:
           ###   - date: created="Thu Jul 16 15:30:22 2015"
-          ###     desc:    read a file with path that is potentially relative to path of primaryYamlWwbody
+          ###     desc:    read a string filepath with path that is potentially relative to path of strYamlCustomEndSection
           ###     params:
           ###       - name: spath
           ###         opt:  required
@@ -260,9 +280,11 @@ if('python_region'):
           getpath     =   ''
           spath_mod01 =   '/'.join( [self.ffpath_pdir,'/',spath]  )
           ## check if spath is readable without modification
-          if(os.access(spath,os.R_OK)):       getpath = spath
-          ## check if spath is readable as relative to path of primaryYamlWwbody
-          if(os.access(spath_mod01,os.R_OK)): getpath = spath_mod01
+          if(os.access(spath,os.R_OK)):
+            getpath = spath
+          ## check if spath is readable as relative to path of strYamlCustomEndSection
+          if(os.access(spath_mod01,os.R_OK)):
+            getpath = spath_mod01
           ## try to read the file
           if(sscurr ==  '' and (not getpath == '')):
             try:
@@ -277,7 +299,7 @@ if('python_region'):
           '''
           ### main:
           ###   - date: created="Thu Jul 16 15:30:22 2015"
-          ###     desc:    resolve and return a file path where path is potentially relative to primaryYamlWwbody
+          ###     desc:    resolve and return a file path where path is potentially relative to strYamlCustomEndSection
           ###     params:
           ###       - name: spath
           ###         opt:  required
@@ -297,12 +319,12 @@ if('python_region'):
           spath_mod01 =   '/'.join( [self.ffpath_pdir,'/',spath]  )
           ## check if spath is readable without modification
           if(os.access(spath,os.R_OK)):       getpath = spath
-          ## check if spath is readable as relative to path of primaryYamlWwbody
+          ## check if spath is readable as relative to path of strYamlCustomEndSection
           if(os.access(spath_mod01,os.R_OK)): getpath = spath_mod01
           ##
           return getpath
         ##enddef
-        
+
         ##
         def ff_filepath_to_dirpath(self,spath=''):
           '''
@@ -322,7 +344,7 @@ if('python_region'):
           ###     example: |
           ###         _example_
           ###     seealso: |
-          ###         * 
+          ###         *
           '''
           ##
           sscurr      =   ''
@@ -335,27 +357,27 @@ if('python_region'):
               ):
             getpath = spath
           ##;;
-          
+
           ## check if spath points to a file
           if(True
               and os.access(spath,os.R_OK)
               and os.path.isfile(spath)
               ):
             getpath = os.path.dirname(spath)
-          ##;;          
+          ##;;
 
           ##
           return getpath
-        ##enddef        
+        ##enddef
 
         #@@ ## TODO ;; refactor this ;; parasitic inheritance method that just returns the result of
         #@@ ##    firstpass multipass processing
         #@@ ##    YamlEmbedJinja.template_render_1stpass
         def ddexport(self,rawstr):
           from YamlEmbedJinja import YamlEmbedJinja ### "./YamlEmbedJinja.py"
-          parser01          =   YamlEmbedJinja()
-          vout              =   parser01.template_render_1stpass(yaml=rawstr)
-          return vout
+          parser01  =   YamlEmbedJinja()
+          ddexport_vout      =   parser01.template_render_1stpass(yaml=rawstr)
+          return ddexport_vout
         ##enddef
 
         ##
@@ -378,7 +400,7 @@ if('python_region'):
           ##;;
 
           ## init vars
-          vout            =   []
+          ddtransform_aaout  =   []
           ssgpath         =   ''
           originalconfig  =   {}
           ##;;
@@ -386,17 +408,17 @@ if('python_region'):
           ### TODO ;; adopt the conventions from yamlembedjinja ;; yamlregions
           ###     href="./YamlEmbedJinja.py" find="blast_tinworks_reply"
           ###     href="./YamlEmbedJinja.py" find="yamlregions_primary"
-          ### TODO ;; get primaryYamlWwbody and svirtualtemplate sorted out
+          ### TODO ;; get strYamlCustomEndSection and svirtualtemplate sorted out
           ###     the use between these variables is sub-optimal
           ### ------------------------------------------------------------------------
           if('load_attempt_stora'):
             ##
-            bload_stora_success =   False
-            primaryYamlWwbody   =   ''
+            bload_stora_success       =   False
+            strYamlCustomEndSection   =   ''
 
-            ## get primaryYamlWwbody from primaryYamlPath
+            ## get strYamlCustomEndSection from primaryYamlPath
             try:
-              ssgpath = self.ffpath_main
+              ssgpath = self.ffpath_norm
             except Exception:
               #return ''
               pass
@@ -406,27 +428,28 @@ if('python_region'):
             if(not bload_stora_success):
               ###
               try:
-                primaryYamlWwbody     =     codecs.open(ssgpath, 'r', 'utf-8').read()
+                strYamlCustomEndSection     =     codecs.open(ssgpath, 'r', 'utf-8').read()
                 if( self.options['ddyaml_process_twopass'] ):
-                  primaryYamlWwbody   =     self.ddexport(primaryYamlWwbody)
-                originalconfig        =     yaml.safe_load(primaryYamlWwbody) or originalconfig
+                  strYamlCustomEndSection   =     self.ddexport(strYamlCustomEndSection)
+                originalconfig        =     yaml.safe_load(strYamlCustomEndSection) or originalconfig
                 bload_stora_success   =     True
               except:
                 pass
               ###;;;
             ##;;
-                        
+          ## endif
+
           ##
-          if( not 'debugging'):
-            print originalconfig
-            print primaryYamlWwbody
+          if( not 'debugging_alerts_01'):
+            print originalconfig              ## endsection_as_data
+            print strYamlCustomEndSection     ## endsection_as_string
             #print svirtualtemplate
 
           ### ------------------------------------------------------------------------
           ## init directives_dictionary
           directives = {}
-          directives['default_data']        = ''
-          directives['default_template']    = ''
+          directives['default_data']            = ''
+          directives['default_tpl_with_procs']  = ''
           directives['current_data']        = ''
           directives['current_template']    = ''
           directives['default_data']        = originalconfig.copy()
@@ -434,27 +457,33 @@ if('python_region'):
 
           ##
           try:
-            ## remove the sgg_dynamicyaml_key
+            ## remove the sgg_dynamicyaml_key from default data
             del(directives['default_data'][sgg_dynamicyaml_key])
           except:
             pass
           ##;;
 
+          ##
+          if( not 'debugging_alerts_01'):
+            oDumper.pprint( directives ) ## directives_as_clean_init
+
           ## <beg-process01>
           try:
-            ## set default_template
+            ## set default_tpl_with_procs
             ##    use this as the default template if one not specified
-            if( directives['default_template'].__str__() == ''):
-              directives['default_template'] = primaryYamlWwbody
+            if( directives['default_tpl_with_procs'].__str__() == ''):
+              directives['default_tpl_with_procs'] = strYamlCustomEndSection
             ##;;
 
-            ## iterate_directives ;; tmp_processing_directives
+            ## prepare to iterate_directives ;; tmp_processing_directives
             tmp_processing_directives = originalconfig.pop(sgg_dynamicyaml_key,[])
             if (tmp_processing_directives.__len__() == 0):
-              tmp_render  =   self.ddexport(primaryYamlWwbody)
-              vout.append( tmp_render )
+              tmp_render  =   self.ddexport(strYamlCustomEndSection)
+              ddtransform_aaout.append( tmp_render )
+
+            ## iterate_directives ;; tmp_processing_directives
             for row in tmp_processing_directives:
-              directives['current_template']    = directives['default_template']
+              directives['current_template']    = directives['default_tpl_with_procs']
               directives['current_data']        = directives['default_data']
 
               ### ********************
@@ -480,20 +509,21 @@ if('python_region'):
                 if(bool(tmpval) == False): continue;
               ##;;
 
-              ## @@@ processthis directive ;; skip this entire processing row if processthis evals to false
-              tmpname = ['process','this']
-              tmpkey  = sgg_directiveprefix_str + "".join(tmpname)
-              if( (tmpkey) in row ):
-                tmpval = row[tmpkey]
-                if(bool(tmpval) == False): continue;
-              ##;;
-
+              ## DEPRECATED ;; use processthis directive instead
               ## @@@ rowskip directive ;; skip this entire processing row if rowskip evals to true
               tmpname = ['row','skip']
               tmpkey  = sgg_directiveprefix_str + "".join(tmpname)
               if( (tmpkey) in row ):
                 tmpval = row[tmpkey]
                 if(True and tmpval): continue;
+              ##;;
+
+              ## @@@ processthis directive ;; skip this entire processing row if processthis evals to false
+              tmpname = ['process','this']
+              tmpkey  = sgg_directiveprefix_str + "".join(tmpname)
+              if( (tmpkey) in row ):
+                tmpval = row[tmpkey]
+                if(bool(tmpval) == False): continue;
               ##;;
 
               ## @@@ outputfile directive ;; output content to a file without having to use jjtofile
@@ -516,7 +546,7 @@ if('python_region'):
                 ## print tmpval
               ##;;
 
-              ## @@@ template directive ;; we get template from primaryYamlWwbody
+              ## @@@ template directive ;; we get template from strYamlCustomEndSection
               tmpname = ['template','']
               tmpkey  = sgg_directiveprefix_str + "".join(tmpname)
               if( (tmpkey) in row ):
@@ -526,18 +556,44 @@ if('python_region'):
               ##;;
 
               ## @@@ templateincluede directive ;; we get one_or_more template from one_or_more external file
-              ## and merge it with the data in the primaryYamlWwbody
+              ## and merge with strYamlCustomEndSection
               tmpname =   ['templateinclude']
               tmpkey  =   sgg_directiveprefix_str + "".join(tmpname)
               if( (tmpkey) in row ):
-                tmpval = row[tmpkey]
+                tmpval    = row[tmpkey]
+                tmptable  = []
+                tmp_row_curr = {}
 
-                ## iterate includes ;; force_scalar_to_list
+                ## prepare items ;; force_scalar_to_list
                 sstemp = ''
                 if(tmpval is None):
                   tmpval = ['']
-                if(  type(tmpval) == str ):
+                if( type(tmpval) == str ):
                   tmpval = [tmpval] ## force_scalar_to_list
+                ##;;
+
+                ## iterate items ;; force_items_to_rows
+                tmp_row_default = {
+                  'section':  '',
+                  'path':     '',
+                }
+                for item in tmpval:
+                  if (None is True):
+                    pass
+                  elif (type(item) is str):
+                    ## assume bare str is file path
+                    tmp_row_curr = ({
+                      "section":  "head",
+                      "path":     self.ff_resolvepath_read( item ),
+                      }).update(tmp_row_default)
+                    tmptable.append( tmp_row_curr )
+                  elif (type(item) is dict):
+                    tmptable.append( item )
+                ##;;
+
+                ## iterate rows in tmptable
+                for row in tmptable:
+                  pass
 
                 ## iterate items
                 for spath in tmpval:
@@ -600,7 +656,7 @@ if('python_region'):
               ##;;
 
               ## @@@ datainclude directive ;; concatenate multiple yaml files to input additional data
-              ## and merge it with the data in the primaryYamlWwbody
+              ## and merge it with strYamlCustomEndSection
               tmpname =   ['datainclude','']
               tmpkey  =   sgg_directiveprefix_str + "".join(tmpname)
               if( (tmpkey) in row ):
@@ -642,7 +698,7 @@ if('python_region'):
               #  directives['current_'+tmpname[0]]   =   yaml.safe_load(open(tmpval,'rb').read())
               ##;;
 
-              ## @@@ data directive ;; we get data from primaryYamlWwbody
+              ## @@@ data directive ;; we get data from strYamlCustomEndSection
               tmpname = ['data','']
               tmpkey  = sgg_directiveprefix_str + "".join(tmpname)
               #print row
@@ -667,7 +723,7 @@ if('python_region'):
               #print yaml.safe_dump( directives )
               #print json.dumps(directives, sort_keys=True,indent=4, separators=(',', ': '))
               #print yaml.safe_dump(directives, default_flow_style=False)
-              if(not 'debugging'):
+              if(not 'debugging_alerts_01'):
                 mykeys = directives.keys()
                 mykeys.sort()
                 for tmpkey in mykeys:
@@ -689,7 +745,7 @@ if('python_region'):
               template        =   self.oenv.from_string(mystring)
               tmpout          =   template.render(otemplate_data)
 
-              if(not 'debugging'):
+              if(not 'debugging_alerts_01'):
                   print "### ------------------------------------------------------------------------"
                   print "\n\n\n"
                   print "%s" %( mystring )
@@ -701,7 +757,7 @@ if('python_region'):
               if(True):
                 tmpout = string.replace(tmpout, '\r\n', '')
                 tmpout = string.replace(tmpout, '\r', '')
-              vout.append( tmpout )
+              ddtransform_aaout.append( tmpout )
           ##;;
           ## exception ;; process01
           except Exception as msg:
@@ -730,18 +786,18 @@ if('python_region'):
           #oDumper.pprint( directives )
           ##endfor::iterate_yaml
 
-          #print yaml.safe_dump( vout , default_flow_style=False  )
+          #print yaml.safe_dump( ddtransform_aaout , default_flow_style=False  )
           ##vjj = "\n"
           vjj   = ""
-          vout  = [vjj +  vxx for vxx in vout]
-          vout  = "".join(vout)
+          ddtransform_aaout  = [vjj +  vxx for vxx in ddtransform_aaout]
+          ddtransform_aaout  = "".join(ddtransform_aaout)
           ##;;
 
           #print self.oenv.filters
           #print self.oenv.finalize
 
           ##
-          return vout
+          return ddtransform_aaout
         ##enddef
       ##endclass
 ###!}}}

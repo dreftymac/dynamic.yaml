@@ -51,6 +51,9 @@ if('python_region'):
           self.myoptions['ddyaml_string_enddata']  = '__yaml__'
           self.myoptions['ddyaml_string_configs']  = '__yamlconfig__'
               ## TODO: add support for hand-entered configs
+              ## TODO: handle configs as a directive instead of a __ENDATA__ token
+                  ## because this collides with the singular_enddata approach
+                  ## infra://thugs_yearner_madam
           ##
           for tmpname, tmpvarr in kwargs.items():
               self.myoptions[tmpname] = tmpvarr
@@ -75,7 +78,7 @@ if('python_region'):
           self.yamlregions['primary']  = ''   ##;; region_primary ;; either plain yaml or yaml+embedded placeholders
           self.yamlregions['dynamic']  = ''   ##;; region_dynamic ;; processing blocks that can output anything
           ## self.yamlregions['configs']  = ''   ##;; region_configs ;; configuration settings that can be specified by hand
-          ## DEPRECATED ;; 2016-02-12T07:47:11 ;; instead devise a way to handle configs in the dynamic yaml region 
+          ## DEPRECATED ;; 2016-02-12T07:47:11 ;; thugs_yearner_madam ;; instead devise a way to handle configs in the dynamic yaml region
           ##;;
         ##enddef
 
@@ -114,7 +117,7 @@ if('python_region'):
         #   data_hasnt_failed   =   True
         #   rawyaml             =   args['yaml']
         #   ##;;
-        # 
+        #
         #   ## can have no more than one of these tokens in the sourceinput
         #   ## count the number of sections that result from splitting on these tokens
         #   ## if more than 2 sections result, we have more than one token
@@ -126,7 +129,7 @@ if('python_region'):
         #   if(sctn_yamlconfigs.__len__() > 2):
         #     data_hasnt_failed = False
         #   ##;;
-        # 
+        #
         #   ## return
         #   return data_hasnt_failed
         # ##enddef
@@ -154,7 +157,7 @@ if('python_region'):
           ###     seealso: |
           ###         *
           ### <end-function_docs>
-          
+
           ## init
           args = {}
           for tmpname, tmpvarr in kwargs.items():
@@ -162,18 +165,18 @@ if('python_region'):
           data_firstpass  =   None
           raws_firstpass  =   ''
           vout            =   ''
-          splitby         =   self.my_ddyaml_string_enddata          
-          ##;;          
-                  
+          splitby         =   self.my_ddyaml_string_enddata
+          ##;;
+
           ##trycatch ;; init_params
           try:
             ## rawyaml init
             rawyaml   =   args['yaml']
             rawyaml   =   textwrap.dedent( rawyaml )
             rawyaml   =   rawyaml.lstrip()
-            rawyaml   =   rawyaml.replace("\t", "  ")            
+            rawyaml   =   rawyaml.replace("\t", "  ")
             regions   =   rawyaml.split(splitby)
-            ## 
+            ##
             if (regions.__len__() == 2):
               self.yamlregions['primary'] = textwrap.dedent(regions[0]).lstrip()
               self.yamlregions['dynamic'] = ("%s%s")%(splitby,textwrap.dedent(regions[1]).lstrip())
@@ -190,8 +193,8 @@ if('python_region'):
             exc_type, exc_obj, exc_tb = sys.exc_info()
             fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
             print(exc_type, fname, exc_tb.tb_lineno)
-          ##;;                  
-          
+          ##;;
+
           ##trycatch ;; firstpass
           try:
             ## firstpass yaml data load
@@ -204,8 +207,8 @@ if('python_region'):
             ## pprint
             # import pprint
             # oDumper = pprint.PrettyPrinter(indent=4);
-            # oDumper.pprint( data_firstpass )            
-            
+            # oDumper.pprint( data_firstpass )
+
             ## first-pass template processing
             proc_template   =   self.oenv.from_string( self.yamlregions['primary'] )
             vout            =   proc_template.render( data_firstpass )
@@ -218,12 +221,12 @@ if('python_region'):
             exc_type, exc_obj, exc_tb = sys.exc_info()
             fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
             print(exc_type, fname, exc_tb.tb_lineno)
-          ##;;          
-          
+          ##;;
+
           ## return
           return vout
         ##enddef
-        
+
         ##
         def template_render_2pass(self,**kwargs):
           ### <beg-function_docs>
@@ -282,8 +285,8 @@ if('python_region'):
             ## pprint
             # import pprint
             # oDumper = pprint.PrettyPrinter(indent=4);
-            # oDumper.pprint( data_firstpass )            
-            
+            # oDumper.pprint( data_firstpass )
+
             ## first-pass template processing
             proc_template   =   self.oenv.from_string( yaml.safe_dump(data_firstpass) )
             vout            =   proc_template.render( data_firstpass )

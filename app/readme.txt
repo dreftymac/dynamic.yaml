@@ -6,7 +6,9 @@
 ###     dreftymacid:    "or_whap_zeolite"
 ###     filetype:       "yaml"
 ###     seealso: |
-###         * 
+###       ## demo
+###       * "C:\sm\docs\mymedia\2014\git\github\dynamic.yaml\app\demo\blank.asc"
+###       * "C:\sm\docs\mymedia\2014\git\github\dynamic.yaml\app\demo_byfeature\blank.asc"
 ###     desc: |
 ###         ddyaml templates moved to myclip.raw
 ### <end-file_info>

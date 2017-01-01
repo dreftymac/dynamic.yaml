@@ -6,12 +6,12 @@
 ###     dreftymacid: "vicinage_crickets_grant"
 ###     filetype: "yaml"
 ###     seealso: |
-###         *
+###         * href="smartpath://mytrybits/y/tryyaml/dynamicyaml/devlog.txt"
 ###     dependencies: |
-###         * python 2.7
-###         * pyyaml
-###         * jinja2 (2.8)
+###         * python ;; 2.7
+###         * pyyaml ;; 
+###         * jinja2 ;; 2.8
 ###     desc: |
-###         desc
+###         dynamic yaml
 ### <end-file_info>
  

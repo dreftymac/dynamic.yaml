@@ -1,0 +1,36 @@
+### <beg-file_info>
+### document_metadata:
+###   - date: created="2017-01-01"
+###     last: lastmod="2017-01-01"
+###     tags: tags
+###     author: created="__author__"
+###     dmid: "unscrew_loads_form"
+###     filetype: "yaml"
+###     lastupdate: "__lastupdate__"
+###     desc: |
+###         * directives
+###             * different way of handling directives
+###             * can be declared globally on the toplevel
+###             * can be overriden if declared on the leaf level
+###             * always specify as aod, which makes them more flexible
+###     seealso: |
+###         * href="smartpath://mymedia/2014/git/github/dynamic.yaml/devlog.txt"
+###         * href="smartpath://mydaydirs/2017/week01/devlog.txt" find="ddyaml_voiding_idler"
+### <end-file_info>
+
+outputfile:
+templateinclude:
+  - {"section":"head", "filepath": "C:/sm/docs/mymedia/2014/git/github/dynamic.yaml/app/demo/fileinfo_foot.asc"}
+  - {"section":"foot", "filepath": "C:/sm/docs/mymedia/2014/git/github/dynamic.yaml/app/demo/fileinfo_foot.asc"}
+templateinclude_foot:
+templateinclude_foot:
+  
+__yaml__:
+  
+  - caption:      ddyaml hello earth
+    outputfile:   "c:/sm/docs/temp/11junk.txt"
+    template: |
+      {% set ttname = 'Earth'  -%}
+      Hello {{ ttname }}!       
+
+

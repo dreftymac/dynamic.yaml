@@ -22,11 +22,11 @@ __yaml__:
     templateinclude: templateinclude
     pathinclude: pathinclude
     template:         |
-       {#- ------------------------------------------------------------------------ -#}
-       {%- set ttrootpath  = 'c:/sm/docs/mytrybits/*/*'  -%}
-       {%- set ttpathmode  = 'glob'                      -%}
-       {%- set mypaths     = ''|jjfile_array_fromdir(ttrootpath,ttpathmode) -%}
-       {#- ------------------------------------------------------------------------ -#}
-       {% for item in mypaths if( item |jjfiletest() == 'file') -%}
-       {{ item }}
-       {% endfor %}
+      {#- ------------------------------------------------------------------------ -#}
+      {%- set ttrootpath  = 'c:/sm/docs/mytrybits/*/*'  -%}
+      {%- set ttpathmode  = 'glob'                      -%}
+      {%- set mypaths     = ''|jjfile_array_fromdir(ttrootpath,ttpathmode) -%}
+      {#- ------------------------------------------------------------------------ -#}
+      {% for item in mypaths if( item |jjfiletest() == 'file') -%}
+      {{ item }}
+      {% endfor %}

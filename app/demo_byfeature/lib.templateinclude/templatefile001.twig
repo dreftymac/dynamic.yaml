@@ -1,4 +1,23 @@
 {#- ------------------------------------------------------------------------
+### <beg-file_info>
+### document_metadata:
+###   - date: created="2017-01-01"
+###     last: lastmod="2017-01-01"
+###     tags: tags
+###     author: created="__author__"
+###     dmid: "pathinclude_blimp_via_oxtail"
+###     filetype: "yaml"
+###     lastupdate: "__lastupdate__"
+###     desc: |
+###         ## UGLY !!!
+###         * shows a clunky-syntax way of doing template includes
+###         * i do not like this becuase it adds too much boilerplate to the jinja
+###     seealso: |
+###         * __seealso__
+### <end-file_info>
+-#}
+
+{#- ------------------------------------------------------------------------
 paramdef_001 macro with caller-style syntax
 -#}
 {%- macro paramdef_001(opts) -%}
@@ -54,5 +73,3 @@ simple helloworld-style macro with caller-style syntax
   {% if caller %}{{ caller() -}}{% endif %}
   Are you {{ opts.age }} years old yet?
 {%- endmacro -%}
-
-

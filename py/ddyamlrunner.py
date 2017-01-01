@@ -71,11 +71,11 @@ if (__name__ == "__main__"):
       ### ------------------------------------------------------------------------
       ##  process_commandline_input
       desc   = (
-      '''dynamic yaml runner -- see https://github.com/dreftymac/dynamic.yaml
+      '''dynamic yaml runner -- seealso https://github.com/dreftymac/dynamic.yaml
       ''')
       strversion  = 'dynamic yaml runner -- version 20160122.001'
       parser      = OptionParser(description=desc,version=strversion)
-    
+
       ### ********************
       parser.add_option("-f", "--fileinput"
                         ,type="string"
@@ -86,7 +86,7 @@ if (__name__ == "__main__"):
                         ,nargs=1
                         ,help="Specify a primary input file containing dynamic yaml."
                         )
-      
+
       parser.add_option("-g", "--globalvar"
                     ,type="string"
                     ,default=[]
@@ -96,10 +96,10 @@ if (__name__ == "__main__"):
                     ,nargs=2
                     ,help="Specify a global variable to make available to all templates."
                     )
-    
+
       ### ********************
       (options, args) = parser.parse_args()
-    
+
       ### ********************
       options_dict = vars(options)
       ##
@@ -108,21 +108,21 @@ if (__name__ == "__main__"):
         # oDumper.pprint( args )
         pass;
       ##;;
-    
+
       ### ------------------------------------------------------------------------
       ##  invoke_ddyaml_runner
       vout    =   ''
       ffpath  =   ''
       oparams =   {}
       ##;;
-    
+
       ##
       try:
         ffpath  =   options_dict["fileinput"]
       except:
         ffpath  =   ""
       ##;;
-      
+
       ## default addon filters ;; forget_burial_was::002
       aaJinjaAddonFilters = [
         JinjaFilterDynamicYAML(),
@@ -130,14 +130,14 @@ if (__name__ == "__main__"):
         JinjaFilterJmespath(),
       ]
       ##;;
-    
+
       ##
       oparams['path']               =   ffpath
       oparams['addonFilters']       =   aaJinjaAddonFilters
       oparams['globals']            =   options_dict['globals']
       #oparams['globals']['ggblank'] =   '__blank__'
       ##;;
-    
+
       ##
       odyna   =   DynamicYAML(oparams)
       vout    =   odyna.ddtransform()
