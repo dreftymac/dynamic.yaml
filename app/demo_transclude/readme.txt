@@ -32,10 +32,14 @@ Scenario where we have one set of data and one template and we want multiple oth
 ### Issues
 
 * make it easy as possible to include templates
-* make it easy as possible to go from plain file to template-compatible file that supports looping and variables
+* make it easy as possible to go from plain file to jinja-enabled file that supports looping and variables
 * syntax that is clean and unobtrusive when going from plain file to template
 
+### Demos
 
+* using jjfromfile                           ;; href="smartpath://mymedia/2014/git/github/dynamic.yaml/app/demo_transclude/test00/ddgen-00main.txt"
+* using templateinclude directive            ;; href="smartpath://mymedia/2014/git/github/dynamic.yaml/app/demo_transclude/test01/ddgen-00main.txt"
+* using templateinclude with ttbodyout trick ;; href="smartpath://mymedia/2014/git/github/dynamic.yaml/app/demo_transclude/test02/ddgen-00main.txt"
 
 ## Data transclusion
 

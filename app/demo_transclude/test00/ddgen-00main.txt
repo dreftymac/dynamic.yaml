@@ -67,11 +67,3 @@ __yaml__:
       {%filter string() |jjtofile(ttoutfile,'replace') |jjdedent() -%}
         {{ ttbodyout }}
       {%endfilter%}
- 
- ## href="smartpath://mytrybits/y/tryyaml/dynamicyaml/devlog.txt"
- ## href="smartpath://mymedia/2014/git/github/dynamic.yaml/app/demo/readme.md"
- ## href="smartpath://mymedia/2014/git/github/dynamic.yaml/py/ddyamlrunner.py"
- ## href="smartpath://mymedia/2014/git/github/dynamic.yaml/py/ddyaml/jinjafilterdynamicyaml.py"
- 
-
-

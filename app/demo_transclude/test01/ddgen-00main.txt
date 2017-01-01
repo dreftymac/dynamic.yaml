@@ -4,12 +4,6 @@ maininfo:
   age:    33
   fileroot: "c:/sm/docs/mymedia/2014/git/github/dynamic.yaml/app/demo_transclude/test00/"
 
-filetable:
-  - filepath: ddgen-alpha.txt
-  - filepath: ddgen-bravo.txt
-  - filepath: ddgen-charlie.txt
-  - filepath: ddgen-delta.txt
-
 __yaml__:
 
   - &uuid01rrmy01

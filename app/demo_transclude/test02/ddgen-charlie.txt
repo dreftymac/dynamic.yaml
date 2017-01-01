@@ -1,5 +1,5 @@
 Hello {{ maininfo.fname }} from charlie!
 {% for row in maintable |sort(reverse=false,attribute='order') -%}
   {{-"  "-}} 
-  * charlie knows {{ row.name }}!
+  * My charlie likes {{ row.name }}!
 {% endfor -%}

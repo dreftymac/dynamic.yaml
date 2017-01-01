@@ -388,9 +388,11 @@ if('python_region'):
           ##beg_func_docs
           - caption:      jjscalarize
             date:         lastmod="20160205"
-            grp_maj:      grp_maj
-            grp_med:      grp_med
-            grp_min:      grp_min
+            grp_maj:      variable
+            grp_med:      normalize
+            grp_min:      toscalar
+            alias:
+              - jjscalar
             desc: |
               * return a normalized version of a var
               * normalize to scalar
@@ -414,7 +416,7 @@ if('python_region'):
             vout = vout
           ##
           except Exception as msg:
-            print '430exception_err msg@%s'%(msg.__repr__())
+            print 'err uptown_undoer_vagrancy msg@%s'%(msg.__repr__())
             exc_type, exc_obj, exc_tb = sys.exc_info()
             fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
             print(exc_type, fname, exc_tb.tb_lineno)
@@ -423,7 +425,7 @@ if('python_region'):
           return vout
         ##enddef
         ## alias_definition
-        def jjscala(self,jjinput): return self.jjscalarize(jjinput,myvar=None)
+        def jjscalar(self,jjinput): return self.jjscalarize(jjinput,myvar=None)
         ##enddef
 
         def jjget_var(self,jjinput,varname=''):
@@ -477,7 +479,7 @@ if('python_region'):
             grp_maj:      jinja
             grp_med:      filter
             grp_min:      addon
-            desc:         __desc__
+            desc:         use python lambda as jinja filter
             dreftymacid:  pets_marvel_dave
             example: |
               * demo01.jjapplyfunction01.txt::pets_marvel_dave
@@ -490,9 +492,9 @@ if('python_region'):
             dependencies:
               - __blank__
             params:
-             - param: jjinput ;; optarity ;; jinja raw input string
-             - param: jjdatt ;; optarity ;; data to operate on
-             - param: jjfunc ;; optarity ;; function to apply
+              - param: jjinput ;; optarity ;; jinja raw input string
+              - param: jjdatt  ;; optarity ;; data to operate on
+              - param: jjfunc  ;; optarity ;; function to apply
           ##end_func_docs
           '''
 
@@ -1162,6 +1164,7 @@ if('python_region'):
 
         def jjdevlog_paths_byyear(self,jjinput,stryear='2015'):
           '''
+          ### TODO ;; is this even needed? just do it natively with jjfile_array_fromdir
           ##beg_func_docs
           - caption:      jjdevlog_paths_byyear
             date:         lastmod="Tue Dec 22 16:44:13 2015"
@@ -1743,7 +1746,7 @@ if('python_region'):
           ##beg_func_docs
           - caption:  jjfile_toarray
             date:         lastmod="2016-01-08T15:56:02"
-            grp_maj:      FileIO
+            grp_maj:      fileio
             grp_med:      loadfile
             grp_min:      toarray
             desc:         return file output through python splitlines
@@ -1865,8 +1868,8 @@ if('python_region'):
           - caption:      jjfiletest
             date:         lastmod="Fri Dec 18 11:05:12 2015"
             grp_maj:      fileio
-            grp_med:      grp_med
-            grp_min:      grp_min
+            grp_med:      filter
+            grp_min:      filetest
             tags:         filetest, isdir, isfile,
             desc:         |
               determine if the input string represents a path to a file or directory
@@ -1879,7 +1882,7 @@ if('python_region'):
             dependencies:
               - __blank__
             params:
-             - param: jjinput ;; optarity ;; jinja raw input string
+              - param: jjinput ;; optarity ;; jinja raw input string
           ##end_func_docs
           '''
 
@@ -1962,7 +1965,7 @@ if('python_region'):
           ## function docs
           - caption:  jjfromfile
             date:     lastmod="Mon 2014-10-20 16:45:46"
-            grp_maj:  FileIO
+            grp_maj:  fileio
             grp_med:  loadfile
             grp_min:  fromfile
             desc:     string.fromfile
@@ -2925,7 +2928,7 @@ if('python_region'):
           ## function docs
           - caption:  jjpath_isfile
             date:     lastmod="Mon 2015-06-08 16:06:01"
-            grp_maj:      FileIO
+            grp_maj:      fileio
             grp_med:      path
             grp_min:      info
             dreftymacid:  drawer_coping_uniplex
@@ -2962,11 +2965,14 @@ if('python_region'):
           ## function docs
           - caption:      jjfile_array_fromdir
             date:         lastmod="Mon 2014-10-20 16:45:46"
-            grp_maj:      FileIO
+            grp_maj:      fileio
             grp_med:      directory
             grp_min:      traverse
             dreftymacid:  pests_cow_vealing
             desc: python  ArrayFromDirectory
+            seealso: |
+              * infra://jjfiletest
+              * href="smartpath://mymedia/2014/git/github/dynamic.yaml/app/demo_byfeature/fileio.traverse_directory/demo.traversedirectory.001.twig"
             example: |
               {#- ------------------------------------------------------------------------ -#}
               {%- set ttrootpath  = 'c:/sm/docs/mytrybits/*/*'  -%}
@@ -2983,6 +2989,7 @@ if('python_region'):
               ## seealso
               * href="smartpath://mydaydirs/2015/week22/py/oswalk.demo.py"
               * return a python list result from os.walk
+              * http://stackoverflow.com/questions/8931099/quicker-to-os-walk-or-glob
             dependencies:
               - import glob
               - import os
@@ -3062,7 +3069,7 @@ if('python_region'):
           ##beg_func_docs
           - caption:      jjradioextract
             date:         lastmod="20151031.0850"
-            grp_maj:      file
+            grp_maj:      fileio
             grp_med:      string
             grp_min:      extract
             desc:         radiotable ;; extract a region of a text file using 'radiotable' style regions
@@ -3132,7 +3139,7 @@ if('python_region'):
           ##beg_func_docs
           - caption:      jjradioreplace
             date:         lastmod="20150917.1056"
-            grp_maj:      file
+            grp_maj:      fileio
             grp_med:      string
             grp_min:      modify
             desc:         |
@@ -3783,7 +3790,7 @@ if('python_region'):
           ## function docs
           - caption:  jjtodir
             date:     lastmod="Mon 2014-10-20 16:45:46"
-            grp_maj:    FileIO
+            grp_maj:    fileio
             grp_med:    create
             grp_min:    directory
             dreftymacid:  glucose_visual_unweave
@@ -3838,7 +3845,7 @@ if('python_region'):
           ## function docs
           - caption:  jjtofile
             date:     lastmod="Mon 2014-10-20 16:45:46"
-            grp_maj:    FileIO
+            grp_maj:    fileio
             grp_med:    __blank__
             grp_min:    __blank__
             dreftymacid:  youngest_drail_roaming
@@ -3847,12 +3854,10 @@ if('python_region'):
               {%filter jjtofile('./hello.txt','create',False)%}hello world!!!{%endfilter%}
             desc: output to a file
             detail: |
-              writemode
-              =========
-              * create    ;; create file if not exist, ignore if already exists
-              * replace   ;; create file if not exist, overwrite if already exists
-              * append    ;; create file if not exist, append if already exists
-
+              ## writemode
+              * create    ;; create file if not already_exists, ignore if already_exists
+              * replace   ;; create file if not already_exists, overwrite if already_exists
+              * append    ;; create file if not already_exists, append if already_exists
             dependencies:
               - none
             params:
@@ -3917,7 +3922,7 @@ if('python_region'):
                 vout += "\n### -----------------------\n"
               elif(True):
                 vout = outpath;
-                vout = "\n\n## failed to write output file %s (already exists?)\n"%(vout)
+                vout = "\n\n## failed to write output file %s (already_exists?)\n"%(vout)
               ##---
 
           except Exception as msg:
@@ -3936,7 +3941,7 @@ if('python_region'):
           ## function docs
           - caption:  jjtozipfile
             date:     lastmod="Mon 2014-10-20 16:45:46"
-            grp_maj:  FileIO
+            grp_maj:  fileio
             grp_med:  output
             grp_min:  zipfile
             dreftymacid: mckay_planets_richer
@@ -4030,9 +4035,9 @@ if('python_region'):
           ## function docs
           - caption:  jjuuid
             date:     lastmod="Mon 2014-10-20 16:45:46"
-            grp_maj:  string.generate
-            grp_med:  __blank__
-            grp_min:  __blank__
+            grp_maj:  string
+            grp_med:  generate
+            grp_min:  id
             dreftymacid: radius_disliker_empty
             detail:  |
               fake pseudo-uuid timestamp-based
@@ -4070,13 +4075,13 @@ if('python_region'):
           ## function docs
           - caption:  jjwinexplore
             date:     lastmod="Fri Aug 14 16:05:31 2015"
-            grp_maj:      __grp_maj__
-            grp_med:      __grp_med__
-            grp_min:      __grp_min__
+            grp_maj:      os
+            grp_med:      windows
+            grp_min:      desktop
             dreftymacid:  guidance_untie_quests
             desc:         open an explorer window
             detail:  |
-              open explorer window on a path (currently windows-only)
+              * open explorer window on a path (currently windows-only)
             dependencies:
               - none
             params:
