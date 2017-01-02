@@ -1,7 +1,6 @@
 __yaml__:
   
   - caption:  ddyaml hello earth
-    processthis: 1
     comments: |
       ### ********************
       # * this is just a comments section
@@ -12,5 +11,6 @@ __yaml__:
     template: |
       {% set ttname = 'Earth'  -%}
       Hello {{ ttname }}!
+      
 
 

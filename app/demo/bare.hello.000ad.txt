@@ -5,10 +5,8 @@ __yaml__:
       ### ********************
       # * the output is sent to both stdout and to a file
       # * outputfile supports directive_aod_node syntax
-    outputfile:
-      - { "mode": "replace", "path": "c:/sm/docs/temp/11junk.txt",  }
-      - { "mode": "replace", "path": "c:/sm/docs/temp/22junk.txt",  }
-      - { "mode": "append",  "path": "c:/sm/docs/temp/33junk.txt",  }
+    outputzip:
+      - { "zip": "/root/11junk.txt", "path": "C:/Users/smosley/Desktop/zipdemo.000ad",  }
     result: |
       Hello Earth!
     template: |

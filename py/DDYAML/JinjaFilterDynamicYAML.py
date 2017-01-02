@@ -3958,11 +3958,13 @@ if('python_region'):
           ##
           vout = jjinput.__str__()
           if(zipfilepath == ''): zipfilepath = 'ddyaml_output'
+          ##;;
 
           ##
           zipmode     =   None
           wrtmode     =   'a'
           ssfzipout   =   '%s%s.zip'%(zipfilepath,stamp)
+          ##;;
 
           ##
           try:
@@ -3970,6 +3972,11 @@ if('python_region'):
               zipmode= zipfile.ZIP_DEFLATED
           except:
               zipmode= zipfile.ZIP_STORED
+
+          ##
+          # print( vout )
+          # print( zipfilepath )
+          # print( archivpath )
 
           ##
           ##

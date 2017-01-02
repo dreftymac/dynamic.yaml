@@ -456,33 +456,143 @@ if('python_region'):
         ## enddef
 
         ## bkmk002
-        def proc_directive_handle_outputfile():
+        def proc_directive_load_outputfile( self, row_proc_directive=None , tmpkey='' ):
           '''
           - rectype:  "rrfuncdocsmall"
             funcdesc: |
-              * directive to send default output to zero_or_more files
+              * send default template output to zero_or_more files
             funcdetail: |
               ## details
               * the directive accepts the following name_value_pairs
-                  * path ;; the path to perform filewrite
+                  * path ;; the filepath to perform filewrite
                   * mode ;; the output mode for filewrite
-                    * create    ;; create file if not already_exists, ignore if already_exists
+                    * create    ;; create file if not already_exists, do_nothing if already_exists
                     * replace   ;; create file if not already_exists, overwrite if already_exists
                     * append    ;; create file if not already_exists, append if already_exists
             funcparams: |
               * argname ;; argtype ;; argdesc
             funcreturn: |
-              *
+              * table_aod ;; directive specification for later processing
             last: lastmod="2017-01-02"
             date: created="2017-01-02"
             dreftymacid: ddyoutfile_citizen_bogs
           '''
-          pass
+
+          ##
+          vout  = None
+          tmptable          = []
+          tmp_row_empty     = dict({ "path": '', "mode": '', })
+          tmp_row_default   = dict({ "path": '', "mode": 'create', })
+
+          ##
+          if( (tmpkey) in row_proc_directive ):
+            ##
+            tmpval          = row_proc_directive[tmpkey]
+            tmptable        = self.proc_directive_aod_load( tmpval, 'path', tmp_row_empty , tmp_row_default )
+
+            ## finalize
+            if(len(tmptable) > 0):
+              vout = tmptable
+            ##;;
+
+          ##
+          return vout
         ##enddef
 
-        def proc_directive_handle_templateinclude():
+        ##
+        def proc_directive_load_outputzip( self, row_proc_directive=None , tmpkey='' ):
           '''
+          - rectype:  "rrfuncdocsmall"
+            funcdesc: |
+              * send default template output to a zip archive
+            funcdetail: |
+              ## details
+              * the directive accepts the following name_value_pairs
+                  * path ;; the filepath to perform filewrite within the zip archive
+                  * zip  ;; the filepath to the zip archive
+                  * mode ;; the output mode for filewrite
+                    * create    ;; create file if not already_exists, do_nothing if already_exists
+                    * replace   ;; create file if not already_exists, overwrite if already_exists
+                    * append    ;; create file if not already_exists, append if already_exists
+            funcparams: |
+              * argname ;; argtype ;; argdesc
+            funcreturn: |
+              * table_aod ;; directive specification for later processing
+            seealso: |
+              * regain://"mckay_planets_richer"
+            last: lastmod="2017-01-02"
+            date: created="2017-01-02"
+            dreftymacid: ddyoutfile_citizen_bogs
           '''
+
+          ##
+          vout  = None
+          tmptable          = []
+          tmp_row_empty     = dict({ "path": '', "zip": '', })
+          tmp_row_default   = dict({ "path": '', "zip": '', })
+
+          ##
+          if( (tmpkey) in row_proc_directive ):
+            ##
+            tmpval          = row_proc_directive[tmpkey]
+            tmptable        = self.proc_directive_aod_load( tmpval, 'path', tmp_row_empty , tmp_row_default )
+
+            ## finalize
+            if(len(tmptable) > 0):
+              vout = tmptable
+            ##;;
+
+          ##
+          return vout
+        ##enddef
+
+        def proc_directive_load_templateinclude( self, row_proc_directive=None , tmpkey='' ):
+          '''
+          - rectype:  "rrfuncdocsmall"
+            funcdesc: |
+              * load zero_or_more addon templates from zero_or_more external filepaths
+            funcdetail: |
+              ## details
+              * the directive accepts the following name_value_pairs
+                  * path ;; the readfile filepath which contains the template text
+                  * section ;; where to load the addon templates relative to the default template
+                    * head   ;; load addon template before the default_template
+                    * foot   ;; load addon template after the default_template
+            funcparams: |
+              * argname ;; argtype ;; argdesc
+            funcreturn: |
+              * table_aod ;; directive specification for later processing
+            last: lastmod="2017-01-02"
+            date: created="2017-01-02"
+            dreftymacid: ddtemplinc_coin_bloke
+          '''
+          ##
+          vout = None
+          tmptable          = []
+          tmp_row_empty     = dict({ "section":'',        "path":     '', })
+          tmp_row_default   = dict({ "section":'foot',    "path":     '', })
+          ##
+          if( (tmpkey) in row_proc_directive ):
+            ##
+            tmpval          = row_proc_directive[tmpkey]
+            tmptable        = self.proc_directive_aod_load( tmpval, 'path', tmp_row_empty , tmp_row_default )
+
+            ## add txtbody fields based on row['path']
+            for row in tmptable:
+              try:
+                row['txtbody']   = str( self.ff_resolvepath_read( row['path'] ) )
+              except:
+                raise ValueError('err: teams_crumble_mire error proccessing templateinclude {0}'.format( row ))
+              pass
+            ##;;
+
+            ## finalize
+            if(len(tmptable) > 0):
+              vout = tmptable
+            ## print tmpval
+            ##;;
+          ##
+          return vout
           pass
         ##enddef
 
@@ -716,55 +826,23 @@ if('python_region'):
                 ##;;
 
                 ## bkmk002
-                ## @@@ outputfile directive ;; output content to a file without having to use jjtofile
-                tmpname = ['output','file']
+                ## @@@ outputfile directive ;; output content to a text file
+                tmpname = "".join(  ['output','file'] )
                 tmpkey  = sgg_directiveprefix_str + "".join(tmpname)
-                ##
-                tmptable          = []
-                tmp_row_empty     = dict({ "path": '', "mode": '', })
-                tmp_row_default   = dict({ "path": '', "mode": 'create', })
-                ##
-                if( (tmpkey) in row_proc_directive ):
-                  ##
-                  tmpval          = row_proc_directive[tmpkey]
-                  tmptable        = self.proc_directive_aod_load( tmpval, 'path', tmp_row_empty , tmp_row_default )
+                directives['current_'+tmpname] = self.proc_directive_load_outputfile( row_proc_directive,tmpkey )
+                ##;;
 
-                  ## finalize current_outputfile
-                  if(len(tmptable) > 0):
-                    directives['current_'+tmpname[0]+tmpname[1]] = tmptable
-                  ## print tmpval
-                  ##;;
+                ## @@@ outputzip directive ;; output content to a zip archive file
+                tmpname = "".join(  ['output','zip'] )
+                tmpkey  = sgg_directiveprefix_str + "".join(tmpname)
+                directives['current_'+tmpname] = self.proc_directive_load_outputzip( row_proc_directive,tmpkey )
                 ##;;
 
                 ## @@@ templateinclude directive ;; we get one_or_more template from one_or_more external file
                 ## and merge with strYamlCustomEndSection
-                tmpname   =   ['templateinclude']
+                tmpname   =   "".join(['templateinclude'])
                 tmpkey    =   sgg_directiveprefix_str + "".join(tmpname)
-                ##
-                tmptable          = []
-                tmp_row_empty     = dict({ "section":'',        "path":     '', })
-                tmp_row_default   = dict({ "section":'foot',    "path":     '', })
-                ##
-                if( (tmpkey) in row_proc_directive ):
-                  ##
-                  tmpval          = row_proc_directive[tmpkey]
-                  tmptable        = self.proc_directive_aod_load( tmpval, 'path', tmp_row_empty , tmp_row_default )
-
-                  ## add txtbody fields based on row['path']
-                  for row in tmptable:
-                    try:
-                      row['txtbody']   = str( self.ff_resolvepath_read( row['path'] ) )
-                    except:
-                      raise ValueError('err: teams_crumble_mire error proccessing templateinclude {0}'.format( row ))
-                    pass
-                  ##;;
-
-                  ## finalize current_templateinclude
-                  if(len(tmptable) > 0):
-                    directives['current_'+tmpname[0]] = tmptable
-                  ## print tmpval
-                  ##;;
-
+                directives['current_'+tmpname] = self.proc_directive_load_templateinclude( row_proc_directive,tmpkey )
                 ##;; endif
 
                 ## bkmk001
@@ -863,7 +941,7 @@ if('python_region'):
                 ## begin_
 
                 ## preproc directives
-                if('current_templateinclude' in directives):
+                if('current_templateinclude' in directives and (type(directives['current_templateinclude'])) is list):
                   tmptable = []
                   tmptable.extend( directives['current_templateinclude'] )
                   directives['current_template'] = ( ''
@@ -937,10 +1015,18 @@ if('python_region'):
 
             ## postproc directives bkmk002
             try:
-              if('current_outputfile' in directives):
-                obJJMain = JinjaFilterDynamicYAML.JinjaFilterDynamicYAML()
-                for tmprow in list(directives['current_outputfile']):
+              obJJMain = JinjaFilterDynamicYAML.JinjaFilterDynamicYAML()
+
+              tmpname = "_".join(['current','outputfile'])
+              if(tmpname in directives and (type(directives[tmpname]) is list) ):
+                for tmprow in list(directives[tmpname]):
                   obJJMain.jjtofile(tmpout,tmprow['path'],tmprow['mode'],usebom=False)
+
+              tmpname = "_".join(['current','outputzip'])
+              if(tmpname in directives and (type(directives[tmpname]) is list) ):
+                for tmprow in list(directives[tmpname]):
+                  obJJMain.jjtozipfile(tmpout,tmprow['path'],tmprow['zip'])
+
             except Exception as msg:
               print 'EXCEPTION ariser_twister_teams msg@%s'%(msg.__repr__())
               exc_type, exc_obj, exc_tb = sys.exc_info()
