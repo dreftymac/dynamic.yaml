@@ -379,7 +379,7 @@ if('python_region'):
 
         def dict_smartupdate( self, ddmaster={} , ddreplica={} ):
           '''
-          - rectype:  "rrfuncdoc.small"
+          - rectype:  "rrfuncdocsmall"
             funcdesc: |
               * do a dictionary update
               * never let a non_blank name_value_pair be overwritten by a blank name_value_pair
@@ -434,11 +434,13 @@ if('python_region'):
 
         def proc_convert_str_to_dict( self, ssraw='', sskey='', ddmain={} ):
           '''
-          - rectype:  "rrfuncdoc.small"
+          - rectype:  "rrfuncdocsmall"
             funcdesc: |
               * change string into a dictionary
             funcparams: |
-              * argname ;; argtype ;; argdesc
+              * ssraw ;; string ;; raw_string_value
+              * sskey ;; string ;; dictionary key to use in the dict
+              * ddmain ;; dict ;; dictionary name_value_pairs
             funcreturn: |
               * pydict ;; output dictionary
             last: lastmod="2017-01-02"
@@ -446,61 +448,58 @@ if('python_region'):
             dreftymacid: pystrtodict_over_boils_volt
           '''
           ddmain[sskey] = ssraw
-          return ddmain
+          vout = dict(ddmain)
+          ##
+          return vout
         ## enddef
 
-        # def proc_directive_aod_load( self, vloaded=None , empty_rec={"rawstr":""} ):
-        #   '''
-        #   - rectype:  "rrfuncdoc.small"
-        #     funcdesc: |
-        #       * some directives accept table_aod as their input data
-        #       * load a directive that expects table_aod structure and munge it into shape
-        #       * return a table_aod
-        #     funcparams: |
-        #       * vloaded ;; various ;; user_supplied value provided to the function
-        #       * empty_rec ;; dictionary ;; empty template for what fields should be in a record
-        #     last: lastmod="2017-01-01"
-        #     date: created="2017-01-01"
-        #     dreftymacid: ddyamlfunc_insects_nearing_oil
-        #   '''
-        #   ## init
-        #   table_aod = []
-        #   ##;;
-        #
-        #   #oDumper.pprint( empty_rec )
-        #
-        #   ## prepare items ;; force_scalar_to_list
-        #   if(vloaded is None):
-        #     vloaded = [dict((kxx,vxx) for kxx,vxx in empty_rec.items())]
-        #   if( type(vloaded) == str ):
-        #     vloaded = [vloaded] ## force_scalar_to_list
-        #   ##;;
-        #
-        #   ## iterate items ;; force_items_to_rows -- populate tmptable
-        #   for item in vloaded:
-        #     this_rec  = dict((kxx,vxx) for kxx,vxx in empty_rec.items())
-        #     if (None is True):
-        #       pass
-        #
-        #     elif (type(item) is str):
-        #       ## we only got one string, populate the 'rawstr' field
-        #       this_rec = dict({'rawstr':str(item)})
-        #       this_rec = self.dict_smartmerge(this_rec,empty_rec)
-        #       #this_rec = dict((kxx,vxx) for kxx,vxx in self.dict_smartmerge(empty_rec,{"rawstr":item}).items())
-        #
-        #     elif (type(item) is dict):
-        #       ## we got a dict
-        #       #this_rec = dict((kxx,vxx) for kxx,vxx in self.dict_smartmerge(empty_rec,dict(item)))
-        #       this_rec = dict((kxx,vxx) for kxx,vxx in item.items())
-        #       this_rec = self.dict_smartmerge(this_rec,empty_rec)
-        #
-        #     ## endif
-        #     table_aod.append( this_rec )
-        #   ##;; endfor
-        #
-        #   ##
-        #   return table_aod
-        # ##;; enddef
+        def proc_directive_aod_load( self, vloaded=None , ssdefault='path' , dddefault={'path':''} ):
+          '''
+          - rectype:  "rrfuncdocsmall"
+            funcdesc: |
+              * some directives accept table_aod as their input data
+              * load a directive that expects table_aod and ensure it is table_aod
+              * return a table_aod
+            funcparams: |
+              * vloaded ;; various ;; user_supplied value provided to the function
+              * empty_rec ;; dictionary ;; empty template for what fields should be in a record
+            funcreturn: |
+              * pylist ;; python list of dictionary (aka array_of_dictionary) (aka table_aod)
+            last: lastmod="2017-01-01"
+            date: created="2017-01-01"
+            dreftymacid: ddyamlfunc_insects_nearing_oil
+          '''
+
+          ##
+          if(None is True):
+            pass
+
+          elif( type(vloaded) is str ):
+            tmp_row_curr    =   self.proc_convert_str_to_dict( vloaded, 'path', {'path':''} )
+            tmp_row_curr    =   self.dict_smartupdate(tmp_row_curr,tmp_row_default)
+            table_aod       =   [ tmp_row_curr ]
+
+          elif( type(vloaded) is list ):
+            rowiter = list( vloaded )
+            for datarow in rowiter:
+              if(None is True):
+                pass
+              elif( type(datarow) is str ):
+                datarow   =   self.proc_convert_str_to_dict( datarow, 'path', {'path':''} )
+                #oDumper.pprint( datarow )
+                datarow   =   self.dict_smartupdate(datarow,tmp_row_default)
+                table_aod.append( datarow )
+              elif( type(datarow) is dict ):
+                #oDumper.pprint( datarow )
+                datarow   =   self.dict_smartupdate(tmp_row_default,datarow)
+                table_aod.append( datarow )
+          ##;;
+
+
+          vout = list(table_aod)
+          ##
+          return vout
+        ## enddef
 
         #@@ ## TODO ;; refactor this ;; parasitic inheritance method that just returns the result of
         #@@ ##    firstpass multipass processing
@@ -729,7 +728,7 @@ if('python_region'):
                         datarow   =   self.dict_smartupdate(tmp_row_default,datarow)
                         tmptable.append( datarow )
                   ##;;
-                  
+
                   ## self settings
                   if(not 'debugging_alerts_01'):
                     print "### intently_grins_lament ------------------------------------------------------------------------"
