@@ -1,6 +1,13 @@
 __yaml__:
   
-  - caption: ddyaml hello earth
+  - caption:  ddyaml hello earth
+    processthis: 1
+    comments: |
+      ## COMMENTS
+      ### ********************
+      # * this is a barebones simple helloworld intro
+      # * both the template and data are specified in one place
+      # * usually the data are specified above the dunder_yaml sigil
     template: |
       {% set ttname = 'Earth'  -%}
       Hello {{ ttname }}!       

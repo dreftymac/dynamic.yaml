@@ -1,6 +1,3 @@
-__yaml__outputfile:
-__yaml__templateinclude_head:  
-__yaml__templateinclude_foot:  
 __yaml__:
   
   - caption:      ddyaml hello earth

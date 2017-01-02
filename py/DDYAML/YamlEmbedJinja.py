@@ -10,18 +10,27 @@
 ###     desc: |
 ###         process ordinary YAML with embedded jinja2
 ###         return ordinary YAML with the jinja2 interpolated
+###         * TODO ;; do not like the "regions" and string_split on dunder yaml sigil
+###             * make this processing more robust against delimiter_collision
+###             * this comes up when someone tries to use the string `__yaml__`
+###                 somewhere in the body of a yaml document, this is too fragile
 ### <end-file_info>
 
 ### @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 ### init py
 if('python_region'):
-      ## init py
-      import jinja2
-      import os
-      import sys
-      import textwrap
-      import yaml
-      pass;
+  ## init py
+  import jinja2
+  import os
+  import sys
+  import textwrap
+  import yaml
+  pass;
+
+  ## pprint
+  import pprint
+  oDumper = pprint.PrettyPrinter(indent=4);
+  ## oDumper.pprint( directives )
 
 ### @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 ### YamlEmbedJinja
@@ -168,6 +177,14 @@ if('python_region'):
           splitby         =   self.my_ddyaml_string_enddata
           ##;;
 
+          ##
+          if( not 'debugging_alerts_bikini'):
+            #oDumper.pprint( kwargs.keys() )
+            #oDumper.pprint( kwargs.items() )
+            #oDumper.pprint( args['yaml'] )
+            exit()
+            pass
+
           ##trycatch ;; init_params
           try:
             ## rawyaml init
@@ -175,7 +192,20 @@ if('python_region'):
             rawyaml   =   textwrap.dedent( rawyaml )
             rawyaml   =   rawyaml.lstrip()
             rawyaml   =   rawyaml.replace("\t", "  ")
+
+            ##
+            if( not 'debugging_alerts_bikini'):
+              print rawyaml
+              pass
+
             regions   =   rawyaml.split(splitby)
+
+            ##
+            if( not 'debugging_alerts_bikini'):
+              oDumper.pprint( rawyaml )
+              oDumper.pprint( regions )
+              pass
+
             ##
             if (regions.__len__() == 2):
               self.yamlregions['primary'] = textwrap.dedent(regions[0]).lstrip()
@@ -195,13 +225,23 @@ if('python_region'):
             print(exc_type, fname, exc_tb.tb_lineno)
           ##;;
 
+          ##
+          if( not not 'debugging_alerts_bikini'):
+            print( self.yamlregions )
+            exit()
+            pass
+
           ##trycatch ;; firstpass
           try:
             ## firstpass yaml data load
-            # print rawyaml
-            # print rawyaml
-            # exit()
+            #print rawyaml
+            #exit()
             data_firstpass = yaml.safe_load( rawyaml )
+
+            ##
+            if( not 'debugging_alerts_bikini'):
+              pass
+
             data_firstpass.pop(self.my_ddyaml_string_enddata, None) ## remove region_dynamic portion of ddyaml workbook
 
             ## pprint

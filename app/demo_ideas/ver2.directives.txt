@@ -10,18 +10,19 @@
 ###     desc: |
 ###         * directives
 ###             * different way of handling directives
-###             * can be declared globally on the toplevel
-###             * can be overriden if declared on the leaf level
-###             * always specify as aod, which makes them more flexible
+###             * TODO ;; can be declared globally on the toplevel
+###             * TODO ;; can be overriden if declared on the leaf level
+###             * DONE ;; support specification as aod, which makes them more flexible
 ###     seealso: |
-###         * href="smartpath://mymedia/2014/git/github/dynamic.yaml/devlog.txt"
-###         * href="smartpath://mydaydirs/2017/week01/devlog.txt" find="ddyaml_voiding_idler"
+###             * href="smartpath://mymedia/2014/git/github/dynamic.yaml/devlog.txt"
+###             * href="smartpath://mydaydirs/2017/week01/devlog.txt" find="ddyaml_voiding_idler"
+###             * href="smartpath://mymedia/2014/git/github/dynamic.yaml/app/demo/bare.hello.000ab.txt"
 ### <end-file_info>
 
 outputfile:
 templateinclude:
-  - {"section":"head", "filepath": "C:/sm/docs/mymedia/2014/git/github/dynamic.yaml/app/demo/fileinfo_foot.asc"}
-  - {"section":"foot", "filepath": "C:/sm/docs/mymedia/2014/git/github/dynamic.yaml/app/demo/fileinfo_foot.asc"}
+  - {"section":"head", "path": "C:/sm/docs/mymedia/2014/git/github/dynamic.yaml/app/demo/fileinfo_foot.asc"}
+  - {"section":"foot", "path": "C:/sm/docs/mymedia/2014/git/github/dynamic.yaml/app/demo/fileinfo_foot.asc"}
 templateinclude_foot:
 templateinclude_foot:
   

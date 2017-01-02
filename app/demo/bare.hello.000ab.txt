@@ -1,11 +1,27 @@
-
 __yaml__:
   
-  - caption:      ddyaml hello earth
-    outputfile:   "c:/sm/docs/temp/11junk.txt"
+  - caption:  ddyaml hello earth
     templateinclude:
-      - {"path": "c:/sm/docs/mymedia/2014/git/github/dynamic.yaml/app/demo/fileinfo_head.asc" }
-      - "c:/sm/docs/mymedia/2014/git/github/dynamic.yaml/app/demo/fileinfo_foot.asc" 
+      - {"section":"head", "path": "bare.hello.0000.head.txt"}
+      - {"section":"foot", "path": "bare.hello.0000.foot.txt"}
+    offtemplateinclude: "bare.hello.0000.head.txt"
     template: |
       {% set ttname = 'Earth'  -%}
-      Hello {{ ttname }}!       
+      Hello {{ ttname }}!
+
+### COMMENTS
+### ********************       
+# * templateinclude can be just a bare string
+# * default section is "footer"
+# * - "bare.hello.0000.foot.txt"
+#
+### ********************       
+# * templateinclude can have missing `section` key
+# * default section is "footer"
+# * - {"path": "bare.hello.0000.foot.txt"}
+#
+### ********************       
+# * templateinclude can have blank value for `section` key
+# * blank section is converted to "footer"
+# *  - {"section":"", "path": "bare.hello.0000.head.txt"}
+

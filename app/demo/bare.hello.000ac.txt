@@ -1,0 +1,24 @@
+__yaml__:  
+    # --------------------------------
+    # templateinclude can be just a bare string
+    # default section is "footer"
+    #  - "bare.hello.0000.foot.txt"
+
+    # --------------------------------
+    # templateinclude can have missing `section` key
+    # default section is "footer"
+    #  - {"path": "bare.hello.0000.foot.txt"}
+
+    # --------------------------------
+    # templateinclude can have blank value for `section` key
+    # blank section is converted to "footer"
+    #  - {"section":"", "path": "bare.hello.0000.head.txt"}
+    
+  - caption:  ddyaml hello earth
+    templateinclude:
+      - {"section":"head", "path": "bare.hello.0000.init.txt"}
+      - {"section":"head", "path": "bare.hello.0000.head.txt"}
+      - {"section":"foot", "path": "bare.hello.0000.foot.txt"}
+    offtemplateinclude: "bare.hello.0000.head.txt"
+    template: |
+      Hello {{ ttname }}!
