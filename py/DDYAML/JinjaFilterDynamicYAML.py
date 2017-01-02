@@ -3945,6 +3945,8 @@ if('python_region'):
             grp_med:  output
             grp_min:  zipfile
             dreftymacid: mckay_planets_richer
+            seealso: |
+              * href="smartpath://mymedia/2014/git/github/dynamic.yaml/app/demo/barebones.filezip.yaml.txt" find="heists_bely_numeric"
             detail:  |
                 output to a zip archive
             dependencies:
@@ -3988,6 +3990,8 @@ if('python_region'):
                                  )
             oZip.writestr(archivpath, vout)
             vout = "## jjtozipfile %s"%(archivpath);
+          except UserWarning as msg:
+            raise "Zip File error: msg@%s"%(msg.__repr__())
           except Exception as msg:
             print 'UNEXPECTED TERMINATION msg@%s'%(msg.__repr__())
             exc_type, exc_obj, exc_tb = sys.exc_info()

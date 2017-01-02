@@ -1,5 +1,5 @@
-#! /usr/bin/python
 # -*- coding: utf-8 -*-
+#! /usr/bin/python
 ### <beg-file_info>
 ### main:
 ###   - date: created="Wed Dec 30 12:53:38 2015"

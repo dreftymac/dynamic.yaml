@@ -8,6 +8,7 @@
 ###     caption:        generate zip archive
 ###     seealso: |
 ###         * href="./readme.md"
+###         * regain://mckay_planets_richer
 ###     desc: |
 ###         barebones.filezip.yaml.txt
 ###         * generate one or more output files
@@ -37,8 +38,8 @@ files:
 __yaml__:
   - template: |
       {% for file in files %}
-        {%filter jjdedent |trim |jjtozipfile('',file.outpath) %}
+        {%filter jjdedent |trim |jjtozipfile('c:/users/smosley/desktop/barebones.filezip',file.outpath) %}
           {{ file.wwbody |upper }}
-        {%endfilter-%}      
+        {%endfilter-%}
       {% endfor %}
 

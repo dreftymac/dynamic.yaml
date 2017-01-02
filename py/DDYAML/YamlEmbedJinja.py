@@ -57,7 +57,7 @@ if('python_region'):
 
           ## init myoptions
           self.myoptions = {}
-          self.myoptions['ddyaml_string_enddata']  = '__yaml__'
+          self.myoptions['ddyaml_end_marker']  = '__yaml__'
           self.myoptions['ddyaml_string_configs']  = '__yamlconfig__'
               ## TODO: add support for hand-entered configs
               ## TODO: handle configs as a directive instead of a __ENDATA__ token
@@ -67,7 +67,7 @@ if('python_region'):
           for tmpname, tmpvarr in kwargs.items():
               self.myoptions[tmpname] = tmpvarr
           ##
-          self.my_ddyaml_string_enddata   = self.myoptions['ddyaml_string_enddata']
+          self.my_ddyaml_end_marker   = self.myoptions['ddyaml_end_marker']
           self.my_ddyaml_string_configs   = self.myoptions['ddyaml_string_configs']
           ##;;
 
@@ -130,7 +130,7 @@ if('python_region'):
         #   ## can have no more than one of these tokens in the sourceinput
         #   ## count the number of sections that result from splitting on these tokens
         #   ## if more than 2 sections result, we have more than one token
-        #   sctn_enddata      =   self.split_into_sections_ddyaml(yaml=rawyaml,splitby=self.my_ddyaml_string_enddata)
+        #   sctn_enddata      =   self.split_into_sections_ddyaml(yaml=rawyaml,splitby=self.my_ddyaml_end_marker)
         #   if(sctn_enddata.__len__() > 2):
         #     data_hasnt_failed = False
         #   ##
@@ -174,7 +174,7 @@ if('python_region'):
           data_firstpass  =   None
           raws_firstpass  =   ''
           vout            =   ''
-          splitby         =   self.my_ddyaml_string_enddata
+          splitby         =   self.my_ddyaml_end_marker
           ##;;
 
           ##
@@ -242,7 +242,7 @@ if('python_region'):
             if( not 'debugging_alerts_bikini'):
               pass
 
-            data_firstpass.pop(self.my_ddyaml_string_enddata, None) ## remove region_dynamic portion of ddyaml workbook
+            data_firstpass.pop(self.my_ddyaml_end_marker, None) ## remove region_dynamic portion of ddyaml workbook
 
             ## pprint
             # import pprint
@@ -317,7 +317,7 @@ if('python_region'):
           try:
             ## firstpass data load
             data_firstpass = yaml.safe_load( rawyaml )
-            data_firstpass.pop(self.my_ddyaml_string_enddata, None) ## remove ddyaml_string_enddata portion of ddyaml workbook
+            data_firstpass.pop(self.my_ddyaml_end_marker, None) ## remove ddyaml_end_marker portion of ddyaml workbook
             data_firstpass.pop(self.my_ddyaml_string_configs, None) ## remove ddyaml_string_configs portion of ddyaml workbook
             #print data_firstpass
             #exit()

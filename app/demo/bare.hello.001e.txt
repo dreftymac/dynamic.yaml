@@ -22,6 +22,7 @@ __yaml__:
   - caption: hello world example
     desc: |
       * send output to a text file
+      * support variables to specify filepath
     template: |
       {#- ------------------------------------------------------------------------ -#}
       {%- set ttouthome   = "{outhome}/{outfile}".format(**myinfo) -%}

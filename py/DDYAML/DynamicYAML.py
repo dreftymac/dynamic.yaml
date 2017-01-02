@@ -40,6 +40,7 @@ if('python_region'):
   import re
   import os
   import yaml
+  import zipfile
   from collections import defaultdict
 
   ## pprint
@@ -72,9 +73,10 @@ if('python_region'):
         def __init__(self,options={},**kwargs):
 
           ## init defaults (TODO ;; code refactor use self.options instead of options)
-          self.options = {}
-          self.options['ddyaml_string_enddata']   = '__yaml__'
-          self.options['ddyaml_process_twopass']  = True
+          self.metadata   = {}
+          self.options    = {}
+          self.options['ddyaml_end_marker']         = '__yaml__'
+          self.options['ddyaml_process_twopass']        = True
           ## support for jinja2.FileSystemLoader ;;
           self.options['filesystemloader_paths']        = []
           self.options['jinja2_globals']                = {}
@@ -96,6 +98,11 @@ if('python_region'):
           ## allow for overriding defaults
           for tmpname, tmpvarr in kwargs.items():
               self.options[tmpname] = tmpvarr
+          ##;;
+
+          ##
+          self.metadata['zipfile_aod_table']  = []
+          self.metadata['directives_aod_table']  = []
           ##;;
 
           ##
@@ -672,15 +679,15 @@ if('python_region'):
           ###         desc
           """
           ## placeholder syntax
-          sgg_dynamicyaml_key     =   self.options['ddyaml_string_enddata']
+          sgg_dynamicyaml_key     =   self.options['ddyaml_end_marker']
           sgg_dynamicyaml_key     =   sgg_dynamicyaml_key.lower()
           sgg_directiveprefix_str =   ''
           ##;;
 
           ## init vars
-          ddtransform_aaout  =   []
-          ssgpath         =   ''
-          originalconfig  =   {}
+          ddtransform_aaout   =   []
+          ssgpath             =   ''
+          originalconfig      =   {}
           ##;;
 
           ### TODO ;; adopt the conventions from yamlembedjinja ;; yamlregions
@@ -710,6 +717,7 @@ if('python_region'):
                 if( self.options['ddyaml_process_twopass'] ):
                   strYamlCustomEndSection   =     self.ddexport(strYamlCustomEndSection)
                 originalconfig        =     yaml.safe_load(strYamlCustomEndSection) or originalconfig
+                self.metadata['directive_aod_node'] = originalconfig[self.options['ddyaml_end_marker']]
                 bload_stora_success   =     True
               except:
                 pass
@@ -722,15 +730,16 @@ if('python_region'):
             print originalconfig              ## endsection_as_data
             print strYamlCustomEndSection     ## endsection_as_string
             #print svirtualtemplate
+          ## endif
 
           ### ------------------------------------------------------------------------
           ## init directives_dictionary
           directives = {}
           directives['default_data']            = ''
           directives['default_tpl_with_procs']  = ''
-          directives['current_data']        = ''
-          directives['current_template']    = ''
-          directives['default_data']        = originalconfig.copy()
+          directives['current_data']            = ''
+          directives['current_template']        = ''
+          directives['default_data']            = originalconfig.copy()
           ##;;
 
           ##
@@ -744,6 +753,7 @@ if('python_region'):
           ##
           if( not 'debugging_alerts_01'):
             oDumper.pprint( directives ) ## directives_as_clean_init
+          ##endif
 
           ## <beg-process01>
           if('region::process01'):
@@ -759,6 +769,7 @@ if('python_region'):
               if (tmp_processing_directives.__len__() == 0):
                 tmp_render  =   self.ddexport(strYamlCustomEndSection)
                 ddtransform_aaout.append( tmp_render )
+                #self.metadata['directives_aod_table'].extend( tmp_processing_directives )
 
               ## iterate_directives ;; tmp_processing_directives
               for row_proc_directive in tmp_processing_directives:
@@ -778,24 +789,6 @@ if('python_region'):
                   if(str(tmpval).strip() != ''):
                     directives["".join(tmpname)] = str(tmpval)
                 ##;;
-
-                # ## DEPRECATED ;; use processthis directive instead
-                # ## @@@ rowkeep directive ;; skip this entire processing row if rowkeep evals to false
-                # tmpname = ['row','keep']
-                # tmpkey  = sgg_directiveprefix_str + "".join(tmpname)
-                # if( (tmpkey) in row_proc_directive ):
-                #   tmpval = row[tmpkey]
-                #   if(bool(tmpval) == False): continue;
-                # ##;;
-
-                # ## DEPRECATED ;; use processthis directive instead
-                # ## @@@ rowskip directive ;; skip this entire processing row if rowskip evals to true
-                # tmpname = ['row','skip']
-                # tmpkey  = sgg_directiveprefix_str + "".join(tmpname)
-                # if( (tmpkey) in row_proc_directive ):
-                #   tmpval = row[tmpkey]
-                #   if(True and tmpval): continue;
-                # ##;;
 
                 ## @@@ processthis directive ;; skip this entire processing row if processthis evals to false
                 tmpname = ['process','this']
@@ -828,20 +821,20 @@ if('python_region'):
                 ## bkmk002
                 ## @@@ outputfile directive ;; output content to a text file
                 tmpname = "".join(  ['output','file'] )
-                tmpkey  = sgg_directiveprefix_str + "".join(tmpname)
+                tmpkey  = sgg_directiveprefix_str + tmpname
                 directives['current_'+tmpname] = self.proc_directive_load_outputfile( row_proc_directive,tmpkey )
                 ##;;
 
                 ## @@@ outputzip directive ;; output content to a zip archive file
                 tmpname = "".join(  ['output','zip'] )
-                tmpkey  = sgg_directiveprefix_str + "".join(tmpname)
+                tmpkey  = sgg_directiveprefix_str + tmpname
                 directives['current_'+tmpname] = self.proc_directive_load_outputzip( row_proc_directive,tmpkey )
                 ##;;
 
                 ## @@@ templateinclude directive ;; we get one_or_more template from one_or_more external file
                 ## and merge with strYamlCustomEndSection
                 tmpname   =   "".join(['templateinclude'])
-                tmpkey    =   sgg_directiveprefix_str + "".join(tmpname)
+                tmpkey    =   sgg_directiveprefix_str + tmpname
                 directives['current_'+tmpname] = self.proc_directive_load_templateinclude( row_proc_directive,tmpkey )
                 ##;; endif
 
@@ -878,11 +871,6 @@ if('python_region'):
                       self.options['filesystemloader_paths'].append( sscurr )
                       # print " bkmk001 :: directs_dozer_forums ### ------------------------------------------------------------------------ "
                       # print sscurr
-
-                  ##
-                  # if(sstemp != ''):
-                  #   directives['current_'+tmpname[0]]   =   sstemp
-                  ## print tmpval
                 ##;;
 
                 ## @@@ datainclude directive ;; concatenate multiple yaml files to input additional data
@@ -921,12 +909,6 @@ if('python_region'):
 
                 ### TODO ;; NOT_YET_SUPPORTED
                 ### @@@ dataurl directive ;; we get a data from an included url
-                #tmpname = ['data','url']
-                #tmpkey  = sgg_directiveprefix_str + "".join(tmpname)
-                #if( (tmpkey) in row_proc_directive ):
-                #  tmpval = row[tmpkey]
-                #  directives['current_'+tmpname[0]]   =   yaml.safe_load(open(tmpval,'rb').read())
-                ##;;
 
                 ## @@@ data directive ;; we get data from strYamlCustomEndSection
                 tmpname = ['data','']
@@ -1016,17 +998,44 @@ if('python_region'):
             ## postproc directives bkmk002
             try:
               obJJMain = JinjaFilterDynamicYAML.JinjaFilterDynamicYAML()
-
+              ##
               tmpname = "_".join(['current','outputfile'])
               if(tmpname in directives and (type(directives[tmpname]) is list) ):
                 for tmprow in list(directives[tmpname]):
                   obJJMain.jjtofile(tmpout,tmprow['path'],tmprow['mode'],usebom=False)
+              ##;;
 
+              ##
               tmpname = "_".join(['current','outputzip'])
               if(tmpname in directives and (type(directives[tmpname]) is list) ):
                 for tmprow in list(directives[tmpname]):
-                  obJJMain.jjtozipfile(tmpout,tmprow['path'],tmprow['zip'])
+                  print tmprow
+                  tmprow['txtbody'] = tmpout
+                  #self.metadata['zipfile_aod_table'].append(dict(tmprow))
 
+                # ddzprop = dict()
+                # ddzprop['zipmode'   ]  =   None
+                # ddzprop['wrtmode'   ]  =   'a'
+                # try:
+                #     import zlib
+                #     ddzprop['zipmode'   ]= zipfile.ZIP_DEFLATED
+                # except:
+                #     ddzprop['zipmode'   ]= zipfile.ZIP_STORED
+                # ddzprop['ssfzipout' ]  = '%s.zip'%(directives[tmpname][0]['path'])
+                # oZip = zipfile.ZipFile(ddzprop['ssfzipout' ],
+                #                      mode=ddzprop['wrtmode'   ],
+                #                      compression=ddzprop['zipmode'   ],
+                #                      )
+                # oDumper.pprint(ddzprop)
+                # for tmprow in list(directives[tmpname]):
+                #   oZip.writestr(tmprow['zip'], tmpout)
+              ##;;
+
+                  ## zip_approach001
+                  #behaves contrary to expectation,
+                  #http://stackoverflow.com/questions/39767904/create-zip-archive-with-multiple-files
+                  #print obJJMain.jjtozipfile(tmpout,tmprow['path'],tmprow['zip'])
+                  ## zip_approach002
             except Exception as msg:
               print 'EXCEPTION ariser_twister_teams msg@%s'%(msg.__repr__())
               exc_type, exc_obj, exc_tb = sys.exc_info()
@@ -1039,6 +1048,7 @@ if('python_region'):
           #oDumper.pprint( directives )
           ##endfor::iterate_yaml
 
+
           #print yaml.safe_dump( ddtransform_aaout , default_flow_style=False  )
           ##vjj = "\n"
           vjj   = ""
@@ -1046,8 +1056,7 @@ if('python_region'):
           ddtransform_aaout  = "".join(ddtransform_aaout)
           ##;;
 
-          #print self.oenv.filters
-          #print self.oenv.finalize
+          oDumper.pprint( self.metadata )
 
           ##
           return ddtransform_aaout

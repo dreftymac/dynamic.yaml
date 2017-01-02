@@ -7,6 +7,8 @@ main:
 __yaml__:
   
   - caption: hello world example
+    desc: |
+      * support jinja variable placholders in main yaml (requires multipass yaml processing)
     template: |
       {#- ------------------------------------------------------------------------ -#}
       {%- set ttouthome   = "c:/sm/docs/temp/barehello000d.txt"                    -%}
@@ -18,3 +20,4 @@ __yaml__:
       {% endfor %}
       {{ main.talk_exxit }}!
       {%endfilter%}
+      

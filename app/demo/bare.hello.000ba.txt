@@ -1,0 +1,35 @@
+comments: |
+  * Here we show multiple templates, each with variables declared.
+  * This is still a contrived example, with variables defined only in the templates.
+
+__yaml__:
+  
+  - caption: ddyaml hello Earth
+    outputzip:
+      - {"zip":'/one/earth.txt', "path":"C:/Users/smosley/Desktop/zipdemo.000ba.zip"}
+    template: |
+      {% set ttname = 'Earth'  -%}
+      Hello {{ ttname }}!
+
+  - caption: ddyaml hello Mars
+    outputzip:
+      - {"zip":'/two/mars.txt', "path":"C:/Users/smosley/Desktop/zipdemo.000ba.zip"}
+    template: |
+      {% set ttname = 'Mars'  -%}
+      Hello {{ ttname }}!
+      
+  - caption: ddyaml hello Jupiter
+    outputzip:
+      - {"zip":'/three/jupiter.txt', "path":"C:/Users/smosley/Desktop/zipdemo.000ba.zip"}
+    template: |
+      {% set ttname = 'Jupiter'  -%}
+      Hello {{ ttname }}!
+
+  #- caption: ddyaml hello Saturn
+  #  outputzip:
+  #    - {"zip":'/four/saturn.txt', "path":"C:/Users/smosley/Desktop/zipdemo.000ba.zip"}
+  #  template: |
+  #    {% set ttname = 'Saturn'  -%}
+  #    Hello {{ ttname }}!
+      
+
