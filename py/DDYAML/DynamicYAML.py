@@ -5,7 +5,7 @@
 ###     last: lastmod="Mon Jan 25 08:07:51 2016"
 ###     tags: python, ddyaml, runner
 ###     dreftymacid: "sue_wireworm_venusian"
-###     lastupdate:  "outputfile directive to directive_aod_node"
+###     lastupdate:  ""
 ###     filetype: "py"
 ###     seealso: |
 ###         * href="smartpath://mymedia/2014/git/github/dynamic.yaml/py/ddyaml/jinjafilterdynamicyaml.py"
@@ -73,6 +73,7 @@ if('python_region'):
         def __init__(self,options={},**kwargs):
 
           ## init defaults (TODO ;; code refactor use self.options instead of options)
+          self.JFiltMain  = JinjaFilterDynamicYAML.JinjaFilterDynamicYAML()
           self.metadata   = {}
           self.options    = {}
           self.options['ddyaml_end_marker']         = '__yaml__'
@@ -101,8 +102,9 @@ if('python_region'):
           ##;;
 
           ##
-          self.metadata['zipfile_aod_table']  = []
-          self.metadata['directives_aod_table']  = []
+          # self.metadata['zipfile_aod_table']      = []
+          # self.metadata['directives_aod_table']   = []
+          self.metadata['directives_meta_table']  = []
           ##;;
 
           ##
@@ -717,7 +719,7 @@ if('python_region'):
                 if( self.options['ddyaml_process_twopass'] ):
                   strYamlCustomEndSection   =     self.ddexport(strYamlCustomEndSection)
                 originalconfig        =     yaml.safe_load(strYamlCustomEndSection) or originalconfig
-                self.metadata['directive_aod_node'] = originalconfig[self.options['ddyaml_end_marker']]
+                #self.metadata['directives_meta_table'] = originalconfig[self.options['ddyaml_end_marker']]
                 bload_stora_success   =     True
               except:
                 pass
@@ -768,9 +770,11 @@ if('python_region'):
               tmp_processing_directives = originalconfig.pop(sgg_dynamicyaml_key,[])
               if (tmp_processing_directives.__len__() == 0):
                 tmp_render  =   self.ddexport(strYamlCustomEndSection)
+                ## ddtransform_aaout.append ;; accumulate_final_output
                 ddtransform_aaout.append( tmp_render )
-                #self.metadata['directives_aod_table'].extend( tmp_processing_directives )
+                self.metadata['directives_meta_table'].append( tmp_render )
 
+              ## bkmk003
               ## iterate_directives ;; tmp_processing_directives
               for row_proc_directive in tmp_processing_directives:
                 directives['current_template']    = directives['default_tpl_with_procs']
@@ -982,7 +986,10 @@ if('python_region'):
                 if(True):
                   tmpout = string.replace(tmpout, '\r\n', '')
                   tmpout = string.replace(tmpout, '\r', '')
+                ## ddtransform_aaout.append ;; accumulate_final_output
                 ddtransform_aaout.append( tmpout )
+                row_proc_directive['rendered_template'] = tmpout
+                self.metadata['directives_meta_table'].append( row_proc_directive )
             ##;;
             ## exception ;; process01
             except Exception as msg:
@@ -997,21 +1004,20 @@ if('python_region'):
 
             ## postproc directives bkmk002
             try:
-              obJJMain = JinjaFilterDynamicYAML.JinjaFilterDynamicYAML()
               ##
               tmpname = "_".join(['current','outputfile'])
               if(tmpname in directives and (type(directives[tmpname]) is list) ):
                 for tmprow in list(directives[tmpname]):
-                  obJJMain.jjtofile(tmpout,tmprow['path'],tmprow['mode'],usebom=False)
+                  self.JFiltMain.jjtofile(tmpout,tmprow['path'],tmprow['mode'],usebom=False)
               ##;;
 
               ##
-              tmpname = "_".join(['current','outputzip'])
-              if(tmpname in directives and (type(directives[tmpname]) is list) ):
-                for tmprow in list(directives[tmpname]):
-                  print tmprow
-                  tmprow['txtbody'] = tmpout
-                  #self.metadata['zipfile_aod_table'].append(dict(tmprow))
+              # tmpname = "_".join(['current','outputzip'])
+              # if(tmpname in directives and (type(directives[tmpname]) is list) ):
+              #   for tmprow in list(directives[tmpname]):
+              #     #print tmprow
+              #     #tmprow['txtbody'] = tmpout
+              #     #self.metadata['zipfile_aod_table'].append(dict(tmprow))
 
                 # ddzprop = dict()
                 # ddzprop['zipmode'   ]  =   None
@@ -1034,7 +1040,7 @@ if('python_region'):
                   ## zip_approach001
                   #behaves contrary to expectation,
                   #http://stackoverflow.com/questions/39767904/create-zip-archive-with-multiple-files
-                  #print obJJMain.jjtozipfile(tmpout,tmprow['path'],tmprow['zip'])
+                  #print JFiltMain.jjtozipfile(tmpout,tmprow['path'],tmprow['zip'])
                   ## zip_approach002
             except Exception as msg:
               print 'EXCEPTION ariser_twister_teams msg@%s'%(msg.__repr__())
@@ -1056,7 +1062,27 @@ if('python_region'):
           ddtransform_aaout  = "".join(ddtransform_aaout)
           ##;;
 
-          oDumper.pprint( self.metadata )
+          ## bkmk003
+          ## zip_approach001
+          #behaves contrary to expectation,
+          #http://stackoverflow.com/questions/39767904/create-zip-archive-with-multiple-files
+          #print JFiltMain.jjtozipfile(tmpout,tmprow['path'],tmprow['zip'])
+          #oDumper.pprint( self.metadata )
+
+          ##
+          tmptable = self.metadata['directives_meta_table']
+          for tmprow in tmptable:
+            if (not row['outputzip']): continue
+            subtable = row['outputzip']
+            for subrow in subtable:
+              self.JFiltMain.jjtozipfile(row['rendered_template'],subrow['path'],subrow['zip'])
+          ##;;
+          
+          # if(tmpname in directives and (type(directives[tmpname]) is list) ):
+          #   for tmprow in list(directives[tmpname]):
+          #     #print tmprow
+          #     #tmprow['txtbody'] = tmpout
+          #     #self.metadata['zipfile_aod_table'].append(dict(tmprow))
 
           ##
           return ddtransform_aaout

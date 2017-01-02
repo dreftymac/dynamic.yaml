@@ -31,5 +31,4 @@ __yaml__:
   #  template: |
   #    {% set ttname = 'Saturn'  -%}
   #    Hello {{ ttname }}!
-      
 
