@@ -433,8 +433,21 @@ if('python_region'):
         ##;; enddef
 
         def proc_convert_str_to_dict( self, ssraw='', sskey='', ddmain={} ):
+          '''
+          - rectype:  "rrfuncdoc.small"
+            funcdesc: |
+              * change string into a dictionary
+            funcparams: |
+              * argname ;; argtype ;; argdesc
+            funcreturn: |
+              * pydict ;; output dictionary
+            last: lastmod="2017-01-02"
+            date: created="2017-01-02"
+            dreftymacid: pystrtodict_over_boils_volt
+          '''
           ddmain[sskey] = ssraw
           return ddmain
+        ## enddef
 
         # def proc_directive_aod_load( self, vloaded=None , empty_rec={"rawstr":""} ):
         #   '''
@@ -716,17 +729,7 @@ if('python_region'):
                         datarow   =   self.dict_smartupdate(tmp_row_default,datarow)
                         tmptable.append( datarow )
                   ##;;
-
-                  # tmptable      = self.proc_directive_aod_load( tmpval , tmp_row_empty )
-                  # for row in tmptable:
-                  #   row = defaultdict(lambda: '__blank__', tmp_row_empty)
-                  #   #ddtemp  = self.dict_aliaskeys(row,['rawstr','path'])
-                  #   #ddtemp.update(row)
-                  #   #row     = self.dict_smartmerge(row,tmp_row_empty)
-                  #   row  = ddtemp
-                  #   if( "section" in row and str(row['section']) == ''): row['section'] = 'foot'
-                  #   pass
-
+                  
                   ## self settings
                   if(not 'debugging_alerts_01'):
                     print "### intently_grins_lament ------------------------------------------------------------------------"
@@ -777,7 +780,7 @@ if('python_region'):
                     ## current_templateinclude
                     directives['current_'+tmpname[0]] = tmptable
                   ## print tmpval
-                ##;;
+                ##;; endif
 
                 ## bkmk001
                 ## @@@ pathinclude directive ;; we get one_or_more path for use with jinja.FileSystemLoader
@@ -871,6 +874,9 @@ if('python_region'):
                   directives['current_'+tmpname[0]]   =   yaml.safe_load(tmpval)
                 ##;;
 
+                ### ------------------------------------------------------------------------
+                ## begin_
+
                 ## preproc directives
                 if('current_templateinclude' in directives):
                   tmptable = []
@@ -887,6 +893,7 @@ if('python_region'):
                 if('usedataroot' in directives):
                   tmpname = directives['usedataroot']
                   directives['current_data'] = {tmpname: directives['current_data']}
+                ##;;
 
                 ## debug before render
                 #oDumper.pprint( directives )
@@ -903,6 +910,9 @@ if('python_region'):
                     print "### ------------------------------------------------------------------------"
                     print directives[tmpkey]
                   exit()
+
+            ### ------------------------------------------------------------------------
+            ## begin_
 
                 ## render output
                 ## TODO ;; allow customizable data merge semantics
@@ -936,6 +946,9 @@ if('python_region'):
               fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
               print(exc_type, fname, exc_tb.tb_lineno)
             ##;; endtry
+
+            ### ------------------------------------------------------------------------
+            ## begin_
 
             ## postproc directives
             try:

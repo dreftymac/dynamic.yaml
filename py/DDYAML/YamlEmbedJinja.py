@@ -226,7 +226,7 @@ if('python_region'):
           ##;;
 
           ##
-          if( not not 'debugging_alerts_bikini'):
+          if( not 'debugging_alerts_bikini'):
             print( self.yamlregions )
             exit()
             pass

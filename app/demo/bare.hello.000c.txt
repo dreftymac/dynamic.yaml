@@ -1,3 +1,8 @@
+comments: |
+  * This is a less contrived example.
+  * This shows how templates and variables usually interact.
+  * The sample data is a simple sequence (list) of planets.
+  
 mylist:
   - Mercury
   - Venus

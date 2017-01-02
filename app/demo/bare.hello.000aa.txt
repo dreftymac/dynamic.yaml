@@ -2,6 +2,11 @@ __yaml__:
   
   - caption:      ddyaml hello earth
     outputfile:   "c:/sm/docs/temp/11junk.txt"
+    comments: |
+      ### ********************
+      # * the output is sent to both stdout and to a file
+    result: |
+      Hello Earth!        
     template: |
       {% set ttname = 'Earth'  -%}
       Hello {{ ttname }}!       

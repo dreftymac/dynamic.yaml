@@ -1,20 +1,12 @@
 __yaml__:  
-    # --------------------------------
-    # templateinclude can be just a bare string
-    # default section is "footer"
-    #  - "bare.hello.0000.foot.txt"
-
-    # --------------------------------
-    # templateinclude can have missing `section` key
-    # default section is "footer"
-    #  - {"path": "bare.hello.0000.foot.txt"}
-
-    # --------------------------------
-    # templateinclude can have blank value for `section` key
-    # blank section is converted to "footer"
-    #  - {"section":"", "path": "bare.hello.0000.head.txt"}
     
   - caption:  ddyaml hello earth
+    comments: | 
+      ### ********************
+      #   * in this example, the assignment to variable `ttname` was moved
+      #   * it is in the first templateinclude file
+      #   * now the variable is properly populated in the remaining templates
+      #   * this is still a contrived example, the variables here are defined only in templates
     templateinclude:
       - {"section":"head", "path": "bare.hello.0000.init.txt"}
       - {"section":"head", "path": "bare.hello.0000.head.txt"}
@@ -22,3 +14,4 @@ __yaml__:
     offtemplateinclude: "bare.hello.0000.head.txt"
     template: |
       Hello {{ ttname }}!
+

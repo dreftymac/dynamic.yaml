@@ -1,3 +1,7 @@
+comments: |
+  * Here we show multiple templates, each with variables declared.
+  * This is still a contrived example, with variables defined only in the templates.
+
 __yaml__:
   
   - caption: ddyaml hello Earth
