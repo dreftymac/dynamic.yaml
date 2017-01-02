@@ -46,6 +46,8 @@ if('python_region'):
   import pprint
   oDumper = pprint.PrettyPrinter(indent=4);
   ## oDumper.pprint( directives )
+  ## ddyaml
+  import JinjaFilterDynamicYAML
 
 ### @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 ### DynamicYAML
@@ -453,6 +455,37 @@ if('python_region'):
           return vout
         ## enddef
 
+        ## bkmk002
+        def proc_directive_handle_outputfile():
+          '''
+          - rectype:  "rrfuncdocsmall"
+            funcdesc: |
+              * directive to send default output to zero_or_more files
+            funcdetail: |
+              ## details
+              * the directive accepts the following name_value_pairs
+                  * path ;; the path to perform filewrite
+                  * mode ;; the output mode for filewrite
+                    * create    ;; create file if not already_exists, ignore if already_exists
+                    * replace   ;; create file if not already_exists, overwrite if already_exists
+                    * append    ;; create file if not already_exists, append if already_exists
+            funcparams: |
+              * argname ;; argtype ;; argdesc
+            funcreturn: |
+              *
+            last: lastmod="2017-01-02"
+            date: created="2017-01-02"
+            dreftymacid: ddyoutfile_citizen_bogs
+          '''
+          pass
+        ##enddef
+
+        def proc_directive_handle_templateinclude():
+          '''
+          '''
+          pass
+        ##enddef
+
         def proc_directive_aod_load( self, vloaded=None , ssdefault='path' , ddmyminimal={'path':''} , ddmydefault={'path':''} ):
           '''
           - rectype:  "rrfuncdocsmall"
@@ -483,7 +516,7 @@ if('python_region'):
 
           elif( type(vloaded) is str ):
             tmp_row_curr    =   self.proc_convert_str_to_dict( vloaded, ssdefault, dict(ddmyminimal) )
-            tmp_row_curr    =   self.dict_smartupdate(tmp_row_curr,tmp_row_default)
+            tmp_row_curr    =   self.dict_smartupdate(tmp_row_curr,ddmydefault)
             table_aod       =   [ tmp_row_curr ]
 
           elif( type(vloaded) is list ):
@@ -493,10 +526,10 @@ if('python_region'):
                 pass
               elif( type(datarow) is str ):
                 datarow   =   self.proc_convert_str_to_dict( datarow, ssdefault, dict(ddmyminimal))
-                datarow   =   self.dict_smartupdate(datarow,tmp_row_default)
+                datarow   =   self.dict_smartupdate(datarow,ddmydefault)
                 table_aod.append( datarow )
               elif( type(datarow) is dict ):
-                datarow   =   self.dict_smartupdate(tmp_row_default,datarow)
+                datarow   =   self.dict_smartupdate(ddmydefault,datarow)
                 table_aod.append( datarow )
           ##;;
 
@@ -688,8 +721,8 @@ if('python_region'):
                 tmpkey  = sgg_directiveprefix_str + "".join(tmpname)
                 ##
                 tmptable          = []
-                tmp_row_empty     = dict({ "path":     '', })
-                tmp_row_default   = dict({ "path":     '', })
+                tmp_row_empty     = dict({ "path": '', "mode": '', })
+                tmp_row_default   = dict({ "path": '', "mode": 'create', })
                 ##
                 if( (tmpkey) in row_proc_directive ):
                   ##
@@ -698,7 +731,7 @@ if('python_region'):
 
                   ## finalize current_outputfile
                   if(len(tmptable) > 0):
-                    directives['current_'+tmpname[0]] = tmptable
+                    directives['current_'+tmpname[0]+tmpname[1]] = tmptable
                   ## print tmpval
                   ##;;
                 ##;;
@@ -905,8 +938,9 @@ if('python_region'):
             ## postproc directives bkmk002
             try:
               if('current_outputfile' in directives):
+                obJJMain = JinjaFilterDynamicYAML.JinjaFilterDynamicYAML()
                 for tmprow in list(directives['current_outputfile']):
-                  open(path,'w').write(tmpout)
+                  obJJMain.jjtofile(tmpout,tmprow['path'],tmprow['mode'],usebom=False)
             except Exception as msg:
               print 'EXCEPTION ariser_twister_teams msg@%s'%(msg.__repr__())
               exc_type, exc_obj, exc_tb = sys.exc_info()

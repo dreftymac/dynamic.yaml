@@ -1,14 +1,20 @@
 __yaml__:
-  
+
   - caption:      ddyaml hello earth
-    outputfile:   "c:/sm/docs/temp/11junk.txt"
     comments: |
       ### ********************
       # * the output is sent to both stdout and to a file
+      # * outputfile supports directive_aod_node syntax
+
+    outputfile:
+      - { "mode": "create", "path": "c:/sm/docs/temp/11junk.txt",  }
+      - { "mode": "replace", "path": "c:/sm/docs/temp/22junk.txt",  }
+      - { "mode": "append", "path": "c:/sm/docs/temp/33junk.txt",  }
+
     result: |
-      Hello Earth!        
+      Hello Earth!
     template: |
       {% set ttname = 'Earth'  -%}
-      Hello {{ ttname }}!       
+      Hello {{ ttname }}!
 
 
