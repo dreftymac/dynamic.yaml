@@ -5,7 +5,7 @@
 ###     last: lastmod="Mon Jan 25 08:07:51 2016"
 ###     tags: python, ddyaml, runner
 ###     dreftymacid: "sue_wireworm_venusian"
-###     lastupdate:  "changed templateinclude directive to permit aod arguments"
+###     lastupdate:  "outputfile directive to directive_aod_node"
 ###     filetype: "py"
 ###     seealso: |
 ###         * href="smartpath://mymedia/2014/git/github/dynamic.yaml/py/ddyaml/jinjafilterdynamicyaml.py"
@@ -73,7 +73,7 @@ if('python_region'):
           self.options = {}
           self.options['ddyaml_string_enddata']   = '__yaml__'
           self.options['ddyaml_process_twopass']  = True
-          ## bkmk001 ;; support for jinja2.FileSystemLoader ;;
+          ## support for jinja2.FileSystemLoader ;;
           self.options['filesystemloader_paths']        = []
           self.options['jinja2_globals']                = {}
 
@@ -453,29 +453,36 @@ if('python_region'):
           return vout
         ## enddef
 
-        def proc_directive_aod_load( self, vloaded=None , ssdefault='path' , dddefault={'path':''} ):
+        def proc_directive_aod_load( self, vloaded=None , ssdefault='path' , ddmyminimal={'path':''} , ddmydefault={'path':''} ):
           '''
           - rectype:  "rrfuncdocsmall"
             funcdesc: |
-              * some directives accept table_aod as their input data
-              * load a directive that expects table_aod and ensure it is table_aod
+              * some directives accept either single_string or table_aod as their input data
+              * these are called directive_aod_node
+              * load a directive_aod_node and ensure it is table_aod
               * return a table_aod
             funcparams: |
               * vloaded ;; various ;; user_supplied value provided to the function
-              * empty_rec ;; dictionary ;; empty template for what fields should be in a record
+              * ssdefault ;; string ;; the default dict_key to apply to single_string value
+              * ddmyminimal ;; dict ;; the minimum_required fields for the rows in the table_aod
+              * ddmydefault ;; dict ;; dictionary with default values, for any required name_value_pairs
             funcreturn: |
-              * pylist ;; python list of dictionary (aka array_of_dictionary) (aka table_aod)
+              * pylist ;; table_aod ;; python list of dictionary (aka array_of_dictionary) (aka table_aod)
             last: lastmod="2017-01-01"
             date: created="2017-01-01"
             dreftymacid: ddyamlfunc_insects_nearing_oil
           '''
+          ## init vars
+          table_aod = []
+          vout = None
+          ##;;
 
-          ##
+          ## process
           if(None is True):
             pass
 
           elif( type(vloaded) is str ):
-            tmp_row_curr    =   self.proc_convert_str_to_dict( vloaded, 'path', {'path':''} )
+            tmp_row_curr    =   self.proc_convert_str_to_dict( vloaded, ssdefault, dict(ddmyminimal) )
             tmp_row_curr    =   self.dict_smartupdate(tmp_row_curr,tmp_row_default)
             table_aod       =   [ tmp_row_curr ]
 
@@ -485,16 +492,13 @@ if('python_region'):
               if(None is True):
                 pass
               elif( type(datarow) is str ):
-                datarow   =   self.proc_convert_str_to_dict( datarow, 'path', {'path':''} )
-                #oDumper.pprint( datarow )
+                datarow   =   self.proc_convert_str_to_dict( datarow, ssdefault, dict(ddmyminimal))
                 datarow   =   self.dict_smartupdate(datarow,tmp_row_default)
                 table_aod.append( datarow )
               elif( type(datarow) is dict ):
-                #oDumper.pprint( datarow )
                 datarow   =   self.dict_smartupdate(tmp_row_default,datarow)
                 table_aod.append( datarow )
           ##;;
-
 
           vout = list(table_aod)
           ##
@@ -504,10 +508,10 @@ if('python_region'):
         #@@ ## TODO ;; refactor this ;; parasitic inheritance method that just returns the result of
         #@@ ##    firstpass multipass processing
         #@@ ##    YamlEmbedJinja.template_render_1stpass
-        def ddexport(self,rawstr):
+        def ddexport(self,txtbody):
           from YamlEmbedJinja import YamlEmbedJinja ### "./YamlEmbedJinja.py"
           parser01        =   YamlEmbedJinja()
-          ddexport_vout   =   parser01.template_render_1stpass(yaml=rawstr)
+          ddexport_vout   =   parser01.template_render_1stpass(yaml=txtbody)
           return ddexport_vout
         ##enddef
 
@@ -658,15 +662,6 @@ if('python_region'):
                   if(bool(tmpval) == False): continue;
                 ##;;
 
-                ## @@@ outputfile directive ;; output content to a file without having to use jjtofile
-                tmpname = ['output','file']
-                tmpkey  = sgg_directiveprefix_str + "".join(tmpname)
-                if( (tmpkey) in row_proc_directive ):
-                  tmpval = row_proc_directive[tmpkey]
-                  directives['current_'+''.join(tmpname)]   =   tmpval
-                  #print tmpval
-                ##;;
-
                 ## @@@ templatefile directive ;; we get a template from a single external file
                 tmpname = ['template','file']
                 tmpkey  = sgg_directiveprefix_str + "".join(tmpname)
@@ -687,98 +682,56 @@ if('python_region'):
                   ## print tmpval
                 ##;;
 
+                ## bkmk002
+                ## @@@ outputfile directive ;; output content to a file without having to use jjtofile
+                tmpname = ['output','file']
+                tmpkey  = sgg_directiveprefix_str + "".join(tmpname)
+                ##
+                tmptable          = []
+                tmp_row_empty     = dict({ "path":     '', })
+                tmp_row_default   = dict({ "path":     '', })
+                ##
+                if( (tmpkey) in row_proc_directive ):
+                  ##
+                  tmpval          = row_proc_directive[tmpkey]
+                  tmptable        = self.proc_directive_aod_load( tmpval, 'path', tmp_row_empty , tmp_row_default )
+
+                  ## finalize current_outputfile
+                  if(len(tmptable) > 0):
+                    directives['current_'+tmpname[0]] = tmptable
+                  ## print tmpval
+                  ##;;
+                ##;;
+
                 ## @@@ templateinclude directive ;; we get one_or_more template from one_or_more external file
                 ## and merge with strYamlCustomEndSection
                 tmpname   =   ['templateinclude']
                 tmpkey    =   sgg_directiveprefix_str + "".join(tmpname)
-                tmptable  =   []
-                tmp_row_empty    = dict({
-                  "section":  '',
-                  "path":     '',
-                })
-                tmp_row_default    = dict({
-                  "section":  'foot',
-                  "path":     '',
-                })
+                ##
+                tmptable          = []
+                tmp_row_empty     = dict({ "section":'',        "path":     '', })
+                tmp_row_default   = dict({ "section":'foot',    "path":     '', })
+                ##
                 if( (tmpkey) in row_proc_directive ):
                   ##
                   tmpval          = row_proc_directive[tmpkey]
+                  tmptable        = self.proc_directive_aod_load( tmpval, 'path', tmp_row_empty , tmp_row_default )
 
-                  ##
-                  if(None is True):
-                    pass
-
-                  elif( type(tmpval) is str ):
-                    tmp_row_curr    =   self.proc_convert_str_to_dict( tmpval, 'path', {'path':''} )
-                    tmp_row_curr    =   self.dict_smartupdate(tmp_row_curr,tmp_row_default)
-                    tmptable        =   [ tmp_row_curr ]
-
-                  elif( type(tmpval) is list ):
-                    rowiter = list( tmpval )
-                    for datarow in rowiter:
-                      if(None is True):
-                        pass
-                      elif( type(datarow) is str ):
-                        datarow   =   self.proc_convert_str_to_dict( datarow, 'path', {'path':''} )
-                        #oDumper.pprint( datarow )
-                        datarow   =   self.dict_smartupdate(datarow,tmp_row_default)
-                        tmptable.append( datarow )
-                      elif( type(datarow) is dict ):
-                        #oDumper.pprint( datarow )
-                        datarow   =   self.dict_smartupdate(tmp_row_default,datarow)
-                        tmptable.append( datarow )
-                  ##;;
-
-                  ## self settings
-                  if(not 'debugging_alerts_01'):
-                    print "### intently_grins_lament ------------------------------------------------------------------------"
-                    oDumper.pprint( tmptable )
-                    #exit()
-                  ##;;
-
-                  ## validate tmptable
-                  ## TODO ;; assertions that tmptable has what we want in it for each row
-                  ## try:
-                  ##
-                  ##
-                  ## except:
-                  ##   raise ValueError('err: chariots_solidity_submits error proccessing templateinclude')
-                  ##;;
-
-                  ## iterate rows in tmptable
+                  ## add txtbody fields based on row['path']
                   for row in tmptable:
-                    ddtemp = {
-                      'section':  'head',
-                      'path':     '',
-                    }
                     try:
-                      row['section']  = str( row['section'] )
-                      row['path']     = str( self.ff_resolvepath_read( row['path'] ) )
+                      row['txtbody']   = str( self.ff_resolvepath_read( row['path'] ) )
                     except:
                       raise ValueError('err: teams_crumble_mire error proccessing templateinclude {0}'.format( row ))
                     pass
                   ##;;
 
-                  # ## iterate items
-                  # for spath in tmpval:
-                  #   #sscurr        =   ''
-                  #   ## return readable path or else empty string
-                  #   sscurr        =   self.ff_resolvepath_read(spath)
-                  #
-                  #   ## err_quiet
-                  #   if(sscurr == ''):
-                  #     continue
-                  #   ## err_verbose
-                  #   if(sscurr ==  ''):
-                  #     raise ValueError('undid_sail_unleash: failed to access file content at %s '%(spath))
-                  #   elif(True):
-                  #     sstemp += sscurr
-                  # ##
-
+                  ## finalize current_templateinclude
                   if(len(tmptable) > 0):
-                    ## current_templateinclude
                     directives['current_'+tmpname[0]] = tmptable
                   ## print tmpval
+                  ##;;
+
                 ##;; endif
 
                 ## bkmk001
@@ -853,7 +806,7 @@ if('python_region'):
                     ## print sstemp
                     directives['current_'+tmpname[0]]   =   yaml.safe_load(sstemp)
                   ## print tmpval
-                ##;;
+                ##;; endif
 
                 ### TODO ;; NOT_YET_SUPPORTED
                 ### @@@ dataurl directive ;; we get a data from an included url
@@ -881,9 +834,9 @@ if('python_region'):
                   tmptable = []
                   tmptable.extend( directives['current_templateinclude'] )
                   directives['current_template'] = ( ''
-                    + "".join( [row['path'] for row in tmptable if( row['section']== 'head')] )
+                    + "".join( [row['txtbody'] for row in tmptable if( row['section']== 'head')] )
                     + directives['current_template']
-                    + "".join( [row['path'] for row in tmptable if( row['section']== 'foot')] )
+                    + "".join( [row['txtbody'] for row in tmptable if( row['section']== 'foot')] )
                     )
 
                 if('current_datainclude' in directives):
@@ -910,8 +863,8 @@ if('python_region'):
                     print directives[tmpkey]
                   exit()
 
-            ### ------------------------------------------------------------------------
-            ## begin_
+                ### ------------------------------------------------------------------------
+                ## begin_
 
                 ## render output
                 ## TODO ;; allow customizable data merge semantics
@@ -949,11 +902,11 @@ if('python_region'):
             ### ------------------------------------------------------------------------
             ## begin_
 
-            ## postproc directives
+            ## postproc directives bkmk002
             try:
               if('current_outputfile' in directives):
-                spath = directives['current_outputfile']
-                open(spath,'w').write(tmpout)
+                for tmprow in list(directives['current_outputfile']):
+                  open(path,'w').write(tmpout)
             except Exception as msg:
               print 'EXCEPTION ariser_twister_teams msg@%s'%(msg.__repr__())
               exc_type, exc_obj, exc_tb = sys.exc_info()
