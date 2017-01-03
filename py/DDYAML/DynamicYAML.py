@@ -10,7 +10,7 @@
 ###     seealso: |
 ###         * href="smartpath://mymedia/2014/git/github/dynamic.yaml/py/ddyaml/jinjafilterdynamicyaml.py"
 ###     desc: |
-###         TODO ;; ff_resolvepath_read ff_resolvepath_path -- why keep both of these?
+###         * TODO ;; ff_resolvepath_read ff_resolvepath_path -- why keep both of these?
 ### <end-file_info>
 
 ### @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@

@@ -22,6 +22,11 @@ changelog:
   - caption: includefile directive changed to templateinclude directive
   - caption: datafile directive changed to datainclude directive
 
+issues:
+  * outputfile not working with multiple templates
+      * turn processthis on for all items, notice only one output file gets generated
+      * href="smartpath://mytrybits/l/tryleoeditor/lab2016/bare.handgenerate/ddgen-leofile.twig"
+
 TODO:
   
   * flagoption yamlembedjinja ;; make it an option flag whether or not to do YamlEmbedJinja firstpass, since this is still alpha is brittle when used with myclip
