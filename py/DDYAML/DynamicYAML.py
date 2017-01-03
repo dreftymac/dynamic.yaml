@@ -1069,20 +1069,14 @@ if('python_region'):
           #print JFiltMain.jjtozipfile(tmpout,tmprow['path'],tmprow['zip'])
           #oDumper.pprint( self.metadata )
 
-          ##
+          ## zipfile directives have to be handled last so zip paths all go to the same archive file
           tmptable = self.metadata['directives_meta_table']
           for tmprow in tmptable:
-            if (not row['outputzip']): continue
-            subtable = row['outputzip']
+            if (not 'outputzip' in tmprow): continue
+            subtable = tmprow['outputzip']
             for subrow in subtable:
-              self.JFiltMain.jjtozipfile(row['rendered_template'],subrow['path'],subrow['zip'])
+              self.JFiltMain.jjtozipfile(tmprow['rendered_template'],subrow['path'],subrow['zip'])
           ##;;
-          
-          # if(tmpname in directives and (type(directives[tmpname]) is list) ):
-          #   for tmprow in list(directives[tmpname]):
-          #     #print tmprow
-          #     #tmprow['txtbody'] = tmpout
-          #     #self.metadata['zipfile_aod_table'].append(dict(tmprow))
 
           ##
           return ddtransform_aaout
