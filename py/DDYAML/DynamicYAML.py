@@ -1010,38 +1010,6 @@ if('python_region'):
                 for tmprow in list(directives[tmpname]):
                   self.JFiltMain.jjtofile(tmpout,tmprow['path'],tmprow['mode'],usebom=False)
               ##;;
-
-              ##
-              # tmpname = "_".join(['current','outputzip'])
-              # if(tmpname in directives and (type(directives[tmpname]) is list) ):
-              #   for tmprow in list(directives[tmpname]):
-              #     #print tmprow
-              #     #tmprow['txtbody'] = tmpout
-              #     #self.metadata['zipfile_aod_table'].append(dict(tmprow))
-
-                # ddzprop = dict()
-                # ddzprop['zipmode'   ]  =   None
-                # ddzprop['wrtmode'   ]  =   'a'
-                # try:
-                #     import zlib
-                #     ddzprop['zipmode'   ]= zipfile.ZIP_DEFLATED
-                # except:
-                #     ddzprop['zipmode'   ]= zipfile.ZIP_STORED
-                # ddzprop['ssfzipout' ]  = '%s.zip'%(directives[tmpname][0]['path'])
-                # oZip = zipfile.ZipFile(ddzprop['ssfzipout' ],
-                #                      mode=ddzprop['wrtmode'   ],
-                #                      compression=ddzprop['zipmode'   ],
-                #                      )
-                # oDumper.pprint(ddzprop)
-                # for tmprow in list(directives[tmpname]):
-                #   oZip.writestr(tmprow['zip'], tmpout)
-              ##;;
-
-                  ## zip_approach001
-                  #behaves contrary to expectation,
-                  #http://stackoverflow.com/questions/39767904/create-zip-archive-with-multiple-files
-                  #print JFiltMain.jjtozipfile(tmpout,tmprow['path'],tmprow['zip'])
-                  ## zip_approach002
             except Exception as msg:
               print 'EXCEPTION ariser_twister_teams msg@%s'%(msg.__repr__())
               exc_type, exc_obj, exc_tb = sys.exc_info()
@@ -1061,13 +1029,6 @@ if('python_region'):
           ddtransform_aaout  = [vjj +  vxx for vxx in ddtransform_aaout]
           ddtransform_aaout  = "".join(ddtransform_aaout)
           ##;;
-
-          ## bkmk003
-          ## zip_approach001
-          #behaves contrary to expectation,
-          #http://stackoverflow.com/questions/39767904/create-zip-archive-with-multiple-files
-          #print JFiltMain.jjtozipfile(tmpout,tmprow['path'],tmprow['zip'])
-          #oDumper.pprint( self.metadata )
 
           ## zipfile directives have to be handled last so zip paths all go to the same archive file
           tmptable = self.metadata['directives_meta_table']
