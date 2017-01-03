@@ -5,14 +5,14 @@
 ###     tags: yaml, data, coldfusion, dynamicyaml, dreftymac, ddyaml
 ###     dreftymacid: "luckiest_udaipur_type"
 ###     seealso: |
-###         ## github
-###         * cd c:/sm/docs/mymedia/2014/git/github/dynamic.yaml
-###
-###         ## dynamicyaml
-###         * href="smartpath://mytrybits/y/tryyaml/dynamicyaml/devlog.txt"
-###         
-###         ## repl tutorial
-###         * http://jmespath.org/tutorial.html
+###       ## github
+###       * cd c:/sm/docs/mymedia/2014/git/github/dynamic.yaml
+###       
+###       ## dynamicyaml
+###       * href="smartpath://mytrybits/y/tryyaml/dynamicyaml/devlog.txt"
+###       
+###       ## repl tutorial
+###       * http://jmespath.org/tutorial.html
 ### <end-file_info>
 
 changelog:
@@ -24,7 +24,7 @@ changelog:
 
 issues:
   * outputfile not working with multiple templates
-      * turn processthis on for all items, notice only one output file gets generated
+      * turn processthis on for all items, notice only the last output file gets generated
       * href="smartpath://mytrybits/l/tryleoeditor/lab2016/bare.handgenerate/ddgen-leofile.twig"
 
 TODO:
