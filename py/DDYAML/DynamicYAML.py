@@ -1011,10 +1011,11 @@ if('python_region'):
                   self.JFiltMain.jjtofile(tmpout,tmprow['path'],tmprow['mode'],usebom=False)
               ##;;
             except Exception as msg:
+              ##
               print 'EXCEPTION ariser_twister_teams msg@%s'%(msg.__repr__())
               exc_type, exc_obj, exc_tb = sys.exc_info()
               fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
-              #print(exc_type, fname, exc_tb.tb_lineno)
+              print(exc_type, fname, exc_tb.tb_lineno)
               ##;;
             ##;; endtry
 
