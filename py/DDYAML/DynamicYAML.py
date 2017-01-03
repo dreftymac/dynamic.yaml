@@ -1039,12 +1039,7 @@ if('python_region'):
             if (not 'outputfile' in tmprow): continue
             subtable = tmprow['outputfile']
             for subrow in subtable:
-              self.JFiltMain.jjtofile(tmpout,tmprow['path'],tmprow['mode'],usebom=False)
-
-            ## tmpname = "_".join(['current','outputfile'])
-            # if(tmpname in directives and (type(directives[tmpname]) is list) ):
-            #   for tmprow in list(directives[tmpname]):
-            #     self.JFiltMain.jjtofile(tmpout,tmprow['path'],tmprow['mode'],usebom=False)
+              self.JFiltMain.jjtofile(tmprow['rendered_template'],subrow['path'],subrow['mode'],usebom=False)
 
           for tmprow in tmptable:
             if (not 'outputzip' in tmprow): continue
