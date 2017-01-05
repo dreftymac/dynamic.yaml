@@ -18,31 +18,30 @@
 
 links_table:
   - { "site":  "http://www.example.com",   }
-  - { "site":  "http://www.alpha.com",   }
-  - { "site":  "http://www.bravo.com",   }
 
 __yaml__:
 
-  - &uuid002
-    caption:     jjurl_exists ;; test for existence
-    processthis: 0
-    uuid:         uuid002
-    template: |
-      ### ------------------------------------------------------------------------
-      ### jjurl_exists
-      {% for row in links_table -%}
-      {{ ''|jjurl_exists(row.site) }}
-      {% endfor %}
-
   - &uuid001
-    caption:      jjurl_request ;; get the requested url
+    caption:      web.scrapeformula_organs_paylock
+    desc:  |
+      * example using scrapeformula_organs_paylock formula
     processthis:  1
     uuid:         uuid001
     template: |
       ### ------------------------------------------------------------------------
       ### jjurl_request
       ### jjhtml_findall
-      {% set ttfindtag = 'title'  -%}
+      {% set ttfindtag = 'p'  -%}
       {% for row in links_table -%}
-      {{ ''|jjurl_request(row.site) |jjhtml_findall(ttfindtag) }}
+      {%- set ttlist =  ''|jjurl_request(row.site)
+        |jjhtml_findall(ttfindtag)
+       -%}
+      {% for item in ttlist -%}
+      {{ item
+          |jjsplit('.')
+          |jjlistget(0)
+          |jjsplit('>')
+          |jjlistget(1)
+          }}
+      {% endfor %}
       {% endfor %}
