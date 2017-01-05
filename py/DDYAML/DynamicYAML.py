@@ -1023,7 +1023,6 @@ if('python_region'):
           #oDumper.pprint( directives )
           ##endfor::iterate_yaml
 
-
           #print yaml.safe_dump( ddtransform_aaout , default_flow_style=False  )
           ##vjj = "\n"
           vjj   = ""
@@ -1038,6 +1037,7 @@ if('python_region'):
           for tmprow in tmptable:
             if (not 'outputfile' in tmprow): continue
             subtable = tmprow['outputfile']
+            ## TODO ;; fix this ;; code changes broke the string-to-dictionary functionality
             for subrow in subtable:
               self.JFiltMain.jjtofile(tmprow['rendered_template'],subrow['path'],subrow['mode'],usebom=False)
 

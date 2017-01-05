@@ -8,7 +8,7 @@
 ###     seealso: |
 ###         * https://github.com/mitsuhiko/jinja2/issues/232
 ###     desc: |
-###         demonstrates setting a jinja variable using block-style syntax
+###         * demonstrates setting a jinja variable using block-style syntax
 ### <end-file_info>
 
 main:
@@ -38,3 +38,24 @@ __yaml__:
       {#- ------------------------------------------------------------------------  -#}
       {{ ttvar }}
 
+
+__yaml__:
+
+
+## href="smartpath://mytrybits/y/tryyaml/dynamicyaml/devlog.txt"
+## href="smartpath://mymedia/2014/git/github/dynamic.yaml/app/demo/readme.md"
+## href="smartpath://mymedia/2014/git/github/dynamic.yaml/py/ddyamlrunner.py"
+## href="smartpath://mymedia/2014/git/github/dynamic.yaml/py/ddyaml/jinjafilterdynamicyaml.py"
+
+  - &uuid01rrmy01
+    caption:      caption
+    processthis:  1
+    uuid: uuid01rrmy01
+    desc: |
+      * __desc__
+    dreftymacid: __dreftymacid__
+    datainclude: datainclude
+    templateinclude: templateinclude
+    pathinclude: pathinclude
+    template:         |
+       

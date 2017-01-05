@@ -2,7 +2,7 @@
 ### main:
 ###   - date: created="Thu Mar 17 17:32:46 2016"
 ###     last: lastmod="Thu Mar 17 17:32:46 2016"
-###     tags:   url, requests, http, web, scraping
+###     tags:   url, requests, http, web, scraping, bsoup,
 ###     author: created="__author__"
 ###     dreftymacid: "hornet_krause_blinds"
 ###     filetype: "yaml"
@@ -16,13 +16,11 @@
 ## href="smartpath://mymedia/2014/git/github/dynamic.yaml/py/ddyamlrunner.py"
 ## href="smartpath://mymedia/2014/git/github/dynamic.yaml/py/ddyaml/jinjafilterdynamicyaml.py"
 
- 
-links_list:
-  
-  - "http://www.example.com"
-  - "http://pages.uoregon.edu/baoforms/bao_drupal_6/sites/ba.uoregon.edu/files/forms/thirdpartyvendorapp.pdf"
-  - "http://www.example.com/no_existo_contento.pdf"
-  - "http://www.noexisto.com"
+
+links_table:
+  - { "site":  "http://www.example.com",   }
+  - { "site":  "http://www.alpha.com",   }
+  - { "site":  "http://www.bravo.com",   }
 
 __yaml__:
 
@@ -31,17 +29,22 @@ __yaml__:
     processthis: 1
     uuid:         uuid002
     template: |
-      {% for item in links_list -%}
-      {{ ''|jjurl_exists(item) }}
+      ### ------------------------------------------------------------------------
+      ### jjurl_exists
+      {% for row in links_table -%}
+      {{ ''|jjurl_exists(row.site) }}
       {% endfor %}
 
   - &uuid001
     caption:      jjurl_request ;; get the requested url
-    processthis:  0
+    processthis:  1
     uuid:         uuid001
     template: |
-      {% for item in links_list -%}
-      {{ ''|jjurl_request(item) }}
+      ### ------------------------------------------------------------------------
+      ### jjurl_request
+      {%- set ttfindtag = 'title'  -%}
+      {% for row in links_table -%}
+      {{ ''|jjurl_request(row.site) |jjhtml_findall(ttfindtag) }}
       {% endfor %}
 
 

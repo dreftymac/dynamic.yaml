@@ -42,8 +42,10 @@ if('python_region'):
   import xlrd
   import yaml
   import zipfile
-
   ##
+  from bs4 import BeautifulSoup
+
+  ## ddyaml local
   from JinjaFilterBase import JinjaFilterBase
   from DataHelperUtils import DataHelperUtils
   from DataHelperDiceware import DataHelperDiceware
@@ -2109,6 +2111,7 @@ if('python_region'):
           ##beg_func_docs
           - caption:      jjhtml_findall
             date:         lastmod="20150903.1402"
+            tags:         bsoup
             grp_maj:      string
             grp_med:      html
             grp_min:      scrape
@@ -2125,7 +2128,7 @@ if('python_region'):
 
           ##
           vinput    =   jjinput.__str__()
-          soup      =   BeautifulSoup(vinput)
+          soup      =   BeautifulSoup(vinput,"html5lib")
           table     =   soup.findAll(mytagg)
 
           ##
