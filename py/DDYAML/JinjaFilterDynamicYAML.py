@@ -53,30 +53,29 @@ if('python_region'):
 
 ### @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 ### new_function_snippet
-"""
+### bkmk::ivy_rely_juicy
 
-ICAgICAgICBkZWYgX19jYXB0aW9uX18oc2VsZixqamlucHV0KToKICAgICAgICAgICcnJw
-ogICAgICAgICAgIyNiZWdfZnVuY19kb2NzCiAgICAgICAgICAtIGNhcHRpb246ICAgICAg
-X19jYXB0aW9uX18KICAgICAgICAgICAgZGF0ZTogICAgICAgICBsYXN0bW9kPSJfX2xhc3
-Rtb2RfXyIKICAgICAgICAgICAgZ3JwX21hajogICAgICBncnBfbWFqCiAgICAgICAgICAg
-IGdycF9tZWQ6ICAgICAgZ3JwX21lZAogICAgICAgICAgICBncnBfbWluOiAgICAgIGdycF
-9taW4KICAgICAgICAgICAgZGVzYzogICAgICAgICBfX2Rlc2NfXwogICAgICAgICAgICBk
-cmVmdHltYWNpZDogIF9fZHJlZnR5bWFjaWRfXwogICAgICAgICAgICBkZXRhaWw6ICB8Ci
-AgICAgICAgICAgICAgKiBfX2JsYW5rX18KICAgICAgICAgICAgZGVwZW5kZW5jaWVzOgog
-ICAgICAgICAgICAgIC0gX19ibGFua19fCiAgICAgICAgICAgIHBhcmFtczoKICAgICAgIC
-AgICAgIC0gcGFyYW06IGpqaW5wdXQgOzsgb3B0YXJpdHkgOzsgamluamEgaW5wdXQgcmF3
-IHN0cmluZwogICAgICAgICAgIyNlbmRfZnVuY19kb2NzCiAgICAgICAgICAnJycKCiAgIC
-AgICAgICAjIwogICAgICAgICAgdm91dCA9IGpqaW5wdXQuX19zdHJfXygpCgogICAgICAg
-ICAgIyMKICAgICAgICAgIHRyeToKICAgICAgICAgICAgdm91dCA9IHZvdXQKICAgICAgIC
-AgICMjCiAgICAgICAgICBleGNlcHQgRXhjZXB0aW9uIGFzIG1zZzoKICAgICAgICAgICAg
-cHJpbnQgJzgyZXhjZXB0aW9uX2VyciBtc2dAJXMnJShtc2cuX19yZXByX18oKSkKICAgIC
-AgICAgICAgZXhjX3R5cGUsIGV4Y19vYmosIGV4Y190YiA9IHN5cy5leGNfaW5mbygpCiAg
-ICAgICAgICAgIGZuYW1lID0gb3MucGF0aC5zcGxpdChleGNfdGIudGJfZnJhbWUuZl9jb2
-RlLmNvX2ZpbGVuYW1lKVsxXQogICAgICAgICAgICBwcmludChleGNfdHlwZSwgZm5hbWUs
-IGV4Y190Yi50Yl9saW5lbm8pCgogICAgICAgICAgIyMKICAgICAgICAgIHJldHVybiB2b3
-V0CiAgICAgICAgIyNlbmRkZWY=
-
-"""
+# ICAgICAgICBkZWYgPCRjYXB0aW9uJD4oc2VsZixqamlucHV0KToKICAgICAgICAgICcnJw
+# ogICAgICAgICAgIyNiZWdfZnVuY19kb2NzCiAgICAgICAgICAtIGNhcHRpb246ICAgICAg
+# PCRjYXB0aW9uJD4KICAgICAgICAgICAgZGF0ZTogICAgICAgICBsYXN0bW9kPSI8JGxhc3
+# Rtb2QkPiIKICAgICAgICAgICAgZ3JwX21hajogZ3JwX21hagogICAgICAgICAgICBncnBf
+# bWVkOiBncnBfbWVkCiAgICAgICAgICAgIGdycF9taW46IGdycF9taW4KICAgICAgICAgIC
+# AgZGVzYzogICAgICAgICB8CiAgICAgICAgICAgICAgKiA8JGRlc2MkPgogICAgICAgICAg
+# ICBzZWVhbHNvOiAgICAgICAgIHwKICAgICAgICAgICAgICAqIDwkc2VlYWxzbyQ+CiAgIC
+# AgICAgICAgIGRldGFpbDogIHwKICAgICAgICAgICAgICAqIDwkYmxhbmskPgogICAgICAg
+# ICAgICBkZXBlbmRlbmNpZXM6CiAgICAgICAgICAgICAgLSA8JGJsYW5rJD4KICAgICAgIC
+# AgICAgcGFyYW1zOgogICAgICAgICAgICAgIC0gcGFyYW06IGpqaW5wdXQgOzsgb3B0YXJp
+# dHkgOzsgamluamEgaW5wdXQgcmF3IHN0cmluZwogICAgICAgICAgICBkcmVmdHltYWNpZD
+# ogIDwkZHJlZnR5bWFjaWQkPgogICAgICAgICAgIyNlbmRfZnVuY19kb2NzCiAgICAgICAg
+# ICAnJycKCiAgICAgICAgICAjIwogICAgICAgICAgdm91dCA9IGpqaW5wdXQuX19zdHJfXy
+# gpCgogICAgICAgICAgIyMKICAgICAgICAgIHRyeToKICAgICAgICAgICAgdm91dCA9IHZv
+# dXQKICAgICAgICAgICMjCiAgICAgICAgICBleGNlcHQgRXhjZXB0aW9uIGFzIG1zZzoKIC
+# AgICAgICAgICAgcHJpbnQgJzwkZHJlZnR5bWFjaWQkPiA4MmV4Y2VwdGlvbl9lcnIgbXNn
+# QCVzJyUobXNnLl9fcmVwcl9fKCkpCiAgICAgICAgICAgIGV4Y190eXBlLCBleGNfb2JqLC
+# BleGNfdGIgPSBzeXMuZXhjX2luZm8oKQogICAgICAgICAgICBmbmFtZSA9IG9zLnBhdGgu
+# c3BsaXQoZXhjX3RiLnRiX2ZyYW1lLmZfY29kZS5jb19maWxlbmFtZSlbMV0KICAgICAgIC
+# AgICAgcHJpbnQoZXhjX3R5cGUsIGZuYW1lLCBleGNfdGIudGJfbGluZW5vKQoKICAgICAg
+# ICAgICMjCiAgICAgICAgICByZXR1cm4gdm91dAogICAgICAgICMjZW5kZGVm
 
 ### @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 ### jinja helper JinjaFilterDynamicYAML
@@ -129,9 +128,9 @@ if('python_region'):
           ##beg_func_docs
           - caption:      jjp_imagetopdf
             date:         lastmod="2015.08.05.1807"
-            grp_maj:      grp_maj
-            grp_med:      grp_med
-            grp_min:      grp_min
+            grp_maj: grp_maj
+            grp_med: grp_med
+            grp_min: grp_min
             desc:         __desc__
             dreftymacid:  irish_legality_blitz
             detail:  |
@@ -183,9 +182,9 @@ if('python_region'):
           ##beg_func_docs
           - caption:      jjd_alias
             date:         lastmod="20150904.1651"
-            grp_maj:      grp_maj
-            grp_med:      grp_med
-            grp_min:      grp_min
+            grp_maj: grp_maj
+            grp_med: grp_med
+            grp_min: grp_min
             desc:         mimic the functionality of drupal's pathauto noise-word removal
             dreftymacid:  radius_symbolic_gerald
             detail:  |
@@ -226,9 +225,9 @@ if('python_region'):
           ##beg_func_docs
           - caption:  jji_scripthead
             date:         lastmod="2015.08.05.1807"
-            grp_maj:      grp_maj
-            grp_med:      grp_med
-            grp_min:      grp_min
+            grp_maj: grp_maj
+            grp_med: grp_med
+            grp_min: grp_min
             desc:         __desc__
             dreftymacid:  surf_thuds_rhythm
             detail:  |
@@ -283,9 +282,9 @@ if('python_region'):
           ##beg_func_docs
           - caption:  jji_ngsp
             date:         lastmod="__dates__"
-            grp_maj:      grp_maj
-            grp_med:      grp_med
-            grp_min:      grp_min
+            grp_maj: grp_maj
+            grp_med: grp_med
+            grp_min: grp_min
             desc:         handle collision of jinja and iim placeholder syntax
             dreftymacid:  lobster_crime_areal
             seealso:
@@ -330,9 +329,9 @@ if('python_region'):
           ##beg_func_docs
           - caption:      jjstr_rstrip
             date:         lastmod="2016-03-25T15:12:09"
-            grp_maj:      grp_maj
-            grp_med:      grp_med
-            grp_min:      grp_min
+            grp_maj: grp_maj
+            grp_med: grp_med
+            grp_min: grp_min
             desc: >
               python str.rstrip([chars]) method
             dreftymacid:  mining_petrify_soloing
@@ -390,9 +389,9 @@ if('python_region'):
           ##beg_func_docs
           - caption:      jjscalarize
             date:         lastmod="20160205"
-            grp_maj:      variable
-            grp_med:      normalize
-            grp_min:      toscalar
+            grp_maj: variable
+            grp_med: normalize
+            grp_min: toscalar
             alias:
               - jjscalar
             desc: |
@@ -435,9 +434,9 @@ if('python_region'):
           ##beg_func_docs
           - caption:      jjget_var
             date:         lastmod="2016-01-22T16:11:32"
-            grp_maj:      variable
-            grp_med:      get
-            grp_min:      external
+            grp_maj: variable
+            grp_med: get
+            grp_min: external
             desc:         get an external variable from the externalVars setting
             dreftymacid:  janis_beanie_altruist
             detail:  |
@@ -478,9 +477,9 @@ if('python_region'):
           ##beg_func_docs
           - caption:      jjapplyfunction
             date:         lastmod="Wed Dec 23 06:29:25 2015"
-            grp_maj:      jinja
-            grp_med:      filter
-            grp_min:      addon
+            grp_maj: jinja
+            grp_med: filter
+            grp_min: addon
             desc:         use python lambda as jinja filter
             dreftymacid:  pets_marvel_dave
             example: |
@@ -526,9 +525,9 @@ if('python_region'):
           ##beg_func_docs
           - caption:      jjaod_tocsv
             date:         lastmod="20151016.0745"
-            grp_maj:      grp_maj
-            grp_med:      grp_med
-            grp_min:      grp_min
+            grp_maj: aod
+            grp_med: grp_med
+            grp_min: grp_min
             desc:         python aod to csv string
             dreftymacid:  ranch_oilier_bulb
             detail:  |
@@ -582,9 +581,9 @@ if('python_region'):
           - caption:  jjaod_getrecord
             date:     lastmod="Mon 2014-10-20 16:45:46"
             tags:     getrow,getrecord
-            grp_maj:  data
-            grp_med:  array_of_dictionary
-            grp_min:  select
+            grp_maj: data
+            grp_med: array_of_dictionary
+            grp_min: select
             desc:     aod get record where `fieldname` == `fieldvalue`
             detail:  |
                 * aod select record where `fieldname` == `fieldvalue`
@@ -630,12 +629,12 @@ if('python_region'):
           ## function docs
           - caption:  jjaod_select
             date:     lastmod="Mon 2014-10-20 16:45:46"
-            grp_maj:  data
-            grp_med:  array_of_dictionary
-            grp_min:  select
+            grp_maj: data
+            grp_med: array_of_dictionary
+            grp_min: select
             desc:     aod select field
             detail:  |
-                aod select single column from aod
+                * aod select single column from aod
             dependencies:
               - none
             example:  |
@@ -656,15 +655,59 @@ if('python_region'):
           return vout
         ##enddef
 
+        ### bkmk::ivy_rely_juicy
+
+        def jjaod_setcol(self,jjinput,fld='',val=''):
+          '''
+          ##beg_func_docs
+          - caption:      jjaod_setcol
+            date:         lastmod="20170108_1037"
+            grp_maj: data
+            grp_med: array_of_dictionary
+            grp_min: modify
+            desc:         |
+              * set column in table_aod
+            seealso: |
+              * href="smartpath://mymedia/2014/git/github/dynamic.yaml/app/demo_byfeature/table.aod/ddgen-tableaod-setcol.txt"
+            dreftymacid:  jjaod_manila_variorum
+            detail:  |
+              * __blank__
+            dependencies:
+              - __blank__
+            params:
+             - param: jjinput ;; optarity ;; jinja input raw string
+            dreftymacid: jjaod_unbuild_icily_forger
+          ##end_func_docs
+          '''
+          ##
+          try:
+            ##
+            table = jjinput
+            ##
+            for row in table:
+              row[fld]  = val
+            ##
+            vout = table
+          ##
+          except Exception as msg:
+            print '82exception_err msg@%s'%(msg.__repr__())
+            exc_type, exc_obj, exc_tb = sys.exc_info()
+            fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
+            print(exc_type, fname, exc_tb.tb_lineno)
+
+          ##
+          return vout
+        ##enddef
+
         ##
         def jjdata_diceword(self,jjinput,ilen=3,ssepa='_'):
           '''
           ##beg_func_docs
           - caption:      jjdata_diceword
             date:         lastmod="2015-12-31T08:55:49"
-            grp_maj:      data
-            grp_med:      generate
-            grp_min:      diceword
+            grp_maj: data
+            grp_med: generate
+            grp_min: diceword
             desc:         __desc__
             dreftymacid:  flyer_afield_zealand
             detail:  |
@@ -700,9 +743,9 @@ if('python_region'):
           ## function docs
           - caption:  jjdata_formatas
             date:     lastmod="Mon 2014-10-20 16:45:46"
-            grp_maj:  data
-            grp_med:  transform
-            grp_min:  reformat
+            grp_maj: data
+            grp_med: transform
+            grp_min: reformat
             desc:     reformat arbitrary data structures
             detail:  |
               * process input data and dump it out to another format
@@ -763,9 +806,9 @@ if('python_region'):
           ##beg_func_docs
           - caption:      jjdata_load
             date:         lastmod="20150903.1728"
-            grp_maj:      grp_maj
-            grp_med:      grp_med
-            grp_min:      grp_min
+            grp_maj: grp_maj
+            grp_med: grp_med
+            grp_min: grp_min
             desc:         load string into python native data structure
             dreftymacid:  brat_joints_twenty
             detail:  |
@@ -820,9 +863,9 @@ if('python_region'):
           ##beg_func_docs
           - caption:      jjdata_table_dump_toexcelsheet
             date:         lastmod="2015-12-29T17:15:08"
-            grp_maj:      data
-            grp_med:      spreadsheet
-            grp_min:      dump
+            grp_maj: data
+            grp_med: spreadsheet
+            grp_min: dump
             desc:         |
               * output a python aod simpletable to an excel spreadsheet
               * uses 2003 xmlss format
@@ -878,9 +921,9 @@ if('python_region'):
           ##beg_func_docs
           - caption:      jjdata_table_load_fromexcelsheet
             date:         lastmod="2015-12-29T12:40:51"
-            grp_maj:      data
-            grp_med:      spreadsheet
-            grp_min:      load
+            grp_maj: data
+            grp_med: spreadsheet
+            grp_min: load
             desc:         __desc__
             dreftymacid:  vial_snaring_jocks
             detail:  |
@@ -946,9 +989,9 @@ if('python_region'):
           - caption:      jjdata_table_rowfilter
             date:         lastmod="2015-12-29T12:40:51"
             tags:         aod, simpletable, filter, insecure
-            grp_maj:      data
-            grp_med:      filter
-            grp_min:      python array_of_dictionary (simpletable aod)
+            grp_maj: data
+            grp_med: filter
+            grp_min: python array_of_dictionary (simpletable aod)
             seealso: |
               * href="smartpath://mymedia/2014/git/github/dynamic.yaml/py/ddyaml/jinjafilterjmespath.py"
             desc: |
@@ -1016,13 +1059,14 @@ if('python_region'):
           ##beg_func_docs
           - caption:      jjdict_update
             date:         lastmod="20150928.1014"
-            grp_maj:      grp_maj
-            grp_med:      grp_med
-            grp_min:      grp_min
+            grp_maj: grp_maj
+            grp_med: grp_med
+            grp_min: grp_min
             desc:         update a python dictionary using dictionary.update()
             dreftymacid:  corby_welds_flier
             detail:  |
-              * __blank__
+              * DEPRECATED:
+                  * obsoleted in favor of {%- do dict.update(ddvar) -%}
             dependencies:
               - __blank__
             params:
@@ -1057,9 +1101,9 @@ if('python_region'):
           ##beg_func_docs
           - caption:      jjchr
             date:         lastmod="20150917.1254"
-            grp_maj:      grp_maj
-            grp_med:      grp_med
-            grp_min:      grp_min
+            grp_maj: grp_maj
+            grp_med: grp_med
+            grp_min: grp_min
             desc:         python chr() function
             dreftymacid:  word_orbits_leaver
             detail:  |
@@ -1093,9 +1137,9 @@ if('python_region'):
           ##beg_func_docs
           - caption:      jjint
             date:         lastmod="20150917.1254"
-            grp_maj:      grp_maj
-            grp_med:      grp_med
-            grp_min:      grp_min
+            grp_maj: grp_maj
+            grp_med: grp_med
+            grp_min: grp_min
             desc:         python int() function
             dreftymacid:  ana_julius_yingkow
             detail:  |
@@ -1128,9 +1172,9 @@ if('python_region'):
           ##beg_func_docs
           - caption:      jjcsv_load
             date:         lastmod="20150821.1312"
-            grp_maj:      data
-            grp_med:      csv
-            grp_min:      load
+            grp_maj: data
+            grp_med: csv
+            grp_min: load
             desc:         load a csv file into a python aod
             dreftymacid:  tourism_vans_cobra
             detail:  |
@@ -1170,9 +1214,9 @@ if('python_region'):
           ##beg_func_docs
           - caption:      jjdevlog_paths_byyear
             date:         lastmod="Tue Dec 22 16:44:13 2015"
-            grp_maj:      devlog
-            grp_med:      grp_med
-            grp_min:      grp_min
+            grp_maj: devlog
+            grp_med: grp_med
+            grp_min: grp_min
             desc:         |
               BUGNAG: hardwired ssroot path
             dreftymacid:  discs_henhouse_unbundle
@@ -1225,9 +1269,9 @@ if('python_region'):
           ##beg_func_docs
           - caption:      jjdevlog_load
             date:         lastmod="Tue Dec 22 15:43:42 2015"
-            grp_maj:      devlog
-            grp_med:      file
-            grp_min:      load
+            grp_maj: devlog
+            grp_med: file
+            grp_min: load
             desc:         load a dreftymac-format devlog file
             dreftymacid:  awash_sneaky_lawmaker
             seealso: |
@@ -1289,9 +1333,9 @@ if('python_region'):
           ##beg_func_docs
           - caption:      jjdevlog_trybits_xref
             date:         lastmod="Tue Dec 22 15:43:42 2015"
-            grp_maj:      devlog
-            grp_med:      trybits
-            grp_min:      lookup
+            grp_maj: devlog
+            grp_med: trybits
+            grp_min: lookup
             desc:         |
               crossreference trybits directoies with string containing potential crossrefs
             dreftymacid:  yamaha_merger_hankow
@@ -1357,9 +1401,9 @@ if('python_region'):
           ## function docs
           - caption:  jjdate_get
             date:     lastmod="Mon 2014-10-20 16:45:46"
-            grp_maj:  datetime
-            grp_med:  output
-            grp_min:  current
+            grp_maj: datetime
+            grp_med: output
+            grp_min: current
             desc:     get date components for current localtime
             dreftymacid: tickets_docks_dan
             detail:  |
@@ -1411,10 +1455,9 @@ if('python_region'):
           ## function docs
           - caption:  jjdate_reformat
             date:     lastmod="Tue Dec 08 07:35:57 2015"
-            grp_maj:  datetime
-            grp_med:  reformat
-            grp_min:
-            desc:       grab in a date string and reformat and send it to output
+            grp_maj: datetime
+            grp_med: reformat
+            grp_min: desc:       grab in a date string and reformat and send it to output
             dreftymacid: wish_patent_gargle
             seealso:
               - href="smartpath://mymedia/2014/git/github/myclip/publiclab/pythondatetime.txt" find="slim_poser_hate"
@@ -1453,10 +1496,9 @@ if('python_region'):
           ## function docs
           - caption:  jjdate_fmt
             date:     lastmod="Mon 2014-10-20 16:45:46"
-            grp_maj:  datetime
-            grp_med:  output
-            grp_min:
-            desc:     get a pre-formatted date string based on a supported_format_keyword
+            grp_maj: datetime
+            grp_med: output
+            grp_min: desc:     get a pre-formatted date string based on a supported_format_keyword
             detail:  |
             supported_format_keyword:
               - 'dates'
@@ -1514,9 +1556,9 @@ if('python_region'):
           ## function docs
           - caption:  jjdate_now
             date:     lastmod="Mon 2014-10-20 16:45:46"
-            grp_maj:  datetime
-            grp_med:  output
-            grp_min:  current
+            grp_maj: datetime
+            grp_med: output
+            grp_min: current
             desc:     get current localtime
             detail:  |
               output the current date
@@ -1546,9 +1588,9 @@ if('python_region'):
           ##beg_func_docs
           - caption:      jjhashmd5
             date:         lastmod="Sat Jul 23 06:48:33 2016"
-            grp_maj:      grp_maj
-            grp_med:      grp_med
-            grp_min:      grp_min
+            grp_maj: grp_maj
+            grp_med: grp_med
+            grp_min: grp_min
             desc:         apply md5 hash to input string
             dreftymacid:  ultraist_cheapest_extends
             python_repl: |
@@ -1591,9 +1633,9 @@ if('python_region'):
           ## function docs
           - caption:  jjdec64
             date:     lastmod="Mon 2014-10-20 16:45:46"
-            grp_maj:  codec
-            grp_med:  base64
-            grp_min:  decode
+            grp_maj: codec
+            grp_med: base64
+            grp_min: decode
             desc:     base64 decode
             detail:  |
               base64 decode
@@ -1614,9 +1656,9 @@ if('python_region'):
           ## function docs
           - caption:  jjenc64
             date:     lastmod="Mon 2014-10-20 16:45:46"
-            grp_maj:  codec
-            grp_med:  base64
-            grp_min:  encode
+            grp_maj: codec
+            grp_med: base64
+            grp_min: encode
             desc:     base64 encode
             detail:  |
               base64 encode
@@ -1637,9 +1679,9 @@ if('python_region'):
           ## function docs
           - caption:  jjdedent
             date:     lastmod="Mon 2014-10-20 16:45:46"
-            grp_maj:  string_transform
-            grp_med:  whitespace
-            grp_min:  dedent
+            grp_maj: string_transform
+            grp_med: whitespace
+            grp_min: dedent
             desc:     textrap dedent
             detail:  |
               textrap dedent
@@ -1656,14 +1698,54 @@ if('python_region'):
           return vout
         ##enddef
 
+        def jjrepr(self,jjinput):
+          '''
+          ##beg_func_docs
+          - caption:      jjrepr
+            date:         lastmod="Sat 2017-01-07T12:31:19"
+            grp_maj: string_transform
+            grp_med: escape
+            grp_min: repr
+            desc:         |
+              * return a __repr__ version of string
+              * this is similar to ruby.inspect
+              * this is suitable for things like JSON-escaping a string
+            dreftymacid:  jjrepr_smirky_flints_mystics
+            detail:  |
+              * __blank__
+            dependencies:
+              - __blank__
+            params:
+             - param: jjinput ;; optarity ;; jinja input raw string
+          ##end_func_docs
+          '''
+
+          ##
+          vout = jjinput.__str__()
+
+          ##
+          try:
+            vout = vout.__repr__()
+          ##
+          except Exception as msg:
+            print '82exception_err msg@%s'%(msg.__repr__())
+            exc_type, exc_obj, exc_tb = sys.exc_info()
+            fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
+            print(exc_type, fname, exc_tb.tb_lineno)
+          ##;;
+
+          ##
+          return vout
+        ##enddef
+
         def jjdubsplit(self,jjinput,spliton=';;',splitget=0,runmode='regex'):
           '''
           ## function docs
           - caption:  jjdubsplit
             date:     lastmod="Mon 2014-10-20 16:45:46"
-            grp_maj:  string_transform
-            grp_med:  string
-            grp_min:  split
+            grp_maj: string_transform
+            grp_med: string
+            grp_min: split
             desc:     string split and return result from split index
             example: |
               ## simple example
@@ -1708,9 +1790,9 @@ if('python_region'):
           ## function docs
           - caption:  jjfmt
             date:     lastmod="Mon 2014-10-20 16:45:46"
-            grp_maj:  string_transform
-            grp_med:  reformat
-            grp_min:  sprintf
+            grp_maj: string_transform
+            grp_med: reformat
+            grp_min: sprintf
             desc:     python-specific string sprintf-style format
             detail:  |
               seealso:
@@ -1748,9 +1830,9 @@ if('python_region'):
           ##beg_func_docs
           - caption:  jjfile_toarray
             date:         lastmod="2016-01-08T15:56:02"
-            grp_maj:      fileio
-            grp_med:      loadfile
-            grp_min:      toarray
+            grp_maj: fileio
+            grp_med: loadfile
+            grp_min: toarray
             desc:         return file output through python splitlines
             dreftymacid:  extents_jest_mercury
             detail:  |
@@ -1792,9 +1874,9 @@ if('python_region'):
           ##beg_func_docs
           - caption:  jjfiledelete
             date:         lastmod="2016-01-08T15:56:02"
-            grp_maj:      grp_maj
-            grp_med:      grp_med
-            grp_min:      grp_min
+            grp_maj: grp_maj
+            grp_med: grp_med
+            grp_min: grp_min
             desc:         delete a file using python os.remove
             dreftymacid:  cleric_clam_thaws
             detail:  |
@@ -1833,9 +1915,9 @@ if('python_region'):
           ##beg_func_docs
           - caption:  jjfilecopy
             date:         lastmod="__lastmod__"
-            grp_maj:      grp_maj
-            grp_med:      grp_med
-            grp_min:      grp_min
+            grp_maj: grp_maj
+            grp_med: grp_med
+            grp_min: grp_min
             desc:         __desc__
             dreftymacid:  hue_beading_mural
             detail:  |
@@ -1869,9 +1951,9 @@ if('python_region'):
           ##beg_func_docs
           - caption:      jjfiletest
             date:         lastmod="Fri Dec 18 11:05:12 2015"
-            grp_maj:      fileio
-            grp_med:      filter
-            grp_min:      filetest
+            grp_maj: fileio
+            grp_med: filter
+            grp_min: filetest
             tags:         filetest, isdir, isfile,
             desc:         |
               determine if the input string represents a path to a file or directory
@@ -1929,9 +2011,9 @@ if('python_region'):
         #  ### ##beg_func_docs
         #  ### - caption:      jjfile_currpath
         #  ###   date:         lastmod="20150825.1331"
-        #  ###   grp_maj:      grp_maj
-        #  ###   grp_med:      grp_med
-        #  ###   grp_min:      grp_min
+        #  ###   grp_maj: grp_maj
+        #  ###   grp_med: grp_med
+        #  ###   grp_min: grp_min
         #  ###   desc:         return os.path.realpah(__file__)
         #  ###   dreftymacid:  obey_heir_midget
         #  ###   detail:  |
@@ -1967,9 +2049,9 @@ if('python_region'):
           ## function docs
           - caption:  jjfromfile
             date:     lastmod="Mon 2014-10-20 16:45:46"
-            grp_maj:  fileio
-            grp_med:  loadfile
-            grp_min:  fromfile
+            grp_maj: fileio
+            grp_med: loadfile
+            grp_min: fromfile
             desc:     string.fromfile
             tags:     jjfromfile, jjfile_load, jjfile
             dreftymacid: waterage_eat_formal
@@ -2041,9 +2123,9 @@ if('python_region'):
           ## function docs
           - caption:  jjget_basename
             date:     lastmod="Mon 2014-10-20 16:45:46"
-            grp_maj:  getinfo
-            grp_med:  python
-            grp_min:  os.path.basename
+            grp_maj: getinfo
+            grp_med: python
+            grp_min: os.path.basename
             desc: os.path.basename
             dreftymacid: viremic_astray_wraiths
             detail:  |
@@ -2074,9 +2156,9 @@ if('python_region'):
           ## function docs
           - caption:    jjgreplines
             date:       lastmod="Mon 2014-10-20 16:45:46"
-            grp_maj:    string
-            grp_med:    process
-            grp_min:      __blank__
+            grp_maj: string
+            grp_med: process
+            grp_min: __blank__
             dreftymacid:  invoker_panic_inquire
             desc: greplines for occurance of lookfor
             detail: |
@@ -2112,9 +2194,9 @@ if('python_region'):
           - caption:      jjhtml_findall
             date:         lastmod="20150903.1402"
             tags:         bsoup
-            grp_maj:      string
-            grp_med:      html
-            grp_min:      scrape
+            grp_maj: string
+            grp_med: html
+            grp_min: scrape
             desc:         use the findall method of beautifulsoup4
             dreftymacid:  nudger_unto_permit
             detail:  |
@@ -2150,9 +2232,9 @@ if('python_region'):
           ## function docs
           - caption:  jjhtml_squeeze
             date:     lastmod="Mon 2014-10-20 16:45:46"
-            grp_maj:    string
-            grp_med:    process
-            grp_min:    __blank__
+            grp_maj: string
+            grp_med: process
+            grp_min: __blank__
             dreftymacid:  stealthy_pleasing_uncivil
             desc: smush html
             detail: |
@@ -2186,9 +2268,9 @@ if('python_region'):
           ##beg_func_docs
           - caption:      jjhtml5_pretty
             date:         lastmod="20150916.1220"
-            grp_maj:      string
-            grp_med:      process
-            grp_min:      html
+            grp_maj: string
+            grp_med: process
+            grp_min: html
             desc:         pretty print using html5print
             dreftymacid:  easing_stricter_unblocks
             detail:  |
@@ -2242,9 +2324,9 @@ if('python_region'):
           ## function docs
           - caption:    jjhtml_pretty
             date:       lastmod="Mon 2014-10-20 16:45:46"
-            grp_maj:      string
-            grp_med:      process
-            grp_min:      html
+            grp_maj: string
+            grp_med: process
+            grp_min: html
             dreftymacid:  leave_fakery_brag
             desc: pretty print html
             seealso:
@@ -2333,9 +2415,9 @@ if('python_region'):
         #  ### ##beg_func_docs
         #  ### - caption:      jjhtml_pretty
         #  ###   date:         lastmod="criminal_dividing_her"
-        #  ###   grp_maj:      string
-        #  ###   grp_med:      process
-        #  ###   grp_min:      html
+        #  ###   grp_maj: string
+        #  ###   grp_med: process
+        #  ###   grp_min: html
         #  ###   desc:         html pretty method that uses lxml instead of bsoup
         #  ###   dreftymacid:  oils_admits_fatly
         #  ###   detail:  |
@@ -2373,9 +2455,9 @@ if('python_region'):
           ## function docs
           - caption:  jjhug
             date:     lastmod="Mon 2014-10-20 16:45:46"
-            grp_maj:    string_transform
-            grp_med:    wrap
-            grp_min:    balanced delimiters
+            grp_maj: string_transform
+            grp_med: wrap
+            grp_min: balanced delimiters
             dreftymacid:  visuals_sinus_breakage
             desc: string wrap with delims
             detail: |
@@ -2431,9 +2513,9 @@ if('python_region'):
           ## function docs
           - caption:  jjindent
             date:     lastmod="Mon 2014-10-20 16:45:46"
-            grp_maj:    string_transform
-            grp_med:    whitespace
-            grp_min:      indent
+            grp_maj: string_transform
+            grp_med: whitespace
+            grp_min: indent
             dreftymacid:  mustang_gunfire_being
             desc:         string indent
             detail: |
@@ -2477,10 +2559,8 @@ if('python_region'):
           ## function docs
           - caption:  jjlen
             date:     lastmod="Mon 2014-10-20 16:45:46"
-            grp_maj:    getinfo
-            grp_med:
-            grp_min:
-            dreftymacid:  hazard_veg_ivy
+            grp_maj: getinfo
+            grp_med: grp_min: dreftymacid:  hazard_veg_ivy
             desc: python len()
             detail: |
               python len() function
@@ -2514,9 +2594,9 @@ if('python_region'):
           ##beg_func_docs
           - caption:      jjlinestolist
             date:         lastmod="2016-07-18T08:18:20"
-            grp_maj:      grp_maj
-            grp_med:      grp_med
-            grp_min:      grp_min
+            grp_maj: grp_maj
+            grp_med: grp_med
+            grp_min: grp_min
             desc:         |
               textwrap lines and convert to list,
               one line per array element
@@ -2565,9 +2645,9 @@ if('python_region'):
           ##beg_func_docs
           - caption:      jjlistchoice
             date:         lastmod="2016-11-03-08:47:57"
-            grp_maj:    getinfo
-            grp_med:    list
-            grp_min:    item
+            grp_maj: getinfo
+            grp_med: list
+            grp_min: item
             desc:         |
               * take an input list and return one randomly chosen item from that list
             dreftymacid:  anti_injury_hysteric
@@ -2599,9 +2679,9 @@ if('python_region'):
           ## function docs
           - caption:  jjlistget
             date:     lastmod="Mon 2014-10-20 16:45:46"
-            grp_maj:    getinfo
-            grp_med:    list
-            grp_min:    item
+            grp_maj: getinfo
+            grp_med: list
+            grp_min: item
             dreftymacid:  fakery_brats_diets
             desc: |
               * try to return list item at index
@@ -2630,15 +2710,19 @@ if('python_region'):
           ##
           return vout
         ##enddef
+        ## alias_definition
+        def jjll(self,jjinput,index): return self.jjlistget(jjinput,index)
+        ##enddef
+
 
         def jjlistrange(self,jjinput,rbeg=0,rend=None):
           """
           ## function docs
           - caption:    jjlistrange
             date:       lastmod="Mon 2014-10-20 16:45:46"
-            grp_maj:      getinfo
-            grp_med:      list
-            grp_min:      item
+            grp_maj: getinfo
+            grp_med: list
+            grp_min: item
             dreftymacid:  councils_dock_swam
             desc: |
               * NO_WORKY -- jjlistrange does not work as expected
@@ -2690,9 +2774,9 @@ if('python_region'):
           ## function docs
           - caption:  jjlistjoin
             date:     lastmod="Mon 2014-10-20 16:45:46"
-            grp_maj:    list
-            grp_med:    join
-            grp_min:    items
+            grp_maj: list
+            grp_med: join
+            grp_min: items
             dreftymacid:  vineyard_manly_grouping
             desc: perform join on a list and return a string
             detail: |
@@ -2724,9 +2808,9 @@ if('python_region'):
           ## function docs
           - caption:  jjlistsort
             date:     lastmod="Mon 2014-10-20 16:45:46"
-            grp_maj:    getinfo
-            grp_med:    list
-            grp_min:    sort
+            grp_maj: getinfo
+            grp_med: list
+            grp_min: sort
             dreftymacid:  drinks_gem_shoving
             desc: return a sorted list
             example: |
@@ -2771,9 +2855,9 @@ if('python_region'):
           ## function docs
           - caption:  jjlistuniq
             date:     lastmod="Mon 2014-10-20 16:45:46"
-            grp_maj:    getinfo
-            grp_med:    list
-            grp_min:    unique
+            grp_maj: getinfo
+            grp_med: list
+            grp_min: unique
             dreftymacid:  eras_oafish_halving
             desc: |
               * return a uniq_list of unique elements from original_list
@@ -2817,9 +2901,9 @@ if('python_region'):
           ## function docs
           - caption:  jjmarkdown2html
             date:     lastmod="Mon 2014-10-20 16:45:46"
-            grp_maj:      string_transform
-            grp_med:      markup
-            grp_min:      convert
+            grp_maj: string_transform
+            grp_med: markup
+            grp_min: convert
             dreftymacid:  grease_style_agnew
             desc: markdown to html
             detail: |
@@ -2856,9 +2940,9 @@ if('python_region'):
           ## function docs
           - caption:  jjnewline_erase
             date:     lastmod="Mon 2014-10-20 16:45:46"
-            grp_maj:    string_transform
-            grp_med:    whitespace
-            grp_min:    remove
+            grp_maj: string_transform
+            grp_med: whitespace
+            grp_min: remove
             dreftymacid:  uranism_orate_hangar
             alias:
               - jjnne
@@ -2894,9 +2978,9 @@ if('python_region'):
           ## function docs
           - caption:  jjnewline_replace
             date:     lastmod="Mon 2014-10-20 16:45:46"
-            grp_maj:    string_transform
-            grp_med:    whitespace
-            grp_min:    modify
+            grp_maj: string_transform
+            grp_med: whitespace
+            grp_min: modify
             dreftymacid:  gluily_smirky_logan
             alias:
             desc: replace newlines with alternate string
@@ -2931,9 +3015,9 @@ if('python_region'):
           ## function docs
           - caption:  jjpath_isfile
             date:     lastmod="Mon 2015-06-08 16:06:01"
-            grp_maj:      fileio
-            grp_med:      path
-            grp_min:      info
+            grp_maj: fileio
+            grp_med: path
+            grp_min: info
             dreftymacid:  drawer_coping_uniplex
             desc: python os.path method call
             alias:
@@ -2968,9 +3052,9 @@ if('python_region'):
           ## function docs
           - caption:      jjfile_array_fromdir
             date:         lastmod="Mon 2014-10-20 16:45:46"
-            grp_maj:      fileio
-            grp_med:      directory
-            grp_min:      traverse
+            grp_maj: fileio
+            grp_med: directory
+            grp_min: traverse
             dreftymacid:  pests_cow_vealing
             desc: python  ArrayFromDirectory
             seealso: |
@@ -3036,9 +3120,9 @@ if('python_region'):
           ## function docs
           - caption:  jjq2x
             date:     lastmod="Mon 2014-10-20 16:45:46"
-            grp_maj:    string_transform
-            grp_med:    substitute
-            grp_min:    characters
+            grp_maj: string_transform
+            grp_med: substitute
+            grp_min: characters
             dreftymacid:  verbiage_wrapover_wreaths
             desc: (single-quote) characters to (double-sinqle-quote)
             detail: |
@@ -3072,9 +3156,9 @@ if('python_region'):
           ##beg_func_docs
           - caption:      jjradioextract
             date:         lastmod="20151031.0850"
-            grp_maj:      fileio
-            grp_med:      string
-            grp_min:      extract
+            grp_maj: fileio
+            grp_med: string
+            grp_min: extract
             desc:         radiotable ;; extract a region of a text file using 'radiotable' style regions
             dreftymacid:  atrocity_bluntest_coping
             seealso:
@@ -3142,9 +3226,9 @@ if('python_region'):
           ##beg_func_docs
           - caption:      jjradioreplace
             date:         lastmod="20150917.1056"
-            grp_maj:      fileio
-            grp_med:      string
-            grp_min:      modify
+            grp_maj: fileio
+            grp_med: string
+            grp_min: modify
             desc:         |
                 radiotable ;; replace a region of a text file using 'radiotable' style regions
                 * NOTE: this function has met with disappointing results.
@@ -3251,9 +3335,9 @@ if('python_region'):
           ## function docs
           - caption:  jjregexreplace
             date:     lastmod="Fri Aug 14 16:27:17 2015"
-            grp_maj:      regex
-            grp_med:      string
-            grp_min:      replace
+            grp_maj: regex
+            grp_med: string
+            grp_min: replace
             dreftymacid:  damp_slicing_leafy
             desc:         __desc__
             example: |
@@ -3304,9 +3388,9 @@ if('python_region'):
           ##beg_func_docs bkmk001
           - caption:      jjregexfindall
             date:         lastmod="Wed 2015-08-26 12:28:27"
-            grp_maj:      regex
-            grp_med:      string
-            grp_min:      find
+            grp_maj: regex
+            grp_med: string
+            grp_min: find
             desc:         python regex findall
             dreftymacid:  shaming_java_asocial
             detail:  |
@@ -3350,9 +3434,9 @@ if('python_region'):
           ##beg_func_docs bkmk001
           - caption:      jjregexsub
             date:         lastmod="Wed 2015-08-26 12:28:27"
-            grp_maj:      regex
-            grp_med:      string
-            grp_min:      substitute
+            grp_maj: regex
+            grp_med: string
+            grp_min: substitute
             desc:         python regex sub
             dreftymacid:  tasty_dario_awaken
             detail:  |
@@ -3401,9 +3485,9 @@ if('python_region'):
         #  ## function docs
         #  - caption:  jjregionreplace
         #    date:     lastmod="Mon 2014-10-20 16:45:46"
-        #    grp_maj:    string_transform
-        #    grp_med:    replace
-        #    grp_min:    string
+        #    grp_maj: string_transform
+        #    grp_med: replace
+        #    grp_min: string
         #    dreftymacid:  found_goliath_loyalty
         #    desc: replace a subregion of a string with optional balanced delimiters
         #    detail: |
@@ -3457,9 +3541,9 @@ if('python_region'):
           ##beg_func_docs
           - caption:      jjcurl
             date:         lastmod="20151008.1636"
-            grp_maj:      grp_maj
-            grp_med:      grp_med
-            grp_min:      grp_min
+            grp_maj: grp_maj
+            grp_med: grp_med
+            grp_min: grp_min
             desc:         simulate a curl call. seealso jjrequesturl
             dreftymacid:  armpits_magnet_freshens
             seealso:
@@ -3498,9 +3582,9 @@ if('python_region'):
           ## function docs
           - caption:      jjurl_request
             date:         lastmod="Tue 2015-08-11 16:12:12"
-            grp_maj:      webscrape
-            grp_med:      request
-            grp_min:      url
+            grp_maj: webscrape
+            grp_med: request
+            grp_min: url
             dreftymacid:  viperine_dopey_estimate
             desc:         request the content of a URL using python requests module
             detail: |
@@ -3543,9 +3627,9 @@ if('python_region'):
           ## function docs
           - caption:      jjurl_exists
             date:         lastmod="Tue 2015-08-11 16:12:12"
-            grp_maj:      webscrape
-            grp_med:      request
-            grp_min:      url
+            grp_maj: webscrape
+            grp_med: request
+            grp_min: url
             dreftymacid:  croat_jails_unglue
             desc:         return true/false whether a given url is found
             detail: |
@@ -3581,9 +3665,9 @@ if('python_region'):
           ## function docs
           - caption:  jjsplit
             date:     lastmod="Mon 2014-10-20 16:45:46"
-            grp_maj:    string_transform
-            grp_med:    cast
-            grp_min:    array
+            grp_maj: string_transform
+            grp_med: cast
+            grp_min: array
             dreftymacid:  wolfish_sword_darken
             desc: return string.split(delim)
             detail: |
@@ -3623,9 +3707,9 @@ if('python_region'):
           ## function docs
           - caption:  jjsplit_re
             date:     lastmod="Mon 2014-10-20 16:45:46"
-            grp_maj:    string_transform
-            grp_med:    cast
-            grp_min:    array
+            grp_maj: string_transform
+            grp_med: cast
+            grp_min: array
             dreftymacid:  coping_inch_wreathe
             desc: return re.split(regex)
             detail: |
@@ -3657,9 +3741,9 @@ if('python_region'):
           ## function docs
           - caption:      jjslashdouble
             date:         lastmod="20150624.1803"
-            grp_maj:      string_transform
-            grp_med:      slashes
-            grp_min:      doublebackslash
+            grp_maj: string_transform
+            grp_med: slashes
+            grp_min: doublebackslash
             dreftymacid:  fix_pivots_dialog
             alias:
               - jjsldub
@@ -3694,9 +3778,9 @@ if('python_region'):
           ## function docs
           - caption:  jjslashback
             date:     lastmod="Mon 2014-10-20 16:45:46"
-            grp_maj:    string_transform
-            grp_med:    slashes
-            grp_min:    back
+            grp_maj: string_transform
+            grp_med: slashes
+            grp_min: back
             dreftymacid:  enforcer_cube_herbs
             alias:
               - jjslb
@@ -3728,9 +3812,9 @@ if('python_region'):
           ## function docs
           - caption:  jjslashforward
             date:     lastmod="Mon 2014-10-20 16:45:46"
-            grp_maj:    string_transform
-            grp_med:    slashes
-            grp_min:    forward
+            grp_maj: string_transform
+            grp_med: slashes
+            grp_min: forward
             dreftymacid:  pimple_timidity_sweating
             alias:
               - jjslf
@@ -3762,10 +3846,9 @@ if('python_region'):
           ## function docs
           - caption:  jjsplitlines
             date:     lastmod="Mon 2014-10-20 16:45:46"
-            grp_maj:    string_convert
-            grp_med:    splitlines
-            grp_min:
-            dreftymacid:  analysts_gust_cruncher
+            grp_maj: string_convert
+            grp_med: splitlines
+            grp_min: dreftymacid:  analysts_gust_cruncher
             alias:
             detail: |
               return a list of splitlines
@@ -3793,9 +3876,9 @@ if('python_region'):
           ## function docs
           - caption:  jjtodir
             date:     lastmod="Mon 2014-10-20 16:45:46"
-            grp_maj:    fileio
-            grp_med:    create
-            grp_min:    directory
+            grp_maj: fileio
+            grp_med: create
+            grp_min: directory
             dreftymacid:  glucose_visual_unweave
             tags: directory, fileio
             desc: output a directory
@@ -3848,9 +3931,9 @@ if('python_region'):
           ## function docs
           - caption:  jjtofile
             date:     lastmod="Mon 2014-10-20 16:45:46"
-            grp_maj:    fileio
-            grp_med:    __blank__
-            grp_min:    __blank__
+            grp_maj: fileio
+            grp_med: __blank__
+            grp_min: __blank__
             dreftymacid:  youngest_drail_roaming
             tags: stringtofile, stringtofilebom
             example: |
@@ -3944,9 +4027,9 @@ if('python_region'):
           ## function docs
           - caption:  jjtozipfile
             date:     lastmod="Mon 2014-10-20 16:45:46"
-            grp_maj:  fileio
-            grp_med:  output
-            grp_min:  zipfile
+            grp_maj: fileio
+            grp_med: output
+            grp_min: zipfile
             dreftymacid: mckay_planets_richer
             seealso: |
               * href="smartpath://mymedia/2014/git/github/dynamic.yaml/app/demo/barebones.filezip.yaml.txt" find="heists_bely_numeric"
@@ -4010,9 +4093,9 @@ if('python_region'):
           ## function docs
           - caption:  jjucfirst
             date:     lastmod="Mon 2014-10-20 16:45:46"
-            grp_maj:  string_transform
-            grp_med:  change_case
-            grp_min:  uppercase first character
+            grp_maj: string_transform
+            grp_med: change_case
+            grp_min: uppercase first character
             detail:  |
               uppercase first character
             dependencies:
@@ -4049,9 +4132,9 @@ if('python_region'):
           ## function docs
           - caption:  jjuuid
             date:     lastmod="Mon 2014-10-20 16:45:46"
-            grp_maj:  string
-            grp_med:  generate
-            grp_min:  id
+            grp_maj: string
+            grp_med: generate
+            grp_min: id
             dreftymacid: radius_disliker_empty
             detail:  |
               fake pseudo-uuid timestamp-based
@@ -4089,9 +4172,9 @@ if('python_region'):
           ## function docs
           - caption:  jjwinexplore
             date:     lastmod="Fri Aug 14 16:05:31 2015"
-            grp_maj:      os
-            grp_med:      windows
-            grp_min:      desktop
+            grp_maj: os
+            grp_med: windows
+            grp_min: desktop
             dreftymacid:  guidance_untie_quests
             desc:         open an explorer window
             detail:  |

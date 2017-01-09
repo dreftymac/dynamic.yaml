@@ -46,6 +46,24 @@ TODO:
 
 main:
 
+  - caption:  templateinclude upgrade 
+    dreftymacid: ddyamltinclu_corks_invents
+    rectype:  rrmini05
+    datebeg:  2017-01-05 
+    dateend:  2017-01-05 
+    tags:     __tags__
+    category: __category__
+    desc:     |
+      * templateinclude supports multiple path
+      * templateinclude supports section (head|foot) placement of included content
+    seealso:  |
+      * __seealso__
+    qquestion:  __qquestion__
+    qanswer:    __qanswer__
+    wwbody: |
+      __wwbody__
+
+
   - caption:  jmespath support for ddyaml
     rectype:  rrmini03
     datebeg:  Fri Apr 01 16:39:08 2016 

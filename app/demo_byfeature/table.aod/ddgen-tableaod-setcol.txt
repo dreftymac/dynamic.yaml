@@ -1,0 +1,56 @@
+### <beg-file_info>
+### document_metadata:
+###   - date: created="2017-01-08"
+###     last: lastmod="2017-01-08"
+###     tags: tags
+###     author: created="__author__"
+###     dmid: "jive_taken_arm"
+###     filetype: "yaml"
+###     lastupdate: "__lastupdate__"
+###     desc: |
+###         * __desc__
+###     seealso: |
+###         * href="smartpath://mymedia/2014/git/github/dynamic.yaml/py/ddyaml/jinjafilterdynamicyaml.py" find="jjaod_unbuild_icily_forger"
+### <end-file_info>
+
+mytable: 
+- age: '33'
+  fname: alpha
+  lname: bravo
+- age: '44'
+  fname: charlie
+  lname: delta
+- age: '22'
+  fname: echo
+  lname: foxxy
+
+__yaml__:
+
+## href="smartpath://mytrybits/y/tryyaml/dynamicyaml/devlog.txt"
+## href="smartpath://mymedia/2014/git/github/dynamic.yaml/app/demo/readme.md"
+## href="smartpath://mymedia/2014/git/github/dynamic.yaml/py/ddyamlrunner.py"
+## href="smartpath://mymedia/2014/git/github/dynamic.yaml/py/ddyaml/jinjafilterdynamicyaml.py"
+
+  - &uuid01rrmy01
+    caption:      table aod setcol
+    processthis:  0
+    uuid: uuid01rrmy01
+    desc: |
+      * update field in all rows
+      * set to same value for all rows
+    template: |
+      {%- set mytable = mytable|jjaod_setcol('age_bydog','77') -%}
+      {{ mytable }} 
+
+  - &uuid01rrmy02
+    caption:      table aod setcol
+    processthis:  1
+    uuid: uuid01rrmy02
+    desc: |
+      * update field in all rows
+      * set to unique value per row
+    template: |
+      {% for row in mytable -%}
+      {%- do row.update({ "age_bydog": (row.age|int)*7,  } ) -%} 
+      {% endfor %}      
+      {{ mytable }} 

@@ -3,6 +3,7 @@ __yaml__:
   - caption:  ddyaml hello earth
     comments: | 
       ### ********************
+      #   * demonstrate templateinclude directive
       #   * in this example, the assignment to variable `ttname` was moved
       #   * it is in the first templateinclude file
       #   * now the variable is properly populated in the remaining templates
@@ -11,7 +12,10 @@ __yaml__:
       - {"section":"head", "path":"bare.hello.0000.init.txt", }
       - {"section":"head", "path":"bare.hello.0000.head.txt", }
       - {"section":"foot", "path":"bare.hello.0000.foot.txt", }
+      - {"section":"foot", "path":"C:/sm/docs/mymedia/2014/git/github/demo.contentworkup/iim/setup-stack-001-iim/drup_current-gen-002-template.twig", }
+      
     offtemplateinclude: "bare.hello.0000.head.txt"
     template: |
       Hello {{ ttname }}!
-
+      
+      

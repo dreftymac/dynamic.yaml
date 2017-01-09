@@ -26,46 +26,6 @@ if('python_region'):
       # from DataHelperDiceware import DataHelperDiceware
 
 ### @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-### new_function_snippet
-"""
-  def [[%tabstop01:caption]](self,jjinput):
-    '''
-    ##beg_func_docs
-    - caption:      [[%tabstop01]]
-      date:         lastmod="[[%tabstop:lastmod]]"
-      grp_maj:      grp_maj
-      grp_med:      grp_med
-      grp_min:      grp_min
-      desc:         [[%tabstop:desc]]
-      dreftymacid:  [[%tabstop:dreftymacid]]
-      detail:  |
-        * [[%tabstop:blank]]
-      dependencies:
-        - [[%tabstop:blank]]
-      params:
-       - param: jjinput ;; optarity ;; jinja raw input string
-    ##end_func_docs
-    '''
-
-    ##
-    vout = jjinput.[[%tabstop:str]]()
-
-    ##
-    try:
-      vout = vout
-    ##
-    except Exception as msg:
-      print 'UNEXPECTED TERMINATION [[%tabstop:dreftymacid]] msg@%s'%(msg.[[%tabstop:repr]]())
-      exc_type, exc_obj, exc_tb = sys.exc_info()
-      fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
-      print(exc_type, fname, exc_tb.tb_lineno)
-
-    ##
-    return vout
-  ##enddef
-"""
-
-### @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 ### jinja helper JinjaFilterJmespath
 if('python_region'):
 ###!{{{
