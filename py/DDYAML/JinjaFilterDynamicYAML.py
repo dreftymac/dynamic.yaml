@@ -813,6 +813,7 @@ if('python_region'):
             dreftymacid:  brat_joints_twenty
             detail:  |
               * TODO ;; add support for source formats other than yaml
+              * TODO ;; add support for dsv data load
             dependencies: |
               * import yaml
               * import json

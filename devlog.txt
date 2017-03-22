@@ -46,6 +46,21 @@ TODO:
 
 main:
 
+  - caption:  jinja groupby 
+    dreftymacid: browner_airbrush_verily
+    rectype:  rrmini05
+    datebeg:  2017-01-10 
+    dateend:  2017-01-10 
+    tags:     __tags__
+    category: __category__
+    desc:     |
+      * __desc__
+    seealso:  |
+      * href="smartpath://mymedia/2014/git/github/dynamic.yaml/app/scratch/bare.grouping.txt" find="vitalist_wistful_larger"
+    wwbody: |
+      
+
+
   - caption:  templateinclude upgrade 
     dreftymacid: ddyamltinclu_corks_invents
     rectype:  rrmini05

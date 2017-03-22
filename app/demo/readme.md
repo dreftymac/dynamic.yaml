@@ -25,6 +25,7 @@ This directory contains sample dynamic YAML files for demonstration.
 * run command shell popen interop   ;; href="smartpath://mymedia/2014/git/github/dynamic.yaml/app/demo/demo.topic.interop.txt"
 * map filter and listcomprehension  ;; href="smartpath://mymedia/2014/git/github/dynamic.yaml/app/demo/demo01jjapplyfunction01.txt"
 * msft excel                        ;; href="smartpath://mymedia/2014/git/github/dynamic.yaml/app/demo/demo.topic.excel.txt"
+* table_aod groupby                 ;; href="smartpath://mymedia/2014/git/github/dynamic.yaml/app/scratch/bare.grouping.txt" find="vitalist_wistful_larger"
 
 ## Blockspring
 
