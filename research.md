@@ -2,6 +2,12 @@
 
 Here are some research items related to this project.
 
+## Possible alternatives
+
+This project may be obviated by:
+
+* https://github.com/kblomqvist/yasha
+
 ## Inspiration, credit and comparison:
 
 This project was inspired by:
