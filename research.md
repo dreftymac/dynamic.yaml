@@ -7,6 +7,7 @@ Here are some research items related to this project.
 This project may be obviated by:
 
 * https://github.com/kblomqvist/yasha
+   * (Sun 2017-04-02T01:30:04 -- another YAML+JSON compatible solution found on stackoverflow)
 
 ## Inspiration, credit and comparison:
 
