@@ -5,7 +5,7 @@ Here are some research items related to this project.
 ## Possible alternatives
 
 This project may be obviated by:
-
+* https://github.com/wtforms/wtforms/
 * https://github.com/kblomqvist/yasha
    * (Sun 2017-04-02T01:30:04 -- another YAML+JSON compatible solution found on [stackoverflow](http://stackoverflow.com/a/612817/42223) )
 
