@@ -1,3 +1,19 @@
+### <beg-file_info>
+### document_metadata:
+###   - caption: "__blank__"
+###     dmid: "ddyaml_demo_alexqperupting"
+###     date: created="2017-04-04"
+###     last: lastmod="2017-04-04"
+###     tags: tags
+###     author: created="__author__"
+###     filetype: "yaml"
+###     lastupdate: "__lastupdate__"
+###     desc: |
+###         * __desc__
+###     seealso: |
+###         * __seealso__
+### <end-file_info>
+
 __yaml__:  
     
   - caption:  ddyaml hello earth
