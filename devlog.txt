@@ -60,7 +60,7 @@ main:
     wwbody: |
       
       
-  - caption:  templateinclude upgrade 
+  - caption:  templateinclude directive 
     dreftymacid: ddyamltinclu_corks_invents
     rectype:  rrmini05
     datebeg:  2017-01-05 
