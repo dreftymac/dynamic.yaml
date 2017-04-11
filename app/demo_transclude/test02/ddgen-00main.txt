@@ -55,6 +55,8 @@ __yaml__:
   - &uuid01rrmy01
     caption: demonstrate the templateinclude directive of ddyaml
     dreftymacid: frauds_faultily_vaudois
+    seealso: |
+      * templateinclude directive ;; href="smartpath://mymedia/2014/git/github/dynamic.yaml/devlog.txt" find="ddyamltinclu_corks_invents"
     desc: |
       * demonstrates trick to support jinja surrounding the included templates
       * the included templates are wrapped with a variable-set block ttbodyout
@@ -62,15 +64,16 @@ __yaml__:
       * this permits reuse of the ttbodyout variable wherever needed
       * this also permits the included templates to have embedded jinja, which is not supported with jjfromfile
     templateinclude:
-      - "c:/sm/docs/mymedia/2014/git/github/dynamic.yaml/app/demo_transclude/test02/ddgeb-01-ttbodyout.txt"
-      - "c:/sm/docs/mymedia/2014/git/github/dynamic.yaml/app/demo_transclude/test02/ddgen-alpha.txt"
-      - "c:/sm/docs/mymedia/2014/git/github/dynamic.yaml/app/demo_transclude/test02/ddgen-bravo.txt"
-      - "c:/sm/docs/mymedia/2014/git/github/dynamic.yaml/app/demo_transclude/test02/ddgen-charlie.txt"
-      - "c:/sm/docs/mymedia/2014/git/github/dynamic.yaml/app/demo_transclude/test02/ddgen-delta.txt"
-      - "c:/sm/docs/mymedia/2014/git/github/dynamic.yaml/app/demo_transclude/test02/ddgeb-02-ttbodyout.txt"
+      - {"path": "c:/sm/docs/mymedia/2014/git/github/dynamic.yaml/app/demo_transclude/test02/ddgeb-01-ttbodyout.txt", "section":"before"}
+      - {"path": "c:/sm/docs/mymedia/2014/git/github/dynamic.yaml/app/demo_transclude/test02/ddgen-alpha.txt" , "section":"foot"}
+      - {"path": "c:/sm/docs/mymedia/2014/git/github/dynamic.yaml/app/demo_transclude/test02/ddgen-bravo.txt" }
+      - {"path": "c:/sm/docs/mymedia/2014/git/github/dynamic.yaml/app/demo_transclude/test02/ddgen-charlie.txt" }
+      - {"path": "c:/sm/docs/mymedia/2014/git/github/dynamic.yaml/app/demo_transclude/test02/ddgen-delta.txt" }
+      - {"path": "c:/sm/docs/mymedia/2014/git/github/dynamic.yaml/app/demo_transclude/test02/ddgeb-02-ttbodyout.txt", "section":"after"}
     template: |
       {{-""-}}
       hello world!
       {{ ttbodyout }}
       bye bye world!
+
 

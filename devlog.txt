@@ -59,8 +59,7 @@ main:
       * href="smartpath://mymedia/2014/git/github/dynamic.yaml/app/scratch/bare.grouping.txt" find="vitalist_wistful_larger"
     wwbody: |
       
-
-
+      
   - caption:  templateinclude upgrade 
     dreftymacid: ddyamltinclu_corks_invents
     rectype:  rrmini05
@@ -72,12 +71,12 @@ main:
       * templateinclude supports multiple path
       * templateinclude supports section (head|foot) placement of included content
     seealso:  |
-      * __seealso__
+      ## templateinclude main references
+      * href="smartpath://mymedia/2014/git/github/dynamic.yaml/app/demo_byfeature/aamain.templateinclude/bare.aamain.txt" find="ddyaml_demo_alexqperupting"
     qquestion:  __qquestion__
     qanswer:    __qanswer__
     wwbody: |
       __wwbody__
-
 
   - caption:  jmespath support for ddyaml
     rectype:  rrmini03
