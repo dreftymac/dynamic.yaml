@@ -1,3 +1,19 @@
+### <beg-file_info>
+### document_metadata:
+###   - caption: "__blank__"
+###     dmid: "ddyaml_templateinclude_blurb01coz"
+###     date: created="2017-04-11"
+###     last: lastmod="2017-04-11"
+###     tags: tags
+###     author: created="__author__"
+###     filetype: "yaml"
+###     lastupdate: "__lastupdate__"
+###     desc: |
+###         * ddyaml -- demonstrating the templateinclude directive
+###     seealso: |
+###         * __seealso__
+### <end-file_info>
+
 maininfo:
   fname:  homer
   lname:  simpson
@@ -33,7 +49,6 @@ maintable:
     rings:    TRUE
     order:    7
     type:     Gas giant
-
 
 __yaml__:
 
