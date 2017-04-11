@@ -14,24 +14,53 @@
 ###         * __seealso__
 ### <end-file_info>
 
+maininfo:
+  fname:  homer
+  lname:  simpson
+  age:    33
+
+maintable:
+  - name:     Mercury
+    rings:    FALSE
+    order:    1
+    type:     Terrestrial planet
+  
+  - name:     Venus
+    rings:    FALSE
+    order:    2
+    type:     Terrestrial planet
+  
+  - name:     Earth
+    rings:    FALSE
+    order:    3
+    type:     Terrestrial planet
+  
+  - name:     Mars
+    rings:    FALSE
+    order:    4
+    type:     Terrestrial planet
+  
+  - name:     Jupiter
+    rings:    TRUE
+    order:    6
+    type:     Gas giant
+  
+  - name:     Saturn
+    rings:    TRUE
+    order:    7
+    type:     Gas giant
+
 __yaml__:  
     
   - caption:  ddyaml hello earth with templateinclude directive
     comments: | 
       ### ********************
       #   * demonstrate templateinclude directive
-      #   * in this example, the assignment to variable `ttname` is in a transcluded templatef
-      #   * notice how the `ttname` variable is properly populated in the remaining templates
-      #   * this is a contrived example, the variables here are defined only in templates
-      #   * this demonstrates the use of the section:head and section:foot properties (just look at the head.txt and foot.txt templates)
     templateinclude:
       - {"section":"head", "path":"bare.hello.0000.init.txt", }
-      - {"section":"head", "path":"bare.hello.0000.head.txt", }
-      - {"section":"foot", "path":"bare.hello.espan.head.txt", }
-      - {"section":"foot", "path":"bare.hello.french.head.txt", }
-      - {"section":"foot", "path":"bare.hello.0000.foot.txt", }
-      
-    offtemplateinclude: "bare.hello.0000.head.txt"
+      - {"section":"head", "path":"bare.hello.0000.head.txt", }      
+      - {"section":"foot", "path":"bare.loopdemo.001.txt", }
+      - {"section":"foot", "path":"bare.hello.0000.foot.txt", }      
     template: |
       {{-"\n\n"-}} 
       Hello {{ ttname }}!
