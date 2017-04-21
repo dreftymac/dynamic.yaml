@@ -5,7 +5,6 @@ Here are some research items related to this project.
 ## Possible alternatives
 
 This project may be obviated by:
-* https://github.com/wtforms/wtforms/
 * https://github.com/kblomqvist/yasha
    * (Sun 2017-04-02T01:30:04 -- another YAML+JSON compatible solution found on [stackoverflow](http://stackoverflow.com/a/612817/42223) )
 
@@ -83,6 +82,9 @@ This project currently depends on python with `import jinja2`.
 There is no reason against languages besides python, and there is no reason against other templating/expression engines besides jinja2.
 
 * http://stackoverflow.com/questions/18175466/templating-library-in-node-js-similar-to-jinja2-in-python
+
+## Forms-related
+* https://github.com/wtforms/wtforms/
 
 ## JSON-related
 
