@@ -15,42 +15,6 @@
 ###         * __seealso__
 ### <end-file_info>
 
-maininfo:
-  fname:  homer
-  lname:  simpson
-  age:    33
-
-maintable:
-  - name:     Mercury
-    rings:    FALSE
-    order:    1
-    type:     Terrestrial planet
-  
-  - name:     Venus
-    rings:    FALSE
-    order:    2
-    type:     Terrestrial planet
-  
-  - name:     Earth
-    rings:    FALSE
-    order:    3
-    type:     Terrestrial planet
-  
-  - name:     Mars
-    rings:    FALSE
-    order:    4
-    type:     Terrestrial planet
-  
-  - name:     Jupiter
-    rings:    TRUE
-    order:    6
-    type:     Gas giant
-  
-  - name:     Saturn
-    rings:    TRUE
-    order:    7
-    type:     Gas giant
-
 __yaml__:  
     
   - caption:  ddyaml hello earth with templateinclude directive

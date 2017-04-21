@@ -71,7 +71,7 @@ main:
       * templateinclude supports multiple path
       * templateinclude supports section (head|foot) placement of included content
     seealso:  |
-      ## templateinclude main references
+      ## templateinclude references
       * href="smartpath://mymedia/2014/git/github/dynamic.yaml/app/demo_byfeature/aamain.templateinclude/bare.aamain.txt" find="ddyaml_demo_alexqperupting"
     qquestion:  __qquestion__
     qanswer:    __qanswer__

@@ -11,7 +11,8 @@
 ###     desc: |
 ###         * templateinclude directive -- barebones intro
 ###     seealso: |
-###         * __seealso__
+###         * href="smartpath://mymedia/2014/git/github/dynamic.yaml/devlog.txt" find="ddyamltinclu_corks_invents"
+###         * parent directory of this file
 ### <end-file_info>
 
 __yaml__:  
