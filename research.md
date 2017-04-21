@@ -9,6 +9,9 @@ This project may be obviated by:
 * https://github.com/kblomqvist/yasha
    * (Sun 2017-04-02T01:30:04 -- another YAML+JSON compatible solution found on [stackoverflow](http://stackoverflow.com/a/612817/42223) )
 
+## Stackoverflow
+* http://stackoverflow.com/questions/tagged/yaml+variables
+
 ## Inspiration, credit and comparison:
 
 This project was inspired by:
