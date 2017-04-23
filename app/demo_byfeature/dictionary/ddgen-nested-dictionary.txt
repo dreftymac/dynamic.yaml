@@ -1,0 +1,36 @@
+### <beg-file_info>
+### document_metadata:
+###   - caption: "__blank__"
+###     dmid: "sensing01undrunk"
+###     date: created="2017-04-23"
+###     last: lastmod="2017-04-23"
+###     tags: dictionary,recursion,nested,nesteddatastructures
+###     author: created="__author__"
+###     filetype: "yaml"
+###     lastupdate: "__lastupdate__"
+###     desc: |
+###         * __desc__
+###     seealso: |
+###         * github dpath nested dictionary ;; https://github.com/akesterson/dpath-python
+###         * python boltons nested ;; http://stackoverflow.com/a/35262687/42223
+### <end-file_info>
+
+dataroot:
+  alpha:
+    alpha1:
+    alpha2:
+      alpha2.1:
+      alpha2.2:
+  bravo:
+  charlie: 
+
+__yaml__:
+
+  - &uuid01rrmy01
+    caption:      nested dictionary output
+    processthis:  1
+    uuid: uuid01rrmy01
+    desc: |
+    template:         |
+      {{ dataroot }}
+      
