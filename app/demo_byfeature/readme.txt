@@ -7,7 +7,8 @@
 ###     filetype: "yaml"
 ###     lastupdate: "__lastupdate__"
 ###     desc: |
-###         * parent directory of this file contains ddyaml demo files organized into subdirs
+###         * ddyaml demo files 
+###         * parent directory of this file contains content
 ###         * ddyaml featurespecific  
 ###     seealso: |
 ###         * __seealso__
