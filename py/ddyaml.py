@@ -307,7 +307,7 @@ if('python_region'):
         x:FullColumns="1"
         x:FullRows="1"
         ss:DefaultRowHeight="15">
-        
+
         '''+  self.myxmlss_headerrow(oparams) +'''
 
         '''+  self.myxmlss_datarow(oparams)   +'''
@@ -434,7 +434,7 @@ if('python_region'):
       """
       auto-generate-metadata
       """
-      
+
       ##
       ddparams  = {}
       ddparams['xlauthor']        = 'nobody@example.com'
@@ -448,12 +448,12 @@ if('python_region'):
       vout = oparams
       return vout
     ##enddef
-    
+
     ##
     def myxmlss_wellform_metadata(self,oparams={}):
       """
       check for non-well-formed metadata and fix if necessary
-      """      
+      """
       ##
       try:
         oparams['xlauthor']        = oparams['xlauthor']
@@ -467,7 +467,7 @@ if('python_region'):
       ## return
       vout = oparams
       return vout
-    ##enddef    
+    ##enddef
 
     ##
     def tostring(self,oparams={}):
@@ -489,7 +489,7 @@ if('python_region'):
       return vout
     ##enddef
   ##endclass
-  
+
 ### @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 ### DataHelperUtils
 if('python_region'):
@@ -501,16 +501,16 @@ if('python_region'):
 ###!  result:   |
 ###!       __blank__
 ###!  tags:     __tags__
-###!  seealso: |   
+###!  seealso: |
 ###!  		* __blank__
-###!  desc: |   
+###!  desc: |
 ###!  		__desc__
-###!  
-###!  
+###!
+###!
 ###!  dreftymacid: itch_drain_resorts
 ###!  wwbody: |
       class DataHelperUtils():
-        
+
         ##
         def dict_find_multikey(self,dd_source={},knownkeys=[],sdefault=''):
           """
@@ -523,15 +523,15 @@ if('python_region'):
           ##
           return vout
         ##enddef
-        
+
         ##
         def dict_to_nvptable(self,vdict,fldorder=[]):
           """
           changes BEFORE into AFTER
-          
-          BEFORE (native python dictionary):  
+
+          BEFORE (native python dictionary):
             {"fname":"homer","lname":"simpson","age":33}
-  
+
           AFTER (native python aod represented as yaml):
               - name:   age
                 value:  33
@@ -540,13 +540,13 @@ if('python_region'):
               - name    lname
                 value:  simpson
           """
-          
+
           ##
           vout = []
-  
+
           ##
           if (len(fldorder) == 0): fldorder = sorted(vdict.keys())
-          
+
           ##
           for fld in fldorder:
             orec = {}
@@ -554,11 +554,11 @@ if('python_region'):
               orec['value']   =   vdict[fld]
               orec['name']    =   fld
               vout.append(orec)
-            
+
           ##
           return vout
         ##enddef
-        
+
         ##
         def excel_sheet_to_python_aod(self,oparams={}):
           """
@@ -584,7 +584,7 @@ if('python_region'):
               ''')
               excel_sheet_to_python_aod(oparams)
           """
-          
+
           ## try-catch
           try:
             ## init defaults smartmerge
@@ -595,26 +595,26 @@ if('python_region'):
             myparam['datadef']      =   []
             myparam.update(oparams)
             ##;;
-            
+
             ## testing
             # print"""### ------------------------------------------------------------------------ """
             # oDumper.pprint( myparam )
             # exit()
-            ##;;            
-            
+            ##;;
+
             ## init
             ssfileorig      =   self.dict_find_multikey(myparam,['xlpath','path','filepath'],'')
             sheet           =   int(self.dict_find_multikey(myparam,['xlsheet','sheet'],'1'))
             firstrow        =   int(self.dict_find_multikey(myparam,['xlfirstrow','firstrow'],'1'))
             ##;;
-            
+
             ## testing
             # print"""### ------------------------------------------------------------------------ """
             # oDumper.pprint( myparam )
             # oDumper.pprint( datadef )
             # exit()
-            ##;;                    
-            
+            ##;;
+
             ## init
             book              =   xlrd.open_workbook(ssfileorig)
             sheet             =   book.sheet_by_index(int(sheet-1))
@@ -623,16 +623,16 @@ if('python_region'):
             iitotcols         =   (sheet.ncols)
             #print iitotcols
             ##;;
-  
+
             ## init ;; validate dataschema if exist
             if(True
               and myparam["datadef"].__len__()    != 0      ## user-defined-dataschema (udd) exists
               and iitotcols > myparam['datadef'].__len__()  ## udd has fewer fields than sheet.ncols
               ):
               ## wipeout any datadef and create_datadef_from_scratch
-              myparam["datadef"] = []              
+              myparam["datadef"] = []
               # print '''
-              # ## Caution: 
+              # ## Caution:
               # ## Possible mismatch or non-well-formed user defined dataschema
               # '''
               # for tmpcol, ixx in enumerate(range(sheet.ncols)):
@@ -640,10 +640,10 @@ if('python_region'):
               #   if(ixx <= myparam["datadef"].__len__()):
               #     continue
               #   ##
-              #   tmprec  = {}              
+              #   tmprec  = {}
               #   tmprec["fldname"]   = 'fld%03d'%(ixx)
               #   tmprec["fldtype"]   = 'text'
-              #   tmprec["fldlabel"]  = 'fld%03d'%(ixx)              
+              #   tmprec["fldlabel"]  = 'fld%03d'%(ixx)
               #   myparam["datadef"].append(tmprec)
               #   #print ixx
               #   #print self.xlrd_get_value(book,sheet.cell(1,ixx),'fld%s'%(ixx))
@@ -654,13 +654,13 @@ if('python_region'):
             fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
             print(exc_type, fname, exc_tb.tb_lineno)
           ##;;
-          
+
           ## try-catch
-          try:          
+          try:
             ## init dataschema if empty create_datadef_from_scratch
             if(myparam["datadef"].__len__() == 0):
               for tmpcol, ixx in enumerate(range(sheet.ncols)):
-                tmprec  = {}              
+                tmprec  = {}
                 tmprec["fldname"]   = 'fld%03d'%(ixx)
                 tmprec["fldtype"]   = 'text'
                 tmprec["fldlabel"]  = 'fld%03d'%(ixx)
@@ -671,10 +671,10 @@ if('python_region'):
             exc_type, exc_obj, exc_tb = sys.exc_info()
             fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
             print(exc_type, fname, exc_tb.tb_lineno)
-          ##;;            
-          
+          ##;;
+
           ## try-catch
-          try:          
+          try:
             ## process dataschema
             for row in myparam["datadef"]:
               ddheaderrow.append(self.dict_find_multikey(row,['fldname','fieldname',]))
@@ -685,9 +685,9 @@ if('python_region'):
             fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
             print(exc_type, fname, exc_tb.tb_lineno)
           ##;;
-          
+
           ## try-catch
-          try:          
+          try:
             ## iterate rows
             for row_index in range(sheet.nrows):
               if(row_index  < firstrow): continue  ## skip until we reach first datarow
@@ -704,13 +704,13 @@ if('python_region'):
             exc_type, exc_obj, exc_tb = sys.exc_info()
             fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
             print(exc_type, fname, exc_tb.tb_lineno)
-          ##;;              
-          
+          ##;;
+
           ## return aadataout
           ## print yaml.dump(aadataout,default_flow_style = False)
           return aadataout
-        ##enddef        
-        
+        ##enddef
+
         ##
         def xlrd_get_value(self,book,sheet_cell,rec_datadef={}):
           """
@@ -718,26 +718,26 @@ if('python_region'):
             * dependencies:
             *   import xlrd
             *   import datetime
-            * 
-            * rec_datadef:
-            *    {fldname: ID , fldtype: INTEGER }    
             *
-            * example: 
+            * rec_datadef:
+            *    {fldname: ID , fldtype: INTEGER }
+            *
+            * example:
             * @code
             *   _example_
             * @endcode
             *
             * @param xlrd book       $book (required|) xlrd workbook object
             * @param xlrd sheet_cell $sheet_cell (required|) xlrd sheet_cell object
-            * @param rec_datadef    rec_datadef (optional|) python dict datadef 
+            * @param rec_datadef    rec_datadef (optional|) python dict datadef
             * @return var output
-            *   
-            */ 
+            *
+            */
           """
           ## init vars
           vout        =   ''
           rxnewline   =   re.compile('\n|\r\n|\r|\n\r')
-          
+
           ### ------------------------------------------------------------------------
           ## handle excel type
           if(False): vout = ''
@@ -748,11 +748,11 @@ if('python_region'):
             py_date = datetime.datetime(year, month, day, hour, minute)
             vout    = py_date.__str__()
           ##
-          elif(True):    
+          elif(True):
             vout = sheet_cell.value
-          
+
           #oDumper.pprint(vout)
-          
+
           ### ------------------------------------------------------------------------
           ## handle datadef type
           try:
@@ -769,7 +769,7 @@ if('python_region'):
           except Exception as msg:
             pass
           ##endtry
-          
+
           ### ------------------------------------------------------------------------
           ## handle python type
           if(False):
@@ -785,17 +785,17 @@ if('python_region'):
           elif(type(vout) is unicode):
             vout = re.sub(rxnewline, " ", vout).encode('utf-8')
           ##endif
-        
+
           ### ********************
           ## postprocess
           ##
           return vout
-        ##enddef        
-        
+        ##enddef
+
       ##endclass
 
-### <end-region_testiff_20151229121946>  
-  
+### <end-region_testiff_20151229121946>
+
 ### @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 ### yaml helper DerivedBaseRepresenter
 if('python_region'):
@@ -1198,7 +1198,7 @@ if('python_region'):
             dreftymacid:  pets_marvel_dave
             seealso:
               - href="smartpath://mymedia/2014/git/github/dynamic.yaml/app/demo/demo01jjapplyfunction01.txt"
-              - href="smartpath://mytrybits/m/trymyclip/github_symlink/myclip/publiclab/pythonallgeneral.txt" find="uureload_holocopy_001" 
+              - href="smartpath://mytrybits/m/trymyclip/github_symlink/myclip/publiclab/pythonallgeneral.txt" find="uureload_holocopy_001"
             detail:  |
               * NOTE: need to make this a security-sensitive function that can be turned off
             dependencies:
@@ -1209,12 +1209,12 @@ if('python_region'):
              - param: jjfunc ;; optarity ;; function to apply
           ##end_func_docs
           '''
-        
+
           ##
           vout  = ''
           if(jjinput):
             jjdatt  =  jjinput
-        
+
           ##
           try:
             ## BUGNAG ;; ANNOYANCE ;; SECURITY ;; string-eval
@@ -1226,7 +1226,7 @@ if('python_region'):
             exc_type, exc_obj, exc_tb = sys.exc_info()
             fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
             print(exc_type, fname, exc_tb.tb_lineno)
-        
+
           ##
           return vout
         ##enddef
@@ -1487,7 +1487,7 @@ if('python_region'):
              - param: python_aod  ;; optarity ;; python aod simpletable
           ##end_func_docs
           '''
-          
+
           ## jjdata_table_dump_toexcelsheet
           try:
             ## init
@@ -1495,22 +1495,22 @@ if('python_region'):
             vout    =   ''
             params  =   {}
             ##;;
-            
+
             ## init input
             if(jjinput.__str__() != ''):
               params['data'] = jjinput
             elif(True):
-              params['data'] = python_aod              
+              params['data'] = python_aod
             ##;;
-            
+
             ## init input
             if(ddmetadata.keys().__len__() > 0):
               params.update(ddmetadata)
-            ##;;            
-            
+            ##;;
+
             ## process
             vout  =   oXMLSS.tostring(params)
-            ##;;            
+            ##;;
           ##
           except Exception as msg:
             print 'EXCEPTION gyro_xanthous_helmsmen msg@%s'%(msg.__repr__())
@@ -1518,7 +1518,7 @@ if('python_region'):
             fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
             print(exc_type, fname, exc_tb.tb_lineno)
           ##;;
-          
+
           ##
           return vout
         ##enddef
@@ -1535,26 +1535,26 @@ if('python_region'):
             dreftymacid:  vial_snaring_jocks
             detail:  |
               * TODO ;; refactor the metadata handling to be more like XmlssBase
-                  * href="c:/sm/docs/mytrybits/p/trypython2/lab2014/xml/xmlssbase.py" find="firm_run_rentals" 
+                  * href="c:/sm/docs/mytrybits/p/trypython2/lab2014/xml/xmlssbase.py" find="firm_run_rentals"
             dependencies:
               - __blank__
             params:
              - param: jjinput ;; optional ;; input source filename
           ##end_func_docs
           '''
-        
+
           ## init args
           if( jjinput.__str__() == ''):
             pass
           elif(True):
             sgginfile   = jjinput.__str__()
           ##;;
-          
+
           ## init vars
           oDHH  =   DataHelperUtils()
           vout  =   ''
           ##;;
-        
+
           ## processing
           try:
             oparams = {}
@@ -1562,11 +1562,11 @@ if('python_region'):
             oparams['xlsheet']    =   iggsheetindex                   ## wkbk sheet index (zero-based)
             oparams['xlfirstrow'] =   iggfirsdatarow                  ## first datarow (one-based)
             oparams['datadef']    =   tableschema                     ## sheet dataschema
-            
+
             # oDumper.pprint( oparams )
-            
+
             ## Example datadef dataschema
-            # oparams['datadef']    =   yaml.safe_load('''                
+            # oparams['datadef']    =   yaml.safe_load('''
             #   - {fldname: lname     ,    fldtype: TEXT , fldlabel: "Last Name" }
             #   - {fldname: fname     ,    fldtype: TEXT , fldlabel: "First Name" }
             #   - {fldname: amount    ,    fldtype: INT  , fldlabel: "Amount" }
@@ -1575,9 +1575,9 @@ if('python_region'):
             #   - {fldname: platform  ,    fldtype: TEXT , fldlabel: "Platform" }
             #   - {fldname: date      ,    fldtype: DATE , fldlabel: "Current Date" }
             # ''')
-            
+
             vout = oDHH.excel_sheet_to_python_aod(oparams)
-            
+
           ##
           except Exception as msg:
             print 'EXCEPTION skcoj_gnirans_laiv msg@%s'%(msg.__repr__())
@@ -1585,7 +1585,7 @@ if('python_region'):
             fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
             print(exc_type, fname, exc_tb.tb_lineno)
           ##;;
-          
+
           ##
           return vout
         ##enddef
@@ -1762,7 +1762,7 @@ if('python_region'):
              - param: jjinput ;; optarity ;; jinja raw input string
           ##end_func_docs
           '''
-          
+
           ## trycatch
           try:
             ## init vars
@@ -1771,21 +1771,21 @@ if('python_region'):
             ssroot    =   'c:/sm/docs/mydaydirs/%s/*'%(stryear)
             aalist    =   self.jjarray_fromdir("",ssroot)
             ##;;
-  
+
             ## filter list
             aalist    = [ item for item in aalist if(True
                                        and self.jjfiletest(item) == 'dir'
-                                       and 'week' in item.__str__().lower()                                     
+                                       and 'week' in item.__str__().lower()
                                        )]
             ## transform list
             for item in aalist:
-              item     = item.replace("\\","/")                
-              ttfrag01 = item.split('/')[-1]                   
+              item     = item.replace("\\","/")
+              ttfrag01 = item.split('/')[-1]
               ttpath   = "%s/%s%s"%(item,ttfrag01,'devlog.txt')
               if not (self.jjfiletest(ttpath) == 'file'): continue
-              vout.append( ttpath )            
+              vout.append( ttpath )
             ##;;
-            
+
           ##
           except Exception as msg:
             print 'UNEXPECTED TERMINATION __dreftymacid__ msg@%s'%(msg.__repr__())
@@ -1793,7 +1793,7 @@ if('python_region'):
             fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
             print(exc_type, fname, exc_tb.tb_lineno)
           ##;;
-          
+
           ## return
           return vout
         ##enddef
@@ -2447,7 +2447,7 @@ if('python_region'):
             ### ------------------------------------------------------------------------
 
             FILE ENCODING HASSLE ;; href="%s"
-            
+
             ### ------------------------------------------------------------------------
             ### ------------------------------------------------------------------------
             ### ------------------------------------------------------------------------
@@ -4243,10 +4243,10 @@ if('python_region'):
           #import JinjaCustomFilter
           #import JinjaHTMLBasicFilter
           #import JinjaImacrosFilter
-          oEnv  =   JinjaFilterDynamicYAML().attach_filters(oEnv)   ## href="#JinjaFilterDynamicYAML"
-          #oEnv  =   JinjaImacrosFilter.attach_filters(oEnv)         ## href="../libpy/JinjaImacrosFilter.py"
+          oEnv  =   JinjaFilterDynamicYAML().attach_filters(oEnv) ## href="#JinjaFilterDynamicYAML"
+          #oEnv = JinjaImacrosFilter.attach_filters(oEnv) ## href="../libpy/JinjaImacrosFilter.py"
           ## href="../../../../../../mytrybits/p/trypython2/lab2014/libpy/jinjaimacrosfilter.py"
-          #oEnv      =   JinjaHTMLBasicFilter.attach_filters(oEnv)  ## href="../libpy/JinjaHTMLBasicFilter.py"
+          #oEnv = JinjaHTMLBasicFilter.attach_filters(oEnv)  ## href="../libpy/JinjaHTMLBasicFilter.py"
           ##;;
 
           ## placeholder syntax

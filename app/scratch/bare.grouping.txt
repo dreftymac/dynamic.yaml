@@ -7,7 +7,7 @@
 ###     filetype: "yaml"
 ###     seealso: |
 ###         * sort order of grouping ;; https://github.com/mitsuhiko/jinja2/issues/250
-###         * 
+###         * regain://uuid_vitalist_wistful_larger
 ###     desc: |
 ###         jinja grouping examples
 ###         different ways to do grouping in ddyaml

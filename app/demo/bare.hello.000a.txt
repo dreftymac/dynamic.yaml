@@ -11,6 +11,4 @@ __yaml__:
     template: |
       {% set ttname = 'Earth'  -%}
       Hello {{ ttname }}!
-      
-
 

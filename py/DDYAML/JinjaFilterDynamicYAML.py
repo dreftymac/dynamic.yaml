@@ -638,8 +638,7 @@ if('python_region'):
             dependencies:
               - none
             example:  |
-                {%- set iirec         =  0  -%}
-                {%- set mydatarec     =  usertable |jjaod_getrecord('sex','female',iirec) -%}
+              __blank__
             params:
               - param: jjinput    ;; required ;; raw input string
               - param: fieldname  ;; required ;; aod select field
@@ -653,6 +652,30 @@ if('python_region'):
           vout = [row[fieldname] for row in table]
           ##
           return vout
+        ##enddef
+
+        def jjaod_list(self,jjinput,fieldname='fname'):
+          '''
+          ## function docs
+          - caption:  jjaod_list
+            date:     lastmod="Mon 2014-10-20 16:45:46"
+            grp_maj: data
+            grp_med: array_of_dictionary
+            grp_min: select
+            desc:     aod select field and return a list of values for that field
+            detail:  |
+                * aod select single column from aod
+            dependencies:
+              - none
+            example:  |
+                {%- set mylist =  usertable |jjaod_getrecord('fname') -%}
+            params:
+              - param: jjinput    ;; required ;; raw input aod
+              - param: fieldname  ;; required ;; aod select field
+            dreftymacid: bra_bluntly_celt
+            output: python list
+          '''
+          return self.jjaod_select(jjinput,fieldname)
         ##enddef
 
         ### bkmk::ivy_rely_juicy
@@ -2521,11 +2544,7 @@ if('python_region'):
             desc:         string indent
             detail: |
                 string indent
-
-                NOTE A trick to using this filter, when dealing with a potentially multiline string,
-                put a newline before the indent to have all lines show up with a common and uniform indent.
-
-                (see href="../../image/mustang_gunfire_being.001.png")
+                (seealso regain://mustang_gunfire_being.001.png)
 
             dependencies:
               - import re
@@ -2879,15 +2898,16 @@ if('python_region'):
 
           ##
           try:
-            for item in jjinput:
-              if(item in ddseen.keys()):
-                ddseen[item] = ddseen[item] + 1
-              elif(True):
-                ddseen[item] = 0
-              if(ddseen[item] == 0):
-                vout.append(item)
+            vout = list(set(jjinput))
+            # for item in jjinput:
+            #   if(item in ddseen.keys()):
+            #     ddseen[item] = ddseen[item] + 1
+            #   elif(True):
+            #     ddseen[item] = 0
+            #   if(ddseen[item] == 0):
+            #     vout.append(item)
           except  IndexError as msg:
-              vout  = ''
+              vout  = []
           except  Exception as msg:
             print 'UNEXPECTED TERMINATION msg@%s'%(msg.__repr__())
             exc_type, exc_obj, exc_tb = sys.exc_info()
@@ -2895,6 +2915,7 @@ if('python_region'):
             print(exc_type, fname, exc_tb.tb_lineno)
           ##
           return vout
+        def jjlistdistinct(self,jjinput): return self.jjlistuniq(jjinput)
         ##enddef
 
         def jjmarkdown2html(self,jjinput):

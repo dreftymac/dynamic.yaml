@@ -18,8 +18,9 @@
 ###         * href="smartpath://mymedia/2014/git/github/dynamic.yaml/py/ddyaml/dynamicyaml.py"
 ###         * href="smartpath://mymedia/2014/git/github/dynamic.yaml/py/ddyaml/jinjafilterdynamicyaml.py"
 ###     desc: |
+###         ##
 ###         TODO_LINK ;; ddyaml todo href="../.private/txt/devlog.txt" find="chain_stifling_is"
-###         TODO ;; figure out why ddyaml has such a difficult time parsing myclip files
+###         TODO      ;; figure out why ddyaml has such a difficult time parsing myclip files
 ### <end-file_info>
 
 ### @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
@@ -147,6 +148,11 @@ if (__name__ == "__main__"):
 
 '''
 sample runlines
+
+
+%(python) "c:/sm/docs/mymedia/2014/git/github/dynamic.yaml/py/ddyamlrunner.py" --file="%F"
+%(python) "c:/sm/docs/mymedia/2014/git/github/dotdreftymac/.dreftymac/py/cmd/ddyamlrunner.py" "%F"
+
 
 cd /cygdrive/c/sm/docs/mymedia/2014/git/github/dynamic.yaml/py
 ./ddyamlrunner.py --file="../app/demo/bare.hello.txt"

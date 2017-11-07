@@ -478,6 +478,8 @@ if('python_region'):
                     * create    ;; create file if not already_exists, do_nothing if already_exists
                     * replace   ;; create file if not already_exists, overwrite if already_exists
                     * append    ;; create file if not already_exists, append if already_exists
+            example: |
+              * href="smartpath://mytrybits/m/trymyclip/myclip.raw/drupal7/d7_contenttype_add/ddgen-baseconf-html-000.twig" find="vitod3fazak"
             funcparams: |
               * argname ;; argtype ;; argdesc
             funcreturn: |

@@ -5,15 +5,16 @@
 ###     tags:       barebones, demo, zip, blockspring
 ###     author:     created="dreftymac"
 ###     dreftymacid:    "heists_bely_numeric"
-###     caption:        generate zip archive
+###     caption:        "generate zip archive"
 ###     seealso: |
 ###         * href="./readme.md"
 ###         * regain://mckay_planets_richer
+###         * regain://uu83idxdewe_smige
 ###     desc: |
 ###         barebones.filezip.yaml.txt
 ###         * generate one or more output files
 ###         * save the output files to a zip archive
-###         * works with blockspring, upload this file and choose "run"
+###         * DEPRECATED ;; works with blockspring, upload this file and choose "run"
 ### <end-file_info>
 
 files:
