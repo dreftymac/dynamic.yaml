@@ -10,6 +10,7 @@
 ###         * href="./readme.md"
 ###         * regain://mckay_planets_richer
 ###         * regain://uu83idxdewe_smige
+###         * href="smartpath://mytrybits/p/trypython/lab2014/pyzip/readme.txt" find="uu83idxdewe_smige"
 ###     desc: |
 ###         barebones.filezip.yaml.txt
 ###         * generate one or more output files

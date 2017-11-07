@@ -7,7 +7,7 @@
 ###     dreftymacid: "dads_policy_divorce"
 ###     filetype: "py"
 ###     seealso: |
-###         *
+###         * regain://uu65idxdripo_yema
 ###     fld003: |
 ###         * lastupdate: jjdata_load xmljson support -- variable fix
 ### <end-file_info>
@@ -4049,9 +4049,9 @@ if('python_region'):
           ## function docs
           - caption:  jjtozipfile
             date:     lastmod="Mon 2014-10-20 16:45:46"
-            grp_maj: fileio
-            grp_med: output
-            grp_min: zipfile
+            grp_maj:  fileio
+            grp_med:  output
+            grp_min:  zipfile
             dreftymacid: mckay_planets_richer
             seealso: |
               * href="smartpath://mymedia/2014/git/github/dynamic.yaml/app/demo/barebones.filezip.yaml.txt" find="heists_bely_numeric"
@@ -4062,9 +4062,9 @@ if('python_region'):
                 - import time
             params:
               - {fld001: jjinput     , fld002: required , fld003: raw input string}
-              - {fld001: zipfilepath , fld002: optional , fld003: output path for entire zipfile archive}
-              - {fld001: archivpath  , fld002: optional , fld003: output path inside the zipfile}
-              - {fld001: stamp       , fld002: optoinal , fld003: addon timestamp for uniqueifying the zipfile archive filename}
+              - {fld001: zipfilepath , fld002: optional , fld003: output path for entire zipfile_archive}
+              - {fld001: archivpath  , fld002: optional , fld003: file path inside the zipfile}
+              - {fld001: stamp       , fld002: optional , fld003: addon for uniqueifying the zipfile_archive filename}
           '''
 
           ## region_::<@"desc":"init-vars", "uuid": "uuir127bocheh" @>
