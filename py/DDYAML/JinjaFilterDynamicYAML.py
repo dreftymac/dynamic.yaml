@@ -8,7 +8,7 @@
 ###     filetype: "py"
 ###     seealso: |
 ###         *
-###     desc: |
+###     fld003: |
 ###         * lastupdate: jjdata_load xmljson support -- variable fix
 ### <end-file_info>
 
@@ -91,7 +91,7 @@ if('python_region'):
 ###!  tags:     ddyaml, filter, addon, jinja
 ###!  seealso: |
 ###!          * __blank__
-###!  desc: |
+###!  fld003: |
 ###!          Currently assumes jinja2 as the templating engine for ddyaml
 ###!          TODO ;; extract out the 'subtopic' filters (like imacros) into different JinjaFilter files
 ###!
@@ -131,7 +131,7 @@ if('python_region'):
             grp_maj: grp_maj
             grp_med: grp_med
             grp_min: grp_min
-            desc:         __desc__
+            fld003:         __fld003__
             dreftymacid:  irish_legality_blitz
             detail:  |
               __detail__
@@ -185,7 +185,7 @@ if('python_region'):
             grp_maj: grp_maj
             grp_med: grp_med
             grp_min: grp_min
-            desc:         mimic the functionality of drupal's pathauto noise-word removal
+            fld003:         mimic the functionality of drupal's pathauto noise-word removal
             dreftymacid:  radius_symbolic_gerald
             detail:  |
               * __blank__
@@ -228,7 +228,7 @@ if('python_region'):
             grp_maj: grp_maj
             grp_med: grp_med
             grp_min: grp_min
-            desc:         __desc__
+            fld003:         __fld003__
             dreftymacid:  surf_thuds_rhythm
             detail:  |
               __detail__
@@ -285,7 +285,7 @@ if('python_region'):
             grp_maj: grp_maj
             grp_med: grp_med
             grp_min: grp_min
-            desc:         handle collision of jinja and iim placeholder syntax
+            fld003:         handle collision of jinja and iim placeholder syntax
             dreftymacid:  lobster_crime_areal
             seealso:
               - regain://jji_ngsp
@@ -332,7 +332,7 @@ if('python_region'):
             grp_maj: grp_maj
             grp_med: grp_med
             grp_min: grp_min
-            desc: >
+            fld003: >
               python str.rstrip([chars]) method
             dreftymacid:  mining_petrify_soloing
             seealso:
@@ -394,7 +394,7 @@ if('python_region'):
             grp_min: toscalar
             alias:
               - jjscalar
-            desc: |
+            fld003: |
               * return a normalized version of a var
               * normalize to scalar
             dreftymacid:  uptown_undoer_vagrancy
@@ -437,7 +437,7 @@ if('python_region'):
             grp_maj: variable
             grp_med: get
             grp_min: external
-            desc:         get an external variable from the externalVars setting
+            fld003:         get an external variable from the externalVars setting
             dreftymacid:  janis_beanie_altruist
             detail:  |
               * __blank__
@@ -480,7 +480,7 @@ if('python_region'):
             grp_maj: jinja
             grp_med: filter
             grp_min: addon
-            desc:         use python lambda as jinja filter
+            fld003:         use python lambda as jinja filter
             dreftymacid:  pets_marvel_dave
             example: |
               * demo01.jjapplyfunction01.txt::pets_marvel_dave
@@ -528,7 +528,7 @@ if('python_region'):
             grp_maj: aod
             grp_med: grp_med
             grp_min: grp_min
-            desc:         python aod to csv string
+            fld003:         python aod to csv string
             dreftymacid:  ranch_oilier_bulb
             detail:  |
               * convert python aod to csv string
@@ -584,7 +584,7 @@ if('python_region'):
             grp_maj: data
             grp_med: array_of_dictionary
             grp_min: select
-            desc:     aod get record where `fieldname` == `fieldvalue`
+            fld003:     aod get record where `fieldname` == `fieldvalue`
             detail:  |
                 * aod select record where `fieldname` == `fieldvalue`
                 * the return result may consist of more than one record
@@ -632,7 +632,7 @@ if('python_region'):
             grp_maj: data
             grp_med: array_of_dictionary
             grp_min: select
-            desc:     aod select field
+            fld003:     aod select field
             detail:  |
                 * aod select single column from aod
             dependencies:
@@ -662,7 +662,7 @@ if('python_region'):
             grp_maj: data
             grp_med: array_of_dictionary
             grp_min: select
-            desc:     aod select field and return a list of values for that field
+            fld003:     aod select field and return a list of values for that field
             detail:  |
                 * aod select single column from aod
             dependencies:
@@ -688,7 +688,7 @@ if('python_region'):
             grp_maj: data
             grp_med: array_of_dictionary
             grp_min: modify
-            desc:         |
+            fld003:         |
               * set column in table_aod
             seealso: |
               * href="smartpath://mymedia/2014/git/github/dynamic.yaml/app/demo_byfeature/table.aod/ddgen-tableaod-setcol.txt"
@@ -731,7 +731,7 @@ if('python_region'):
             grp_maj: data
             grp_med: generate
             grp_min: diceword
-            desc:         __desc__
+            fld003:         __fld003__
             dreftymacid:  flyer_afield_zealand
             detail:  |
               * ANNOYANCE ;; this function does not appear to return a new value per-loop-iteration
@@ -769,7 +769,7 @@ if('python_region'):
             grp_maj: data
             grp_med: transform
             grp_min: reformat
-            desc:     reformat arbitrary data structures
+            fld003:     reformat arbitrary data structures
             detail:  |
               * process input data and dump it out to another format
               * seealso
@@ -832,7 +832,7 @@ if('python_region'):
             grp_maj: grp_maj
             grp_med: grp_med
             grp_min: grp_min
-            desc:         load string into python native data structure
+            fld003:         load string into python native data structure
             dreftymacid:  brat_joints_twenty
             detail:  |
               * TODO ;; add support for source formats other than yaml
@@ -890,7 +890,7 @@ if('python_region'):
             grp_maj: data
             grp_med: spreadsheet
             grp_min: dump
-            desc:         |
+            fld003:         |
               * output a python aod simpletable to an excel spreadsheet
               * uses 2003 xmlss format
             dreftymacid:  zenith_avenue_write
@@ -948,7 +948,7 @@ if('python_region'):
             grp_maj: data
             grp_med: spreadsheet
             grp_min: load
-            desc:         __desc__
+            fld003:         __fld003__
             dreftymacid:  vial_snaring_jocks
             detail:  |
               * TODO ;; refactor the metadata handling to be more like XmlssBase
@@ -1018,7 +1018,7 @@ if('python_region'):
             grp_min: python array_of_dictionary (simpletable aod)
             seealso: |
               * href="smartpath://mymedia/2014/git/github/dynamic.yaml/py/ddyaml/jinjafilterjmespath.py"
-            desc: |
+            fld003: |
               * WARNING ;; uses string-eval
               * filter rows based on a row_filter_clause (eg  if( row['fname']!='homer' )   )
               * the row_filter_clause works by using a python lambda function
@@ -1086,7 +1086,7 @@ if('python_region'):
             grp_maj: grp_maj
             grp_med: grp_med
             grp_min: grp_min
-            desc:         update a python dictionary using dictionary.update()
+            fld003:         update a python dictionary using dictionary.update()
             dreftymacid:  corby_welds_flier
             detail:  |
               * DEPRECATED:
@@ -1128,7 +1128,7 @@ if('python_region'):
             grp_maj: grp_maj
             grp_med: grp_med
             grp_min: grp_min
-            desc:         python chr() function
+            fld003:         python chr() function
             dreftymacid:  word_orbits_leaver
             detail:  |
               * http://code.activestate.com/recipes/65117-converting-between-ascii-numbers-and-characters/
@@ -1164,7 +1164,7 @@ if('python_region'):
             grp_maj: grp_maj
             grp_med: grp_med
             grp_min: grp_min
-            desc:         python int() function
+            fld003:         python int() function
             dreftymacid:  ana_julius_yingkow
             detail:  |
               __blank__
@@ -1199,7 +1199,7 @@ if('python_region'):
             grp_maj: data
             grp_med: csv
             grp_min: load
-            desc:         load a csv file into a python aod
+            fld003:         load a csv file into a python aod
             dreftymacid:  tourism_vans_cobra
             detail:  |
               * __blank__
@@ -1241,7 +1241,7 @@ if('python_region'):
             grp_maj: devlog
             grp_med: grp_med
             grp_min: grp_min
-            desc:         |
+            fld003:         |
               BUGNAG: hardwired ssroot path
             dreftymacid:  discs_henhouse_unbundle
             detail:  |
@@ -1296,7 +1296,7 @@ if('python_region'):
             grp_maj: devlog
             grp_med: file
             grp_min: load
-            desc:         load a dreftymac-format devlog file
+            fld003:         load a dreftymac-format devlog file
             dreftymacid:  awash_sneaky_lawmaker
             seealso: |
               *
@@ -1360,7 +1360,7 @@ if('python_region'):
             grp_maj: devlog
             grp_med: trybits
             grp_min: lookup
-            desc:         |
+            fld003:         |
               crossreference trybits directoies with string containing potential crossrefs
             dreftymacid:  yamaha_merger_hankow
             detail:  |
@@ -1428,7 +1428,7 @@ if('python_region'):
             grp_maj: datetime
             grp_med: output
             grp_min: current
-            desc:     get date components for current localtime
+            fld003:     get date components for current localtime
             dreftymacid: tickets_docks_dan
             detail:  |
               output the current date value for a specific date component
@@ -1481,7 +1481,7 @@ if('python_region'):
             date:     lastmod="Tue Dec 08 07:35:57 2015"
             grp_maj: datetime
             grp_med: reformat
-            grp_min: desc:       grab in a date string and reformat and send it to output
+            grp_min: fld003:       grab in a date string and reformat and send it to output
             dreftymacid: wish_patent_gargle
             seealso:
               - href="smartpath://mymedia/2014/git/github/myclip/publiclab/pythondatetime.txt" find="slim_poser_hate"
@@ -1522,7 +1522,7 @@ if('python_region'):
             date:     lastmod="Mon 2014-10-20 16:45:46"
             grp_maj: datetime
             grp_med: output
-            grp_min: desc:     get a pre-formatted date string based on a supported_format_keyword
+            grp_min: fld003:     get a pre-formatted date string based on a supported_format_keyword
             detail:  |
             supported_format_keyword:
               - 'dates'
@@ -1583,7 +1583,7 @@ if('python_region'):
             grp_maj: datetime
             grp_med: output
             grp_min: current
-            desc:     get current localtime
+            fld003:     get current localtime
             detail:  |
               output the current date
             dependencies:
@@ -1615,7 +1615,7 @@ if('python_region'):
             grp_maj: grp_maj
             grp_med: grp_med
             grp_min: grp_min
-            desc:         apply md5 hash to input string
+            fld003:         apply md5 hash to input string
             dreftymacid:  ultraist_cheapest_extends
             python_repl: |
               >>> import md5
@@ -1660,7 +1660,7 @@ if('python_region'):
             grp_maj: codec
             grp_med: base64
             grp_min: decode
-            desc:     base64 decode
+            fld003:     base64 decode
             detail:  |
               base64 decode
             dependencies:
@@ -1683,7 +1683,7 @@ if('python_region'):
             grp_maj: codec
             grp_med: base64
             grp_min: encode
-            desc:     base64 encode
+            fld003:     base64 encode
             detail:  |
               base64 encode
             dependencies:
@@ -1706,7 +1706,7 @@ if('python_region'):
             grp_maj: string_transform
             grp_med: whitespace
             grp_min: dedent
-            desc:     textrap dedent
+            fld003:     textrap dedent
             detail:  |
               textrap dedent
             dependencies:
@@ -1730,7 +1730,7 @@ if('python_region'):
             grp_maj: string_transform
             grp_med: escape
             grp_min: repr
-            desc:         |
+            fld003:         |
               * return a __repr__ version of string
               * this is similar to ruby.inspect
               * this is suitable for things like JSON-escaping a string
@@ -1770,7 +1770,7 @@ if('python_region'):
             grp_maj: string_transform
             grp_med: string
             grp_min: split
-            desc:     string split and return result from split index
+            fld003:     string split and return result from split index
             example: |
               ## simple example
               {{ "hello;;fancy;;world" |jjdubsplit(';;',0)    }}{#- returns 'hello' -#}
@@ -1817,7 +1817,7 @@ if('python_region'):
             grp_maj: string_transform
             grp_med: reformat
             grp_min: sprintf
-            desc:     python-specific string sprintf-style format
+            fld003:     python-specific string sprintf-style format
             detail:  |
               seealso:
               https://docs.python.org/2/library/string.html#formatspec
@@ -1857,7 +1857,7 @@ if('python_region'):
             grp_maj: fileio
             grp_med: loadfile
             grp_min: toarray
-            desc:         return file output through python splitlines
+            fld003:         return file output through python splitlines
             dreftymacid:  extents_jest_mercury
             detail:  |
               python os.remove
@@ -1901,7 +1901,7 @@ if('python_region'):
             grp_maj: grp_maj
             grp_med: grp_med
             grp_min: grp_min
-            desc:         delete a file using python os.remove
+            fld003:         delete a file using python os.remove
             dreftymacid:  cleric_clam_thaws
             detail:  |
               python os.remove
@@ -1942,7 +1942,7 @@ if('python_region'):
             grp_maj: grp_maj
             grp_med: grp_med
             grp_min: grp_min
-            desc:         __desc__
+            fld003:         __fld003__
             dreftymacid:  hue_beading_mural
             detail:  |
               __detail__
@@ -1979,7 +1979,7 @@ if('python_region'):
             grp_med: filter
             grp_min: filetest
             tags:         filetest, isdir, isfile,
-            desc:         |
+            fld003:         |
               determine if the input string represents a path to a file or directory
               return 'dir'  if dir
               return 'file' if file
@@ -2038,7 +2038,7 @@ if('python_region'):
         #  ###   grp_maj: grp_maj
         #  ###   grp_med: grp_med
         #  ###   grp_min: grp_min
-        #  ###   desc:         return os.path.realpah(__file__)
+        #  ###   fld003:         return os.path.realpah(__file__)
         #  ###   dreftymacid:  obey_heir_midget
         #  ###   detail:  |
         #  ###     * __blank__
@@ -2076,7 +2076,7 @@ if('python_region'):
             grp_maj: fileio
             grp_med: loadfile
             grp_min: fromfile
-            desc:     string.fromfile
+            fld003:     string.fromfile
             tags:     jjfromfile, jjfile_load, jjfile
             dreftymacid: waterage_eat_formal
             detail:  |
@@ -2150,7 +2150,7 @@ if('python_region'):
             grp_maj: getinfo
             grp_med: python
             grp_min: os.path.basename
-            desc: os.path.basename
+            fld003: os.path.basename
             dreftymacid: viremic_astray_wraiths
             detail:  |
               os.path.basename of current file
@@ -2184,7 +2184,7 @@ if('python_region'):
             grp_med: process
             grp_min: __blank__
             dreftymacid:  invoker_panic_inquire
-            desc: greplines for occurance of lookfor
+            fld003: greplines for occurance of lookfor
             detail: |
               convert string to array and select lines matching lookfor
             dependencies:
@@ -2221,7 +2221,7 @@ if('python_region'):
             grp_maj: string
             grp_med: html
             grp_min: scrape
-            desc:         use the findall method of beautifulsoup4
+            fld003:         use the findall method of beautifulsoup4
             dreftymacid:  nudger_unto_permit
             detail:  |
               * todo ;; add support for attribute based query
@@ -2260,7 +2260,7 @@ if('python_region'):
             grp_med: process
             grp_min: __blank__
             dreftymacid:  stealthy_pleasing_uncivil
-            desc: smush html
+            fld003: smush html
             detail: |
               squeeze html
             dependencies:
@@ -2295,7 +2295,7 @@ if('python_region'):
             grp_maj: string
             grp_med: process
             grp_min: html
-            desc:         pretty print using html5print
+            fld003:         pretty print using html5print
             dreftymacid:  easing_stricter_unblocks
             detail:  |
               * __blank__
@@ -2352,7 +2352,7 @@ if('python_region'):
             grp_med: process
             grp_min: html
             dreftymacid:  leave_fakery_brag
-            desc: pretty print html
+            fld003: pretty print html
             seealso:
               - jjrequesturl
               - href="../../../../../../mytrybits/p/trypython2/lab2014/pyweb/htmlprettyprint.py"
@@ -2442,7 +2442,7 @@ if('python_region'):
         #  ###   grp_maj: string
         #  ###   grp_med: process
         #  ###   grp_min: html
-        #  ###   desc:         html pretty method that uses lxml instead of bsoup
+        #  ###   fld003:         html pretty method that uses lxml instead of bsoup
         #  ###   dreftymacid:  oils_admits_fatly
         #  ###   detail:  |
         #  ###     * __blank__
@@ -2483,7 +2483,7 @@ if('python_region'):
             grp_med: wrap
             grp_min: balanced delimiters
             dreftymacid:  visuals_sinus_breakage
-            desc: string wrap with delims
+            fld003: string wrap with delims
             detail: |
               string wrap with balanced delimiters
               seealso
@@ -2541,7 +2541,7 @@ if('python_region'):
             grp_med: whitespace
             grp_min: indent
             dreftymacid:  mustang_gunfire_being
-            desc:         string indent
+            fld003:         string indent
             detail: |
                 string indent
                 (seealso regain://mustang_gunfire_being.001.png)
@@ -2581,7 +2581,7 @@ if('python_region'):
             date:     lastmod="Mon 2014-10-20 16:45:46"
             grp_maj: getinfo
             grp_med: grp_min: dreftymacid:  hazard_veg_ivy
-            desc: python len()
+            fld003: python len()
             detail: |
               python len() function
               NOTE:
@@ -2617,7 +2617,7 @@ if('python_region'):
             grp_maj: grp_maj
             grp_med: grp_med
             grp_min: grp_min
-            desc:         |
+            fld003:         |
               textwrap lines and convert to list,
               one line per array element
             dreftymacid:  starch_largest_cent
@@ -2668,7 +2668,7 @@ if('python_region'):
             grp_maj: getinfo
             grp_med: list
             grp_min: item
-            desc:         |
+            fld003:         |
               * take an input list and return one randomly chosen item from that list
             dreftymacid:  anti_injury_hysteric
             detail:  |
@@ -2703,7 +2703,7 @@ if('python_region'):
             grp_med: list
             grp_min: item
             dreftymacid:  fakery_brats_diets
-            desc: |
+            fld003: |
               * try to return list item at index
             detail: |
               __blank__
@@ -2744,7 +2744,7 @@ if('python_region'):
             grp_med: list
             grp_min: item
             dreftymacid:  councils_dock_swam
-            desc: |
+            fld003: |
               * NO_WORKY -- jjlistrange does not work as expected
               * try to return list item at index
             example: |
@@ -2798,7 +2798,7 @@ if('python_region'):
             grp_med: join
             grp_min: items
             dreftymacid:  vineyard_manly_grouping
-            desc: perform join on a list and return a string
+            fld003: perform join on a list and return a string
             detail: |
                 NOTE: this is superfluous, jinja already has "join" filter
             dependencies:
@@ -2832,7 +2832,7 @@ if('python_region'):
             grp_med: list
             grp_min: sort
             dreftymacid:  drinks_gem_shoving
-            desc: return a sorted list
+            fld003: return a sorted list
             example: |
               {{ ['zulu','alpha','bravo','charl','bravo','delta','echo'] |jjlistsort()            }}
               {{ ['zulu','alpha','bravo','charl','bravo','delta','echo'] |jjlistsort('normal')    }}
@@ -2879,7 +2879,7 @@ if('python_region'):
             grp_med: list
             grp_min: unique
             dreftymacid:  eras_oafish_halving
-            desc: |
+            fld003: |
               * return a uniq_list of unique elements from original_list
             example: |
               {{ ['zulu','zulu','zulu','alpha','alpha','alpha','bravo','bravo','bravo',] |jjlistuniq() }}
@@ -2927,7 +2927,7 @@ if('python_region'):
             grp_med: markup
             grp_min: convert
             dreftymacid:  grease_style_agnew
-            desc: markdown to html
+            fld003: markdown to html
             detail: |
               markdown to html
             dependencies:
@@ -2968,7 +2968,7 @@ if('python_region'):
             dreftymacid:  uranism_orate_hangar
             alias:
               - jjnne
-            desc: remove newlines
+            fld003: remove newlines
             detail: |
                 __blank__
             dependencies:
@@ -3005,7 +3005,7 @@ if('python_region'):
             grp_min: modify
             dreftymacid:  gluily_smirky_logan
             alias:
-            desc: replace newlines with alternate string
+            fld003: replace newlines with alternate string
             detail: |
                 __blank__
             dependencies:
@@ -3041,7 +3041,7 @@ if('python_region'):
             grp_med: path
             grp_min: info
             dreftymacid:  drawer_coping_uniplex
-            desc: python os.path method call
+            fld003: python os.path method call
             alias:
               - __blank__
             detail: |
@@ -3078,7 +3078,7 @@ if('python_region'):
             grp_med: directory
             grp_min: traverse
             dreftymacid:  pests_cow_vealing
-            desc: python  ArrayFromDirectory
+            fld003: python  ArrayFromDirectory
             seealso: |
               * infra://jjfiletest
               * href="smartpath://mymedia/2014/git/github/dynamic.yaml/app/demo_byfeature/fileio.traverse_directory/demo.traversedirectory.001.twig"
@@ -3146,7 +3146,7 @@ if('python_region'):
             grp_med: substitute
             grp_min: characters
             dreftymacid:  verbiage_wrapover_wreaths
-            desc: (single-quote) characters to (double-sinqle-quote)
+            fld003: (single-quote) characters to (double-sinqle-quote)
             detail: |
               convert individual single-quote characters to double-sinqle-quote
               for use with sqlite where the text has embedded single-quote-chars
@@ -3181,7 +3181,7 @@ if('python_region'):
             grp_maj: fileio
             grp_med: string
             grp_min: extract
-            desc:         radiotable ;; extract a region of a text file using 'radiotable' style regions
+            fld003:         radiotable ;; extract a region of a text file using 'radiotable' style regions
             dreftymacid:  atrocity_bluntest_coping
             seealso:
               - href="../../../../../../mymedia/2014/git/github/dynamic.yaml/app/demo/demo01.jjradiotable01.txt"
@@ -3251,7 +3251,7 @@ if('python_region'):
             grp_maj: fileio
             grp_med: string
             grp_min: modify
-            desc:         |
+            fld003:         |
                 radiotable ;; replace a region of a text file using 'radiotable' style regions
                 * NOTE: this function has met with disappointing results.
                 * There are alternative ways to handle this.
@@ -3361,7 +3361,7 @@ if('python_region'):
             grp_med: string
             grp_min: replace
             dreftymacid:  damp_slicing_leafy
-            desc:         __desc__
+            fld003:         __fld003__
             example: |
               {{ row.demodetail |jjregexreplace('^','## ','I,M')}}
             detail:  |
@@ -3413,7 +3413,7 @@ if('python_region'):
             grp_maj: regex
             grp_med: string
             grp_min: find
-            desc:         python regex findall
+            fld003:         python regex findall
             dreftymacid:  shaming_java_asocial
             detail:  |
               * __blank__
@@ -3459,7 +3459,7 @@ if('python_region'):
             grp_maj: regex
             grp_med: string
             grp_min: substitute
-            desc:         python regex sub
+            fld003:         python regex sub
             dreftymacid:  tasty_dario_awaken
             detail:  |
               * __blank__
@@ -3511,7 +3511,7 @@ if('python_region'):
         #    grp_med: replace
         #    grp_min: string
         #    dreftymacid:  found_goliath_loyalty
-        #    desc: replace a subregion of a string with optional balanced delimiters
+        #    fld003: replace a subregion of a string with optional balanced delimiters
         #    detail: |
         #      ## overview
         #      replace a subregion of a string with optional balanced delimiters
@@ -3566,7 +3566,7 @@ if('python_region'):
             grp_maj: grp_maj
             grp_med: grp_med
             grp_min: grp_min
-            desc:         simulate a curl call. seealso jjrequesturl
+            fld003:         simulate a curl call. seealso jjrequesturl
             dreftymacid:  armpits_magnet_freshens
             seealso:
               - jjrequesturl
@@ -3608,7 +3608,7 @@ if('python_region'):
             grp_med: request
             grp_min: url
             dreftymacid:  viperine_dopey_estimate
-            desc:         request the content of a URL using python requests module
+            fld003:         request the content of a URL using python requests module
             detail: |
               ## overview
               request the content of a URL using python requests module
@@ -3653,7 +3653,7 @@ if('python_region'):
             grp_med: request
             grp_min: url
             dreftymacid:  croat_jails_unglue
-            desc:         return true/false whether a given url is found
+            fld003:         return true/false whether a given url is found
             detail: |
               ## overview
               request the content of a URL using python requests module
@@ -3691,7 +3691,7 @@ if('python_region'):
             grp_med: cast
             grp_min: array
             dreftymacid:  wolfish_sword_darken
-            desc: return string.split(delim)
+            fld003: return string.split(delim)
             detail: |
               split string on sdelim and return python list
             dependencies:
@@ -3733,7 +3733,7 @@ if('python_region'):
             grp_med: cast
             grp_min: array
             dreftymacid:  coping_inch_wreathe
-            desc: return re.split(regex)
+            fld003: return re.split(regex)
             detail: |
               split string on regex and return python list
             dependencies:
@@ -3903,7 +3903,7 @@ if('python_region'):
             grp_min: directory
             dreftymacid:  glucose_visual_unweave
             tags: directory, fileio
-            desc: output a directory
+            fld003: output a directory
             example: |
               {{ "" |jjtodir('/home/myuser/testdir') }}
             detail: |
@@ -3960,7 +3960,7 @@ if('python_region'):
             tags: stringtofile, stringtofilebom
             example: |
               {%filter jjtofile('./hello.txt','create',False)%}hello world!!!{%endfilter%}
-            desc: output to a file
+            fld003: output to a file
             detail: |
               ## writemode
               * create    ;; create file if not already_exists, ignore if already_exists
@@ -4061,35 +4061,30 @@ if('python_region'):
                 - import zipfile
                 - import time
             params:
-                - param: jjinput      ;;  required  ;;  raw input string
-                - param: zipfilepath  ;;  optional  ;;  output path for zipfile
-                - param: archivpath   ;;  optional  ;;  output path internally stored zipfile
+              - {fld001: jjinput     , fld002: required , fld003: raw input string}
+              - {fld001: zipfilepath , fld002: optional , fld003: output path for entire zipfile archive}
+              - {fld001: archivpath  , fld002: optional , fld003: output path inside the zipfile}
+              - {fld001: stamp       , fld002: optoinal , fld003: addon timestamp for uniqueifying the zipfile archive filename}
           '''
-          ##
-          vout = jjinput.__str__()
-          if(zipfilepath == ''): zipfilepath = 'ddyaml_output'
-          ##;;
 
-          ##
-          zipmode     =   None
-          wrtmode     =   'a'
-          ssfzipout   =   '%s%s.zip'%(zipfilepath,stamp)
-          ##;;
+          ## region_::<@"desc":"init-vars", "uuid": "uuir127bocheh" @>
+          vout          =   jjinput.__str__()
+          zipfilepath   =   str(zipfilepath)
+          if(zipfilepath == ''): zipfilepath = 'zip_archive'
+          zipmode       =   None
+          wrtmode       =   'a'
+          ssfzipout     =   '{}{}.zip'.format(zipfilepath,stamp)
+          ## regionend_::uuir127bocheh;;
 
-          ##
+          ## region_::<@"desc":"init-zipmode", "uuid": "uuir639wihin" @>
           try:
-              import zlib
-              zipmode= zipfile.ZIP_DEFLATED
+            import zlib
+            zipmode= zipfile.ZIP_DEFLATED
           except:
-              zipmode= zipfile.ZIP_STORED
+            zipmode= zipfile.ZIP_STORED
+          ## regionend_::uuir639wihin;;
 
-          ##
-          # print( vout )
-          # print( zipfilepath )
-          # print( archivpath )
-
-          ##
-          ##
+          ## region_::<@"desc":"zip-perform-write", "uuid": "uuir758fozoj" @>
           try:
             #print(os.path.exists(outpath))
             oZip = zipfile.ZipFile(ssfzipout,
@@ -4097,7 +4092,7 @@ if('python_region'):
                                  compression=zipmode,
                                  )
             oZip.writestr(archivpath, vout)
-            vout = "## jjtozipfile %s"%(archivpath);
+            vout = "## zip_archive {}".format(archivpath);
           except UserWarning as msg:
             raise "Zip File error: msg@%s"%(msg.__repr__())
           except Exception as msg:
@@ -4106,6 +4101,8 @@ if('python_region'):
             fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
             vout = (exc_type, fname, exc_tb.tb_lineno)
             print vout
+          ## regionend_::uuir758fozoj;;
+
           ##
           return vout
         ##enddef
@@ -4198,7 +4195,7 @@ if('python_region'):
             grp_med: windows
             grp_min: desktop
             dreftymacid:  guidance_untie_quests
-            desc:         open an explorer window
+            fld003:         open an explorer window
             detail:  |
               * open explorer window on a path (currently windows-only)
             dependencies:

@@ -14,7 +14,7 @@
 ###         barebones.filezip.yaml.txt
 ###         * generate one or more output files
 ###         * save the output files to a zip archive
-###         * DEPRECATED ;; works with blockspring, upload this file and choose "run"
+###         * DEPRECATED not using blockspring anymore ;; Tue 2017-11-07T11:57:58 ;; works with blockspring, upload this file and choose "run"
 ### <end-file_info>
 
 files:
@@ -37,10 +37,20 @@ files:
       This is the content in charlie.txt
 
 __yaml__:
-  - template: |
+  - caption: demo generate zipfiles
+    processthis: 0
+    template: |
       {% for file in files %}
         {%filter jjdedent |trim |jjtozipfile('c:/users/smosley/desktop/barebones.filezip',file.outpath) %}
           {{ file.wwbody |upper }}
         {%endfilter-%}
       {% endfor %}
 
+  - caption: demo generate zipfiles with stamp
+    processthis: 1
+    template: |
+      {% for file in files %}
+        {%filter jjdedent |trim |jjtozipfile('c:/users/smosley/desktop/myzip-archive-',file.outpath,'uu17idxstroptu_doki') %}
+          {{ file.wwbody |upper }}
+        {%endfilter-%}
+      {% endfor %}
