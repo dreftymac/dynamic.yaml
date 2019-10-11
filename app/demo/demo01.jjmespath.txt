@@ -4,6 +4,7 @@
 ###     last: lastmod="Fri Apr 01 15:28:41 2016"
 ###     tags: yaml, dynamicyaml, jjmespath, interop
 ###     dreftymacid: "strings_wok_curious"
+###     dmid: "uu314litef8zecob"
 ###     filetype: "yaml"
 ###     seealso: |
 ###         * href="smartpath://mytrybits/j/tryjmespath/devlog.txt"

@@ -7,6 +7,8 @@
 ###     tags: tags
 ###     author: created="dreftymac"
 ###     dreftymacid: "drawing_verlaine_neck"
+###     seeinstead: |
+###         * alternate tymac jinjascript runner ;; 
 ###     seealso: |
 ###         ## mytrybits devlog
 ###         * href="smartpath://mytrybits/y/tryyaml/dynamicyaml/devlog.txt"

@@ -1,0 +1,35 @@
+### <beg-file_info>
+### document_metadata:
+###   - caption: "__blank__"
+###     dmid: "uu448nilen_jupip"
+###     date: created="2017-12-16"
+###     last: lastmod="2017-12-16"
+###     tags: __tags__
+###     author: created="__author__"
+###     lastupdate: "__lastupdate__"
+###     desc: |
+###         * what if you could include sqlite or other datasource inside ddyaml?
+###     seealso: |
+###         * https://www.connectionstrings.com/sqlite/
+###     seeinstead: |
+###         * __seeinstead__  
+### <end-file_info>
+
+__yaml__:
+
+  - &uu560nisep_mifod
+    uuid:         "uu560nisep_mifod"
+    caption:      sqlite datainclude
+    enabled:      1
+    desc: |
+      * __desc__
+    datainclude:
+      - "__filepath__"
+    datasource
+      - { "key": "testing123", "type": "sqlite", "path": "path/to/sqlite/file.db"}
+    outputfile:
+      - { "mode": "create|replace|append", "path": "c:/sm/docs/temp/11junk.txt",  }   
+    templateinclude:
+      - {"insert":"before|after", "path":"__filepath__", }
+    template: |
+       

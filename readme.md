@@ -1,3 +1,5 @@
+:no_entry: [DEPRECATED]
+
 # dynamic.yaml
 
 > YAML-based data transformations - live demo on [blockspring](https://open.blockspring.com/dreftymac/2dc5183fbb912fc3c553fc14bbe15e43).
@@ -24,26 +26,26 @@ dataroot:
     overview:   Welcome to dynamic yaml!
     date:       20150716.1732
     desc:       A simple introduction to dynamic yaml.
-    
+
   people:
     - fullname:     Bregiono Buckridge
       email:        bregiono@gmail.com
       id:           1
       url:          https://example.com/bregiono
       regioncc:     region001
-      
+
     - fullname:     Antonina Daugherty
       email:        antonina@gmail.com
       id:           1
       url:          https://example.com/antonina
       regioncc:     region001
-      
+
     - fullname:     Preston Boyer
       email:        preston@gmail.com
       id:           3
       url:          https://example.com/preston
       regioncc:     region002
-    
+
 __yaml__:
   - template: |
       {{ dataroot |jjdata_formatas('jsonpretty') }}
@@ -55,7 +57,7 @@ __yaml__:
 
 ## See also
 * [Related Research](https://github.com/dreftymac/dynamic.yaml/blob/master/research.md)
-    
+
 
 
 

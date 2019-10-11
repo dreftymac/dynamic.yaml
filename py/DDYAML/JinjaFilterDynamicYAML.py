@@ -4055,6 +4055,7 @@ if('python_region'):
             dreftymacid: mckay_planets_richer
             seealso: |
               * href="smartpath://mymedia/2014/git/github/dynamic.yaml/app/demo/barebones.filezip.yaml.txt" find="heists_bely_numeric"
+              * regain://uu84jjzipranti_bressi
             detail:  |
                 output to a zip archive
             dependencies:
